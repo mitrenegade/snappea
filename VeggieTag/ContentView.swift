@@ -10,7 +10,26 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        TabView {
+           PlantsView()
+            .tabItem {
+                Image(systemName: "phone.fill")
+                Text("First Tab")
+              }
+            Text("The content of the second view")
+              .tabItem {
+                 Image(systemName: "phone.fill")
+                 Text("Second Tab")
+               }
+
+        }
+        
+    }
+}
+
+struct PlantsView: View {
+    var body: some View {
+        Text("Here be your plants")
     }
 }
 

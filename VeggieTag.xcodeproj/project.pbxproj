@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13245C7017F779A86E0835DB /* Pods_VeggieTag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD88D9A50BAC01FE694C004E /* Pods_VeggieTag.framework */; };
 		8E7C7956244BB24400F295AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C7955244BB24400F295AD /* AppDelegate.swift */; };
 		8E7C7958244BB24400F295AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C7957244BB24400F295AD /* SceneDelegate.swift */; };
 		8E7C795A244BB24400F295AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C7959244BB24400F295AD /* ContentView.swift */; };
@@ -14,6 +15,7 @@
 		8E7C795F244BB24600F295AD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E7C795E244BB24600F295AD /* Preview Assets.xcassets */; };
 		8E7C7962244BB24600F295AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E7C7960244BB24600F295AD /* LaunchScreen.storyboard */; };
 		8E7C796D244BB24600F295AD /* VeggieTagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C796C244BB24600F295AD /* VeggieTagTests.swift */; };
+		E06ABB5C98C132ADBF7EC376 /* Pods_VeggieTagTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B136EE7D68908F76487BF9 /* Pods_VeggieTagTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +29,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D4AAB6E678B3480FD24F29D /* Pods-VeggieTagTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTagTests.release.xcconfig"; path = "Target Support Files/Pods-VeggieTagTests/Pods-VeggieTagTests.release.xcconfig"; sourceTree = "<group>"; };
+		7E69D289800C2D2BA2804ECD /* Pods-VeggieTag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTag.release.xcconfig"; path = "Target Support Files/Pods-VeggieTag/Pods-VeggieTag.release.xcconfig"; sourceTree = "<group>"; };
+		8613A4ED0662681AE7A7CC2E /* Pods-VeggieTag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTag.debug.xcconfig"; path = "Target Support Files/Pods-VeggieTag/Pods-VeggieTag.debug.xcconfig"; sourceTree = "<group>"; };
 		8E7C7952244BB24400F295AD /* VeggieTag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VeggieTag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7C7955244BB24400F295AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E7C7957244BB24400F295AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +43,9 @@
 		8E7C7968244BB24600F295AD /* VeggieTagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VeggieTagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7C796C244BB24600F295AD /* VeggieTagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeggieTagTests.swift; sourceTree = "<group>"; };
 		8E7C796E244BB24600F295AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4C6048CE12BF6253A5CF2EE /* Pods-VeggieTagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTagTests.debug.xcconfig"; path = "Target Support Files/Pods-VeggieTagTests/Pods-VeggieTagTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CD88D9A50BAC01FE694C004E /* Pods_VeggieTag.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VeggieTag.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2B136EE7D68908F76487BF9 /* Pods_VeggieTagTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VeggieTagTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13245C7017F779A86E0835DB /* Pods_VeggieTag.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,18 +61,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E06ABB5C98C132ADBF7EC376 /* Pods_VeggieTagTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B1901397A02D44FCF8606A5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CD88D9A50BAC01FE694C004E /* Pods_VeggieTag.framework */,
+				D2B136EE7D68908F76487BF9 /* Pods_VeggieTagTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8E7C7949244BB24400F295AD = {
 			isa = PBXGroup;
 			children = (
 				8E7C7954244BB24400F295AD /* VeggieTag */,
 				8E7C796B244BB24600F295AD /* VeggieTagTests */,
 				8E7C7953244BB24400F295AD /* Products */,
+				F15071D35029D35DBA11F786 /* Pods */,
+				0B1901397A02D44FCF8606A5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -107,6 +128,18 @@
 			path = VeggieTagTests;
 			sourceTree = "<group>";
 		};
+		F15071D35029D35DBA11F786 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8613A4ED0662681AE7A7CC2E /* Pods-VeggieTag.debug.xcconfig */,
+				7E69D289800C2D2BA2804ECD /* Pods-VeggieTag.release.xcconfig */,
+				B4C6048CE12BF6253A5CF2EE /* Pods-VeggieTagTests.debug.xcconfig */,
+				1D4AAB6E678B3480FD24F29D /* Pods-VeggieTagTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -114,9 +147,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E7C7971244BB24600F295AD /* Build configuration list for PBXNativeTarget "VeggieTag" */;
 			buildPhases = (
+				A2D0B4ED918788FFF0C509AC /* [CP] Check Pods Manifest.lock */,
 				8E7C794E244BB24400F295AD /* Sources */,
 				8E7C794F244BB24400F295AD /* Frameworks */,
 				8E7C7950244BB24400F295AD /* Resources */,
+				CEAAE39D9A035C54E1064CE4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -131,6 +166,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E7C7974244BB24600F295AD /* Build configuration list for PBXNativeTarget "VeggieTagTests" */;
 			buildPhases = (
+				24DF00EBB2AD9D06F62197D7 /* [CP] Check Pods Manifest.lock */,
 				8E7C7964244BB24600F295AD /* Sources */,
 				8E7C7965244BB24600F295AD /* Frameworks */,
 				8E7C7966244BB24600F295AD /* Resources */,
@@ -202,6 +238,70 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		24DF00EBB2AD9D06F62197D7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VeggieTagTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A2D0B4ED918788FFF0C509AC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VeggieTag-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CEAAE39D9A035C54E1064CE4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VeggieTag/Pods-VeggieTag-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VeggieTag/Pods-VeggieTag-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VeggieTag/Pods-VeggieTag-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8E7C794E244BB24400F295AD /* Sources */ = {
@@ -360,6 +460,7 @@
 		};
 		8E7C7972244BB24600F295AD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8613A4ED0662681AE7A7CC2E /* Pods-VeggieTag.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -380,6 +481,7 @@
 		};
 		8E7C7973244BB24600F295AD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E69D289800C2D2BA2804ECD /* Pods-VeggieTag.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -400,6 +502,7 @@
 		};
 		8E7C7975244BB24600F295AD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B4C6048CE12BF6253A5CF2EE /* Pods-VeggieTagTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -422,6 +525,7 @@
 		};
 		8E7C7976244BB24600F295AD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D4AAB6E678B3480FD24F29D /* Pods-VeggieTagTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
