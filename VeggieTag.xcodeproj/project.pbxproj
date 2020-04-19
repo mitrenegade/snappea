@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,8 @@
 		8E7C795F244BB24600F295AD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E7C795E244BB24600F295AD /* Preview Assets.xcassets */; };
 		8E7C7962244BB24600F295AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E7C7960244BB24600F295AD /* LaunchScreen.storyboard */; };
 		8E7C796D244BB24600F295AD /* VeggieTagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C796C244BB24600F295AD /* VeggieTagTests.swift */; };
+		8EE11201244CF0F200693609 /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE11200244CF0F200693609 /* Plant.swift */; };
+		8EE11203244CF26B00693609 /* SampleData in Resources */ = {isa = PBXBuildFile; fileRef = 8EE11202244CF26B00693609 /* SampleData */; };
 		E06ABB5C98C132ADBF7EC376 /* Pods_VeggieTagTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B136EE7D68908F76487BF9 /* Pods_VeggieTagTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +45,8 @@
 		8E7C7968244BB24600F295AD /* VeggieTagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VeggieTagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7C796C244BB24600F295AD /* VeggieTagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeggieTagTests.swift; sourceTree = "<group>"; };
 		8E7C796E244BB24600F295AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EE11200244CF0F200693609 /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
+		8EE11202244CF26B00693609 /* SampleData */ = {isa = PBXFileReference; lastKnownFileType = text; path = SampleData; sourceTree = "<group>"; };
 		B4C6048CE12BF6253A5CF2EE /* Pods-VeggieTagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTagTests.debug.xcconfig"; path = "Target Support Files/Pods-VeggieTagTests/Pods-VeggieTagTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CD88D9A50BAC01FE694C004E /* Pods_VeggieTag.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VeggieTag.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2B136EE7D68908F76487BF9 /* Pods_VeggieTagTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VeggieTagTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +107,8 @@
 				8E7C7955244BB24400F295AD /* AppDelegate.swift */,
 				8E7C7957244BB24400F295AD /* SceneDelegate.swift */,
 				8E7C7959244BB24400F295AD /* ContentView.swift */,
+				8EE11200244CF0F200693609 /* Plant.swift */,
+				8EE11202244CF26B00693609 /* SampleData */,
 				8E7C795B244BB24600F295AD /* Assets.xcassets */,
 				8E7C7960244BB24600F295AD /* LaunchScreen.storyboard */,
 				8E7C7963244BB24600F295AD /* Info.plist */,
@@ -136,7 +142,6 @@
 				B4C6048CE12BF6253A5CF2EE /* Pods-VeggieTagTests.debug.xcconfig */,
 				1D4AAB6E678B3480FD24F29D /* Pods-VeggieTagTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -226,6 +231,7 @@
 			files = (
 				8E7C7962244BB24600F295AD /* LaunchScreen.storyboard in Resources */,
 				8E7C795F244BB24600F295AD /* Preview Assets.xcassets in Resources */,
+				8EE11203244CF26B00693609 /* SampleData in Resources */,
 				8E7C795C244BB24600F295AD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,6 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E7C7956244BB24400F295AD /* AppDelegate.swift in Sources */,
+				8EE11201244CF0F200693609 /* Plant.swift in Sources */,
 				8E7C7958244BB24400F295AD /* SceneDelegate.swift in Sources */,
 				8E7C795A244BB24400F295AD /* ContentView.swift in Sources */,
 			);

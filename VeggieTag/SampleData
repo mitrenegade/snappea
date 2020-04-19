@@ -1,0 +1,12 @@
+{
+    "1": {
+        "name": "Tomato1",
+        "plantType": "tomato"
+        "category": "vegetable"
+    },
+    "2": {
+        "name": "Cucumber1",
+        "plantType": "cucumber"
+        "category": "vegetable"
+    }
+}
