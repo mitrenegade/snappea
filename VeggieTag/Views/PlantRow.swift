@@ -18,7 +18,6 @@ struct PlantRow: View {
     }
 }
 
-
 struct PlantRow_Previews: PreviewProvider {
     static var previews: some View {
         PlantRow(plant: plantData[0])

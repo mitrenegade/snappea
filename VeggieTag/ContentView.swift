@@ -13,7 +13,7 @@ let plantData: [Plant] = load("plantData.json")
 struct ContentView: View {
     var body: some View {
         TabView {
-           PlantsView()
+            PlantsView(plants: plantData)
             .tabItem {
                 Image(systemName: "phone.fill")
                 Text("First Tab")
@@ -26,15 +26,6 @@ struct ContentView: View {
 
         }
         
-    }
-}
-
-struct PlantsView: View {
-//    var plants: [Plant] = []
-    var body: some View {
-        List(plantData) { plant in
-            PlantRow(plant: plant)
-        }
     }
 }
 
