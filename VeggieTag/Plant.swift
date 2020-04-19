@@ -6,20 +6,21 @@
 //  Copyright © 2020 RenderApps LLC. All rights reserved.
 //
 
-import UIKit
+import SwiftUI
 
-enum Type {
-    
+enum PlantType: String {
+    case tomato
+    case cucumber
 }
-struct Plant: Codable {
-    enum PlantType: String, Codable {
-        case tomato
-        case cucumber
-    }
-    enum Category: String, Codable {
-        case herb
-        case vegetable
-    }
+enum Category: String {
+    case herb
+    case vegetable
+}
+
+struct Plant: Identifiable, Hashable, Codable {
+
+//    var id: ObjectIdentifier
+    var id: Int
     var name: String
-    var type: PlantType
+//    var type: PlantType
 }
