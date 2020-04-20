@@ -5,6 +5,7 @@
 //  Created by Bobby Ren on 4/19/20.
 //  Copyright © 2020 RenderApps LLC. All rights reserved.
 //
+// TODO: add ImageCache; make threadsafe. See https://www.vadimbulavin.com/asynchronous-swiftui-image-loading-from-url-with-combine-and-swift/
 
 import SwiftUI
 import Combine
