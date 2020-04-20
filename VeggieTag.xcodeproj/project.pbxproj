@@ -12,7 +12,8 @@
 		8E74F08A244D13F000F5A507 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F089244D13F000F5A507 /* Data.swift */; };
 		8E74F090244D1AA400F5A507 /* PlantsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F08F244D1AA400F5A507 /* PlantsView.swift */; };
 		8E74F095244D20C200F5A507 /* CameraRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F094244D20C200F5A507 /* CameraRoot.swift */; };
-		8E74F097244D21F500F5A507 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F096244D21F500F5A507 /* CameraView.swift */; };
+		8E74F097244D21F500F5A507 /* CaptureImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F096244D21F500F5A507 /* CaptureImageView.swift */; };
+		8E74F09A244D241000F5A507 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F099244D241000F5A507 /* Coordinator.swift */; };
 		8E7C7956244BB24400F295AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C7955244BB24400F295AD /* AppDelegate.swift */; };
 		8E7C7958244BB24400F295AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C7957244BB24400F295AD /* SceneDelegate.swift */; };
 		8E7C795A244BB24400F295AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C7959244BB24400F295AD /* ContentView.swift */; };
@@ -43,7 +44,8 @@
 		8E74F089244D13F000F5A507 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		8E74F08F244D1AA400F5A507 /* PlantsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsView.swift; sourceTree = "<group>"; };
 		8E74F094244D20C200F5A507 /* CameraRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRoot.swift; sourceTree = "<group>"; };
-		8E74F096244D21F500F5A507 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		8E74F096244D21F500F5A507 /* CaptureImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureImageView.swift; sourceTree = "<group>"; };
+		8E74F099244D241000F5A507 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		8E7C7952244BB24400F295AD /* VeggieTag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VeggieTag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7C7955244BB24400F295AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E7C7957244BB24400F295AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,7 +107,7 @@
 				8E74F087244D10F500F5A507 /* PlantRow.swift */,
 				8E74F08F244D1AA400F5A507 /* PlantsView.swift */,
 				8E74F094244D20C200F5A507 /* CameraRoot.swift */,
-				8E74F096244D21F500F5A507 /* CameraView.swift */,
+				8E74F096244D21F500F5A507 /* CaptureImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -116,6 +118,14 @@
 				8EE11202244CF26B00693609 /* plantData.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		8E74F098244D229200F5A507 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				8E74F099244D241000F5A507 /* Coordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		8E7C7949244BB24400F295AD = {
@@ -141,6 +151,7 @@
 		8E7C7954244BB24400F295AD /* VeggieTag */ = {
 			isa = PBXGroup;
 			children = (
+				8E74F098244D229200F5A507 /* Coordinator */,
 				8E74F093244D1B9700F5A507 /* Resources */,
 				8E74F092244D1B7800F5A507 /* Views */,
 				8E74F091244D1B7000F5A507 /* Models */,
@@ -337,8 +348,9 @@
 			files = (
 				8E74F095244D20C200F5A507 /* CameraRoot.swift in Sources */,
 				8E7C7956244BB24400F295AD /* AppDelegate.swift in Sources */,
+				8E74F09A244D241000F5A507 /* Coordinator.swift in Sources */,
 				8E74F08A244D13F000F5A507 /* Data.swift in Sources */,
-				8E74F097244D21F500F5A507 /* CameraView.swift in Sources */,
+				8E74F097244D21F500F5A507 /* CaptureImageView.swift in Sources */,
 				8EE11201244CF0F200693609 /* Plant.swift in Sources */,
 				8E7C7958244BB24400F295AD /* SceneDelegate.swift in Sources */,
 				8E74F088244D10F500F5A507 /* PlantRow.swift in Sources */,

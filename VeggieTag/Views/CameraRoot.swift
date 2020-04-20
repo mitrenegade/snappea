@@ -10,18 +10,25 @@ import SwiftUI
 
 struct CameraRoot: View {
     @State var image: Image? = nil
+    @State var showCaptureImageView: Bool = false
 
     var body: some View {
-        VStack {
-            Button(action: {
-            }) {
-                Text("Take photo")
+        ZStack {
+            VStack {
+                Button(action: {
+                    self.showCaptureImageView.toggle()
+                }) {
+                    Text("Add photo")
+                }
+                image?.resizable()
+                .frame(width: 250, height: 250)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.white, lineWidth: 4))
+                    .shadow(radius: 10)
             }
-            image?.resizable()
-            .frame(width: 250, height: 250)
-            .clipShape(Circle())
-            .overlay(Circle().stroke(Color.white, lineWidth: 4))
-            .shadow(radius: 10)
+            if (showCaptureImageView) {
+              CaptureImageView(isShown: $showCaptureImageView, image: $image)
+            }
         }
     }
 }
