@@ -56,5 +56,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>VeggieTag needs camera access to take photos of your garden</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>VeggieTag needs photo library access to select photos of your garden</string>
 </dict>
 </plist>
