@@ -1,14 +1,14 @@
 [
     {
-        "id": 1,
+        "id": "plant1",
         "name": "Tomato1",
-        "plantType": "tomato",
+        "type": "tomato",
         "category": "vegetable"
     },
     {
-        "id": 2,
+        "id": "plant2",
         "name": "Cucumber1",
-        "plantType": "cucumber",
+        "type": "cucumber",
         "category": "vegetable"
     }
 ]

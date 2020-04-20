@@ -1,0 +1,18 @@
+[
+    {
+        "id": "tag1",
+        "photoId": "photo1",
+        "plantId": "plant1",
+        "timestamp": 15,
+        "x": 100,
+        "y": 100
+    },
+    {
+        "id": "tag2",
+        "photoId": "photo1",
+        "plantId": "plant2",
+        "timestamp": 15,
+        "x": 150,
+        "y": 150
+    }
+]

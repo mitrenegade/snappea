@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-let plantData: [Plant] = load("plantData.json")
-
 struct ContentView: View {
     var body: some View {
         TabView {
@@ -25,7 +23,6 @@ struct ContentView: View {
                }
 
         }
-        
     }
 }
 
