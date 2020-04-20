@@ -8,15 +8,13 @@
 
 import SwiftUI
 
-let plantData: [Plant] = load("plantData.json")
-
 struct ContentView: View {
     var body: some View {
         TabView {
-            PlantsView(plants: plantData)
+            PhotosView(photos: photoData)
             .tabItem {
                 Image(systemName: "phone.fill")
-                Text("Plants")
+                Text("Photos")
               }
             CameraRoot()
             .tabItem {
@@ -25,7 +23,6 @@ struct ContentView: View {
                }
 
         }
-        
     }
 }
 

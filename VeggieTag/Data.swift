@@ -9,6 +9,10 @@ import UIKit
 import SwiftUI
 import CoreLocation
 
+let plantData: [Plant] = load("plantData.json")
+let tagData: [Tag] = load("tagData.json")
+let photoData: [Photo] = load("photoData.json")
+
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data
     
