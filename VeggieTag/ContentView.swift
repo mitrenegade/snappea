@@ -16,12 +16,12 @@ struct ContentView: View {
             PlantsView(plants: plantData)
             .tabItem {
                 Image(systemName: "phone.fill")
-                Text("First Tab")
+                Text("Plants")
               }
-            Text("The content of the second view")
-              .tabItem {
+            CameraRoot()
+            .tabItem {
                  Image(systemName: "phone.fill")
-                 Text("Second Tab")
+                 Text("Camera")
                }
 
         }
