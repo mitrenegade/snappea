@@ -13,7 +13,6 @@ struct Tag: Identifiable, Hashable, Codable {
     var id: String
     var photoId: String
     var plantId: String
-    var timestamp: Int
     var x: Int
     var y: Int
     

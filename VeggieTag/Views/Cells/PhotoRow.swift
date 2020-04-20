@@ -14,7 +14,9 @@ struct PhotoRow: View {
     
     var body: some View {
         HStack {
-            Text(photo.url)
+            AsyncImageView(url: URL(string: photo.url)!, placeholder: Text("Loading..."))
+                .aspectRatio(contentMode: .fit)
+            Text(photo.dateString)
         }
     }
 }

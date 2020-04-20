@@ -12,4 +12,13 @@ struct Photo: Identifiable, Hashable, Codable {
 
     var id: String
     var url: String
+    var timestamp: TimeInterval
+    
+    var date: Date {
+        return Date(timeIntervalSince1970: timestamp)
+    }
+    
+    var dateString: String {
+        return date.description
+    }
 }
