@@ -6,7 +6,7 @@ target 'VeggieTag' do
   use_frameworks!
 
   # Pods for VeggieTag
-  # pod 'RACameraHelper', :git => 'https://github.com/bobbyren/RACameraHelper', :tag => '0.1.7'
+  #pod 'RACameraHelper', :git => 'https://github.com/bobbyren/RACameraHelper', :tag => '0.1.7'
   
   target 'VeggieTagTests' do
     inherit! :search_paths

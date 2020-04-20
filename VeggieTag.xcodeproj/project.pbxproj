@@ -14,6 +14,7 @@
 		8E74F095244D20C200F5A507 /* CameraRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F094244D20C200F5A507 /* CameraRoot.swift */; };
 		8E74F097244D21F500F5A507 /* CaptureImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F096244D21F500F5A507 /* CaptureImageView.swift */; };
 		8E74F09A244D241000F5A507 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F099244D241000F5A507 /* Coordinator.swift */; };
+		8E74F09C244D29EC00F5A507 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8E74F09B244D29EC00F5A507 /* README.md */; };
 		8E7C7956244BB24400F295AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C7955244BB24400F295AD /* AppDelegate.swift */; };
 		8E7C7958244BB24400F295AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C7957244BB24400F295AD /* SceneDelegate.swift */; };
 		8E7C795A244BB24400F295AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C7959244BB24400F295AD /* ContentView.swift */; };
@@ -46,6 +47,7 @@
 		8E74F094244D20C200F5A507 /* CameraRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRoot.swift; sourceTree = "<group>"; };
 		8E74F096244D21F500F5A507 /* CaptureImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureImageView.swift; sourceTree = "<group>"; };
 		8E74F099244D241000F5A507 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		8E74F09B244D29EC00F5A507 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8E7C7952244BB24400F295AD /* VeggieTag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VeggieTag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7C7955244BB24400F295AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E7C7957244BB24400F295AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		8E7C7949244BB24400F295AD = {
 			isa = PBXGroup;
 			children = (
+				8E74F09B244D29EC00F5A507 /* README.md */,
 				8E7C7954244BB24400F295AD /* VeggieTag */,
 				8E7C796B244BB24600F295AD /* VeggieTagTests */,
 				8E7C7953244BB24400F295AD /* Products */,
@@ -280,6 +283,7 @@
 			files = (
 				8E7C7962244BB24600F295AD /* LaunchScreen.storyboard in Resources */,
 				8E7C795F244BB24600F295AD /* Preview Assets.xcassets in Resources */,
+				8E74F09C244D29EC00F5A507 /* README.md in Resources */,
 				8EE11203244CF26B00693609 /* plantData.json in Resources */,
 				8E7C795C244BB24600F295AD /* Assets.xcassets in Resources */,
 			);
