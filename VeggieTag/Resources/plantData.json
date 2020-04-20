@@ -10,5 +10,11 @@
         "name": "Cucumber1",
         "type": "cucumber",
         "category": "vegetable"
+    },
+    {
+        "id": "plant3",
+        "name": "Lettuce1",
+        "type": "lettuce",
+        "category": "vegetable"
     }
 ]

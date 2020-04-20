@@ -11,6 +11,7 @@ import SwiftUI
 enum PlantType: String, Codable {
     case tomato
     case cucumber
+    case lettuce
 }
 enum Category: String, Codable {
     case herb

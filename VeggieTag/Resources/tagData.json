@@ -14,5 +14,21 @@
         "timestamp": 15,
         "x": 150,
         "y": 150
+    },
+    {
+        "id": "tag3",
+        "photoId": "photo1",
+        "plantId": "plant3",
+        "timestamp": 15,
+        "x": 300,
+        "y": 300
+    },
+    {
+        "id": "tag4",
+        "photoId": "photo2",
+        "plantId": "plant3",
+        "timestamp": 15,
+        "x": 150,
+        "y": 150
     }
 ]
