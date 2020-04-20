@@ -8,14 +8,15 @@
 
 import SwiftUI
 
-struct TagView: View {    
+struct TagView: View {
+    var tag: Tag
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        AsyncImageView(url: URL(string: tag.photo?.url ?? "")!, placeholder: Text("Loading..."))
     }
 }
 
 struct TagView_Previews: PreviewProvider {
     static var previews: some View {
-        TagView()
+        TagView(tag: tagData[0])
     }
 }

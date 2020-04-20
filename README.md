@@ -27,3 +27,6 @@ https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation
 
 `Basic SwiftUI and Project`
 https://www.appcoda.com/swiftui-first-look
+
+`Asynchronous image loading`
+https://www.vadimbulavin.com/asynchronous-swiftui-image-loading-from-url-with-combine-and-swift/

@@ -16,4 +16,12 @@ struct Tag: Identifiable, Hashable, Codable {
     var timestamp: Int
     var x: Int
     var y: Int
+    
+    var plant: Plant? {
+        return plantData.first(where: { $0.id == plantId })
+    }
+    
+    var photo: Photo? {
+        return photoData.first(where: { $0.id == photoId })
+    }
 }
