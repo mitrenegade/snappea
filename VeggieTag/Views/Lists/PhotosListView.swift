@@ -13,7 +13,7 @@ struct PhotosListView: View {
     var body: some View {
         NavigationView {
             List(photos) { photo in
-                NavigationLink(destination: TagsView(tags: tagData)) {
+                NavigationLink(destination: PhotoDetailView(photo: photo)) {
                     PhotoRow(photo: photo)
                 }
             }

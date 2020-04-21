@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct TagsView: View {
+    var photo: Photo
     var tags: [Tag] = []
     var body: some View {
         List(tags) { tag in
@@ -19,6 +20,6 @@ struct TagsView: View {
 
 struct TagsView_Previews: PreviewProvider {
     static var previews: some View {
-        TagsView(tags: tagData)
+        TagsView(photo: photoData[0])
     }
 }
