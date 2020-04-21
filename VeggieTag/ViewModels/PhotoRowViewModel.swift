@@ -5,6 +5,7 @@
 //  Created by Bobby Ren on 4/20/20.
 //  Copyright © 2020 RenderApps LLC. All rights reserved.
 //
+// https://peterfriese.dev/replicating-reminder-swiftui-firebase-part1/
 
 import Combine
 import Foundation

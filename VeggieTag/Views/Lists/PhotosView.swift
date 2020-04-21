@@ -11,8 +11,13 @@ import SwiftUI
 struct PhotosView: View {
     var photos: [Photo] = []
     var body: some View {
-        List(photos) { photo in
-            PhotoRow(photo: photo)
+        NavigationView {
+            List(photos) { photo in
+                NavigationLink(destination: TagsView(tags: tagData)) {
+                    PhotoRow(photo: photo)
+                }
+            }
+        .navigationBarTitle("My Garden")
         }
     }
 }

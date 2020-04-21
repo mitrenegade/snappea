@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        NavigationView {
             TabView {
                 PhotosView(photos: photoData)
                 .tabItem {
@@ -23,8 +22,6 @@ struct ContentView: View {
                      Text("Camera")
                    }
             }
-        .navigationBarTitle("My Garden")
-        }
     }
 }
 
