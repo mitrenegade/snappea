@@ -30,3 +30,9 @@ https://www.appcoda.com/swiftui-first-look
 
 `Asynchronous image loading`
 https://www.vadimbulavin.com/asynchronous-swiftui-image-loading-from-url-with-combine-and-swift/
+
+`Persistence with Disk framework`
+https://peterfriese.dev/replicating-reminder-swiftui-firebase-part1/
+
+`Swift and MVVM`
+https://quickbirdstudios.com/blog/swiftui-architecture-redux-mvvm/
