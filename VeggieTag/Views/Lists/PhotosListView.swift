@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PhotosView: View {
+struct PhotosListView: View {
     var photos: [Photo] = []
     var body: some View {
         NavigationView {
@@ -22,8 +22,8 @@ struct PhotosView: View {
     }
 }
 
-struct PhotosView_Previews: PreviewProvider {
+struct PhotosListView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosView(photos: photoData)
+        PhotosListView(photos: photoData)
     }
 }
