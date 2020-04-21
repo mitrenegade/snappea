@@ -10,19 +10,17 @@
 import SwiftUI
 
 struct PhotoRow: View {
-    var photo: Photo
+    @ObservedObject var photoRowViewModel: PhotoRowViewModel
+    
+    init(photo: Photo) {
+        self.photoRowViewModel = PhotoRowViewModel(photo: photo)
+    }
     
     var body: some View {
         HStack {
-            AsyncImageView(url: URL(string: photo.url)!, placeholder: Text("Loading..."))
+            AsyncImageView(url: $photoRowViewModel.url.wrappedValue, placeholder: Text("Loading..."))
                 .aspectRatio(contentMode: .fit)
-            Text(photo.dateString)
+            Text($photoRowViewModel.textString.wrappedValue)
         }
     }
 }
-
-//struct PhotoRow_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PhotoRow(plant: plantData[0])
-//    }
-//}
