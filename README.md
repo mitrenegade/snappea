@@ -36,3 +36,6 @@ https://peterfriese.dev/replicating-reminder-swiftui-firebase-part1/
 
 `Swift and MVVM`
 https://quickbirdstudios.com/blog/swiftui-architecture-redux-mvvm/
+
+`Overlay`
+https://www.simpleswiftguide.com/how-to-add-text-overlay-on-image-in-swiftui/
