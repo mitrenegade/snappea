@@ -11,7 +11,8 @@
         "photoId": "photo1",
         "plantId": "plant2",
         "x": 150,
-        "y": 150
+        "y": 150,
+        "scale": 2
     },
     {
         "id": "tag3",

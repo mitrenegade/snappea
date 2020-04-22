@@ -14,8 +14,8 @@ struct PhotoDetailView: View {
 
     var body: some View {
         VStack {
-            AsyncImageView<Text>(url: $photoDetailViewModel.url.wrappedValue, placeholder: Text("Loading..."))
-                .aspectRatio(contentMode: .fit)
+            TagOverlayView(url: $photoDetailViewModel.url.wrappedValue, tags: $photoDetailViewModel.tags.wrappedValue)
+            // TODO: TagOverlayView doesn't scale to fit
             List($photoDetailViewModel.tags.wrappedValue) { tag in
                 TagRow(tag: tag)
             }

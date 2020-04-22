@@ -12,11 +12,11 @@ protocol Taggable
 {
     var x: CGFloat { get }
     var y: CGFloat { get }
-    var scale: CGFloat { get }
+    var scale: CGFloat? { get }
 }
 
 struct Tag: Identifiable, Hashable, Codable, Taggable {
-    var scale: CGFloat = 1
+    var scale: CGFloat? = 1
 
     var id: String
     var photoId: String
