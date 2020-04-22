@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct TagsView: View {
+struct TagsListView: View {
     var photo: Photo
     var tags: [Tag] = []
     var body: some View {
@@ -18,8 +18,8 @@ struct TagsView: View {
     }
 }
 
-struct TagsView_Previews: PreviewProvider {
+struct TagsListView_Previews: PreviewProvider {
     static var previews: some View {
-        TagsView(photo: photoData[0])
+        TagsListView(photo: photoData[0])
     }
 }
