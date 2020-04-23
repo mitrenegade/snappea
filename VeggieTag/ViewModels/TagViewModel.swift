@@ -7,10 +7,36 @@
 //
 
 import Combine
+import SwiftUI
+import Foundation
 
 class TagViewModel: ObservableObject {
-    @Published var tag: Tag
-    init(tag: Tag) {
+    @Published var tag: Taggable
+    
+    var id: String = ""
+    var size: CGFloat = 64 // todo: make variable
+    var color: Color = .red
+    @Published var xOffset: CGFloat = 0
+    @Published var yOffset: CGFloat = 0
+    
+    private var cancellables = Set<AnyCancellable>()
+
+    init(tag: Taggable) {
         self.tag = tag
+        
+//        $tag
+//            .map{ $0.id }
+//            .assign(to: \.id, on: self)
+//            .store(in: &cancellables)
+        
+        $tag
+            .map{ $0.x }
+            .assign(to: \.xOffset, on: self)
+            .store(in: &cancellables)
+
+        $tag
+            .map{ $0.y }
+            .assign(to: \.yOffset, on: self)
+            .store(in: &cancellables)
     }
 }

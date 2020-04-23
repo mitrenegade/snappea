@@ -32,6 +32,8 @@ https://www.appcoda.com/swiftui-first-look
 https://www.vadimbulavin.com/asynchronous-swiftui-image-loading-from-url-with-combine-and-swift/
 
 `Persistence with Disk framework`
+`Firebase`
+`ViewModel and publish`
 https://peterfriese.dev/replicating-reminder-swiftui-firebase-part1/
 
 `Swift and MVVM`
@@ -39,3 +41,6 @@ https://quickbirdstudios.com/blog/swiftui-architecture-redux-mvvm/
 
 `Overlay`
 https://www.simpleswiftguide.com/how-to-add-text-overlay-on-image-in-swiftui/
+
+`Basic UI shapes`
+https://www.ioscreator.com/tutorials/swiftui-basic-shapes-tutorial

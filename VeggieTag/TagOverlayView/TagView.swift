@@ -9,16 +9,18 @@
 import SwiftUI
 
 struct TagView: View {
-    var tag: Taggable
+    @ObservedObject var viewModel: TagViewModel
     
     init(tag: Taggable) {
-        self.tag = tag
+        self.viewModel = TagViewModel(tag: tag)
     }
     
     var body: some View {
-        // TODO: scale and translate based on taggable
-        RoundedRectangle(cornerRadius: 4)
-        .stroke(Color.blue, lineWidth: 4)
-            .offset(x: tag.x, y: tag.y)
+        Rectangle()
+            .stroke(viewModel.color, lineWidth: 5)
+            .frame(width: $viewModel.size.wrappedValue,
+                   height: $viewModel.size.wrappedValue)
+            .offset(x: $viewModel.xOffset.wrappedValue,
+                    y: $viewModel.yOffset.wrappedValue)
     }
 }
