@@ -10,20 +10,34 @@ import SwiftUI
 
 struct TagOverlayView: View {
     var tags: [Tag]
-    var url: URL!
+    var url: URL?
+    var imageName: String?
+    @State var hasUrl: Bool = false
     
     init(url: URL, tags: [Tag]) {
         self.url = url
         self.tags = tags
+        hasUrl = true
+    }
+    
+    init(imageName: String, tags: [Tag]) {
+        self.imageName = imageName
+        self.tags = tags
+        hasUrl = false
     }
     
     var body: some View {
         ZStack {
-            AsyncImageView(url: url,
-                           placeholder: Text("Loading..."))
-                .aspectRatio(contentMode: .fit)
-                .border(Color.black)
-                .frame(width: 250, height: 250)
+            if hasUrl {
+                AsyncImageView(url: url!,
+                               placeholder: Text("Loading..."))
+                    .aspectRatio(contentMode: .fit)
+                    .border(Color.black)
+                    .frame(width: 250, height: 250)
+            } else {
+                ImageStore.shared.image(name: imageName!)
+                    .resizable()
+            }
             ForEach(tags) {tag in
                 TagView(tag: tag)
             }
@@ -33,7 +47,7 @@ struct TagOverlayView: View {
 
 struct TagOverlayView_Previews: PreviewProvider {
     static var previews: some View {
-        TagOverlayView(url: URL(string: "https://i.redd.it/gbxhi6mwdvt41.jpg")!, tags: tagData)
+        TagOverlayView(imageName: "veggieSquare", tags: tagData)
     }
 }
 
