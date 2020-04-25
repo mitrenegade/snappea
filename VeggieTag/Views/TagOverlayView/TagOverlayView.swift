@@ -14,8 +14,8 @@ struct TagOverlayView: View {
     var imageName: String?
     @State var hasUrl: Bool = false
     
-    init(url: URL, tags: [Tag]) {
-        self.url = url
+    init(urlString: String, tags: [Tag]) {
+        self.url = URL(string: urlString)
         self.tags = tags
         hasUrl = true
     }
@@ -31,12 +31,12 @@ struct TagOverlayView: View {
             if hasUrl {
                 AsyncImageView(url: url!,
                                placeholder: Text("Loading..."))
-                    .aspectRatio(contentMode: .fit)
                     .border(Color.black)
-                    .frame(width: 250, height: 250)
+                .aspectRatio(1, contentMode: .fit)
             } else {
                 ImageStore.shared.image(name: imageName!)
                     .resizable()
+                .aspectRatio(1, contentMode: .fit)
             }
             ForEach(tags) {tag in
                 TagView(tag: tag)

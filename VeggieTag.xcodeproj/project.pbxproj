@@ -39,6 +39,7 @@
 		8E7C7962244BB24600F295AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E7C7960244BB24600F295AD /* LaunchScreen.storyboard */; };
 		8E7C796D244BB24600F295AD /* VeggieTagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C796C244BB24600F295AD /* VeggieTagTests.swift */; };
 		8EC86BF92454E81D00AB2F92 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BF82454E81D00AB2F92 /* ImageStore.swift */; };
+		8EC86BFB245503CC00AB2F92 /* TagOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFA245503CC00AB2F92 /* TagOverlayViewModel.swift */; };
 		8EE11201244CF0F200693609 /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE11200244CF0F200693609 /* Plant.swift */; };
 		8EE11203244CF26B00693609 /* plantData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE11202244CF26B00693609 /* plantData.json */; };
 		E06ABB5C98C132ADBF7EC376 /* Pods_VeggieTagTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B136EE7D68908F76487BF9 /* Pods_VeggieTagTests.framework */; };
@@ -93,6 +94,7 @@
 		8E7C796C244BB24600F295AD /* VeggieTagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeggieTagTests.swift; sourceTree = "<group>"; };
 		8E7C796E244BB24600F295AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EC86BF82454E81D00AB2F92 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
+		8EC86BFA245503CC00AB2F92 /* TagOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOverlayViewModel.swift; sourceTree = "<group>"; };
 		8EE11200244CF0F200693609 /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		8EE11202244CF26B00693609 /* plantData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = plantData.json; sourceTree = "<group>"; };
 		B4C6048CE12BF6253A5CF2EE /* Pods-VeggieTagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTagTests.debug.xcconfig"; path = "Target Support Files/Pods-VeggieTagTests/Pods-VeggieTagTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				8E3ABF10244EACA200FF378B /* PhotoDetailViewModel.swift */,
 				8E3ABF14244EB50E00FF378B /* PhotoRowViewModel.swift */,
 				8E3ABF12244EAD0A00FF378B /* TagViewModel.swift */,
+				8EC86BFA245503CC00AB2F92 /* TagOverlayViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 				8E74F088244D10F500F5A507 /* PlantRow.swift in Sources */,
 				8E7C795A244BB24400F295AD /* ContentView.swift in Sources */,
 				8E74F090244D1AA400F5A507 /* PlantsView.swift in Sources */,
+				8EC86BFB245503CC00AB2F92 /* TagOverlayViewModel.swift in Sources */,
 				8E3ABF192450009B00FF378B /* TagOverlayView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
