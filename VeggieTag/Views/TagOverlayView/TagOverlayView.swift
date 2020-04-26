@@ -11,8 +11,8 @@ import SwiftUI
 struct TagOverlayView: View {
     @ObservedObject var viewModel: TagOverlayViewModel
 
-    init(imageName: String, tags: [Tag]) {
-        viewModel = TagOverlayViewModel(urlString: imageName, tags: tags)
+    init(urlString: String, tags: [Tag]) {
+        viewModel = TagOverlayViewModel(urlString: urlString, tags: tags)
     }
     
     var body: some View {
@@ -27,7 +27,7 @@ struct TagOverlayView: View {
 
 struct TagOverlayView_Previews: PreviewProvider {
     static var previews: some View {
-        TagOverlayView(imageName: "veggieSquare", tags: tagData)
+        TagOverlayView(urlString: "veggieSquare", tags: tagData)
     }
 }
 

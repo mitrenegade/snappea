@@ -12,7 +12,7 @@ import Foundation
 class PhotoDetailViewModel: ObservableObject {
     @Published var photo: Photo
     @Published var tags = [Tag]()
-    var url: URL = URL(string: "www.google.com")!
+    var urlString: String = ""
     private var cancellables = Set<AnyCancellable>()
     
     init(photo: Photo) {
@@ -20,8 +20,8 @@ class PhotoDetailViewModel: ObservableObject {
         
         // assign url
         $photo
-            .map{ URL(string: $0.url)! }
-            .assign(to: \.url, on: self)
+            .map{ $0.url }
+            .assign(to: \.urlString, on: self)
             .store(in: &cancellables)
         
         tags = tagData

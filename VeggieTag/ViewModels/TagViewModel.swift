@@ -11,7 +11,7 @@ import SwiftUI
 import Foundation
 
 class TagViewModel: ObservableObject {
-    @Published var tag: Taggable
+    @Published var tag: Tag
     
     var id: String = ""
     var size: CGFloat = 64 // todo: make variable
@@ -21,13 +21,13 @@ class TagViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
 
-    init(tag: Taggable) {
+    init(tag: Tag) {
         self.tag = tag
         
-//        $tag
-//            .map{ $0.id }
-//            .assign(to: \.id, on: self)
-//            .store(in: &cancellables)
+        $tag
+            .map{ $0.id }
+            .assign(to: \.id, on: self)
+            .store(in: &cancellables)
         
         $tag
             .map{ $0.x }

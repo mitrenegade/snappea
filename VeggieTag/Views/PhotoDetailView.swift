@@ -14,7 +14,7 @@ struct PhotoDetailView: View {
 
     var body: some View {
         VStack {
-            TagOverlayView(url: $photoDetailViewModel.url.wrappedValue, tags: $photoDetailViewModel.tags.wrappedValue)
+            TagOverlayView(urlString: $photoDetailViewModel.urlString.wrappedValue, tags: $photoDetailViewModel.tags.wrappedValue)
             // TODO: TagOverlayView doesn't scale to fit
             List($photoDetailViewModel.tags.wrappedValue) { tag in
                 TagRow(tag: tag)
