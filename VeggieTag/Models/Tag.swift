@@ -8,13 +8,21 @@
 
 import SwiftUI
 
-struct Tag: Identifiable, Hashable, Codable {
+protocol Taggable
+{
+    var x: CGFloat { get }
+    var y: CGFloat { get }
+    var scale: CGFloat? { get }
+}
+
+struct Tag: Identifiable, Hashable, Codable, Taggable {
+    var scale: CGFloat? = 1
 
     var id: String
     var photoId: String
     var plantId: String
-    var x: Int
-    var y: Int
+    var x: CGFloat
+    var y: CGFloat
     
     var plant: Plant? {
         return plantData.first(where: { $0.id == plantId })

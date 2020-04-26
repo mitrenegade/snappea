@@ -14,6 +14,8 @@ class ImageLoader: ObservableObject {
     @Published var image: UIImage?
     private let url: URL
     private var cancellable: AnyCancellable?
+    
+    // TODO: use ImageStore to load cached images if needed
 
     init(url: URL) {
         self.url = url

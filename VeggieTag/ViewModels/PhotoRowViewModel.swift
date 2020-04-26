@@ -15,8 +15,8 @@ class PhotoRowViewModel: ObservableObject, Identifiable {
     private var cancellables = Set<AnyCancellable>()
     
     var id: String = ""
-    var url: URL = URL(string: "www.google.com")!
-    var textString: String = ""
+    @Published var url: URL = URL(string: "www.google.com")!
+    @Published var textString: String = ""
         
     init(photo: Photo) {
         self.photo = photo
