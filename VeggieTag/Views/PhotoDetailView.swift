@@ -14,17 +14,25 @@ struct PhotoDetailView: View {
 
     var body: some View {
         VStack {
-            TagOverlayView(photo: $photoDetailViewModel.photo.wrappedValue,
-                           tags: $photoDetailViewModel.tags.wrappedValue)
-            // TODO: TagOverlayView doesn't scale to fit
-            List($photoDetailViewModel.tags.wrappedValue) { tag in
-                TagRow(tag: tag)
-            }
+            imageSection
+            listSection
         }
     }
     
     init(photo: Photo) {
         self.photoDetailViewModel = PhotoDetailViewModel(photo: photo)
+    }
+    
+    var imageSection: some View {
+        TagOverlayView(photo: $photoDetailViewModel.photo.wrappedValue,
+                       tags: $photoDetailViewModel.tags.wrappedValue)
+        // TODO: TagOverlayView doesn't scale to fit
+    }
+    
+    var listSection: some View {
+        List($photoDetailViewModel.tags.wrappedValue) { tag in
+            TagRow(tag: tag)
+        }
     }
 }
 
