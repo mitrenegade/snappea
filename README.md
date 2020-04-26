@@ -39,6 +39,9 @@ https://peterfriese.dev/replicating-reminder-swiftui-firebase-part1/
 `Swift and MVVM`
 https://quickbirdstudios.com/blog/swiftui-architecture-redux-mvvm/
 
+`Fetching data and updating datasource in a view model`
+https://www.raywenderlich.com/4161005-mvvm-with-combine-tutorial-for-ios View -> ViewModel -> Model
+
 `Overlay`
 https://www.simpleswiftguide.com/how-to-add-text-overlay-on-image-in-swiftui/
 

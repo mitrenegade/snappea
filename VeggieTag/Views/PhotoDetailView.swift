@@ -10,12 +10,11 @@ import SwiftUI
 import Combine
 
 struct PhotoDetailView: View {
-    var photo: Photo
     @ObservedObject var photoDetailViewModel: PhotoDetailViewModel
 
     var body: some View {
         VStack {
-            TagOverlayView(photo: photo,
+            TagOverlayView(photo: $photoDetailViewModel.photo.wrappedValue,
                            tags: $photoDetailViewModel.tags.wrappedValue)
             // TODO: TagOverlayView doesn't scale to fit
             List($photoDetailViewModel.tags.wrappedValue) { tag in
@@ -25,7 +24,6 @@ struct PhotoDetailView: View {
     }
     
     init(photo: Photo) {
-        self.photo = photo
         self.photoDetailViewModel = PhotoDetailViewModel(photo: photo)
     }
 }
