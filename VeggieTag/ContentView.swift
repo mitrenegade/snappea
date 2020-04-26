@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
             TabView {
-                PhotosListView(photos: photoData)
+                PhotosListView()
                 .tabItem {
                     Image(systemName: "phone.fill")
                     Text("Photos")

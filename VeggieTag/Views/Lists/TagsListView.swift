@@ -9,12 +9,20 @@
 import SwiftUI
 
 struct TagsListView: View {
-    var photo: Photo
-    var tags: [Tag] = []
+    var viewModel: TagsListViewModel
     var body: some View {
-        List(tags) { tag in
+        List(viewModel.dataSource) { tag in
             TagRow(tag: tag)
         }
+    }
+    
+    init(tags: [Tag]) {
+        self.viewModel = TagsListViewModel(tags: tags)
+    }
+    
+    // convenience
+    init(photo: Photo) {
+        self.viewModel = TagsListViewModel(photo: photo)
     }
 }
 

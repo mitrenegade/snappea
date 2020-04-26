@@ -16,7 +16,7 @@ class PhotoRowViewModel: ObservableObject, Identifiable {
     
     var id: String = ""
     @Published var url: URL = URL(string: "www.google.com")!
-    @Published var textString: String = ""
+    var textString: String = ""
         
     init(photo: Photo) {
         self.photo = photo
