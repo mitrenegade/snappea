@@ -30,9 +30,7 @@ struct PhotoDetailView: View {
     }
     
     var listSection: some View {
-        List($photoDetailViewModel.tags.wrappedValue) { tag in
-            TagRow(tag: tag)
-        }
+        TagsListView(tags: $photoDetailViewModel.tags.wrappedValue)
     }
 }
 
