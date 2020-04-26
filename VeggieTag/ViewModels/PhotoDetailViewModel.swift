@@ -10,8 +10,12 @@ import Combine
 import Foundation
 
 class PhotoDetailViewModel: ObservableObject {
-    @Published var photo: Photo
+    // stored model
+    var photo: Photo
+    
+    // datasource
     @Published var tags = [Tag]()
+
     private var cancellables = Set<AnyCancellable>()
     
     init(photo: Photo) {
