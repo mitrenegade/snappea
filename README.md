@@ -44,3 +44,6 @@ https://www.simpleswiftguide.com/how-to-add-text-overlay-on-image-in-swiftui/
 
 `Basic UI shapes`
 https://www.ioscreator.com/tutorials/swiftui-basic-shapes-tutorial
+
+`Image manipulation/sizing`
+https://www.simpleswiftguide.com/swiftui-image-tutorial/

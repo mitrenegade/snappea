@@ -8,11 +8,13 @@
 
 import SwiftUI
 
-struct TagView: View {
+struct TagView: View, Identifiable {
     @ObservedObject var viewModel: TagViewModel
+    var id: String = ""
     
-    init(tag: Taggable) {
+    init(tag: Tag) {
         self.viewModel = TagViewModel(tag: tag)
+        id = tag.id
     }
     
     var body: some View {

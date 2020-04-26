@@ -8,23 +8,28 @@
 
 import Combine
 import Foundation
+import SwiftUI
 
 class TagOverlayViewModel: ObservableObject {
-    @Published var photo: Photo
-    @Published var tags = [Tag]()
-    var url: URL = URL(string: "www.google.com")!
+    @Published var tagViews = [TagView]()
+    
+    @ObservedObject private var loader: ImageLoader
+
     private var cancellables = Set<AnyCancellable>()
     
-    init(photo: Photo) {
-        self.photo = photo
-        
-        // assign url
-        $photo
-            .map{ URL(string: $0.url)! }
-            .assign(to: \.url, on: self)
-            .store(in: &cancellables)
-        
-        tags = tagData
-            .filter{ $0.photoId == photo.id }
+    init(urlString: String?, tags: [Tag]) {
+        loader = ImageLoader(url: URL(string: urlString!)!)
+        loader.load()
+
+        tagViews = tags.map{TagView(tag: $0)}
+    }
+    
+    var image: some View {
+        Group {
+            if loader.image != nil {
+                Image(uiImage: loader.image!)
+                    .resizable()
+            }
+        }
     }
 }

@@ -9,37 +9,17 @@
 import SwiftUI
 
 struct TagOverlayView: View {
-    var tags: [Tag]
-    var url: URL?
-    var imageName: String?
-    @State var hasUrl: Bool = false
-    
-    init(urlString: String, tags: [Tag]) {
-        self.url = URL(string: urlString)
-        self.tags = tags
-        hasUrl = true
-    }
-    
+    @ObservedObject var viewModel: TagOverlayViewModel
+
     init(imageName: String, tags: [Tag]) {
-        self.imageName = imageName
-        self.tags = tags
-        hasUrl = false
+        viewModel = TagOverlayViewModel(urlString: imageName, tags: tags)
     }
     
     var body: some View {
         ZStack {
-            if hasUrl {
-                AsyncImageView(url: url!,
-                               placeholder: Text("Loading..."))
-                    .border(Color.black)
-                .aspectRatio(1, contentMode: .fit)
-            } else {
-                ImageStore.shared.image(name: imageName!)
-                    .resizable()
-                .aspectRatio(1, contentMode: .fit)
-            }
-            ForEach(tags) {tag in
-                TagView(tag: tag)
+            viewModel.image
+            ForEach(viewModel.tagViews) {tagView in
+                tagView
             }
         }
     }
