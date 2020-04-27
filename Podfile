@@ -9,6 +9,9 @@ target 'VeggieTag' do
   #pod 'RACameraHelper', :git => 'https://github.com/bobbyren/RACameraHelper', :tag => '0.1.7'
   pod 'Firebase'
   pod 'Firebase/Database'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift'
   
   target 'VeggieTagTests' do
     inherit! :search_paths
