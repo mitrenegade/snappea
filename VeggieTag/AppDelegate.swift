@@ -7,11 +7,22 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        // Firebase
+        let TESTING = true
+        let plistFilename = "GoogleService-Info\(TESTING ? "-dev" : "")"
+        let filePath = Bundle.main.path(forResource: plistFilename, ofType: "plist")
+        assert(filePath != nil, "File doesn't exist")
+        if let path = filePath, let fileopts = FirebaseOptions.init(contentsOfFile: path) {
+            FirebaseApp.configure(options: fileopts)
+        }
+
         return true
     }
 
