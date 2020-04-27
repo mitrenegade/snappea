@@ -19,7 +19,7 @@ struct TagOverlayView: View {
         ZStack {
             AsyncImageView(url: $viewModel.url.wrappedValue,
                            placeholder: Text("Loading..."), cache: TemporaryImageCache.shared)
-                .aspectRatio(contentMode: .fit)
+                .aspectRatio(contentMode: .fill)
             ForEach(viewModel.tagViews) {tagView in
                 tagView
             }
