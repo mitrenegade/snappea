@@ -14,7 +14,7 @@ class PhotosListViewModel: ObservableObject {    // datasource
     
     init() {
         // TODO: load data, process it if necessary
-        let data: [Photo] = photoData
+        let data: [Photo] = DataSample.photoData
         dataSource = data
     }
 }

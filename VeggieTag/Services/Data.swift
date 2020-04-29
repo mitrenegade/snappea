@@ -38,12 +38,15 @@ struct DataHelper {
     }
 }
 
-let db = Firestore.firestore()
-let plantData: [Plant] = DataHelper.load("plantData.json")
-let tagData: [Tag] = DataHelper.load("tagData.json")
-let photoData: [Photo] = DataHelper.load("photoData.json")
 
 struct DataSample {
+    static let db = Firestore.firestore()
+    static let plantData: [Plant] = DataHelper.load("plantData.json")
+    static let tagData: [Tag] = DataHelper.load("tagData.json")
+    static let photoDict: [String: Photo] = DataHelper.load("photoData.json")
+    
+    static var photoData: [Photo] { return Array(DataSample.photoDict.values) }
+
     // do this once
     static func uploadTestData() {
         let photo = DataHelper.loadJSONData(filename: "photoData.json")

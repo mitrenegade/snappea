@@ -29,7 +29,7 @@ struct TagOverlayView: View {
 
 struct TagOverlayView_Previews: PreviewProvider {
     static var previews: some View {
-        TagOverlayView(photo: photoData[0], tags: tagData)
+        TagOverlayView(photo: DataSample.photoData[0], tags: DataSample.tagData)
     }
 }
 
