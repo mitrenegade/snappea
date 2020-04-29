@@ -41,16 +41,26 @@ struct DataHelper {
 
 struct DataSample {
     static let db = Firestore.firestore()
-    static let plantData: [Plant] = DataHelper.load("plantData.json")
-    static let tagData: [Tag] = DataHelper.load("tagData.json")
+    static let plantDict: [String:Plant] = DataHelper.load("plantData.json")
+    static let tagDict: [String:Tag] = DataHelper.load("tagData.json")
     static let photoDict: [String: Photo] = DataHelper.load("photoData.json")
     
     static var photoData: [Photo] { return Array(DataSample.photoDict.values) }
+    static var plantData: [Plant] { return Array(DataSample.plantDict.values) }
+    static var tagData: [Tag] { return Array(DataSample.tagDict.values) }
 
     // do this once
     static func uploadTestData() {
         let photo = DataHelper.loadJSONData(filename: "photoData.json")
         let photoJSON = try! JSONSerialization.jsonObject(with: photo, options: .allowFragments) as! [String: Any]
-        db.collection("photo").addDocument(data: photoJSON)
+        db.collection("photos").addDocument(data: photoJSON)
+
+        let plant = DataHelper.loadJSONData(filename: "plantData.json")
+        let plantJSON = try! JSONSerialization.jsonObject(with: plant, options: .allowFragments) as! [String: Any]
+        db.collection("plants").addDocument(data: plantJSON)
+
+        let tag = DataHelper.loadJSONData(filename: "tagData.json")
+        let tagJSON = try! JSONSerialization.jsonObject(with: plant, options: .allowFragments) as! [String: Any]
+        db.collection("tags").addDocument(data: tagJSON)
     }
 }
