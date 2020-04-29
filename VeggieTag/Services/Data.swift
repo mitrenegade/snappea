@@ -52,15 +52,21 @@ struct DataSample {
     // do this once
     static func uploadTestData() {
         let photo = DataHelper.loadJSONData(filename: "photoData.json")
-        let photoJSON = try! JSONSerialization.jsonObject(with: photo, options: .allowFragments) as! [String: Any]
-        db.collection("photos").addDocument(data: photoJSON)
+        let photoJSON = try! JSONSerialization.jsonObject(with: photo, options: .allowFragments) as! [String: [String:Any]]
+        for (key, val) in photoJSON {
+            db.collection("photos").document(key).setData(val)
+        }
 
         let plant = DataHelper.loadJSONData(filename: "plantData.json")
-        let plantJSON = try! JSONSerialization.jsonObject(with: plant, options: .allowFragments) as! [String: Any]
-        db.collection("plants").addDocument(data: plantJSON)
-
+        let plantJSON = try! JSONSerialization.jsonObject(with: plant, options: .allowFragments) as! [String: [String:Any]]
+        for (key, val) in plantJSON {
+            db.collection("plants").document(key).setData(val)
+        }
+        
         let tag = DataHelper.loadJSONData(filename: "tagData.json")
-        let tagJSON = try! JSONSerialization.jsonObject(with: plant, options: .allowFragments) as! [String: Any]
-        db.collection("tags").addDocument(data: tagJSON)
+        let tagJSON = try! JSONSerialization.jsonObject(with: tag, options: .allowFragments) as! [String: [String:Any]]
+        for (key, val) in tagJSON {
+            db.collection("tags").document(key).setData(val)
+        }
     }
 }
