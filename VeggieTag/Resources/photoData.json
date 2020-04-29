@@ -1,12 +1,12 @@
-[
-    {
+{
+    "photo1":{
         "id": "photo1",
         "url": "https://i.redd.it/6xzck22x9tt41.jpg",
         "timestamp": 1587366010
     },
-    {
+    "photo2":{
         "id": "photo2",
         "url": "https://i.redd.it/gbxhi6mwdvt41.jpg",
         "timestamp": 1587356010
     }
-]
+}
