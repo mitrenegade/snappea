@@ -21,7 +21,7 @@ class PhotoDetailViewModel: ObservableObject {
     init(photo: Photo) {
         self.photo = photo
         
-        tags = DataSample.tagData
+        tags = APIService.tagData
             .filter{ $0.photoId == photo.id }
     }
 }

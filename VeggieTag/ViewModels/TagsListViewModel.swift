@@ -18,6 +18,6 @@ class TagsListViewModel: ObservableObject {
     
     convenience init(photo: Photo) {
         // todo: load tags from TagService
-        self.init(tags: DataSample.tagData.filter{ $0.photoId == photo.id })
+        self.init(tags: APIService.tagData.filter{ $0.photoId == photo.id })
     }
 }

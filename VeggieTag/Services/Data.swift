@@ -7,9 +7,6 @@ Helpers for loading images and data.
 
 import UIKit
 import SwiftUI
-import CoreLocation
-import Firebase
-import FirebaseFirestore
 
 struct DataHelper {
     static func load<T: Decodable>(_ filename: String) -> T {
@@ -34,39 +31,6 @@ struct DataHelper {
             return data
         } catch {
             fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
-        }
-    }
-}
-
-
-struct DataSample {
-    static let db = Firestore.firestore()
-    static let plantDict: [String:Plant] = DataHelper.load("plantData.json")
-    static let tagDict: [String:Tag] = DataHelper.load("tagData.json")
-    static let photoDict: [String: Photo] = DataHelper.load("photoData.json")
-    
-    static var photoData: [Photo] { return Array(DataSample.photoDict.values) }
-    static var plantData: [Plant] { return Array(DataSample.plantDict.values) }
-    static var tagData: [Tag] { return Array(DataSample.tagDict.values) }
-
-    // do this once
-    static func uploadTestData() {
-        let photo = DataHelper.loadJSONData(filename: "photoData.json")
-        let photoJSON = try! JSONSerialization.jsonObject(with: photo, options: .allowFragments) as! [String: [String:Any]]
-        for (key, val) in photoJSON {
-            db.collection("photos").document(key).setData(val)
-        }
-
-        let plant = DataHelper.loadJSONData(filename: "plantData.json")
-        let plantJSON = try! JSONSerialization.jsonObject(with: plant, options: .allowFragments) as! [String: [String:Any]]
-        for (key, val) in plantJSON {
-            db.collection("plants").document(key).setData(val)
-        }
-        
-        let tag = DataHelper.loadJSONData(filename: "tagData.json")
-        let tagJSON = try! JSONSerialization.jsonObject(with: tag, options: .allowFragments) as! [String: [String:Any]]
-        for (key, val) in tagJSON {
-            db.collection("tags").document(key).setData(val)
         }
     }
 }

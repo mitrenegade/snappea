@@ -25,10 +25,10 @@ struct Tag: Identifiable, Hashable, Codable, Taggable {
     var y: CGFloat
     
     var plant: Plant? {
-        return DataSample.plantData.first(where: { $0.id == plantId })
+        return APIService.plantData.first(where: { $0.id == plantId })
     }
     
     var photo: Photo? {
-        return DataSample.photoData.first(where: { $0.id == photoId })
+        return APIService.photoData.first(where: { $0.id == photoId })
     }
 }
