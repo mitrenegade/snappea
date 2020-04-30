@@ -12,6 +12,8 @@ target 'VeggieTag' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
+  pod 'RenderCloud', :git => 'git@bitbucket.org:renderapps/RenderCloud.git'
+
   
   target 'VeggieTagTests' do
     inherit! :search_paths
