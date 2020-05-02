@@ -27,14 +27,4 @@ struct Plant: Identifiable, Codable {
     var type: PlantType
     var category: Category
     @ServerTimestamp var createdTime: Timestamp?
-    
-    init?(from snapshot: QueryDocumentSnapshot) {
-        guard let name = snapshot["name"] as? String else { return nil }
-        guard let type = snapshot["type"] as? String else { return nil }
-        guard let category = snapshot["category"] as? String else { return nil }
-        
-        self.name = name
-        self.type = PlantType(rawValue: type) ?? .unknown
-        self.category = Category(rawValue: category) ?? .unknown
-    }
 }

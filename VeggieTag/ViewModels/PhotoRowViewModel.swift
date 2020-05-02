@@ -14,7 +14,7 @@ class PhotoRowViewModel: ObservableObject, Identifiable {
     @Published var photo: Photo
     private var cancellables = Set<AnyCancellable>()
     
-    var id: String = ""
+//    var id: String = ""
     @Published var url: URL = URL(string: "www.google.com")!
     var textString: String = ""
         
@@ -22,10 +22,10 @@ class PhotoRowViewModel: ObservableObject, Identifiable {
         self.photo = photo
         
         // assign id
-        $photo
-            .map{ $0.id }
-            .assign(to: \.id, on: self)
-            .store(in: &cancellables)
+//        $photo
+//            .map{ $0.id }
+//            .assign(to: \.id, on: self)
+//            .store(in: &cancellables)
         
         // assign text
         $photo

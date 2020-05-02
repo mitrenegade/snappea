@@ -34,16 +34,4 @@ struct Tag: Identifiable, Codable, Taggable {
     var photo: Photo? {
         return APIService.shared.allPhotos[photoId]
     }
-    
-    init?(from snapshot: QueryDocumentSnapshot) {
-        guard let x = snapshot["x"] as? CGFloat, let y = snapshot["y"] as? CGFloat else { return nil }
-        guard let plantId = snapshot["plantId"] as? String else { return nil }
-        guard let photoId = snapshot["photoId"] as? String else { return nil }
-
-        self.id = snapshot.documentID
-        self.plantId = plantId
-        self.photoId = photoId
-        self.x = x
-        self.y = y
-    }
 }
