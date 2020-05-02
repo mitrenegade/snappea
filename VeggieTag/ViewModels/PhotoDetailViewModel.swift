@@ -14,7 +14,7 @@ class PhotoDetailViewModel: ObservableObject {
     @Published var photo: Photo
     
     // datasource
-    @Published var tags: [Tag]?
+    @Published var tags: [Tag] = []
 
     private var cancellables = Set<AnyCancellable>()
     

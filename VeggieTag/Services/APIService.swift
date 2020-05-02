@@ -17,9 +17,9 @@ class APIService: NSObject, ObservableObject {
     //var allPlants: [String: Plant] = [:]
     //var allTags: [String: Tag] = [:]
     
-    @Published var photos: [Photo]?
-    @Published var plants: [Plant]?
-    @Published var tags: [Tag]?
+    @Published var photos: [Photo] = []
+    @Published var plants: [Plant] = []
+    @Published var tags: [Tag] = []
     
     let db: Firestore
     

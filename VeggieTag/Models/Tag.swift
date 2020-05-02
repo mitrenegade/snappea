@@ -27,11 +27,11 @@ struct Tag: Identifiable, Codable, Taggable {
     @ServerTimestamp var createdTime: Timestamp?
     
     var plant: Plant? {
-        return APIService.shared.plants?.first { $0.id == plantId }
+        return APIService.shared.plants.first { $0.id == plantId }
 
     }
     
     var photo: Photo? {
-        return APIService.shared.photos?.first { $0.id == photoId }
+        return APIService.shared.photos.first { $0.id == photoId }
     }
 }

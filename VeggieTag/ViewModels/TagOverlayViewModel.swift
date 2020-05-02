@@ -12,7 +12,7 @@ import SwiftUI
 
 class TagOverlayViewModel: ObservableObject {
     @Published var photo: Photo
-    @Published var tags: [Tag]?
+    @Published var tags: [Tag] = []
     @Published var url: URL = URL(string: "www.google.com")!
 
     private var cancellables = Set<AnyCancellable>()

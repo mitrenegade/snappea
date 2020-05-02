@@ -10,7 +10,7 @@ import Combine
 import Foundation
 
 class TagsListViewModel: ObservableObject {
-    @Published var dataSource: [Tag]?
+    @Published var dataSource: [Tag] = []
     private var cancellables = Set<AnyCancellable>()
 
     init(tags: [Tag]) {
