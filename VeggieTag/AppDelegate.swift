@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             FirebaseApp.configure(options: fileopts)
         }
         
-        APIService().loadGarden()
+        APIService.shared.loadGarden()
 
         return true
     }

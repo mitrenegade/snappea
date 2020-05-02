@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 class APIService: NSObject {
     static let shared = APIService()
+    /*
     static var photoData: [Photo] { return Array(APIService.shared.photoDict.values) }
     static var plantData: [Plant] { return Array(APIService.shared.plantDict.values) }
     static var tagData: [Tag] { return Array(APIService.shared.tagDict.values) }
@@ -18,7 +19,8 @@ class APIService: NSObject {
     var plantDict: [String:Plant] = DataHelper.load("plantData.json")
     var tagDict: [String:Tag] = DataHelper.load("tagData.json")
     var photoDict: [String: Photo] = DataHelper.load("photoData.json")
-    
+    */
+
     var allPhotos: [String: Photo] = [:]
     var allPlants: [String: Plant] = [:]
     var allTags: [String: Tag] = [:]
@@ -34,9 +36,27 @@ class APIService: NSObject {
     func loadGarden() {
         db.collection("photos").getDocuments { (snapshot, error) in
             print("Loaded photos: \(snapshot?.documents)")
-            for photoDocument in snapshot?.documents ?? [] {
-                if let photo = Photo(from: photoDocument) {
+            for document in snapshot?.documents ?? [] {
+                if let photo = Photo(from: document) {
                     self.store(photo: photo)
+                }
+            }
+        }
+        
+        db.collection("plants").getDocuments { (snapshot, error) in
+            print("Loaded plants: \(snapshot?.documents)")
+            for document in snapshot?.documents ?? [] {
+                if let plant = Plant(from: document) {
+                    self.store(plant: plant)
+                }
+            }
+        }
+
+        db.collection("tags").getDocuments { (snapshot, error) in
+            print("Loaded tags: \(snapshot?.documents)")
+            for document in snapshot?.documents ?? [] {
+                if let tag = Tag(from: document) {
+                    self.store(tag: tag)
                 }
             }
         }
@@ -44,19 +64,19 @@ class APIService: NSObject {
     
     func store(photo: Photo) {
         readWriteQueue.sync {
-            photoDict[photo.id] = photo
+            allPhotos[photo.id] = photo
         }
     }
     
     func store(plant: Plant) {
         readWriteQueue.sync {
-            plantDict[plant.id] = plant
+            allPlants[plant.id] = plant
         }
     }
     
     func store(tag: Tag) {
         readWriteQueue.sync {
-            tagDict[tag.id] = tag
+            allTags[tag.id] = tag
         }
     }
     

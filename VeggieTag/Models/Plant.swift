@@ -27,18 +27,14 @@ struct Plant: Identifiable, Hashable, Codable {
     var type: PlantType
     var category: Category
     
-    init(from snapshot: QueryDocumentSnapshot) {
+    init?(from snapshot: QueryDocumentSnapshot) {
         self.id = snapshot.documentID
-        self.name = snapshot["name"] as? String ?? ""
-        if let type = snapshot["type"] as? String {
-            self.type = PlantType(rawValue: type) ?? .unknown
-        } else {
-            self.type = .unknown
-        }
-        if let category = snapshot["category"] as? String {
-            self.category = Category(rawValue: category) ?? .unknown
-        } else {
-            self.category = .unknown
-        }
+        guard let name = snapshot["name"] as? String else { return nil }
+        guard let type = snapshot["type"] as? String else { return nil }
+        guard let category = snapshot["category"] as? String else { return nil }
+        
+        self.name = name
+        self.type = PlantType(rawValue: type) ?? .unknown
+        self.category = Category(rawValue: category) ?? .unknown
     }
 }
