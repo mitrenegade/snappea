@@ -12,12 +12,12 @@ import SwiftUI
 
 class TagOverlayViewModel: ObservableObject {
     @Published var photo: Photo
-    @Published var tagViews = [TagView]()
+    @Published var tagViews: [TagView]?
     @Published var url: URL = URL(string: "www.google.com")!
 
     private var cancellables = Set<AnyCancellable>()
     
-    init(photo: Photo, tags: [Tag]) {
+    init(photo: Photo) {
         self.photo = photo
 
         // assign url
@@ -26,6 +26,9 @@ class TagOverlayViewModel: ObservableObject {
             .assign(to: \.url, on: self)
             .store(in: &cancellables)
 
-        tagViews = tags.map{TagView(tag: $0)}
+        APIService.shared.$tags
+            .compactMap{ TagView(tag: $0) }
+            .assign(to: \.tagViews, on: self)
+            .store(in: &cancellables)
     }
 }

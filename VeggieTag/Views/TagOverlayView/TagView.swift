@@ -12,7 +12,8 @@ struct TagView: View, Identifiable {
     @ObservedObject var viewModel: TagViewModel
     var id: String?
     
-    init(tag: Tag) {
+    init?(tag: Tag?) {
+        guard let tag = tag else { return }
         self.viewModel = TagViewModel(tag: tag)
         id = tag.id
     }

@@ -13,7 +13,7 @@ struct PhotosListView: View {
 
     var body: some View {
         NavigationView {
-            List(viewModel.dataSource) { photo in
+            List(viewModel.dataSource ?? []) { photo in
                 NavigationLink(destination: PhotoDetailView(photo: photo)) {
                     PhotoRow(photo: photo)
                 }

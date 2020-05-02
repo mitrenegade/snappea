@@ -8,17 +8,18 @@
 
 import Firebase
 import FirebaseFirestore
+import Combine
 
-class APIService: NSObject {
+class APIService: NSObject, ObservableObject {
     static let shared = APIService()
 
-    var allPhotos: [String: Photo] = [:]
-    var allPlants: [String: Plant] = [:]
-    var allTags: [String: Tag] = [:]
+    //var allPhotos: [String: Photo] = [:]
+    //var allPlants: [String: Plant] = [:]
+    //var allTags: [String: Tag] = [:]
     
-    var photos: [Photo]?
-    var plants: [Plant]?
-    var tags: [Tag]?
+    @Published var photos: [Photo]?
+    @Published var plants: [Plant]?
+    @Published var tags: [Tag]?
     
     let db: Firestore
     
