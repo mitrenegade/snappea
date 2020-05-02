@@ -17,11 +17,11 @@ struct TagOverlayView: View {
     
     var body: some View {
         ZStack {
-            AsyncImageView(url: $viewModel.url.wrappedValue,
+            AsyncImageView<Text>(url: $viewModel.url.wrappedValue,
                            placeholder: Text("Loading..."), cache: TemporaryImageCache.shared)
                 .aspectRatio(contentMode: .fill)
-            ForEach(viewModel.tagViews ?? []) {tagView in
-                tagView
+            ForEach(viewModel.tags ?? []) {tag in
+                TagView(tag: tag)
             }
         }
     }
