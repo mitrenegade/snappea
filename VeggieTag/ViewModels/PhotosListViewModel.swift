@@ -14,7 +14,7 @@ class PhotosListViewModel: ObservableObject {    // datasource
     
     init() {
         // TODO: load data, process it if necessary
-        let data: [Photo] = APIService.photoData
+        let data: [Photo] = APIService.shared.allPhotos.compactMap{$0.value}
         dataSource = data
     }
 }

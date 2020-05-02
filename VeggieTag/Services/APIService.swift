@@ -11,15 +11,6 @@ import FirebaseFirestore
 
 class APIService: NSObject {
     static let shared = APIService()
-    /*
-    static var photoData: [Photo] { return Array(APIService.shared.photoDict.values) }
-    static var plantData: [Plant] { return Array(APIService.shared.plantDict.values) }
-    static var tagData: [Tag] { return Array(APIService.shared.tagDict.values) }
-
-    var plantDict: [String:Plant] = DataHelper.load("plantData.json")
-    var tagDict: [String:Tag] = DataHelper.load("tagData.json")
-    var photoDict: [String: Photo] = DataHelper.load("photoData.json")
-    */
 
     var allPhotos: [String: Photo] = [:]
     var allPlants: [String: Plant] = [:]

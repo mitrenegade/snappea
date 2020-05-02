@@ -17,7 +17,6 @@ class TagsListViewModel: ObservableObject {
     }
     
     convenience init(photo: Photo) {
-        // todo: load tags from TagService
-        self.init(tags: APIService.tagData.filter{ $0.photoId == photo.id })
+        self.init(tags: APIService.shared.allTags.filter{ $0.value.photoId == photo.id }.compactMap{ $0.value })
     }
 }

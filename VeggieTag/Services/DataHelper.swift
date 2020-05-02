@@ -9,6 +9,14 @@ import UIKit
 import SwiftUI
 
 struct DataHelper {
+    static var photoData: [Photo] { return Array(DataHelper.photoDict.values) }
+    static var plantData: [Plant] { return Array(DataHelper.plantDict.values) }
+    static var tagData: [Tag] { return Array(DataHelper.tagDict.values) }
+
+    static var plantDict: [String:Plant] = DataHelper.load("plantData.json")
+    static var tagDict: [String:Tag] = DataHelper.load("tagData.json")
+    static var photoDict: [String: Photo] = DataHelper.load("photoData.json")
+
     static func load<T: Decodable>(_ filename: String) -> T {
         let data: Data = loadJSONData(filename: filename)
         

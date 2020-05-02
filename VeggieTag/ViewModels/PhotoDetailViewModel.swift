@@ -21,7 +21,7 @@ class PhotoDetailViewModel: ObservableObject {
     init(photo: Photo) {
         self.photo = photo
         
-        tags = APIService.tagData
-            .filter{ $0.photoId == photo.id }
+        tags = APIService.shared.allTags.filter{ $0.value.photoId == photo.id }.compactMap{ $0.value }
+
     }
 }
