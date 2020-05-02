@@ -15,7 +15,7 @@ struct Photo: Identifiable, Codable {
     
     var url: String = ""
     var timestamp: TimeInterval = 0
-    @ServerTimestamp var createdTime: Timestamp?
+//    @ServerTimestamp var createdTime: Timestamp?
 
     var date: Date {
         return Date(timeIntervalSince1970: timestamp)

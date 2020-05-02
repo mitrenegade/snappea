@@ -24,7 +24,7 @@ struct Tag: Identifiable, Codable, Taggable {
     var plantId: String = ""
     var x: CGFloat = 0
     var y: CGFloat = 0
-    @ServerTimestamp var createdTime: Timestamp?
+//    @ServerTimestamp var createdTime: Timestamp?
     
     var plant: Plant? {
         return APIService.shared.plants.first { $0.id == plantId }

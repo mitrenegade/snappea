@@ -26,5 +26,5 @@ struct Plant: Identifiable, Codable {
     var name: String = ""
     var type: PlantType = .unknown
     var category: Category = .unknown
-    @ServerTimestamp var createdTime: Timestamp?
+//    @ServerTimestamp var createdTime: Timestamp?
 }
