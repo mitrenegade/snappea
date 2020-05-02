@@ -7,6 +7,7 @@
 //
 
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 protocol Taggable
 {
@@ -15,14 +16,15 @@ protocol Taggable
     var scale: CGFloat? { get }
 }
 
-struct Tag: Identifiable, Hashable, Codable, Taggable {
+struct Tag: Identifiable, Codable, Taggable {
     var scale: CGFloat? = 1
 
-    var id: String
+    @DocumentID var id: String?
     var photoId: String
     var plantId: String
     var x: CGFloat
     var y: CGFloat
+    @ServerTimestamp var createdTime: Timestamp?
     
     var plant: Plant? {
         return APIService.shared.allPlants[plantId]

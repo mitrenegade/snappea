@@ -7,6 +7,7 @@
 //
 
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 enum PlantType: String, Codable {
     case tomato
@@ -20,15 +21,14 @@ enum Category: String, Codable {
     case unknown
 }
 
-struct Plant: Identifiable, Hashable, Codable {
-
-    var id: String
+struct Plant: Identifiable, Codable {
+    @DocumentID var id: String?
     var name: String
     var type: PlantType
     var category: Category
+    @ServerTimestamp var createdTime: Timestamp?
     
     init?(from snapshot: QueryDocumentSnapshot) {
-        self.id = snapshot.documentID
         guard let name = snapshot["name"] as? String else { return nil }
         guard let type = snapshot["type"] as? String else { return nil }
         guard let category = snapshot["category"] as? String else { return nil }

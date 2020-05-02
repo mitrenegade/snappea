@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TagView: View, Identifiable {
     @ObservedObject var viewModel: TagViewModel
-    var id: String = ""
+    var id: String?
     
     init(tag: Tag) {
         self.viewModel = TagViewModel(tag: tag)

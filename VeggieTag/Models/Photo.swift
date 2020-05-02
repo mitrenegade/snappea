@@ -7,13 +7,15 @@
 //
 
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
-struct Photo: Identifiable, Hashable, Codable {
+struct Photo: Identifiable, Codable {
 
-    var id: String
+    @DocumentID var id: String?
     var url: String
     var timestamp: TimeInterval
-    
+    @ServerTimestamp var createdTime: Timestamp?
+
     var date: Date {
         return Date(timeIntervalSince1970: timestamp)
     }
