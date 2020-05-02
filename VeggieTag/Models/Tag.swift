@@ -6,7 +6,7 @@
 //  Copyright © 2020 RenderApps LLC. All rights reserved.
 //
 
-import SwiftUI
+import FirebaseFirestore
 
 protocol Taggable
 {
@@ -25,10 +25,23 @@ struct Tag: Identifiable, Hashable, Codable, Taggable {
     var y: CGFloat
     
     var plant: Plant? {
-        return DataSample.plantData.first(where: { $0.id == plantId })
+        return APIService.shared.allPlants[plantId]
+
     }
     
     var photo: Photo? {
-        return DataSample.photoData.first(where: { $0.id == photoId })
+        return APIService.shared.allPhotos[photoId]
+    }
+    
+    init?(from snapshot: QueryDocumentSnapshot) {
+        guard let x = snapshot["x"] as? CGFloat, let y = snapshot["y"] as? CGFloat else { return nil }
+        guard let plantId = snapshot["plantId"] as? String else { return nil }
+        guard let photoId = snapshot["photoId"] as? String else { return nil }
+
+        self.id = snapshot.documentID
+        self.plantId = plantId
+        self.photoId = photoId
+        self.x = x
+        self.y = y
     }
 }

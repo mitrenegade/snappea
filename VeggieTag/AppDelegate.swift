@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             FirebaseApp.configure(options: fileopts)
         }
         
-        DataSample.uploadTestData()
+        APIService.shared.loadGarden()
 
         return true
     }

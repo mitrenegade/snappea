@@ -36,6 +36,6 @@ struct PhotoDetailView: View {
 
 struct PhotoDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoDetailView(photo: DataSample.photoData[0])
+        PhotoDetailView(photo: DataHelper.photoData[0])
     }
 }

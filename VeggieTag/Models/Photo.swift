@@ -6,7 +6,7 @@
 //  Copyright © 2020 RenderApps LLC. All rights reserved.
 //
 
-import SwiftUI
+import FirebaseFirestore
 
 struct Photo: Identifiable, Hashable, Codable {
 
@@ -20,5 +20,13 @@ struct Photo: Identifiable, Hashable, Codable {
     
     var dateString: String {
         return date.description
+    }
+    
+    init?(from snapshot: QueryDocumentSnapshot) {
+        guard let url = snapshot["name"] as? String else { return nil }
+
+        self.id = snapshot.documentID
+        self.url = url
+        self.timestamp = snapshot["timestamp"] as? TimeInterval ?? 0
     }
 }
