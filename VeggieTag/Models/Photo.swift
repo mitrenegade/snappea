@@ -13,8 +13,8 @@ struct Photo: Identifiable, Codable {
 
     @DocumentID var id: String?
     
-    var url: String
-    var timestamp: TimeInterval
+    var url: String = ""
+    var timestamp: TimeInterval = 0
     @ServerTimestamp var createdTime: Timestamp?
 
     var date: Date {

@@ -13,6 +13,10 @@ struct TagRow: View {
     var body: some View {
         Text(tag.plant?.name ?? "Not found")
     }
+    
+    init(tag: Tag) {
+        self.tag = tag
+    }
 }
 
 struct TagRow_Previews: PreviewProvider {

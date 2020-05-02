@@ -23,8 +23,8 @@ enum Category: String, Codable {
 
 struct Plant: Identifiable, Codable {
     @DocumentID var id: String?
-    var name: String
-    var type: PlantType
-    var category: Category
+    var name: String = ""
+    var type: PlantType = .unknown
+    var category: Category = .unknown
     @ServerTimestamp var createdTime: Timestamp?
 }

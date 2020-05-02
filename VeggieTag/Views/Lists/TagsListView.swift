@@ -11,7 +11,7 @@ import SwiftUI
 struct TagsListView: View {
     var viewModel: TagsListViewModel
     var body: some View {
-        List(viewModel.dataSource ?? []) { tag in
+        List(viewModel.dataSource) { tag in
             TagRow(tag: tag)
         }
     }
@@ -19,11 +19,6 @@ struct TagsListView: View {
     init(tags: [Tag]) {
         self.viewModel = TagsListViewModel(tags: tags)
     }
-    
-    // convenience
-//    init(photo: Photo) {
-//        self.viewModel = TagsListViewModel(photo: photo)
-//    }
 }
 
 struct TagsListView_Previews: PreviewProvider {

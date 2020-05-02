@@ -20,10 +20,10 @@ struct Tag: Identifiable, Codable, Taggable {
     var scale: CGFloat? = 1
 
     @DocumentID var id: String?
-    var photoId: String
-    var plantId: String
-    var x: CGFloat
-    var y: CGFloat
+    var photoId: String = ""
+    var plantId: String = ""
+    var x: CGFloat = 0
+    var y: CGFloat = 0
     @ServerTimestamp var createdTime: Timestamp?
     
     var plant: Plant? {
