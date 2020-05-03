@@ -144,13 +144,13 @@
 		8E3ABEFC244D6A9E00FF378B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8E74F089244D13F000F5A507 /* DataHelper.swift */,
 				8EC86C06245A699D00AB2F92 /* APIService.swift */,
+				8E87C5C7245EA1B100482678 /* AuthenticationService.swift */,
+				8E74F089244D13F000F5A507 /* DataHelper.swift */,
 				8E3ABF01244D704E00FF378B /* AsyncImageView.swift */,
 				8EC86BF82454E81D00AB2F92 /* ImageStore.swift */,
 				8E3ABEFF244D6FE000FF378B /* ImageLoader.swift */,
 				8EC86C002456234700AB2F92 /* ImageCache.swift */,
-				8E87C5C7245EA1B100482678 /* AuthenticationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";

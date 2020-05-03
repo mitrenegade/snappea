@@ -11,14 +11,27 @@ import SwiftUI
 struct PhotosListView: View {
     var viewModel: PhotosListViewModel = PhotosListViewModel()
 
-    var body: some View {
-        NavigationView {
-            List(viewModel.dataSource) { photo in
-                NavigationLink(destination: PhotoDetailView(photo: photo)) {
-                    PhotoRow(photo: photo)
-                }
+    init() {
+        AuthenticationService.shared.$user.compactMap { $0 }
+            .sink {
+                APIService.shared.loadGarden()
             }
-        .navigationBarTitle("My Garden")
+    }
+    var body: some View {
+        Group {
+            if APIService.shared.photos.count == 0 {
+                Text("Loading...")
+            } else {
+                listView
+            }
+        }
+    }
+    
+    var listView: some View {
+        List(viewModel.dataSource) { photo in
+            NavigationLink(destination: PhotoDetailView(photo: photo)) {
+                PhotoRow(photo: photo)
+            }
         }
     }
 }

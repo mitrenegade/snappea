@@ -40,7 +40,7 @@ class AuthenticationService: ObservableObject {
     
     init() {
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in // (4)
-            print("Sign in state has changed.")
+            print("Sign in state has changed with user \(user).")
             if let user = user {
                 // logged in with a user
                 self.user = User(uid: user.uid, email: user.email)
