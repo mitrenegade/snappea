@@ -10,25 +10,44 @@ import Firebase
 
 class AuthenticationService: ObservableObject {
     static let shared: AuthenticationService = AuthenticationService()
-  @Published var user: User? // (1)
-  
-  func signIn() {
-    registerStateListener() // (2)
-    Auth.auth().signInAnonymously() // (3)
-  }
-  
-  private func registerStateListener() {
-    Auth.auth().addStateDidChangeListener { (auth, user) in // (4)
-      print("Sign in state has changed.")
-      self.user = user
-      
-      if let user = user {
-        let anonymous = user.isAnonymous ? "anonymously " : ""
-        print("User signed in \(anonymous)with user ID \(user.uid).")
-      }
-      else {
-        print("User signed out.")
-      }
+    @Published var user: User?
+    var handle: AuthStateDidChangeListenerHandle?
+    
+    func signInAnonymously() {
+        // not used
+        Auth.auth().signInAnonymously()
     }
-  }
+    
+    func signUp(
+        email: String,
+        password: String,
+        handler: @escaping AuthDataResultCallback
+    ) {
+        Auth.auth().createUser(withEmail: email, password: password, completion: handler)
+    }
+
+    func signIn(
+        email: String,
+        password: String,
+        handler: @escaping AuthDataResultCallback
+    ) {
+        Auth.auth().signIn(withEmail: email, password: password, completion: handler)
+    }
+    
+    func signOut() {
+        try? Auth.auth().signOut()
+    }
+    
+    init() {
+        handle = Auth.auth().addStateDidChangeListener { (auth, user) in // (4)
+            print("Sign in state has changed.")
+            if let user = user {
+                // logged in with a user
+                self.user = User(uid: user.uid, email: user.email)
+            }
+            else {
+                print("User signed out.")
+            }
+        }
+    }
 }
