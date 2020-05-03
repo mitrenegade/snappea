@@ -12,6 +12,9 @@ struct ContentView: View {
     @State var email: String = ""
     @State var password: String = ""
     @State var confirmation: String = ""
+    @State private var showingAlert = false
+    @State private var alert: Alert?
+
     var body: some View {
         Group {
             if AuthenticationService.shared.user != nil {
@@ -26,6 +29,9 @@ struct ContentView: View {
                     signupView
                 }
             }
+        }
+        .alert(isPresented: $showingAlert) {
+            self.alert ?? Alert(title: Text("Unknown error"))
         }
     }
     
@@ -61,8 +67,7 @@ struct ContentView: View {
         VStack {
             TextField("email", text: $email)
             SecureField("password", text: $password)
-            SecureField("confirm password", text: $password)
-            Spacer()
+            SecureField("confirm password", text: $confirmation)
             Button(action: {
                 self.doSignup()
             }) {
@@ -74,22 +79,26 @@ struct ContentView: View {
     func doLogin() {
         AuthenticationService.shared.signIn(email: self.email, password: self.password) { (result, error) in
             if let error = error {
-                Alert(title: Text("Could not log in"), message: Text("Login failed! Error: \(error.localizedDescription)"), dismissButton: .default(Text("Dismiss")))
+                self.alert = Alert(title: Text("Could not log in"), message: Text("Login failed! Error: \(error.localizedDescription)"), dismissButton: .default(Text("Dismiss")))
+                self.showingAlert.toggle()
             } else {
-                Alert(title: Text("Login successful"), message: Text("You have logged in as \(self.email)"), dismissButton: .default(Text("Dismiss")))
+                self.alert = Alert(title: Text("Login successful"), message: Text("You have logged in as \(self.email)"), dismissButton: .default(Text("Dismiss")))
+                self.showingAlert.toggle()
             }
         }
     }
         
     func doSignup() {
         guard !self.password.isEmpty, self.confirmation == self.password else {
-            Alert(title: Text("Could not sign up"), message: Text("Your password and confirmation do not match."), dismissButton: .default(Text("Dismiss")))
+            self.alert = Alert(title: Text("Could not sign up"), message: Text("Your password and confirmation do not match."), dismissButton: .default(Text("Dismiss")))
+            self.showingAlert.toggle()
             return
         }
         
         AuthenticationService.shared.signUp(email: self.email, password: self.password) { (result, error) in
             if let error = error {
-                Alert(title: Text("Could not sign up"), message: Text("Signup failed! Error: \(error.localizedDescription)"), dismissButton: .default(Text("OK")))
+                self.alert = Alert(title: Text("Could not sign up"), message: Text("Signup failed! Error: \(error.localizedDescription)"), dismissButton: .default(Text("OK")))
+                self.showingAlert.toggle()
             }
         }
     }
