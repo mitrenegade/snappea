@@ -13,7 +13,7 @@ import Foundation
 class TagViewModel: ObservableObject {
     @Published var tag: Tag
     
-    var id: String = ""
+    var id: String?
     var size: CGFloat = 64 // todo: make variable
     var color: Color = .red
     @Published var xOffset: CGFloat = 0

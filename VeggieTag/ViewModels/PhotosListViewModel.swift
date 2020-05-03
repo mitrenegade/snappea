@@ -10,11 +10,12 @@ import Combine
 import Foundation
 
 class PhotosListViewModel: ObservableObject {    // datasource
-    @Published var dataSource: [Photo]
-    
+    @Published var dataSource: [Photo] = []
+    private var cancellables = Set<AnyCancellable>()
+
     init() {
-        // TODO: load data, process it if necessary
-        let data: [Photo] = APIService.shared.allPhotos.compactMap{$0.value}
-        dataSource = data
+        APIService.shared.$photos
+            .assign(to: \.dataSource, on: self)
+            .store(in: &cancellables)
     }
 }

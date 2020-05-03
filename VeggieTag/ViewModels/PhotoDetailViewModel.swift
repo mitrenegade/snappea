@@ -11,17 +11,18 @@ import Foundation
 
 class PhotoDetailViewModel: ObservableObject {
     // stored model
-    var photo: Photo
+    @Published var photo: Photo
     
     // datasource
-    @Published var tags = [Tag]()
+    @Published var tags: [Tag] = []
 
     private var cancellables = Set<AnyCancellable>()
     
     init(photo: Photo) {
         self.photo = photo
         
-        tags = APIService.shared.allTags.filter{ $0.value.photoId == photo.id }.compactMap{ $0.value }
-
+        APIService.shared.$tags
+            .assign(to: \.tags, on: self)
+            .store(in: &cancellables)
     }
 }

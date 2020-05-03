@@ -7,6 +7,7 @@
 //
 
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 protocol Taggable
 {
@@ -15,33 +16,22 @@ protocol Taggable
     var scale: CGFloat? { get }
 }
 
-struct Tag: Identifiable, Hashable, Codable, Taggable {
+struct Tag: Identifiable, Codable, Taggable {
     var scale: CGFloat? = 1
 
-    var id: String
-    var photoId: String
-    var plantId: String
-    var x: CGFloat
-    var y: CGFloat
+    @DocumentID var id: String?
+    var photoId: String = ""
+    var plantId: String = ""
+    var x: CGFloat = 0
+    var y: CGFloat = 0
+//    @ServerTimestamp var createdTime: Timestamp?
     
     var plant: Plant? {
-        return APIService.shared.allPlants[plantId]
+        return APIService.shared.plants.first { $0.id == plantId }
 
     }
     
     var photo: Photo? {
-        return APIService.shared.allPhotos[photoId]
-    }
-    
-    init?(from snapshot: QueryDocumentSnapshot) {
-        guard let x = snapshot["x"] as? CGFloat, let y = snapshot["y"] as? CGFloat else { return nil }
-        guard let plantId = snapshot["plantId"] as? String else { return nil }
-        guard let photoId = snapshot["photoId"] as? String else { return nil }
-
-        self.id = snapshot.documentID
-        self.plantId = plantId
-        self.photoId = photoId
-        self.x = x
-        self.y = y
+        return APIService.shared.photos.first { $0.id == photoId }
     }
 }

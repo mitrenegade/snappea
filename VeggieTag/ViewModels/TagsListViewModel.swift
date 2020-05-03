@@ -10,13 +10,16 @@ import Combine
 import Foundation
 
 class TagsListViewModel: ObservableObject {
-    @Published var dataSource: [Tag]
+    @Published var dataSource: [Tag] = []
+    private var cancellables = Set<AnyCancellable>()
 
     init(tags: [Tag]) {
-        dataSource = tags
+        APIService.shared.$tags
+            .assign(to: \.dataSource, on: self)
+            .store(in: &cancellables)
     }
     
-    convenience init(photo: Photo) {
-        self.init(tags: APIService.shared.allTags.filter{ $0.value.photoId == photo.id }.compactMap{ $0.value })
-    }
+//    convenience init(photo: Photo) {
+//        self.init(tags: APIService.shared.allTags.filter{ $0.value.photoId == photo.id }.compactMap{ $0.value })
+//    }
 }

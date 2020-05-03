@@ -7,26 +7,21 @@
 //
 
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
-struct Photo: Identifiable, Hashable, Codable {
+struct Photo: Identifiable, Codable {
 
-    var id: String
-    var url: String
-    var timestamp: TimeInterval
+    @DocumentID var id: String?
     
+    var url: String = ""
+    var timestamp: TimeInterval = 0
+//    @ServerTimestamp var createdTime: Timestamp?
+
     var date: Date {
         return Date(timeIntervalSince1970: timestamp)
     }
     
     var dateString: String {
         return date.description
-    }
-    
-    init?(from snapshot: QueryDocumentSnapshot) {
-        guard let url = snapshot["name"] as? String else { return nil }
-
-        self.id = snapshot.documentID
-        self.url = url
-        self.timestamp = snapshot["timestamp"] as? TimeInterval ?? 0
     }
 }

@@ -19,15 +19,10 @@ struct TagsListView: View {
     init(tags: [Tag]) {
         self.viewModel = TagsListViewModel(tags: tags)
     }
-    
-    // convenience
-    init(photo: Photo) {
-        self.viewModel = TagsListViewModel(photo: photo)
-    }
 }
 
 struct TagsListView_Previews: PreviewProvider {
     static var previews: some View {
-        TagsListView(photo: DataHelper.photoData[0])
+        TagsListView(tags: DataHelper.tagData)//photo: DataHelper.photoData[0])
     }
 }

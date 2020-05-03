@@ -12,7 +12,7 @@ struct TagOverlayView: View {
     @ObservedObject var viewModel: TagOverlayViewModel
 
     init(photo: Photo, tags: [Tag]) {
-        viewModel = TagOverlayViewModel(photo: photo, tags: tags)
+        viewModel = TagOverlayViewModel(photo: photo)
     }
     
     var body: some View {
@@ -20,8 +20,8 @@ struct TagOverlayView: View {
             AsyncImageView(url: $viewModel.url.wrappedValue,
                            placeholder: Text("Loading..."), cache: TemporaryImageCache.shared)
                 .aspectRatio(contentMode: .fill)
-            ForEach(viewModel.tagViews) {tagView in
-                tagView
+            ForEach(viewModel.tags ?? []) {tag in
+                TagView(tag: tag)
             }
         }
     }

@@ -8,13 +8,18 @@
 
 import Firebase
 import FirebaseFirestore
+import Combine
 
-class APIService: NSObject {
+class APIService: NSObject, ObservableObject {
     static let shared = APIService()
 
-    var allPhotos: [String: Photo] = [:]
-    var allPlants: [String: Plant] = [:]
-    var allTags: [String: Tag] = [:]
+    //var allPhotos: [String: Photo] = [:]
+    //var allPlants: [String: Plant] = [:]
+    //var allTags: [String: Tag] = [:]
+    
+    @Published var photos: [Photo] = []
+    @Published var plants: [Plant] = []
+    @Published var tags: [Tag] = []
     
     let db: Firestore
     
@@ -25,51 +30,60 @@ class APIService: NSObject {
     }
     
     func loadGarden() {
-        db.collection("photos").getDocuments { (snapshot, error) in
-            print("Loaded photos: \(snapshot?.documents)")
-            for document in snapshot?.documents ?? [] {
-                if let photo = Photo(from: document) {
-                    self.store(photo: photo)
-                }
-            }
+        db.collection("photos").addSnapshotListener { (snapshot, error) in
+            self.photos = snapshot?.documents.compactMap { document -> Photo? in
+                try? document.data(as: Photo.self)
+            } ?? []
+            print("Loaded photos: \(self.photos)")
+//            for document in snapshot?.documents ?? [] {
+//                if let photo = Photo(from: document) {
+//                    self.store(photo: photo)
+//                }
+//            }
         }
         
-        db.collection("plants").getDocuments { (snapshot, error) in
-            print("Loaded plants: \(snapshot?.documents)")
-            for document in snapshot?.documents ?? [] {
-                if let plant = Plant(from: document) {
-                    self.store(plant: plant)
-                }
-            }
+        db.collection("plants").addSnapshotListener { (snapshot, error) in
+            self.plants = snapshot?.documents.compactMap{ document -> Plant? in
+                try? document.data(as: Plant.self)
+            } ?? []
+            print("Loaded plants: \(self.plants)")
+//            for document in snapshot?.documents ?? [] {
+//                if let plant = Plant(from: document) {
+//                    self.store(plant: plant)
+//                }
+//            }
         }
 
-        db.collection("tags").getDocuments { (snapshot, error) in
-            print("Loaded tags: \(snapshot?.documents)")
-            for document in snapshot?.documents ?? [] {
-                if let tag = Tag(from: document) {
-                    self.store(tag: tag)
-                }
-            }
+        db.collection("tags").addSnapshotListener { (snapshot, error) in
+            self.tags = snapshot?.documents.compactMap{ document -> Tag? in
+                try? document.data(as: Tag.self)
+            } ?? []
+            print("Loaded tags: \(self.tags)")
+//            for document in snapshot?.documents ?? [] {
+//                if let tag = Tag(from: document) {
+//                    self.store(tag: tag)
+//                }
+//            }
         }
     }
     
-    func store(photo: Photo) {
-        readWriteQueue.sync {
-            allPhotos[photo.id] = photo
-        }
-    }
-    
-    func store(plant: Plant) {
-        readWriteQueue.sync {
-            allPlants[plant.id] = plant
-        }
-    }
-    
-    func store(tag: Tag) {
-        readWriteQueue.sync {
-            allTags[tag.id] = tag
-        }
-    }
+//    func store(photo: Photo) {
+//        readWriteQueue.sync {
+//            allPhotos[photo.id] = photo
+//        }
+//    }
+//
+//    func store(plant: Plant) {
+//        readWriteQueue.sync {
+//            allPlants[plant.id] = plant
+//        }
+//    }
+//
+//    func store(tag: Tag) {
+//        readWriteQueue.sync {
+//            allTags[tag.id] = tag
+//        }
+//    }
     
     
     // do this once

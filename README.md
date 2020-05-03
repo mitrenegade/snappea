@@ -36,6 +36,9 @@ https://www.vadimbulavin.com/asynchronous-swiftui-image-loading-from-url-with-co
 `ViewModel and publish`
 https://peterfriese.dev/replicating-reminder-swiftui-firebase-part1/
 
+`Firebase with persistence`
+https://peterfriese.dev/replicating-reminder-swiftui-firebase-part2/
+
 `Swift and MVVM`
 https://quickbirdstudios.com/blog/swiftui-architecture-redux-mvvm/
 
