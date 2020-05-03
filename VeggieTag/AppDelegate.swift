@@ -23,7 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             FirebaseApp.configure(options: fileopts)
         }
         
-        APIService.shared.loadGarden()
+        AuthenticationService.shared.signIn()
+        //APIService.shared.loadGarden()
 
         return true
     }
