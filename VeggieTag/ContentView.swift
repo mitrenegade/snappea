@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct ContentView: View {
     @State var email: String = ""
@@ -17,7 +18,8 @@ struct ContentView: View {
 
     var body: some View {
         Group {
-            if AuthenticationService.shared.user != nil {
+            if Auth.auth().currentUser != nil {
+           // if AuthenticationService.shared.user != nil {
                 homeView
             } else {
                 VStack {

@@ -12,19 +12,28 @@ struct PhotosListView: View {
     var viewModel: PhotosListViewModel = PhotosListViewModel()
 
     init() {
-        AuthenticationService.shared.$user.compactMap { $0 }
-            .sink {
-                APIService.shared.loadGarden()
-            }
-    }
-    var body: some View {
-        Group {
-            if APIService.shared.photos.count == 0 {
-                Text("Loading...")
-            } else {
-                listView
-            }
+        if AuthenticationService.shared.user != nil {
+            APIService.shared.loadGarden()
         }
+    }
+
+    var body: some View {
+        NavigationView{
+            Group {
+                if APIService.shared.photos.count == 0 {
+                    Text("Loading...")
+                } else {
+                    listView
+                }
+            }
+            .navigationBarItems(leading:
+                Button(action: {
+                    AuthenticationService.shared.signOut()
+                }) {
+                    Text("Logout")
+            })
+        }
+
     }
     
     var listView: some View {
