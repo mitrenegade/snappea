@@ -9,16 +9,43 @@
 import SwiftUI
 
 struct PhotosListView: View {
-    var viewModel: PhotosListViewModel = PhotosListViewModel()
+    @ObservedObject var viewModel: PhotosListViewModel
+    var auth: AuthenticationService
+    
+    init(auth: AuthenticationService = AuthenticationService.shared,
+         apiService: APIService = APIService.shared) {
+        self.auth = auth
+        
+        viewModel = PhotosListViewModel(apiService: apiService)
+        if auth.user != nil {
+            apiService.loadGarden()
+        }
+    }
 
     var body: some View {
-        NavigationView {
-            List(viewModel.dataSource) { photo in
-                NavigationLink(destination: PhotoDetailView(photo: photo)) {
-                    PhotoRow(photo: photo)
+        NavigationView{
+            Group {
+                if viewModel.dataSource.count == 0 {
+                    Text("Loading...")
+                } else {
+                    listView
                 }
             }
-        .navigationBarTitle("My Garden")
+            .navigationBarItems(leading:
+                Button(action: {
+                    self.auth.signOut()
+                }) {
+                    Text("Logout")
+            })
+        }
+
+    }
+    
+    var listView: some View {
+        List(viewModel.dataSource) { photo in
+            NavigationLink(destination: PhotoDetailView(photo: photo)) {
+                PhotoRow(photo: photo)
+            }
         }
     }
 }

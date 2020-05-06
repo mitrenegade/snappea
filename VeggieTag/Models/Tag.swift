@@ -19,7 +19,7 @@ protocol Taggable
 struct Tag: Identifiable, Codable, Taggable {
     var scale: CGFloat? = 1
 
-    @DocumentID var id: String?
+    @DocumentID var id: String? = nil
     var photoId: String = ""
     var plantId: String = ""
     var x: CGFloat = 0

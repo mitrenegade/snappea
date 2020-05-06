@@ -36,6 +36,8 @@
 		8E7C795F244BB24600F295AD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E7C795E244BB24600F295AD /* Preview Assets.xcassets */; };
 		8E7C7962244BB24600F295AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E7C7960244BB24600F295AD /* LaunchScreen.storyboard */; };
 		8E7C796D244BB24600F295AD /* VeggieTagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C796C244BB24600F295AD /* VeggieTagTests.swift */; };
+		8E87C5C8245EA1B100482678 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E87C5C7245EA1B100482678 /* AuthenticationService.swift */; };
+		8EC10BFF245F2EC7004D92EC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC10BFE245F2EC7004D92EC /* User.swift */; };
 		8EC86BF92454E81D00AB2F92 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BF82454E81D00AB2F92 /* ImageStore.swift */; };
 		8EC86BFB245503CC00AB2F92 /* TagOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFA245503CC00AB2F92 /* TagOverlayViewModel.swift */; };
 		8EC86BFD24560C2900AB2F92 /* PhotosListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFC24560C2900AB2F92 /* PhotosListViewModel.swift */; };
@@ -94,6 +96,8 @@
 		8E7C7968244BB24600F295AD /* VeggieTagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VeggieTagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7C796C244BB24600F295AD /* VeggieTagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeggieTagTests.swift; sourceTree = "<group>"; };
 		8E7C796E244BB24600F295AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E87C5C7245EA1B100482678 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		8EC10BFE245F2EC7004D92EC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8EC86BF82454E81D00AB2F92 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 		8EC86BFA245503CC00AB2F92 /* TagOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOverlayViewModel.swift; sourceTree = "<group>"; };
 		8EC86BFC24560C2900AB2F92 /* PhotosListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosListViewModel.swift; sourceTree = "<group>"; };
@@ -140,8 +144,9 @@
 		8E3ABEFC244D6A9E00FF378B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8E74F089244D13F000F5A507 /* DataHelper.swift */,
 				8EC86C06245A699D00AB2F92 /* APIService.swift */,
+				8E87C5C7245EA1B100482678 /* AuthenticationService.swift */,
+				8E74F089244D13F000F5A507 /* DataHelper.swift */,
 				8E3ABF01244D704E00FF378B /* AsyncImageView.swift */,
 				8EC86BF82454E81D00AB2F92 /* ImageStore.swift */,
 				8E3ABEFF244D6FE000FF378B /* ImageLoader.swift */,
@@ -196,6 +201,7 @@
 				8EE11200244CF0F200693609 /* Plant.swift */,
 				8E74F0A3244D5A3400F5A507 /* Tag.swift */,
 				8E74F0A5244D5AE600F5A507 /* Photo.swift */,
+				8EC10BFE245F2EC7004D92EC /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -482,6 +488,7 @@
 				8E3ABF05244D7D0A00FF378B /* PhotoRow.swift in Sources */,
 				8E3ABF1C2450065000FF378B /* TagView.swift in Sources */,
 				8E3ABF0A244D7DA300FF378B /* PhotosListView.swift in Sources */,
+				8EC10BFF245F2EC7004D92EC /* User.swift in Sources */,
 				8E74F09A244D241000F5A507 /* Coordinator.swift in Sources */,
 				8E74F08A244D13F000F5A507 /* DataHelper.swift in Sources */,
 				8E3ABF11244EACA200FF378B /* PhotoDetailViewModel.swift in Sources */,
@@ -490,6 +497,7 @@
 				8EC86BFD24560C2900AB2F92 /* PhotosListViewModel.swift in Sources */,
 				8E3ABF15244EB50E00FF378B /* PhotoRowViewModel.swift in Sources */,
 				8E74F097244D21F500F5A507 /* CaptureImageView.swift in Sources */,
+				8E87C5C8245EA1B100482678 /* AuthenticationService.swift in Sources */,
 				8E3ABF17244F83A300FF378B /* PhotoDetailView.swift in Sources */,
 				8EE11201244CF0F200693609 /* Plant.swift in Sources */,
 				8EC86BFF245613B900AB2F92 /* TagsListViewModel.swift in Sources */,

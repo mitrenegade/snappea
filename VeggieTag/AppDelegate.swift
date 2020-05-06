@@ -23,7 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             FirebaseApp.configure(options: fileopts)
         }
         
-        APIService.shared.loadGarden()
+        // To start from signout
+//        AuthenticationService.shared.signOut()
 
         return true
     }

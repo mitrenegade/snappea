@@ -53,3 +53,10 @@ https://www.ioscreator.com/tutorials/swiftui-basic-shapes-tutorial
 
 `Image manipulation/sizing`
 https://www.simpleswiftguide.com/swiftui-image-tutorial/
+
+`Auth and combine`
+https://cantaspinar.com/swiftui-firebase-authentication/
+https://github.com/Balaviknesh/iOS-SwiftUI-Firebase-Login-Example
+
+`Login/Signup example`
+https://github.com/Balaviknesh/iOS-SwiftUI-Firebase-Login-Example/tree/master/FirebaseLogin
