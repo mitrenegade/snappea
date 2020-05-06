@@ -15,13 +15,15 @@ struct ContentView: View {
     @State var confirmation: String = ""
     @State private var showingAlert = false
     @State private var alert: Alert?
+    
+    @ObservedObject var auth: AuthenticationService = AuthenticationService.shared
 
     var body: some View {
         Group {
-            if Auth.auth().currentUser != nil {
+            if auth.user != nil {
            // if AuthenticationService.shared.user != nil {
                 homeView
-            } else {
+            } else if auth.user == nil {
                 VStack {
                     Text("Welcome and please login or sign up")
                         .font(.title)
