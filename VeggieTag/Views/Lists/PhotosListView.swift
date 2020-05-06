@@ -9,18 +9,23 @@
 import SwiftUI
 
 struct PhotosListView: View {
-    var viewModel: PhotosListViewModel = PhotosListViewModel()
-
-    init() {
-        if AuthenticationService.shared.user != nil {
-            APIService.shared.loadGarden()
+    @ObservedObject var viewModel: PhotosListViewModel
+    var auth: AuthenticationService
+    
+    init(auth: AuthenticationService = AuthenticationService.shared,
+         apiService: APIService = APIService.shared) {
+        self.auth = auth
+        
+        viewModel = PhotosListViewModel(apiService: apiService)
+        if auth.user != nil {
+            apiService.loadGarden()
         }
     }
 
     var body: some View {
         NavigationView{
             Group {
-                if APIService.shared.photos.count == 0 {
+                if viewModel.dataSource.count == 0 {
                     Text("Loading...")
                 } else {
                     listView
@@ -28,7 +33,7 @@ struct PhotosListView: View {
             }
             .navigationBarItems(leading:
                 Button(action: {
-                    AuthenticationService.shared.signOut()
+                    self.auth.signOut()
                 }) {
                     Text("Logout")
             })

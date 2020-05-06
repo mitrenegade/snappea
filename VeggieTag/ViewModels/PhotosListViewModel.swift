@@ -13,8 +13,8 @@ class PhotosListViewModel: ObservableObject {    // datasource
     @Published var dataSource: [Photo] = []
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
-        APIService.shared.$photos
+    init(apiService: APIService) {
+        apiService.$photos
             .assign(to: \.dataSource, on: self)
             .store(in: &cancellables)
     }
