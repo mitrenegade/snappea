@@ -46,6 +46,9 @@ class AuthenticationService: ObservableObject {
             if let user = user {
                 // logged in with a user
                 self.user = User(uid: user.uid, email: user.email)
+                
+//                // To upload test data
+//                APIService.shared.uploadTestData()
             }
             else {
                 self.user = nil

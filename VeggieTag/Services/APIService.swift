@@ -87,25 +87,24 @@ class APIService: NSObject, ObservableObject {
     
     
     // do this once
-    /*
-    static func uploadTestData() {
-        let photo = DataHelper.loadJSONData(filename: "photoData.json")
-        let photoJSON = try! JSONSerialization.jsonObject(with: photo, options: .allowFragments) as! [String: [String:Any]]
-        for (key, val) in photoJSON {
-            db.collection("photos").document(key).setData(val)
-        }
-
-        let plant = DataHelper.loadJSONData(filename: "plantData.json")
-        let plantJSON = try! JSONSerialization.jsonObject(with: plant, options: .allowFragments) as! [String: [String:Any]]
-        for (key, val) in plantJSON {
-            db.collection("plants").document(key).setData(val)
-        }
-        
-        let tag = DataHelper.loadJSONData(filename: "tagData.json")
-        let tagJSON = try! JSONSerialization.jsonObject(with: tag, options: .allowFragments) as! [String: [String:Any]]
-        for (key, val) in tagJSON {
-            db.collection("tags").document(key).setData(val)
-        }
+    func uploadTestData() {
+//        guard let userId = AuthenticationService.shared.user?.uid else { return }
+//        let photo = DataHelper.loadJSONData(filename: "photoData.json")
+//        let photoJSON = try! JSONSerialization.jsonObject(with: photo, options: .allowFragments) as! [String: [String:Any]]
+//        for (key, val) in photoJSON {
+//            db.collection(userId).document("garden").collection("photos").document(key).setData(val)
+//        }
+//
+//        let plant = DataHelper.loadJSONData(filename: "plantData.json")
+//        let plantJSON = try! JSONSerialization.jsonObject(with: plant, options: .allowFragments) as! [String: [String:Any]]
+//        for (key, val) in plantJSON {
+//            db.collection("plants").document(key).setData(val)
+//        }
+//
+//        let tag = DataHelper.loadJSONData(filename: "tagData.json")
+//        let tagJSON = try! JSONSerialization.jsonObject(with: tag, options: .allowFragments) as! [String: [String:Any]]
+//        for (key, val) in tagJSON {
+//            db.collection("tags").document(key).setData(val)
+//        }
     }
-     */
 }
