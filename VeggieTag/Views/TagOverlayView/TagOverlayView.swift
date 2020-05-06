@@ -10,15 +10,17 @@ import SwiftUI
 
 struct TagOverlayView: View {
     @ObservedObject var viewModel: TagOverlayViewModel
+    var screenWidth: CGFloat
 
     init(photo: Photo, tags: [Tag]) {
         viewModel = TagOverlayViewModel(photo: photo)
+        screenWidth = UIScreen.main.bounds.width
     }
     
     var body: some View {
         ZStack {
             AsyncImageView(url: $viewModel.url.wrappedValue,
-                           frame: CGSize(width: 250, height: 250),
+                           frame: CGSize(width: screenWidth, height: screenWidth),
                            placeholder: Text("Loading..."),
                            cache: TemporaryImageCache.shared)
                 .aspectRatio(contentMode: .fill)
@@ -29,7 +31,7 @@ struct TagOverlayView: View {
             DragGesture(minimumDistance: 0).onEnded{ value in
                 print("Tapped: \(value)")
                 print("Loaded image: \(TemporaryImageCache.shared[self.viewModel.url])")
-                print("Image view: ")
+                print("Image frame: \(screenWidth)")
             }
         )
     }
