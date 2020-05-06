@@ -60,3 +60,7 @@ https://github.com/Balaviknesh/iOS-SwiftUI-Firebase-Login-Example
 
 `Login/Signup example`
 https://github.com/Balaviknesh/iOS-SwiftUI-Firebase-Login-Example/tree/master/FirebaseLogin
+
+`swiftui location of tap gesture`
+Two answers in:
+`https://stackoverflow.com/questions/56513942/how-to-detect-a-tap-gesture-location-in-swiftui`

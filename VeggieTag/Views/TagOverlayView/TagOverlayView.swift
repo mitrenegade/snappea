@@ -20,10 +20,14 @@ struct TagOverlayView: View {
             AsyncImageView(url: $viewModel.url.wrappedValue,
                            placeholder: Text("Loading..."), cache: TemporaryImageCache.shared)
                 .aspectRatio(contentMode: .fill)
-            ForEach(viewModel.tags ?? []) {tag in
+            ForEach(viewModel.tags) {tag in
                 TagView(tag: tag)
             }
-        }
+        }.gesture(
+            DragGesture(minimumDistance: 0).onEnded{ value in
+                print("Tapped: \(value) on image \(self.viewModel.photo)")
+            }
+        )
     }
 }
 
