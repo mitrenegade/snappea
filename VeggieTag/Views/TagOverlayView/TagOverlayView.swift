@@ -18,14 +18,18 @@ struct TagOverlayView: View {
     var body: some View {
         ZStack {
             AsyncImageView(url: $viewModel.url.wrappedValue,
-                           placeholder: Text("Loading..."), cache: TemporaryImageCache.shared)
+                           frame: CGSize(width: 250, height: 250),
+                           placeholder: Text("Loading..."),
+                           cache: TemporaryImageCache.shared)
                 .aspectRatio(contentMode: .fill)
             ForEach(viewModel.tags) {tag in
                 TagView(tag: tag)
             }
         }.gesture(
             DragGesture(minimumDistance: 0).onEnded{ value in
-                print("Tapped: \(value) on image \(self.viewModel.photo)")
+                print("Tapped: \(value)")
+                print("Loaded image: \(TemporaryImageCache.shared[self.viewModel.url])")
+                print("Image view: ")
             }
         )
     }
