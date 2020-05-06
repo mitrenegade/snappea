@@ -30,7 +30,8 @@ class APIService: NSObject, ObservableObject {
     }
     
     func loadGarden() {
-        db.collection("photos").addSnapshotListener { (snapshot, error) in
+        guard let userId = AuthenticationService.shared.user?.uid else { return }
+        db.collection(userId).document("garden").collection("photos").addSnapshotListener { (snapshot, error) in
             self.photos = snapshot?.documents.compactMap { document -> Photo? in
                 try? document.data(as: Photo.self)
             } ?? []
