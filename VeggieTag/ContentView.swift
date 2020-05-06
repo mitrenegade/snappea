@@ -16,12 +16,15 @@ struct ContentView: View {
     @State private var showingAlert = false
     @State private var alert: Alert?
     
-    @ObservedObject var auth: AuthenticationService = AuthenticationService.shared
+    @ObservedObject var auth: AuthenticationService
+
+    init(authService: AuthenticationService =  AuthenticationService.shared) {
+        self.auth = authService
+    }
 
     var body: some View {
         Group {
             if auth.user != nil {
-           // if AuthenticationService.shared.user != nil {
                 homeView
             } else if auth.user == nil {
                 VStack {
@@ -81,7 +84,7 @@ struct ContentView: View {
     }
     
     func doLogin() {
-        AuthenticationService.shared.signIn(email: self.email, password: self.password) { (result, error) in
+        auth.signIn(email: self.email, password: self.password) { (result, error) in
             if let error = error {
                 self.alert = Alert(title: Text("Could not log in"), message: Text("Login failed! Error: \(error.localizedDescription)"), dismissButton: .default(Text("Dismiss")))
                 self.showingAlert.toggle()
@@ -99,7 +102,7 @@ struct ContentView: View {
             return
         }
         
-        AuthenticationService.shared.signUp(email: self.email, password: self.password) { (result, error) in
+        auth.signUp(email: self.email, password: self.password) { (result, error) in
             if let error = error {
                 self.alert = Alert(title: Text("Could not sign up"), message: Text("Signup failed! Error: \(error.localizedDescription)"), dismissButton: .default(Text("OK")))
                 self.showingAlert.toggle()
