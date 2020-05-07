@@ -14,6 +14,8 @@ class TagOverlayViewModel: ObservableObject {
     @Published var photo: Photo
     @Published var tags: [Tag] = []
     @Published var url: URL = URL(string: "www.google.com")!
+    
+    var photoId: String?
 
     private var cancellables = Set<AnyCancellable>()
     
@@ -24,6 +26,10 @@ class TagOverlayViewModel: ObservableObject {
         $photo
             .map{ URL(string: $0.url)! }
             .assign(to: \.url, on: self)
+            .store(in: &cancellables)
+        
+        $photo.map{ $0.id }
+            .assign(to: \.photoId, on: self)
             .store(in: &cancellables)
 
         APIService.shared.$tags

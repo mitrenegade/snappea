@@ -30,12 +30,12 @@ class TagViewModel: ObservableObject {
             .store(in: &cancellables)
         
         $tag
-            .map{ $0.x }
+            .map{ $0.x0 }
             .assign(to: \.xOffset, on: self)
             .store(in: &cancellables)
 
         $tag
-            .map{ $0.y }
+            .map{ $0.y0 }
             .assign(to: \.yOffset, on: self)
             .store(in: &cancellables)
     }
