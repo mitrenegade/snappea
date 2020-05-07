@@ -12,11 +12,15 @@ struct TagOverlayView: View {
     @ObservedObject var viewModel: TagOverlayViewModel
     var imageWidth: CGFloat
     var imageHeight: CGFloat
+    
+    private var apiService: APIService
 
-    init(photo: Photo, tags: [Tag]) {
+    init(photo: Photo, tags: [Tag], apiService: APIService = APIService.shared) {
         viewModel = TagOverlayViewModel(photo: photo)
         imageWidth = UIScreen.main.bounds.width
         imageHeight = imageWidth // this can be changed
+        
+        self.apiService = apiService
     }
     
     var body: some View {
@@ -51,8 +55,9 @@ struct TagOverlayView: View {
         }
         print("Creating tag from (\(normalizedX0), \(normalizedY0)) to (\(String(describing: normalizedX1)), \(String(describing: normalizedY1)))")
         
-//        let tag = Tag(photoId: viewModel.photoId, x0: normalizedX0, y0: normalizedY0, x1: normalizedX1, y1: normalizedY1)
-        
+        guard let photoId = viewModel.photoId else { return }
+        let tag = Tag(photoId: photoId, x0: normalizedX0, y0: normalizedY0, x1: normalizedX1, y1: normalizedY1)
+        apiService.addTag(tag)
     }
 }
 
