@@ -10,17 +10,19 @@ import SwiftUI
 
 struct TagOverlayView: View {
     @ObservedObject var viewModel: TagOverlayViewModel
-    var screenWidth: CGFloat
+    var imageWidth: CGFloat
+    var imageHeight: CGFloat
 
     init(photo: Photo, tags: [Tag]) {
         viewModel = TagOverlayViewModel(photo: photo)
-        screenWidth = UIScreen.main.bounds.width
+        imageWidth = UIScreen.main.bounds.width
+        imageHeight = imageWidth // this can be changed
     }
     
     var body: some View {
         ZStack {
             AsyncImageView(url: $viewModel.url.wrappedValue,
-                           frame: CGSize(width: screenWidth, height: screenWidth),
+                           frame: CGSize(width: imageWidth, height: imageHeight),
                            placeholder: Text("Loading..."),
                            cache: TemporaryImageCache.shared)
                 .aspectRatio(contentMode: .fill)
@@ -30,10 +32,27 @@ struct TagOverlayView: View {
         }.gesture(
             DragGesture(minimumDistance: 0).onEnded{ value in
                 print("Tapped: \(value)")
-                print("Loaded image: \(TemporaryImageCache.shared[self.viewModel.url])")
-                print("Image frame: \(screenWidth)")
+                print("Image frame: \(self.imageWidth) \(self.imageHeight)")
+                self.createTag(start: value.startLocation, end: value.location)
             }
         )
+    }
+    
+    func createTag(start: CGPoint, end: CGPoint) {
+        // normalize the coordinates to a standard [-1:1] coordinate system
+        let normalizedX0: CGFloat = (2 * start.x - imageWidth) / imageWidth
+        let normalizedY0: CGFloat = -(2 * start.y - imageHeight) / imageHeight
+        var normalizedX1: CGFloat? = (2 * end.x - imageWidth) / imageWidth
+        var normalizedY1: CGFloat? = -(2 * end.y - imageHeight) / imageHeight
+        if abs((normalizedX1 ?? 0) - normalizedX0) < 0.01 ||
+            abs((normalizedY1 ?? 0) - normalizedY0) < 0.01{
+            normalizedX1 = nil
+            normalizedY1 = nil
+        }
+        print("Creating tag from (\(normalizedX0), \(normalizedY0)) to (\(String(describing: normalizedX1)), \(String(describing: normalizedY1)))")
+        
+//        let tag = Tag(photoId: viewModel.photoId, x0: normalizedX0, y0: normalizedY0, x1: normalizedX1, y1: normalizedY1)
+        
     }
 }
 
