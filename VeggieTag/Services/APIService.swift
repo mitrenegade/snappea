@@ -33,17 +33,41 @@ class APIService: NSObject, ObservableObject {
     func addPhoto(_ photo: Photo) {
         self.store(photo: photo)
         photos = Array(photoCache.values)
+
+        guard let userId = AuthenticationService.shared.user?.uid else { return }
+        do {
+            let result = try db.collection(userId).document("garden").collection("photos").addDocument(from: photo)
+            print("AddPhoto result \(result)")
+        } catch let error {
+            print("AddPhoto error \(error)")
+        }
     }
 
     func addPlant(_ plant: Plant) {
         self.store(plant: plant)
         plants = Array(plantCache.values)
+
+        guard let userId = AuthenticationService.shared.user?.uid else { return }
+        do {
+            let result = try db.collection(userId).document("garden").collection("plants").addDocument(from: plant)
+            print("AddPlant result \(result)")
+        } catch let error {
+            print("AddPlant error \(error)")
+        }
     }
 
     func addTag(_ tag: Tag) {
         self.store(tag: tag)
         tags = Array(tagCache.values)
         // TODO: also update plants and photos?
+
+        guard let userId = AuthenticationService.shared.user?.uid else { return }
+        do {
+            let result = try db.collection(userId).document("garden").collection("tags").addDocument(from: tag)
+            print("AddTag result \(result)")
+        } catch let error {
+            print("AddTag error \(error)")
+        }
     }
     
     func loadGarden() {
