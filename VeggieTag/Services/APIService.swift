@@ -29,6 +29,23 @@ class APIService: NSObject, ObservableObject {
         self.db = db
     }
     
+    // upload to db and save locally
+    func addPhoto(_ photo: Photo) {
+        self.store(photo: photo)
+        photos = Array(photoCache.values)
+    }
+
+    func addPlant(_ plant: Plant) {
+        self.store(plant: plant)
+        plants = Array(plantCache.values)
+    }
+
+    func addTag(_ tag: Tag) {
+        self.store(tag: tag)
+        tags = Array(tagCache.values)
+        // TODO: also update plants and photos?
+    }
+    
     func loadGarden() {
         guard let userId = AuthenticationService.shared.user?.uid else { return }
         db.collection(userId).document("garden").collection("photos").addSnapshotListener { (snapshot, error) in
@@ -66,7 +83,7 @@ class APIService: NSObject, ObservableObject {
         }
     }
     
-    func store(photo: Photo) {
+    private func store(photo: Photo) {
         readWriteQueue.sync {
             if let id = photo.id {
                 photoCache[id] = photo
@@ -74,7 +91,7 @@ class APIService: NSObject, ObservableObject {
         }
     }
 
-    func store(plant: Plant) {
+    private func store(plant: Plant) {
         readWriteQueue.sync {
             if let id = plant.id {
                 plantCache[id] = plant
@@ -82,15 +99,14 @@ class APIService: NSObject, ObservableObject {
         }
     }
 
-    func store(tag: Tag) {
+    private func store(tag: Tag) {
         readWriteQueue.sync {
             if let id = tag.id {
                 tagCache[id] = tag
             }
         }
     }
-    
-    
+
     // do this once
     func uploadTestData() {
 //        guard let userId = AuthenticationService.shared.user?.uid else { return }
