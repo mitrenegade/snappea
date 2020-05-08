@@ -11,7 +11,7 @@ import SwiftUI
 struct TagRow: View {
     var tag: Tag
     var body: some View {
-        Text(tag.plant?.name ?? "Not found")
+        Text(tag.plant?.name ?? tag.id ?? "Unknown plant")
     }
     
     init(tag: Tag) {

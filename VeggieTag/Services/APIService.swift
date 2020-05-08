@@ -83,7 +83,7 @@ class APIService: NSObject, ObservableObject {
             print("Loaded photos: \(self.photos)")
         }
         
-        db.collection("plants").addSnapshotListener { (snapshot, error) in
+        db.collection(userId).document("garden").collection("plants").addSnapshotListener { (snapshot, error) in
             self.plants = snapshot?.documents.compactMap{ document -> Plant? in
                 if let object = try? document.data(as: Plant.self) {
                     self.store(plant: object)
@@ -94,7 +94,7 @@ class APIService: NSObject, ObservableObject {
             print("Loaded plants: \(self.plants)")
         }
 
-        db.collection("tags").addSnapshotListener { (snapshot, error) in
+        db.collection(userId).document("garden").collection("tags").addSnapshotListener { (snapshot, error) in
             self.tags = snapshot?.documents.compactMap{ document -> Tag? in
                 if let object = try? document.data(as: Tag.self) {
                     self.store(tag: object)
