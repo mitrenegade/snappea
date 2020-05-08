@@ -32,7 +32,7 @@ class TagOverlayViewModel: ObservableObject {
             .assign(to: \.photoId, on: self)
             .store(in: &cancellables)
 
-        APIService.shared.$tags
+        $photo.map{ $0.tags }
             .assign(to: \.tags, on: self)
             .store(in: &cancellables)
     }

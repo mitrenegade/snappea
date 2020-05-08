@@ -21,7 +21,8 @@ class PhotoDetailViewModel: ObservableObject {
     init(photo: Photo) {
         self.photo = photo
         
-        APIService.shared.$tags
+        $photo
+            .map{ $0.tags }
             .assign(to: \.tags, on: self)
             .store(in: &cancellables)
     }
