@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TagsListView: View {
-    var viewModel: TagsListViewModel
+    @ObservedObject var viewModel: TagsListViewModel
     var body: some View {
         List(viewModel.dataSource) { tag in
             TagRow(tag: tag)
@@ -23,6 +23,6 @@ struct TagsListView: View {
 
 struct TagsListView_Previews: PreviewProvider {
     static var previews: some View {
-        TagsListView(tags: DataHelper.tagData)//photo: DataHelper.photoData[0])
+        TagsListView(tags: DataHelper.tagData)
     }
 }

@@ -24,4 +24,8 @@ struct Photo: Identifiable, Codable {
     var dateString: String {
         return date.description
     }
+    
+    var tags: [Tag] {
+        return APIService.shared.tags.filter{ return $0.photoId == self.id }
+    }
 }

@@ -15,7 +15,7 @@ struct TagOverlayView: View {
     
     private var apiService: APIService
 
-    init(photo: Photo, tags: [Tag], apiService: APIService = APIService.shared) {
+    init(photo: Photo, apiService: APIService = APIService.shared) {
         viewModel = TagOverlayViewModel(photo: photo)
         imageWidth = UIScreen.main.bounds.width
         imageHeight = imageWidth // this can be changed
@@ -58,12 +58,16 @@ struct TagOverlayView: View {
         guard let photoId = viewModel.photoId else { return }
         let tag = Tag(photoId: photoId, x0: normalizedX0, y0: normalizedY0, x1: normalizedX1, y1: normalizedY1)
         apiService.addTag(tag)
+        
+        // reload?
+        viewModel.tags = viewModel.photo.tags
+//        viewModel = TagOverlayViewModel(photo: viewModel.photo)
     }
 }
 
 struct TagOverlayView_Previews: PreviewProvider {
     static var previews: some View {
-        TagOverlayView(photo: DataHelper.photoData[0], tags: DataHelper.tagData)
+        TagOverlayView(photo: DataHelper.photoData[0])
     }
 }
 
