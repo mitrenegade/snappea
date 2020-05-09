@@ -38,37 +38,53 @@ class TagViewModel: ObservableObject {
             .assign(to: \.id, on: self)
             .store(in: &cancellables)
         
-//        let normalizedX0: CGFloat = (2 * start.x - imageWidth) / imageWidth
-//        let normalizedY0: CGFloat = -(2 * start.y - imageHeight) / imageHeight
-//        var normalizedX1: CGFloat? = (2 * end.x - imageWidth) / imageWidth
-//        var normalizedY1: CGFloat? = -(2 * end.y - imageHeight) / imageHeight
-        
+        // x0
         $tag
-            .map{ $0.x1 == nil
-                ? ($0.x0 * self.imageWidth + imageWidth) / 2 - self.defaultSize / 2
-                : ($0.x0 * self.imageWidth + imageWidth) / 2 }
+            .map{
+                let startX = self.coordToPixelPosition(point: $0.x0, maxWidth: self.imageWidth)
+                let tapOffset = $0.x1 == nil ? self.defaultSize / 2 : 0
+                return startX - tapOffset }
             .assign(to: \.x0, on: self)
             .store(in: &cancellables)
 
+        // y0
         $tag
-            .map{ $0.y1 == nil
-                ? ($0.y0 * self.imageHeight + imageHeight) / 2 - self.defaultSize / 2
-                : ($0.y0 * self.imageHeight + imageHeight) / 2 }
+            .map{
+                let startY = -1 * self.coordToPixelPosition(point: $0.y0, maxWidth: imageHeight)
+                let tapOffset = $0.y1 == nil ? self.defaultSize / -2 : 0
+                return startY - tapOffset }
             .assign(to: \.y0, on: self)
             .store(in: &cancellables)
 
+        // width
         $tag
-            .map{ $0.x1 == nil
-                ? self.defaultSize
-                : (($0.x1 ?? 0) * self.imageWidth + imageWidth) / 2 }
+            .map{
+                if $0.x1 == nil {
+                    return self.defaultSize
+                }
+                let endX = self.coordToPixelPosition(point: $0.x1 ?? 0, maxWidth: imageWidth)
+                return endX - self.x0
+        }
             .assign(to: \.width, on: self)
             .store(in: &cancellables)
 
+        // height
         $tag
-            .map{ $0.y1 == nil
-                ? self.defaultSize
-                : (($0.y1 ?? 0) * self.imageHeight + imageHeight) / 2 }
-            .assign(to: \.height, on: self)
+            .map{
+                if $0.y1 == nil {
+                    return self.defaultSize
+                }
+                let endY = -1 * self.coordToPixelPosition(point: $0.y1 ?? 0, maxWidth: imageHeight)
+                return endY - self.y0
+        }
+        .assign(to: \.height, on: self)
             .store(in: &cancellables)
+
+        print("Tag \(tag.x0) \(tag.y0) \(tag.x1) \(tag.y1) converted to rect \(self.x0) \(self.y0) width \(self.width) height \(self.height) Screen \(self.imageWidth) \(self.imageHeight)")
+    }
+    
+    private func coordToPixelPosition(point: CGFloat, maxWidth: CGFloat) -> CGFloat{
+        // converts [-1, 1] to [-maxWidth/2:maxWidth/2]
+        return point * maxWidth / 2
     }
 }

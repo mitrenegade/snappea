@@ -48,6 +48,7 @@
 		8EE11201244CF0F200693609 /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE11200244CF0F200693609 /* Plant.swift */; };
 		8EE11203244CF26B00693609 /* plantData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE11202244CF26B00693609 /* plantData.json */; };
 		8EF1FC6D24634A81005C4DE9 /* TappableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC6C24634A81005C4DE9 /* TappableView.swift */; };
+		8EF1FC6F24675AF2005C4DE9 /* TagViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC6E24675AF2005C4DE9 /* TagViewModelTests.swift */; };
 		E06ABB5C98C132ADBF7EC376 /* Pods_VeggieTagTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B136EE7D68908F76487BF9 /* Pods_VeggieTagTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +110,7 @@
 		8EE11200244CF0F200693609 /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		8EE11202244CF26B00693609 /* plantData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = plantData.json; sourceTree = "<group>"; };
 		8EF1FC6C24634A81005C4DE9 /* TappableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableView.swift; sourceTree = "<group>"; };
+		8EF1FC6E24675AF2005C4DE9 /* TagViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModelTests.swift; sourceTree = "<group>"; };
 		B4C6048CE12BF6253A5CF2EE /* Pods-VeggieTagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTagTests.debug.xcconfig"; path = "Target Support Files/Pods-VeggieTagTests/Pods-VeggieTagTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CD88D9A50BAC01FE694C004E /* Pods_VeggieTag.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VeggieTag.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2B136EE7D68908F76487BF9 /* Pods_VeggieTagTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VeggieTagTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -294,6 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				8E7C796C244BB24600F295AD /* VeggieTagTests.swift */,
+				8EF1FC6E24675AF2005C4DE9 /* TagViewModelTests.swift */,
 				8E7C796E244BB24600F295AD /* Info.plist */,
 			);
 			path = VeggieTagTests;
@@ -522,6 +525,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E7C796D244BB24600F295AD /* VeggieTagTests.swift in Sources */,
+				8EF1FC6F24675AF2005C4DE9 /* TagViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
