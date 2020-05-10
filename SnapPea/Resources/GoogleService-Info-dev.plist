@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>793627752936-cob85pe9kneebt8so97gucbfp0167iqq.apps.googleusercontent.com</string>
+	<string>793627752936-55ur34ii86ron8puq5f7hr9psqk71b8t.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.793627752936-cob85pe9kneebt8so97gucbfp0167iqq</string>
+	<string>com.googleusercontent.apps.793627752936-55ur34ii86ron8puq5f7hr9psqk71b8t</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCy8hFtY-sp8QEfeu3TCqMR930-5KXYtNg</string>
 	<key>GCM_SENDER_ID</key>
@@ -19,17 +19,17 @@
 	<key>STORAGE_BUCKET</key>
 	<string>veggietag-dev.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:793627752936:ios:dec00d1ac9b23b95588c5d</string>
+	<string>1:793627752936:ios:7da3b4a257be1eb1588c5d</string>
 	<key>DATABASE_URL</key>
 	<string>https://veggietag-dev.firebaseio.com</string>
 </dict>
