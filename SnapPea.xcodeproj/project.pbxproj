@@ -90,7 +90,7 @@
 		8E74F0A1244D39E000F5A507 /* photoData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = photoData.json; sourceTree = "<group>"; };
 		8E74F0A3244D5A3400F5A507 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		8E74F0A5244D5AE600F5A507 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
-		8E7C7952244BB24400F295AD /* VeggieTag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VeggieTag.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E7C7952244BB24400F295AD /* SnapPea.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnapPea.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7C7955244BB24400F295AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E7C7957244BB24400F295AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8E7C7959244BB24400F295AD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 		8E7C795E244BB24600F295AD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8E7C7961244BB24600F295AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E7C7963244BB24600F295AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8E7C7968244BB24600F295AD /* VeggieTagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VeggieTagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E7C7968244BB24600F295AD /* SnapPeaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapPeaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7C796C244BB24600F295AD /* VeggieTagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeggieTagTests.swift; sourceTree = "<group>"; };
 		8E7C796E244BB24600F295AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E87C5C7245EA1B100482678 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
@@ -266,8 +266,8 @@
 		8E7C7953244BB24400F295AD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8E7C7952244BB24400F295AD /* VeggieTag.app */,
-				8E7C7968244BB24600F295AD /* VeggieTagTests.xctest */,
+				8E7C7952244BB24400F295AD /* SnapPea.app */,
+				8E7C7968244BB24600F295AD /* SnapPeaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -325,9 +325,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8E7C7951244BB24400F295AD /* VeggieTag */ = {
+		8E7C7951244BB24400F295AD /* SnapPea */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8E7C7971244BB24600F295AD /* Build configuration list for PBXNativeTarget "VeggieTag" */;
+			buildConfigurationList = 8E7C7971244BB24600F295AD /* Build configuration list for PBXNativeTarget "SnapPea" */;
 			buildPhases = (
 				A2D0B4ED918788FFF0C509AC /* [CP] Check Pods Manifest.lock */,
 				8E7C794E244BB24400F295AD /* Sources */,
@@ -339,14 +339,14 @@
 			);
 			dependencies = (
 			);
-			name = VeggieTag;
+			name = SnapPea;
 			productName = VeggieTag;
-			productReference = 8E7C7952244BB24400F295AD /* VeggieTag.app */;
+			productReference = 8E7C7952244BB24400F295AD /* SnapPea.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8E7C7967244BB24600F295AD /* VeggieTagTests */ = {
+		8E7C7967244BB24600F295AD /* SnapPeaTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8E7C7974244BB24600F295AD /* Build configuration list for PBXNativeTarget "VeggieTagTests" */;
+			buildConfigurationList = 8E7C7974244BB24600F295AD /* Build configuration list for PBXNativeTarget "SnapPeaTests" */;
 			buildPhases = (
 				24DF00EBB2AD9D06F62197D7 /* [CP] Check Pods Manifest.lock */,
 				8E7C7964244BB24600F295AD /* Sources */,
@@ -358,9 +358,9 @@
 			dependencies = (
 				8E7C796A244BB24600F295AD /* PBXTargetDependency */,
 			);
-			name = VeggieTagTests;
+			name = SnapPeaTests;
 			productName = VeggieTagTests;
-			productReference = 8E7C7968244BB24600F295AD /* VeggieTagTests.xctest */;
+			productReference = 8E7C7968244BB24600F295AD /* SnapPeaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -382,7 +382,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8E7C794D244BB24400F295AD /* Build configuration list for PBXProject "VeggieTag" */;
+			buildConfigurationList = 8E7C794D244BB24400F295AD /* Build configuration list for PBXProject "SnapPea" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -395,8 +395,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8E7C7951244BB24400F295AD /* VeggieTag */,
-				8E7C7967244BB24600F295AD /* VeggieTagTests */,
+				8E7C7951244BB24400F295AD /* SnapPea */,
+				8E7C7967244BB24600F295AD /* SnapPeaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -546,7 +546,7 @@
 /* Begin PBXTargetDependency section */
 		8E7C796A244BB24600F295AD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8E7C7951244BB24400F295AD /* VeggieTag */;
+			target = 8E7C7951244BB24400F295AD /* SnapPea */;
 			targetProxy = 8E7C7969244BB24600F295AD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -738,7 +738,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VeggieTag.app/VeggieTag";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SnapPea.app/SnapPea";
 			};
 			name = Debug;
 		};
@@ -761,14 +761,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VeggieTag.app/VeggieTag";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SnapPea.app/SnapPea";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8E7C794D244BB24400F295AD /* Build configuration list for PBXProject "VeggieTag" */ = {
+		8E7C794D244BB24400F295AD /* Build configuration list for PBXProject "SnapPea" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8E7C796F244BB24600F295AD /* Debug */,
@@ -777,7 +777,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8E7C7971244BB24600F295AD /* Build configuration list for PBXNativeTarget "VeggieTag" */ = {
+		8E7C7971244BB24600F295AD /* Build configuration list for PBXNativeTarget "SnapPea" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8E7C7972244BB24600F295AD /* Debug */,
@@ -786,7 +786,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8E7C7974244BB24600F295AD /* Build configuration list for PBXNativeTarget "VeggieTagTests" */ = {
+		8E7C7974244BB24600F295AD /* Build configuration list for PBXNativeTarget "SnapPeaTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8E7C7975244BB24600F295AD /* Debug */,
