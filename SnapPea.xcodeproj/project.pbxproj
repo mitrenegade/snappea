@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		13245C7017F779A86E0835DB /* Pods_VeggieTag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD88D9A50BAC01FE694C004E /* Pods_VeggieTag.framework */; };
+		40050B03F724FCF78ADAE6DF /* Pods_SnapPeaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0B515F9702FDC2F70CDD14B /* Pods_SnapPeaTests.framework */; };
+		652946E4594B3B6218D6DE3D /* Pods_SnapPea.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C345AEE08B8284B6A8ED64F0 /* Pods_SnapPea.framework */; };
 		8E3ABF00244D6FE000FF378B /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABEFF244D6FE000FF378B /* ImageLoader.swift */; };
 		8E3ABF02244D704E00FF378B /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF01244D704E00FF378B /* AsyncImageView.swift */; };
 		8E3ABF05244D7D0A00FF378B /* PhotoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF04244D7D0A00FF378B /* PhotoRow.swift */; };
@@ -52,7 +53,6 @@
 		8EF1FC712467C4AF005C4DE9 /* CoordinateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC702467C4AF005C4DE9 /* CoordinateService.swift */; };
 		8EF1FC732467D1F4005C4DE9 /* CoordinateServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */; };
 		8EF1FC772467E69D005C4DE9 /* NormalizedCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC762467E69D005C4DE9 /* NormalizedCoordinate.swift */; };
-		E06ABB5C98C132ADBF7EC376 /* Pods_VeggieTagTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B136EE7D68908F76487BF9 /* Pods_VeggieTagTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +67,8 @@
 
 /* Begin PBXFileReference section */
 		1D4AAB6E678B3480FD24F29D /* Pods-VeggieTagTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTagTests.release.xcconfig"; path = "Target Support Files/Pods-VeggieTagTests/Pods-VeggieTagTests.release.xcconfig"; sourceTree = "<group>"; };
+		28A97490184D5ADF4D48D797 /* Pods-SnapPeaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapPeaTests.release.xcconfig"; path = "Target Support Files/Pods-SnapPeaTests/Pods-SnapPeaTests.release.xcconfig"; sourceTree = "<group>"; };
+		3F76BDF62650C787DC0E1295 /* Pods-SnapPeaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapPeaTests.debug.xcconfig"; path = "Target Support Files/Pods-SnapPeaTests/Pods-SnapPeaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7E69D289800C2D2BA2804ECD /* Pods-VeggieTag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTag.release.xcconfig"; path = "Target Support Files/Pods-VeggieTag/Pods-VeggieTag.release.xcconfig"; sourceTree = "<group>"; };
 		8613A4ED0662681AE7A7CC2E /* Pods-VeggieTag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTag.debug.xcconfig"; path = "Target Support Files/Pods-VeggieTag/Pods-VeggieTag.debug.xcconfig"; sourceTree = "<group>"; };
 		8E3ABEFF244D6FE000FF378B /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
@@ -117,9 +119,11 @@
 		8EF1FC702467C4AF005C4DE9 /* CoordinateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateService.swift; sourceTree = "<group>"; };
 		8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateServiceTests.swift; sourceTree = "<group>"; };
 		8EF1FC762467E69D005C4DE9 /* NormalizedCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalizedCoordinate.swift; sourceTree = "<group>"; };
+		939F718EB150763927B63820 /* Pods-SnapPea.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapPea.release.xcconfig"; path = "Target Support Files/Pods-SnapPea/Pods-SnapPea.release.xcconfig"; sourceTree = "<group>"; };
+		9B5A26874D5CE1C43BC9C171 /* Pods-SnapPea.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapPea.debug.xcconfig"; path = "Target Support Files/Pods-SnapPea/Pods-SnapPea.debug.xcconfig"; sourceTree = "<group>"; };
+		A0B515F9702FDC2F70CDD14B /* Pods_SnapPeaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapPeaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4C6048CE12BF6253A5CF2EE /* Pods-VeggieTagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTagTests.debug.xcconfig"; path = "Target Support Files/Pods-VeggieTagTests/Pods-VeggieTagTests.debug.xcconfig"; sourceTree = "<group>"; };
-		CD88D9A50BAC01FE694C004E /* Pods_VeggieTag.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VeggieTag.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2B136EE7D68908F76487BF9 /* Pods_VeggieTagTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VeggieTagTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C345AEE08B8284B6A8ED64F0 /* Pods_SnapPea.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapPea.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13245C7017F779A86E0835DB /* Pods_VeggieTag.framework in Frameworks */,
+				652946E4594B3B6218D6DE3D /* Pods_SnapPea.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E06ABB5C98C132ADBF7EC376 /* Pods_VeggieTagTests.framework in Frameworks */,
+				40050B03F724FCF78ADAE6DF /* Pods_SnapPeaTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,8 +149,8 @@
 		0B1901397A02D44FCF8606A5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CD88D9A50BAC01FE694C004E /* Pods_VeggieTag.framework */,
-				D2B136EE7D68908F76487BF9 /* Pods_VeggieTagTests.framework */,
+				C345AEE08B8284B6A8ED64F0 /* Pods_SnapPea.framework */,
+				A0B515F9702FDC2F70CDD14B /* Pods_SnapPeaTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -318,6 +322,10 @@
 				7E69D289800C2D2BA2804ECD /* Pods-VeggieTag.release.xcconfig */,
 				B4C6048CE12BF6253A5CF2EE /* Pods-VeggieTagTests.debug.xcconfig */,
 				1D4AAB6E678B3480FD24F29D /* Pods-VeggieTagTests.release.xcconfig */,
+				9B5A26874D5CE1C43BC9C171 /* Pods-SnapPea.debug.xcconfig */,
+				939F718EB150763927B63820 /* Pods-SnapPea.release.xcconfig */,
+				3F76BDF62650C787DC0E1295 /* Pods-SnapPeaTests.debug.xcconfig */,
+				28A97490184D5ADF4D48D797 /* Pods-SnapPeaTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -442,7 +450,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-VeggieTagTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SnapPeaTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -464,7 +472,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-VeggieTag-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SnapPea-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -477,15 +485,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VeggieTag/Pods-VeggieTag-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SnapPea/Pods-SnapPea-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VeggieTag/Pods-VeggieTag-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SnapPea/Pods-SnapPea-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VeggieTag/Pods-VeggieTag-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SnapPea/Pods-SnapPea-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -679,7 +687,7 @@
 		};
 		8E7C7972244BB24600F295AD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8613A4ED0662681AE7A7CC2E /* Pods-VeggieTag.debug.xcconfig */;
+			baseConfigurationReference = 9B5A26874D5CE1C43BC9C171 /* Pods-SnapPea.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -700,7 +708,7 @@
 		};
 		8E7C7973244BB24600F295AD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7E69D289800C2D2BA2804ECD /* Pods-VeggieTag.release.xcconfig */;
+			baseConfigurationReference = 939F718EB150763927B63820 /* Pods-SnapPea.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -721,7 +729,7 @@
 		};
 		8E7C7975244BB24600F295AD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B4C6048CE12BF6253A5CF2EE /* Pods-VeggieTagTests.debug.xcconfig */;
+			baseConfigurationReference = 3F76BDF62650C787DC0E1295 /* Pods-SnapPeaTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -744,7 +752,7 @@
 		};
 		8E7C7976244BB24600F295AD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D4AAB6E678B3480FD24F29D /* Pods-VeggieTagTests.release.xcconfig */;
+			baseConfigurationReference = 28A97490184D5ADF4D48D797 /* Pods-SnapPeaTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
