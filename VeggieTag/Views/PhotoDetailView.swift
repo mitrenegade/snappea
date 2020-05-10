@@ -24,9 +24,7 @@ struct PhotoDetailView: View {
     }
     
     var imageSection: some View {
-        TagOverlayView(photo: $photoDetailViewModel.photo.wrappedValue,
-                       tags: $photoDetailViewModel.tags.wrappedValue)
-        // TODO: TagOverlayView doesn't scale to fit
+        TagOverlayView(photo: $photoDetailViewModel.photo.wrappedValue)
     }
     
     var listSection: some View {

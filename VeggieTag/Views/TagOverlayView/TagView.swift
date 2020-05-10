@@ -13,16 +13,17 @@ struct TagView: View, Identifiable {
     var id: String?
     
     init(tag: Tag) {
-        self.viewModel = TagViewModel(tag: tag)
+        let screenWidth = UIScreen.main.bounds.width
+        self.viewModel = TagViewModel(tag: tag, imageWidth: screenWidth, imageHeight: screenWidth)
         id = tag.id
     }
     
     var body: some View {
         Rectangle()
+            .size(width: $viewModel.width.wrappedValue,
+                   height: $viewModel.height.wrappedValue)
             .stroke(viewModel.color, lineWidth: 5)
-            .frame(width: $viewModel.size.wrappedValue,
-                   height: $viewModel.size.wrappedValue)
-            .offset(x: $viewModel.xOffset.wrappedValue,
-                    y: $viewModel.yOffset.wrappedValue)
+            .offset(x: $viewModel.x0.wrappedValue,
+                    y: $viewModel.y0.wrappedValue)
     }
 }

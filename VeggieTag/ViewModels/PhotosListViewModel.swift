@@ -9,7 +9,7 @@
 import Combine
 import Foundation
 
-class PhotosListViewModel: ObservableObject {    // datasource
+class PhotosListViewModel: ObservableObject {
     @Published var dataSource: [Photo] = []
     private var cancellables = Set<AnyCancellable>()
 

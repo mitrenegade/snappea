@@ -18,7 +18,10 @@ struct PhotoRow: View {
     
     var body: some View {
         HStack {
-            AsyncImageView(url: $photoRowViewModel.url.wrappedValue, placeholder: Text("Loading..."), cache: TemporaryImageCache.shared)
+            AsyncImageView(url: $photoRowViewModel.url.wrappedValue,
+                           frame: CGSize(width: 80, height: 80),
+                           placeholder: Text("Loading..."),
+                           cache: TemporaryImageCache.shared)
                 .aspectRatio(contentMode: .fill)
             Text($photoRowViewModel.textString.wrappedValue)
         }
