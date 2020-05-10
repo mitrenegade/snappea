@@ -260,7 +260,7 @@
 			children = (
 				8E74F09B244D29EC00F5A507 /* README.md */,
 				8E7C7954244BB24400F295AD /* VeggieTag */,
-				8E7C796B244BB24600F295AD /* VeggieTagTests */,
+				8E7C796B244BB24600F295AD /* SnapPeaTests */,
 				8E7C7953244BB24400F295AD /* Products */,
 				F15071D35029D35DBA11F786 /* Pods */,
 				0B1901397A02D44FCF8606A5 /* Frameworks */,
@@ -304,7 +304,7 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		8E7C796B244BB24600F295AD /* VeggieTagTests */ = {
+		8E7C796B244BB24600F295AD /* SnapPeaTests */ = {
 			isa = PBXGroup;
 			children = (
 				8E7C796C244BB24600F295AD /* VeggieTagTests.swift */,
@@ -312,7 +312,7 @@
 				8E7C796E244BB24600F295AD /* Info.plist */,
 				8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */,
 			);
-			path = VeggieTagTests;
+			path = SnapPeaTests;
 			sourceTree = "<group>";
 		};
 		F15071D35029D35DBA11F786 /* Pods */ = {
