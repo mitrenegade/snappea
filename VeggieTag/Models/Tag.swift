@@ -13,10 +13,8 @@ struct Tag: Identifiable, Codable {
     @DocumentID var id: String? = nil
     var photoId: String = ""
     var plantId: String = ""
-    var x0: CGFloat
-    var y0: CGFloat
-    var x1: CGFloat? = nil
-    var y1: CGFloat? = nil
+    var start: CGPoint
+    var end: CGPoint? = nil
     
     var plant: Plant? {
         return APIService.shared.plants.first { $0.id == plantId }
@@ -28,9 +26,9 @@ struct Tag: Identifiable, Codable {
     
     init(photoId: String, x0: CGFloat, y0: CGFloat, x1: CGFloat? = nil, y1: CGFloat? = nil) {
         self.photoId = photoId
-        self.x0 = x0
-        self.y0 = y0
-        self.x1 = x1
-        self.y1 = y1
+        self.start = CGPoint(x: x0, y: y0)
+        if let x1 = x1, let y1 = y1 {
+            self.end = CGPoint(x: x1, y: y1)
+        }
     }
 }

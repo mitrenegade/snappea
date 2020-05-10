@@ -49,6 +49,8 @@
 		8EE11203244CF26B00693609 /* plantData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE11202244CF26B00693609 /* plantData.json */; };
 		8EF1FC6D24634A81005C4DE9 /* TappableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC6C24634A81005C4DE9 /* TappableView.swift */; };
 		8EF1FC6F24675AF2005C4DE9 /* TagViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC6E24675AF2005C4DE9 /* TagViewModelTests.swift */; };
+		8EF1FC712467C4AF005C4DE9 /* CoordinateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC702467C4AF005C4DE9 /* CoordinateService.swift */; };
+		8EF1FC732467D1F4005C4DE9 /* CoordinateServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */; };
 		E06ABB5C98C132ADBF7EC376 /* Pods_VeggieTagTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B136EE7D68908F76487BF9 /* Pods_VeggieTagTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +113,8 @@
 		8EE11202244CF26B00693609 /* plantData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = plantData.json; sourceTree = "<group>"; };
 		8EF1FC6C24634A81005C4DE9 /* TappableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableView.swift; sourceTree = "<group>"; };
 		8EF1FC6E24675AF2005C4DE9 /* TagViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModelTests.swift; sourceTree = "<group>"; };
+		8EF1FC702467C4AF005C4DE9 /* CoordinateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateService.swift; sourceTree = "<group>"; };
+		8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateServiceTests.swift; sourceTree = "<group>"; };
 		B4C6048CE12BF6253A5CF2EE /* Pods-VeggieTagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTagTests.debug.xcconfig"; path = "Target Support Files/Pods-VeggieTagTests/Pods-VeggieTagTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CD88D9A50BAC01FE694C004E /* Pods_VeggieTag.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VeggieTag.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2B136EE7D68908F76487BF9 /* Pods_VeggieTagTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VeggieTagTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,6 +159,7 @@
 				8EC86BF82454E81D00AB2F92 /* ImageStore.swift */,
 				8E3ABEFF244D6FE000FF378B /* ImageLoader.swift */,
 				8EC86C002456234700AB2F92 /* ImageCache.swift */,
+				8EF1FC702467C4AF005C4DE9 /* CoordinateService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -298,6 +303,7 @@
 				8E7C796C244BB24600F295AD /* VeggieTagTests.swift */,
 				8EF1FC6E24675AF2005C4DE9 /* TagViewModelTests.swift */,
 				8E7C796E244BB24600F295AD /* Info.plist */,
+				8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */,
 			);
 			path = VeggieTagTests;
 			sourceTree = "<group>";
@@ -497,6 +503,7 @@
 				8EC10BFF245F2EC7004D92EC /* User.swift in Sources */,
 				8E74F09A244D241000F5A507 /* Coordinator.swift in Sources */,
 				8E74F08A244D13F000F5A507 /* DataHelper.swift in Sources */,
+				8EF1FC712467C4AF005C4DE9 /* CoordinateService.swift in Sources */,
 				8E3ABF11244EACA200FF378B /* PhotoDetailViewModel.swift in Sources */,
 				8E74F0A6244D5AE600F5A507 /* Photo.swift in Sources */,
 				8EC86C012456234700AB2F92 /* ImageCache.swift in Sources */,
@@ -524,6 +531,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EF1FC732467D1F4005C4DE9 /* CoordinateServiceTests.swift in Sources */,
 				8E7C796D244BB24600F295AD /* VeggieTagTests.swift in Sources */,
 				8EF1FC6F24675AF2005C4DE9 /* TagViewModelTests.swift in Sources */,
 			);
