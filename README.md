@@ -1,4 +1,4 @@
-# VeggieTag
+# SnapPea
 
 ## Versions
 
