@@ -63,14 +63,9 @@ class TagViewModel: ObservableObject {
     }
     
     var color: Color {
-        if tag.id == "jpyGfohCIRD3bIzWaRV5" {
-            return .red
-        } else if tag.id == "oAB6udZf3IdDBDFfpaIG" {
-            return .green
-        } else {
-            return .blue
-        }
+        return .red
     }
+
     var isTap: Bool {
         return tag.end == nil
     }
