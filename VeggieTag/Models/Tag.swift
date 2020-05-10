@@ -14,7 +14,7 @@ struct Tag: Identifiable, Codable {
     var photoId: String = ""
     var plantId: String = ""
     var start: NormalizedCoordinate
-    var end: NormalizedCoordinate? = nil
+    var end: NormalizedCoordinate
     
     var plant: Plant? {
         return APIService.shared.plants.first { $0.id == plantId }

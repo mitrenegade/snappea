@@ -39,25 +39,25 @@ class TagViewModel: ObservableObject {
         
         // x0
         $tag
-            .map{ $0.start.x }
+            .map{ CGFloat($0.start.x) }
             .assign(to: \.x0, on: self)
             .store(in: &cancellables)
 
         // y0
         $tag
-            .map{ $0.start.y }
+            .map{ CGFloat($0.start.y) }
             .assign(to: \.y0, on: self)
             .store(in: &cancellables)
 
         // width
         $tag
-            .map{ $0.end?.x ?? 0 }
+            .map{ CGFloat($0.end.x - $0.start.x) }
             .assign(to: \.width, on: self)
             .store(in: &cancellables)
 
         // height
         $tag
-            .map{ $0.end?.y ?? 0 }
+            .map{ CGFloat($0.end.y - $0.start.y) }
             .assign(to: \.height, on: self)
             .store(in: &cancellables)
     }
