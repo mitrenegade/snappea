@@ -15,8 +15,7 @@ class TagViewModel: ObservableObject {
     
     var id: String?
     
-    var imageWidth: CGFloat = 0
-    var imageHeight: CGFloat = 0
+    var imageSize: CGSize
     
     @Published var x0: CGFloat = 0
     @Published var y0: CGFloat = 0
@@ -29,8 +28,7 @@ class TagViewModel: ObservableObject {
 
     init(tag: Tag, imageWidth: CGFloat, imageHeight: CGFloat) {
         self.tag = tag
-        self.imageWidth = imageWidth
-        self.imageHeight = imageHeight
+        self.imageSize = CGSize(width: imageWidth, height: imageHeight)
         
         $tag
             .map{ $0.id }
@@ -39,25 +37,25 @@ class TagViewModel: ObservableObject {
         
         // x0
         $tag
-            .map{ CGFloat($0.start.x) }
+            .map{ CoordinateService.coordToPixel(imageSize: self.imageSize, coordinate:$0.start).x }
             .assign(to: \.x0, on: self)
             .store(in: &cancellables)
 
         // y0
         $tag
-            .map{ CGFloat($0.start.y) }
+            .map{ CoordinateService.coordToPixel(imageSize: self.imageSize, coordinate:$0.start).y }
             .assign(to: \.y0, on: self)
             .store(in: &cancellables)
 
         // width
         $tag
-            .map{ CGFloat($0.end.x - $0.start.x) }
+            .map{ CoordinateService.coordToPixel(imageSize: self.imageSize, coordinate:$0.end).x - self.x0 }
             .assign(to: \.width, on: self)
             .store(in: &cancellables)
 
         // height
         $tag
-            .map{ CGFloat($0.end.y - $0.start.y) }
+            .map{ CoordinateService.coordToPixel(imageSize: self.imageSize, coordinate:$0.end).y - self.y0 }
             .assign(to: \.height, on: self)
             .store(in: &cancellables)
     }
