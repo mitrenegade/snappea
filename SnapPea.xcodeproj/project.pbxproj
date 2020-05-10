@@ -259,7 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				8E74F09B244D29EC00F5A507 /* README.md */,
-				8E7C7954244BB24400F295AD /* VeggieTag */,
+				8E7C7954244BB24400F295AD /* SnapPea */,
 				8E7C796B244BB24600F295AD /* SnapPeaTests */,
 				8E7C7953244BB24400F295AD /* Products */,
 				F15071D35029D35DBA11F786 /* Pods */,
@@ -276,7 +276,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8E7C7954244BB24400F295AD /* VeggieTag */ = {
+		8E7C7954244BB24400F295AD /* SnapPea */ = {
 			isa = PBXGroup;
 			children = (
 				8E74F091244D1B7000F5A507 /* Models */,
@@ -293,7 +293,7 @@
 				8E7C7963244BB24600F295AD /* Info.plist */,
 				8E7C795D244BB24600F295AD /* Preview Content */,
 			);
-			path = VeggieTag;
+			path = SnapPea;
 			sourceTree = "<group>";
 		};
 		8E7C795D244BB24600F295AD /* Preview Content */ = {
@@ -691,15 +691,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"VeggieTag/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"SnapPea/Preview Content\"";
 				DEVELOPMENT_TEAM = H799H8B8DD;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = VeggieTag/Info.plist;
+				INFOPLIST_FILE = SnapPea/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.renderapps.veggietag.VeggieTag;
+				PRODUCT_BUNDLE_IDENTIFIER = io.renderapps.SnapPea;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -712,15 +712,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"VeggieTag/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"SnapPea/Preview Content\"";
 				DEVELOPMENT_TEAM = H799H8B8DD;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = VeggieTag/Info.plist;
+				INFOPLIST_FILE = SnapPea/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.renderapps.veggietag.VeggieTag;
+				PRODUCT_BUNDLE_IDENTIFIER = io.renderapps.SnapPea;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -735,14 +735,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H799H8B8DD;
-				INFOPLIST_FILE = VeggieTagTests/Info.plist;
+				INFOPLIST_FILE = SnapPeaTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.renderapps.veggietag.VeggieTagTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.renderapps.snappea.SnapPeaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -758,14 +758,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H799H8B8DD;
-				INFOPLIST_FILE = VeggieTagTests/Info.plist;
+				INFOPLIST_FILE = SnapPeaTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.renderapps.veggietag.VeggieTagTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.renderapps.snappea.SnapPeaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

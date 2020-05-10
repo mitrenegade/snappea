@@ -5,7 +5,7 @@ target 'SnapPea' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for VeggieTag
+  # Pods for SnapPea
   #pod 'RACameraHelper', :git => 'https://github.com/bobbyren/RACameraHelper', :tag => '0.1.7'
   pod 'Firebase'
   pod 'Firebase/Database'

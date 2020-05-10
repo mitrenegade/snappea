@@ -1,6 +1,6 @@
 //
 //  TagOverlayViewModel.swift
-//  VeggieTag
+//  SnapPea
 //
 //  Created by Bobby Ren on 4/25/20.
 //  Copyright © 2020 RenderApps LLC. All rights reserved.

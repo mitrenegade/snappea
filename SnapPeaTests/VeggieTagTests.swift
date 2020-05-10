@@ -1,15 +1,15 @@
 //
-//  VeggieTagTests.swift
-//  VeggieTagTests
+//  SnapPeaTests.swift
+//  SnapPeaTests
 //
 //  Created by Bobby Ren on 4/18/20.
 //  Copyright © 2020 RenderApps LLC. All rights reserved.
 //
 
 import XCTest
-@testable import VeggieTag
+@testable import SnapPea
 
-class VeggieTagTests: XCTestCase {
+class SnapPeaTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
