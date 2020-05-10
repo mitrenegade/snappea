@@ -20,9 +20,9 @@ struct TagView: View, Identifiable {
     
     var body: some View {
         Rectangle()
-            .stroke(viewModel.color, lineWidth: 5)
-            .frame(width: $viewModel.width.wrappedValue,
+            .size(width: $viewModel.width.wrappedValue,
                    height: $viewModel.height.wrappedValue)
+            .stroke(viewModel.color, lineWidth: 5)
             .offset(x: $viewModel.x0.wrappedValue,
                     y: $viewModel.y0.wrappedValue)
     }
