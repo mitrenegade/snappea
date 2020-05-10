@@ -21,19 +21,19 @@ extension CGPoint {
 }
 
 struct CoordinateService {
-    static func pixelToCoord(imageSize: CGSize, point: CGPoint) -> (Double, Double) {
+    static func pixelToCoord(imageSize: CGSize, point: CGPoint) -> NormalizedCoordinate {
         let x = point.x / imageSize.width
         let y = point.y / imageSize.height
-        return (Double(x), Double(y))
+        return NormalizedCoordinate(x: Double(x), y: Double(y))
     }
 
-    static func coordToPixel(imageSize: CGSize, coordinate: (Double, Double)) -> CGPoint {
-        let x = CGFloat(coordinate.0) * imageSize.width
-        let y = CGFloat(coordinate.1) * imageSize.height
+    static func coordToPixel(imageSize: CGSize, coordinate: NormalizedCoordinate) -> CGPoint {
+        let x = CGFloat(coordinate.x) * imageSize.width
+        let y = CGFloat(coordinate.y) * imageSize.height
         return CGPoint(x: x, y: y)
     }
 
-    static func getValidCoordinatesFromPixels(imageSize: CGSize, start: CGPoint, end: CGPoint?) -> ((Double, Double), (Double, Double)) {
+    static func getValidCoordinatesFromPixels(imageSize: CGSize, start: CGPoint, end: CGPoint?) -> (NormalizedCoordinate, NormalizedCoordinate) {
         let endPoint = end ?? start
         var leftTop = CGPoint(x: min(start.x, endPoint.x), y: min(start.y, endPoint.y))
         var rightBottom = CGPoint(x: max(start.x, endPoint.x), y: max(start.y, endPoint.y))

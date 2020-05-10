@@ -65,7 +65,6 @@ class TagViewModel: ObservableObject {
     var color: Color {
         return .red
     }
-
     var isTap: Bool {
         return tag.end == nil
     }

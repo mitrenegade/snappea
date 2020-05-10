@@ -10,15 +10,13 @@ import SwiftUI
 
 struct TagOverlayView: View {
     @ObservedObject var viewModel: TagOverlayViewModel
-    var imageWidth: CGFloat
-    var imageHeight: CGFloat
+    var imageSize: CGSize
     
     private var apiService: APIService
 
     init(photo: Photo, apiService: APIService = APIService.shared) {
         viewModel = TagOverlayViewModel(photo: photo)
-        imageWidth = UIScreen.main.bounds.width
-        imageHeight = imageWidth // this can be changed
+        imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
         
         self.apiService = apiService
     }
@@ -26,7 +24,7 @@ struct TagOverlayView: View {
     var body: some View {
         ZStack {
             AsyncImageView(url: $viewModel.url.wrappedValue,
-                           frame: CGSize(width: imageWidth, height: imageHeight),
+                           frame: imageSize,
                            placeholder: Text("Loading..."),
                            cache: TemporaryImageCache.shared)
                 .aspectRatio(contentMode: .fill)
@@ -36,27 +34,17 @@ struct TagOverlayView: View {
         }.gesture(
             DragGesture(minimumDistance: 0).onEnded{ value in
                 print("Tapped: \(value)")
-                print("Image frame: \(self.imageWidth) \(self.imageHeight)")
+                print("Image frame: \(self.imageSize)")
                 self.createTag(start: value.startLocation, end: value.location)
             }
         )
     }
     
     func createTag(start: CGPoint, end: CGPoint) {
-        // normalize the coordinates to a standard [-1:1] coordinate system
-        let normalizedX0: CGFloat = (2 * start.x - imageWidth) / imageWidth
-        let normalizedY0: CGFloat = -(2 * start.y - imageHeight) / imageHeight
-        var normalizedX1: CGFloat? = (2 * end.x - imageWidth) / imageWidth
-        var normalizedY1: CGFloat? = -(2 * end.y - imageHeight) / imageHeight
-        if abs((normalizedX1 ?? 0) - normalizedX0) < 0.01 ||
-            abs((normalizedY1 ?? 0) - normalizedY0) < 0.01{
-            normalizedX1 = nil
-            normalizedY1 = nil
-        }
-        print("Creating tag from (\(normalizedX0), \(normalizedY0)) to (\(String(describing: normalizedX1)), \(String(describing: normalizedY1)))")
-        
         guard let photoId = viewModel.photoId else { return }
-        let tag = Tag(photoId: photoId, x0: normalizedX0, y0: normalizedY0, x1: normalizedX1, y1: normalizedY1)
+        let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: self.imageSize, start: start, end: end)
+        
+        let tag = Tag(photoId: photoId, start: startCoord, end: endCoord)
         apiService.addTag(tag)
         
         // reload?
