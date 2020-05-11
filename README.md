@@ -64,3 +64,10 @@ https://github.com/Balaviknesh/iOS-SwiftUI-Firebase-Login-Example/tree/master/Fi
 `swiftui location of tap gesture`
 Two answers in:
 `https://stackoverflow.com/questions/56513942/how-to-detect-a-tap-gesture-location-in-swiftui`
+
+`swiftui body with if`
+https://jasonzurita.com/swiftui-if-statement/
+`swiftui return nil view`
+https://stackoverflow.com/questions/56517610/conditionally-use-view-in-swiftui
+`swiftui return empty view`
+https://stackoverflow.com/questions/60988527/displaying-an-empty-view-in-swiftui

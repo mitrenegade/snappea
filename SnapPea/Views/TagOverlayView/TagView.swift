@@ -17,7 +17,7 @@ struct TagView: View, Identifiable {
         self.viewModel = TagViewModel(tag: tag, imageWidth: screenWidth, imageHeight: screenWidth)
         id = tag.id
     }
-    
+
     var body: some View {
         Rectangle()
             .size(width: $viewModel.width.wrappedValue,
