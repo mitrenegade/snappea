@@ -25,6 +25,7 @@ struct Tag: Identifiable, Codable {
     }
     
     init(photoId: String, start: NormalizedCoordinate, end: NormalizedCoordinate) {
+        self.id = UUID().uuidString
         self.photoId = photoId
         self.start = start
         self.end = end

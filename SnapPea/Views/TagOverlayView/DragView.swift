@@ -8,9 +8,12 @@
 
 import SwiftUI
 
-struct DragView: View {
+struct DragView: View, Identifiable {
+    var id: String
+    
     @ObservedObject var viewModel: DragViewModel
     init(imageSize: CGSize, start: CGPoint, end: CGPoint) {
+        self.id = UUID().uuidString
         self.viewModel = DragViewModel(imageSize: imageSize,
                                        start: start,
                                        end: end)

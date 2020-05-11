@@ -32,8 +32,9 @@ class TagOverlayViewModel: ObservableObject {
             .assign(to: \.photoId, on: self)
             .store(in: &cancellables)
 
-        $photo.map{ $0.tags }
-            .assign(to: \.tags, on: self)
-            .store(in: &cancellables)
+        self.tags = photo.tags
+//        $photo.map{ $0.tags }
+//            .assign(to: \.tags, on: self)
+//            .store(in: &cancellables)
     }
 }
