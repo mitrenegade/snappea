@@ -16,9 +16,6 @@ struct TagOverlayView: View {
     @State var draggingStart: CGPoint = CGPoint.zero
     @State var draggingEnd: CGPoint = CGPoint.zero
 
-    // bug that prevents viewModel from updating new tagViews after first click
-    @State var newTagViews: [TagView] = []
-    
     private var apiService: APIService
 
     init(photo: Photo, apiService: APIService = APIService.shared) {
@@ -38,9 +35,6 @@ struct TagOverlayView: View {
             drawBoxView
             ForEach(viewModel.tags) {tag in
                 TagView(tag: tag)
-            }
-            ForEach(newTagViews) { tagView in
-                tagView
             }
         }.gesture(
             DragGesture(minimumDistance: 0)
@@ -70,9 +64,7 @@ struct TagOverlayView: View {
         let tag = Tag(photoId: photoId, start: startCoord, end: endCoord)
         apiService.addTag(tag)
         
-//        viewModel.tags.append(tag) // force reload FIXME this doesn't refresh after first refresh
-        self.newTagViews.append(TagView(tag: tag))
-//        self.newTagViews.append(DragView(imageSize: imageSize, start: start, end: end))
+        viewModel.tags.append(tag) // force reload FIXME this doesn't refresh after first refresh
     }
     
     var drawBoxView: some View {
