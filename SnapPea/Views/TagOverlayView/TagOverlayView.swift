@@ -50,7 +50,6 @@ struct TagOverlayView: View {
                     self.draggingEnd = CGPoint.zero
 
                     print("Tapped: \(value)")
-                    print("Image frame: \(self.imageSize)")
                     self.createTag(start: value.startLocation, end: value.location)
                 }
         )
@@ -59,19 +58,21 @@ struct TagOverlayView: View {
     func createTag(start: CGPoint, end: CGPoint) {
         guard let photoId = viewModel.photoId else { return }
         let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: self.imageSize, start: start, end: end)
-        
+
+        print("createTag startCoord: \(startCoord) endCoord \(endCoord)")
+
         let tag = Tag(photoId: photoId, start: startCoord, end: endCoord)
         apiService.addTag(tag)
         
+        print("Tags before \(viewModel.tags.count)")
         viewModel.tags.append(tag) // force reload
+        print("Tags after \(viewModel.tags.count)")
     }
     
     var drawBoxView: some View {
         Group {
             if dragging {
-                TagView(tag: Tag(photoId: "",
-                                 start: CoordinateService.pixelToCoord(imageSize: self.imageSize, point: draggingStart),
-                                 end: CoordinateService.pixelToCoord(imageSize: self.imageSize, point: draggingEnd)))
+                DragView(imageSize: imageSize, start: draggingStart, end: draggingEnd)
             } else {
                 EmptyView()
             }
