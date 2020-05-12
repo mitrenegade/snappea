@@ -17,10 +17,15 @@ struct TagOverlayView: View {
     @State var draggingEnd: CGPoint = CGPoint.zero
 
     private var apiService: APIService
+    var onAddTag: ((Photo)->Void)?
 
-    init(photo: Photo, apiService: APIService = APIService.shared) {
+    init(photo: Photo,
+         apiService: APIService = APIService.shared,
+         onAddTag:((Photo)->Void)? = nil) {
+
         viewModel = TagOverlayViewModel(photo: photo)
         imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+        self.onAddTag = onAddTag
         
         self.apiService = apiService
     }
@@ -64,7 +69,8 @@ struct TagOverlayView: View {
         let tag = Tag(photoId: photoId, start: startCoord, end: endCoord)
         apiService.addTag(tag)
         
-        viewModel.tags.append(tag) // force reload FIXME this doesn't fix TagsListViewModel
+        viewModel.tags.append(tag)
+        onAddTag?(viewModel.photo)
     }
     
     var drawBoxView: some View {

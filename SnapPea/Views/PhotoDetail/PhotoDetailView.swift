@@ -24,7 +24,9 @@ struct PhotoDetailView: View {
     }
     
     var imageSection: some View {
-        TagOverlayView(photo: $photoDetailViewModel.photo.wrappedValue)
+        TagOverlayView(photo: $photoDetailViewModel.photo.wrappedValue) { photo in
+            self.photoDetailViewModel.photo = photo
+        }
     }
     
     var listSection: some View {
