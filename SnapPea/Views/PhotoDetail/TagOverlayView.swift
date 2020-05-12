@@ -25,8 +25,6 @@ struct TagOverlayView: View {
         self.apiService = apiService
     }
     
-    BOBBY todo: send in a shared state with TagsListView so when this class changes the shared state, TagsListView is updated
-    
     var body: some View {
         ZStack {
             AsyncImageView(url: $viewModel.url.wrappedValue,
