@@ -28,7 +28,7 @@ struct PhotoDetailView: View {
     }
     
     var listSection: some View {
-        TagsListView(tags: $photoDetailViewModel.tags.wrappedValue)
+        TagsListView(photo: $photoDetailViewModel.photo.wrappedValue)
     }
 }
 
