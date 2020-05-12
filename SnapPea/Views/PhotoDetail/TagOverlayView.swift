@@ -25,6 +25,8 @@ struct TagOverlayView: View {
         self.apiService = apiService
     }
     
+    BOBBY todo: send in a shared state with TagsListView so when this class changes the shared state, TagsListView is updated
+    
     var body: some View {
         ZStack {
             AsyncImageView(url: $viewModel.url.wrappedValue,
@@ -64,7 +66,7 @@ struct TagOverlayView: View {
         let tag = Tag(photoId: photoId, start: startCoord, end: endCoord)
         apiService.addTag(tag)
         
-        viewModel.tags.append(tag) // force reload FIXME this doesn't refresh after first refresh
+        viewModel.tags.append(tag) // force reload FIXME this doesn't fix TagsListViewModel
     }
     
     var drawBoxView: some View {
