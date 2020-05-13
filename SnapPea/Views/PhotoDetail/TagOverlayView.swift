@@ -67,10 +67,10 @@ struct TagOverlayView: View {
         print("createTag startCoord: \(startCoord) endCoord \(endCoord)")
 
         let tag = Tag(photoId: photoId, start: startCoord, end: endCoord)
-        apiService.addTag(tag)
         
-        viewModel.tags.append(tag)
-        onAddTag?(viewModel.photo)
+        apiService.addTag(tag) {_,_ in
+            self.onAddTag?(self.viewModel.photo)
+        }
     }
     
     var drawBoxView: some View {

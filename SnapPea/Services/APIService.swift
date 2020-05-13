@@ -56,15 +56,18 @@ class APIService: NSObject, ObservableObject {
         }
     }
 
-    func addTag(_ tag: Tag) {
-        self.store(tag: tag)
-        tags = Array(tagCache.values)
+    func addTag(_ tag: Tag, result: @escaping ((Tag?, Error?)->Void)) {
         // TODO: also update plants and photos?
-
         guard let userId = AuthenticationService.shared.user?.uid else { return }
         do {
-            let result = try db.collection(userId).document("garden").collection("tags").addDocument(from: tag)
-            print("AddTag result \(result)")
+            let ref = try db.collection(userId).document("garden").collection("tags").addDocument(from: tag)
+            print("AddTag result \(ref)")
+            ref.getDocument { (snapshot, error) in
+                if let tag: Tag = try? snapshot?.data(as: Tag.self) {
+                    self.store(tag: tag)
+                    result(tag, error)
+                }
+            }
         } catch let error {
             print("AddTag error \(error)")
         }
