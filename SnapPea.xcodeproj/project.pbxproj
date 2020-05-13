@@ -187,7 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				8E3ABF09244D7DA300FF378B /* PhotosListView.swift */,
-				8E3ABF0B244D7DB300FF378B /* TagsListView.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -196,24 +195,20 @@
 			isa = PBXGroup;
 			children = (
 				8EC86BFC24560C2900AB2F92 /* PhotosListViewModel.swift */,
-				8EC86BFE245613B900AB2F92 /* TagsListViewModel.swift */,
-				8E3ABF10244EACA200FF378B /* PhotoDetailViewModel.swift */,
 				8E3ABF14244EB50E00FF378B /* PhotoRowViewModel.swift */,
 				8E3ABF12244EAD0A00FF378B /* TagViewModel.swift */,
 				8EF0B70E24691A0C001C9CD8 /* DragViewModel.swift */,
-				8EC86BFA245503CC00AB2F92 /* TagOverlayViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		8E3ABF1A245000A700FF378B /* TagOverlayView */ = {
+		8E3ABF1A245000A700FF378B /* TagView */ = {
 			isa = PBXGroup;
 			children = (
-				8E3ABF182450009B00FF378B /* TagOverlayView.swift */,
 				8E3ABF1B2450065000FF378B /* TagView.swift */,
 				8EF0B70C24691940001C9CD8 /* DragView.swift */,
 			);
-			path = TagOverlayView;
+			path = TagView;
 			sourceTree = "<group>";
 		};
 		8E74F091244D1B7000F5A507 /* Models */ = {
@@ -231,10 +226,10 @@
 		8E74F092244D1B7800F5A507 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8E3ABF1A245000A700FF378B /* TagOverlayView */,
+				8EF0B710246A6D95001C9CD8 /* PhotoDetail */,
+				8E3ABF1A245000A700FF378B /* TagView */,
 				8E3ABF03244D7CF100FF378B /* Cells */,
 				8E3ABF08244D7D9400FF378B /* Lists */,
-				8E3ABF16244F83A300FF378B /* PhotoDetailView.swift */,
 				8E74F094244D20C200F5A507 /* CameraRoot.swift */,
 				8E74F096244D21F500F5A507 /* CaptureImageView.swift */,
 			);
@@ -319,6 +314,27 @@
 				8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */,
 			);
 			path = SnapPeaTests;
+			sourceTree = "<group>";
+		};
+		8EF0B710246A6D95001C9CD8 /* PhotoDetail */ = {
+			isa = PBXGroup;
+			children = (
+				8EF0B711246A6DBD001C9CD8 /* ViewModels */,
+				8E3ABF16244F83A300FF378B /* PhotoDetailView.swift */,
+				8E3ABF182450009B00FF378B /* TagOverlayView.swift */,
+				8E3ABF0B244D7DB300FF378B /* TagsListView.swift */,
+			);
+			path = PhotoDetail;
+			sourceTree = "<group>";
+		};
+		8EF0B711246A6DBD001C9CD8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8E3ABF10244EACA200FF378B /* PhotoDetailViewModel.swift */,
+				8EC86BFA245503CC00AB2F92 /* TagOverlayViewModel.swift */,
+				8EC86BFE245613B900AB2F92 /* TagsListViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		F15071D35029D35DBA11F786 /* Pods */ = {

@@ -56,15 +56,18 @@ class APIService: NSObject, ObservableObject {
         }
     }
 
-    func addTag(_ tag: Tag) {
-        self.store(tag: tag)
-        tags = Array(tagCache.values)
+    func addTag(_ tag: Tag, result: @escaping ((Tag?, Error?)->Void)) {
         // TODO: also update plants and photos?
-
         guard let userId = AuthenticationService.shared.user?.uid else { return }
         do {
-            let result = try db.collection(userId).document("garden").collection("tags").addDocument(from: tag)
-            print("AddTag result \(result)")
+            let ref = try db.collection(userId).document("garden").collection("tags").addDocument(from: tag)
+            print("AddTag result \(ref)")
+            ref.getDocument { (snapshot, error) in
+                if let tag: Tag = try? snapshot?.data(as: Tag.self) {
+                    self.store(tag: tag)
+                    result(tag, error)
+                }
+            }
         } catch let error {
             print("AddTag error \(error)")
         }
@@ -133,23 +136,23 @@ class APIService: NSObject, ObservableObject {
 
     // do this once
     func uploadTestData() {
-//        guard let userId = AuthenticationService.shared.user?.uid else { return }
-//        let photo = DataHelper.loadJSONData(filename: "photoData.json")
-//        let photoJSON = try! JSONSerialization.jsonObject(with: photo, options: .allowFragments) as! [String: [String:Any]]
-//        for (key, val) in photoJSON {
-//            db.collection(userId).document("garden").collection("photos").document(key).setData(val)
-//        }
-//
-//        let plant = DataHelper.loadJSONData(filename: "plantData.json")
-//        let plantJSON = try! JSONSerialization.jsonObject(with: plant, options: .allowFragments) as! [String: [String:Any]]
-//        for (key, val) in plantJSON {
-//            db.collection("plants").document(key).setData(val)
-//        }
-//
-//        let tag = DataHelper.loadJSONData(filename: "tagData.json")
-//        let tagJSON = try! JSONSerialization.jsonObject(with: tag, options: .allowFragments) as! [String: [String:Any]]
-//        for (key, val) in tagJSON {
-//            db.collection("tags").document(key).setData(val)
-//        }
+        guard let userId = AuthenticationService.shared.user?.uid else { return }
+        let photo = DataHelper.loadJSONData(filename: "photoData.json")
+        let photoJSON = try! JSONSerialization.jsonObject(with: photo, options: .allowFragments) as! [String: [String:Any]]
+        for (key, val) in photoJSON {
+            db.collection(userId).document("garden").collection("photos").document(key).setData(val)
+        }
+
+        let plant = DataHelper.loadJSONData(filename: "plantData.json")
+        let plantJSON = try! JSONSerialization.jsonObject(with: plant, options: .allowFragments) as! [String: [String:Any]]
+        for (key, val) in plantJSON {
+            db.collection(userId).document("garden").collection("plants").document(key).setData(val)
+        }
+
+        let tag = DataHelper.loadJSONData(filename: "tagData.json")
+        let tagJSON = try! JSONSerialization.jsonObject(with: tag, options: .allowFragments) as! [String: [String:Any]]
+        for (key, val) in tagJSON {
+            db.collection(userId).document("garden").collection("tags").document(key).setData(val)
+        }
     }
 }

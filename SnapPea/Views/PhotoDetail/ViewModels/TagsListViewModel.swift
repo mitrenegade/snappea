@@ -11,9 +11,14 @@ import Foundation
 
 class TagsListViewModel: ObservableObject {
     @Published var dataSource: [Tag] = []
+    @Published var photo: Photo? = nil
     private var cancellables = Set<AnyCancellable>()
 
-    init(tags: [Tag]) {
-        dataSource = tags
+    init(photo: Photo) {
+        self.photo = photo
+
+        $photo.compactMap{ $0?.tags }
+            .assign(to: \.dataSource, on: self)
+            .store(in: &cancellables)
     }
 }
