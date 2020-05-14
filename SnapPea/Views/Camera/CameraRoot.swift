@@ -55,18 +55,28 @@ struct CameraRoot: View {
     }
     
     var cancelButton: some View {
-        Button(action: {
-            // cancel
-        }) {
-            Text("Cancel")
+        Group {
+            if image != nil {
+                Button(action: {
+                    // cancel
+                    self.image = nil
+                }) {
+                    Text("Cancel")
+                }
+            }
         }
     }
 
     var saveButton: some View {
-        Button(action: {
-            // save
-        }) {
-            Text("Save")
+        Group {
+            if image != nil {
+                Button(action: {
+                    // save
+                    self.saveImage()
+                }) {
+                    Text("Save")
+                }
+            }
         }
     }
 
@@ -102,6 +112,10 @@ struct CameraRoot: View {
         // photo album
         self.cameraSourceType = .photoLibrary
         self.showCaptureImageView.toggle()
+    }
+    
+    func saveImage() {
+        FirebaseImageService.uploadImage(image: image?.rawImage, type: .photo, uid: <#String#>)
     }
 }
 

@@ -30,14 +30,17 @@ class APIService: NSObject, ObservableObject {
     }
     
     // upload to db and save locally
-    func addPhoto(_ photo: Photo) {
-        self.store(photo: photo)
-        photos = Array(photoCache.values)
+    func addPhoto(_ photo: Photo, completion: @escaping ((Photo?, Error?)->Void)) {
 
         guard let userId = AuthenticationService.shared.user?.uid else { return }
         do {
-            let result = try db.collection(userId).document("garden").collection("photos").addDocument(from: photo)
-            print("AddPhoto result \(result)")
+            let ref = try db.collection(userId).document("garden").collection("photos").addDocument(from: photo)
+            ref.getDocument { (snapshot, error) in
+                if let photo: Photo = try? snapshot?.data(as: Photo.self) {
+                    self.store(photo: photo)
+                    completion(photo, error)
+                }
+            }
         } catch let error {
             print("AddPhoto error \(error)")
         }
