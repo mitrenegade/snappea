@@ -16,20 +16,14 @@ struct CameraRoot: View {
 
     var body: some View {
         ZStack {
-            VStack {
-                imagePreview
-                Button(action: {
-                    self.showingSheet.toggle()
-                }) {
-                    if image == nil {
-                        Text("Add photo")
-                    } else {
-                        Text("Change photo")
-                    }
+            NavigationView{
+                VStack {
+                    imagePreview
+                    captureImageButton
                 }
-                .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
-                    makeActionSheet
-                }
+                .navigationBarItems(leading: cancelButton,
+                                    trailing: saveButton
+                )
             }
             if (showCaptureImageView) {
                 CaptureImageView(isShown: $showCaptureImageView, image: $image, mode: $cameraSourceType)
@@ -45,6 +39,37 @@ struct CameraRoot: View {
             .shadow(radius: 10)
     }
     
+    var captureImageButton: some View {
+        Button(action: {
+            self.showingSheet.toggle()
+        }) {
+            if image == nil {
+                Text("Add photo")
+            } else {
+                Text("Change photo")
+            }
+        }
+        .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
+            makeActionSheet
+        }
+    }
+    
+    var cancelButton: some View {
+        Button(action: {
+            // cancel
+        }) {
+            Text("Cancel")
+        }
+    }
+
+    var saveButton: some View {
+        Button(action: {
+            // save
+        }) {
+            Text("Save")
+        }
+    }
+
     var makeActionSheet: ActionSheet {
         let title = "Select photo from:"
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
