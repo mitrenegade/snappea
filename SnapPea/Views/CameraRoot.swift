@@ -24,22 +24,7 @@ struct CameraRoot: View {
                     Text("Add photo")
                 }
                 .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
-                    ActionSheet(title: Text("ABCDE"),
-                                message: Text("Try this stuff"),
-                                buttons:[
-                        .default(Text("Cancel")),
-                        .default(Text("Photo Album"), action: {
-                            // photo album
-                            // camera
-                            self.cameraSourceType = .photoLibrary
-                            self.showCaptureImageView.toggle()
-                        }),
-                        .default(Text("Camera"), action: {
-                            // camera
-                            self.cameraSourceType = .camera
-                            self.showCaptureImageView.toggle()
-                        })
-                    ])
+                    makeActionSheet
                 }
 //                .image?.resizable()
 //                .frame(width: 250, height: 250)
@@ -51,6 +36,40 @@ struct CameraRoot: View {
                 CaptureImageView(isShown: $showCaptureImageView, image: $image, mode: $cameraSourceType)
             }
         }
+    }
+    
+    var makeActionSheet: ActionSheet {
+        let title = "Select photo from:"
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            return ActionSheet(title: Text(title), message: nil, buttons:[
+                .default(Text("Camera"), action: {
+                    self.openCamera()
+                }),
+                .default(Text("Photo Album"), action: {
+                    self.openLibrary()
+                }),
+                .default(Text("Cancel"))
+            ])
+        } else {
+            return ActionSheet(title: Text(title), message: nil, buttons:[
+                .default(Text("Photo Album"), action: {
+                    self.openLibrary()
+                }),
+                .default(Text("Cancel"))
+            ])
+        }
+    }
+    
+    func openCamera() {
+        // camera
+        self.cameraSourceType = .camera
+        self.showCaptureImageView.toggle()
+    }
+    
+    func openLibrary() {
+        // photo album
+        self.cameraSourceType = .photoLibrary
+        self.showCaptureImageView.toggle()
     }
 }
 
