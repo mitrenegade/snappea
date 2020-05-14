@@ -125,11 +125,13 @@ struct CameraRoot: View {
     }
     
     func saveImage() {
-        let photo = Photo()
+        let photo = Photo(timestamp: Date().timeIntervalSince1970)
         apiService.addPhoto(photo) { result, error in
             guard let newPhoto = result, let uid = newPhoto.id, let image = self.image else { return }
-            FirebaseImageService.uploadImage(image: image, type: .photo, uid: uid) { url in
-                print("URL: \(url)")
+            FirebaseImageService.uploadImage(image: image, type: .photo, uid: uid) { result in
+                if let url = result {
+                    self.apiService.updatePhotoUrl(newPhoto, url: url)
+                }
             }
         }
     }

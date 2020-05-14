@@ -35,7 +35,7 @@ class PhotoRowViewModel: ObservableObject, Identifiable {
         
         // assign url
         $photo
-            .map{ URL(string: $0.url)! }
+            .compactMap{ URL(string: $0.url) }
             .assign(to: \.url, on: self)
             .store(in: &cancellables)
     }
