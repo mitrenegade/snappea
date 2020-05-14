@@ -9,20 +9,21 @@
 import SwiftUI
 
 struct CaptureImageView {
-  /// MARK: - Properties
-  @Binding var isShown: Bool
-  @Binding var image: Image?
-  
-  func makeCoordinator() -> Coordinator {
-    return Coordinator(isShown: $isShown, image: $image)
-  }
+    /// MARK: - Properties
+    @Binding var isShown: Bool
+    @Binding var image: Image?
+    @Binding var mode: UIImagePickerController.SourceType
+
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(isShown: $isShown, image: $image)
+    }
 }
 
 extension CaptureImageView: UIViewControllerRepresentable {
     func makeUIViewController(context: UIViewControllerRepresentableContext<CaptureImageView>) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
-        picker.sourceType = .camera
+        picker.sourceType = self.mode
         return picker
     }
     
