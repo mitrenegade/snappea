@@ -230,11 +230,10 @@
 			isa = PBXGroup;
 			children = (
 				8EF0B710246A6D95001C9CD8 /* PhotoDetail */,
+				8E74F098244D229200F5A507 /* Camera */,
 				8E3ABF1A245000A700FF378B /* TagView */,
 				8E3ABF03244D7CF100FF378B /* Cells */,
 				8E3ABF08244D7D9400FF378B /* Lists */,
-				8E74F094244D20C200F5A507 /* CameraRoot.swift */,
-				8E74F096244D21F500F5A507 /* CaptureImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -250,13 +249,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		8E74F098244D229200F5A507 /* Coordinator */ = {
+		8E74F098244D229200F5A507 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				8E74F094244D20C200F5A507 /* CameraRoot.swift */,
+				8E74F096244D21F500F5A507 /* CaptureImageView.swift */,
 				8E74F099244D241000F5A507 /* Coordinator.swift */,
 				8EF1FC6C24634A81005C4DE9 /* TappableView.swift */,
 			);
-			path = Coordinator;
+			path = Camera;
 			sourceTree = "<group>";
 		};
 		8E7C7949244BB24400F295AD = {
@@ -286,7 +287,6 @@
 				8E74F091244D1B7000F5A507 /* Models */,
 				8E3ABF0F244EAC6E00FF378B /* ViewModels */,
 				8E3ABEFC244D6A9E00FF378B /* Services */,
-				8E74F098244D229200F5A507 /* Coordinator */,
 				8E74F092244D1B7800F5A507 /* Views */,
 				8E7C7955244BB24400F295AD /* AppDelegate.swift */,
 				8E7C7957244BB24400F295AD /* SceneDelegate.swift */,

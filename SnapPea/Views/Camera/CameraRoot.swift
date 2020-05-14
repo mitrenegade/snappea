@@ -17,25 +17,32 @@ struct CameraRoot: View {
     var body: some View {
         ZStack {
             VStack {
+                imagePreview
                 Button(action: {
                     self.showingSheet.toggle()
-//                    self.showCaptureImageView.toggle()
                 }) {
-                    Text("Add photo")
+                    if image == nil {
+                        Text("Add photo")
+                    } else {
+                        Text("Change photo")
+                    }
                 }
                 .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
                     makeActionSheet
                 }
-//                .image?.resizable()
-//                .frame(width: 250, height: 250)
-//                .clipShape(Circle())
-//                .overlay(Circle().stroke(Color.white, lineWidth: 4))
-//                    .shadow(radius: 10)
             }
             if (showCaptureImageView) {
                 CaptureImageView(isShown: $showCaptureImageView, image: $image, mode: $cameraSourceType)
             }
         }
+    }
+    
+    var imagePreview: some View {
+        image?.resizable()
+        .frame(width: 250, height: 250)
+        .clipShape(Circle())
+        .overlay(Circle().stroke(Color.white, lineWidth: 4))
+            .shadow(radius: 10)
     }
     
     var makeActionSheet: ActionSheet {

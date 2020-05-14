@@ -71,3 +71,7 @@ https://jasonzurita.com/swiftui-if-statement/
 https://stackoverflow.com/questions/56517610/conditionally-use-view-in-swiftui
 `swiftui return empty view`
 https://stackoverflow.com/questions/60988527/displaying-an-empty-view-in-swiftui
+
+`actionsheet modifier`
+https://www.google.com/search?q=swiftui+.actionsheet+modifier&oq=swiftui+.actionsheet+modifier&aqs=chrome..69i57j0l7.3095j0j4&sourceid=chrome&ie=UTF-8
+
