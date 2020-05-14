@@ -9,10 +9,16 @@
 import SwiftUI
 
 struct CameraRoot: View {
-    @State var image: Image? = nil
+    @State var image: UIImage? = nil
     @State var showCaptureImageView: Bool = false
     @State private var showingSheet = false
     @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
+    
+    private var apiService: APIService
+    
+    init(apiService: APIService = APIService.shared) {
+        self.apiService = apiService
+    }
 
     var body: some View {
         ZStack {
@@ -32,11 +38,15 @@ struct CameraRoot: View {
     }
     
     var imagePreview: some View {
-        image?.resizable()
-        .frame(width: 250, height: 250)
-        .clipShape(Circle())
-        .overlay(Circle().stroke(Color.white, lineWidth: 4))
-            .shadow(radius: 10)
+        Group {
+            if image != nil {
+                Image(uiImage: image!).resizable()
+                .frame(width: 250, height: 250)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.white, lineWidth: 4))
+                    .shadow(radius: 10)
+            }
+        }
     }
     
     var captureImageButton: some View {
@@ -115,7 +125,13 @@ struct CameraRoot: View {
     }
     
     func saveImage() {
-        FirebaseImageService.uploadImage(image: image?.rawImage, type: .photo, uid: <#String#>)
+        let photo = Photo()
+        apiService.addPhoto(photo) { result, error in
+            guard let newPhoto = result, let uid = newPhoto.id, let image = self.image else { return }
+            FirebaseImageService.uploadImage(image: image, type: .photo, uid: uid) { url in
+                print("URL: \(url)")
+            }
+        }
     }
 }
 

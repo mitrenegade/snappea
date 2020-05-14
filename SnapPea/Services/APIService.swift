@@ -31,7 +31,6 @@ class APIService: NSObject, ObservableObject {
     
     // upload to db and save locally
     func addPhoto(_ photo: Photo, completion: @escaping ((Photo?, Error?)->Void)) {
-
         guard let userId = AuthenticationService.shared.user?.uid else { return }
         do {
             let ref = try db.collection(userId).document("garden").collection("photos").addDocument(from: photo)
@@ -46,6 +45,13 @@ class APIService: NSObject, ObservableObject {
         }
     }
 
+    func updatePhotoUrl(_ photo: Photo, url: String) {
+        guard let userId = AuthenticationService.shared.user?.uid else { return }
+        guard let id = photo.id else { return }
+        let ref = db.collection(userId).document("garden").collection("photos").document(id)
+        ref.updateData(["url": url])
+    }
+    
     func addPlant(_ plant: Plant) {
         self.store(plant: plant)
         plants = Array(plantCache.values)
