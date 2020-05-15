@@ -130,7 +130,9 @@ struct CameraRoot: View {
             guard let newPhoto = result, let uid = newPhoto.id, let image = self.image else { return }
             FirebaseImageService.uploadImage(image: image, type: .photo, uid: uid) { result in
                 if let url = result {
-                    self.apiService.updatePhotoUrl(newPhoto, url: url)
+                    self.apiService.updatePhotoUrl(newPhoto, url: url) { error in
+                        
+                    }
                 }
             }
         }

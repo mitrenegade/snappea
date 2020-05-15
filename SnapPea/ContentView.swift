@@ -25,7 +25,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             if auth.user != nil {
-                homeView
+                HomeView()
             } else if auth.user == nil {
                 VStack {
                     Text("Welcome and please login or sign up")
@@ -39,21 +39,6 @@ struct ContentView: View {
         }
         .alert(isPresented: $showingAlert) {
             self.alert ?? Alert(title: Text("Unknown error"))
-        }
-    }
-    
-    var homeView: some View {
-        TabView {
-            PhotosListView()
-            .tabItem {
-                Image(systemName: "phone.fill")
-                Text("Photos")
-              }
-            CameraRoot()
-            .tabItem {
-                 Image(systemName: "phone.fill")
-                 Text("Camera")
-               }
         }
     }
     

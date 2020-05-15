@@ -45,11 +45,11 @@ class APIService: NSObject, ObservableObject {
         }
     }
 
-    func updatePhotoUrl(_ photo: Photo, url: String) {
+    func updatePhotoUrl(_ photo: Photo, url: String, completion: ((Error?)->Void)? = nil) {
         guard let userId = AuthenticationService.shared.user?.uid else { return }
         guard let id = photo.id else { return }
         let ref = db.collection(userId).document("garden").collection("photos").document(id)
-        ref.updateData(["url": url])
+        ref.updateData(["url":url], completion: completion)
     }
     
     func addPlant(_ plant: Plant) {

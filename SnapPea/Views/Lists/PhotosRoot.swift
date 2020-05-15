@@ -1,5 +1,5 @@
 //
-//  PhotosView.swift
+//  PhotosRoot.swift
 //  SnapPea
 //
 //  Created by Bobby Ren on 4/19/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PhotosListView: View {
+struct PhotosRoot: View {
     @ObservedObject var viewModel: PhotosListViewModel
     var auth: AuthenticationService
     
@@ -50,8 +50,8 @@ struct PhotosListView: View {
     }
 }
 
-struct PhotosListView_Previews: PreviewProvider {
+struct PhotosRoot_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosListView()
+        PhotosRoot()
     }
 }
