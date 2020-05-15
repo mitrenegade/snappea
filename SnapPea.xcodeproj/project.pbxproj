@@ -23,6 +23,7 @@
 		8E3ABF1C2450065000FF378B /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF1B2450065000FF378B /* TagView.swift */; };
 		8E5FE327246C774400622DDA /* FirebaseImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE326246C774400622DDA /* FirebaseImageService.swift */; };
 		8E5FE329246E7B0300622DDA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE328246E7B0300622DDA /* HomeView.swift */; };
+		8E5FE32C246E800A00622DDA /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE32B246E800A00622DDA /* HomeViewModel.swift */; };
 		8E74F08A244D13F000F5A507 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F089244D13F000F5A507 /* DataHelper.swift */; };
 		8E74F095244D20C200F5A507 /* CameraRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F094244D20C200F5A507 /* CameraRoot.swift */; };
 		8E74F097244D21F500F5A507 /* CaptureImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F096244D21F500F5A507 /* CaptureImageView.swift */; };
@@ -89,6 +90,7 @@
 		8E3ABF1B2450065000FF378B /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		8E5FE326246C774400622DDA /* FirebaseImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseImageService.swift; sourceTree = "<group>"; };
 		8E5FE328246E7B0300622DDA /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		8E5FE32B246E800A00622DDA /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		8E74F089244D13F000F5A507 /* DataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
 		8E74F094244D20C200F5A507 /* CameraRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRoot.swift; sourceTree = "<group>"; };
 		8E74F096244D21F500F5A507 /* CaptureImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureImageView.swift; sourceTree = "<group>"; };
@@ -216,6 +218,15 @@
 			path = TagView;
 			sourceTree = "<group>";
 		};
+		8E5FE32A246E7FEA00622DDA /* Home Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				8E5FE328246E7B0300622DDA /* HomeView.swift */,
+				8E5FE32B246E800A00622DDA /* HomeViewModel.swift */,
+			);
+			path = "Home Tabs";
+			sourceTree = "<group>";
+		};
 		8E74F091244D1B7000F5A507 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +242,7 @@
 		8E74F092244D1B7800F5A507 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8E5FE32A246E7FEA00622DDA /* Home Tabs */,
 				8EF0B710246A6D95001C9CD8 /* PhotoDetail */,
 				8E74F098244D229200F5A507 /* Camera */,
 				8E3ABF1A245000A700FF378B /* TagView */,
@@ -293,7 +305,6 @@
 				8E7C7955244BB24400F295AD /* AppDelegate.swift */,
 				8E7C7957244BB24400F295AD /* SceneDelegate.swift */,
 				8E7C7959244BB24400F295AD /* ContentView.swift */,
-				8E5FE328246E7B0300622DDA /* HomeView.swift */,
 				8E74F093244D1B9700F5A507 /* Resources */,
 				8E7C795B244BB24600F295AD /* Assets.xcassets */,
 				8E7C7960244BB24600F295AD /* LaunchScreen.storyboard */,
@@ -550,6 +561,7 @@
 				8E5FE329246E7B0300622DDA /* HomeView.swift in Sources */,
 				8E74F0A6244D5AE600F5A507 /* Photo.swift in Sources */,
 				8EC86C012456234700AB2F92 /* ImageCache.swift in Sources */,
+				8E5FE32C246E800A00622DDA /* HomeViewModel.swift in Sources */,
 				8EC86BFD24560C2900AB2F92 /* PhotosListViewModel.swift in Sources */,
 				8E3ABF15244EB50E00FF378B /* PhotoRowViewModel.swift in Sources */,
 				8E74F097244D21F500F5A507 /* CaptureImageView.swift in Sources */,

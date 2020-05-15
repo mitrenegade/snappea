@@ -9,24 +9,26 @@
 import SwiftUI
 
 struct HomeView: View {
+    @ObservedObject var viewModel: HomeViewModel = HomeViewModel()
+    
     var body: some View {
-        TabView {
+        TabView() {
             PhotosRoot()
             .tabItem {
                 Image(systemName: "phone.fill")
                 Text("Photos")
-              }
+            }.tag(Tab.photos)
             CameraRoot()
             .tabItem {
                  Image(systemName: "phone.fill")
                  Text("Camera")
-               }
+            }.tag(Tab.camera)
         }
-    }
+    }    
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(viewModel: HomeViewModel())
     }
 }
