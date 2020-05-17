@@ -16,15 +16,6 @@ struct PhotosRoot: View {
     
     private var cancellables = Set<AnyCancellable>()
     
-    @State var shouldShowView: Bool = false {
-        willSet {
-            print("BOBBYTEST shouldShowView willSet value: \(newValue)")
-        }
-        didSet {
-            print("BOBBYTEST shouldShowView didSetValue: \(self.shouldShowView) viewModel.shouldShowNewPhotoDetail \(viewModel.shouldShowNewPhotoDetail)")
-        }
-    }
-    
     init(router: HomeViewRouter,
          auth: AuthenticationService = AuthenticationService.shared,
          apiService: APIService = APIService.shared) {
@@ -34,10 +25,6 @@ struct PhotosRoot: View {
         }
         
         viewModel = PhotosListViewModel(apiService: apiService, router: router)
-
-        viewModel.$shouldShowNewPhotoDetail.map{ $0 != nil}
-            .assign(to: \.shouldShowView, on: self)
-            .store(in: &cancellables)
     }
 
     var body: some View {

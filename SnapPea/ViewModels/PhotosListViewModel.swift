@@ -12,12 +12,6 @@ import Foundation
 class PhotosListViewModel: ObservableObject {
     @Published var dataSource: [Photo] = []
     private var cancellables = Set<AnyCancellable>()
-    @Published var shouldShowNewPhotoDetail: Photo? {
-        didSet {
-            // BOBBY TODO: this should be based on whether shared EnvironmentVariable has a new photo to display
-            print("shouldShowNewPhotoDetail: \(shouldShowNewPhotoDetail != nil)")
-        }
-    }
     @Published var router: HomeViewRouter
 
     init(apiService: APIService, router: HomeViewRouter) {
