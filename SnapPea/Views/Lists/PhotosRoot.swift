@@ -7,14 +7,20 @@
 //
 
 import SwiftUI
+import Combine
 
 struct PhotosRoot: View {
     @ObservedObject var viewModel: PhotosListViewModel
     var auth: AuthenticationService
+    @ObservedObject var router: HomeViewRouter
     
-    init(auth: AuthenticationService = AuthenticationService.shared,
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(router: HomeViewRouter,
+         auth: AuthenticationService = AuthenticationService.shared,
          apiService: APIService = APIService.shared) {
         self.auth = auth
+        self.router = router
         
         viewModel = PhotosListViewModel(apiService: apiService)
         if auth.user != nil {
@@ -52,6 +58,6 @@ struct PhotosRoot: View {
 
 struct PhotosRoot_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosRoot()
+        PhotosRoot(router: HomeViewRouter())
     }
 }
