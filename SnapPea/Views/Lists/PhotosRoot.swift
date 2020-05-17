@@ -15,15 +15,36 @@ struct PhotosRoot: View {
     
     private var cancellables = Set<AnyCancellable>()
     
+    @State var shouldShowView: Bool = false {
+        willSet {
+            print("BOBBYTEST shouldShowView willSet value: \(newValue)")
+        }
+        didSet {
+            print("BOBBYTEST shouldShowView didSetValue: \(self.shouldShowView) viewModel.shouldShowNewPhotoDetail \(viewModel.shouldShowNewPhotoDetail)")
+        }
+    }
+    
     init(router: HomeViewRouter,
          auth: AuthenticationService = AuthenticationService.shared,
          apiService: APIService = APIService.shared) {
         self.auth = auth
-        
-        viewModel = PhotosListViewModel(apiService: apiService, router: router)
         if auth.user != nil {
             apiService.loadGarden()
         }
+        
+        viewModel = PhotosListViewModel(apiService: apiService, router: router)
+
+        viewModel.$shouldShowNewPhotoDetail.map{ $0 != nil}
+            .assign(to: \.shouldShowView, on: self)
+            .store(in: &cancellables)
+
+//        viewModel.$router.map{ $0.hasNewPhoto}
+//            .assign(to: \.shouldShowView, on: self)
+//            .store(in: &cancellables)
+        
+//        router.$hasNewPhoto.map{ $0 }
+//            .assign(to: \.shouldShowView, on: self)
+//            .store(in: &cancellables)
     }
 
     var body: some View {
@@ -34,6 +55,7 @@ struct PhotosRoot: View {
                 } else {
                     listView
                 }
+                newPhotoView
             }
             .navigationBarItems(leading:
                 Button(action: {
@@ -49,6 +71,15 @@ struct PhotosRoot: View {
         List(viewModel.dataSource) { photo in
             NavigationLink(destination: PhotoDetailView(photo: photo)) {
                 PhotoRow(photo: photo)
+            }
+        }
+    }
+    
+    var newPhotoView: some View {
+        Group {
+            NavigationLink(destination: PhotoDetailView(photo: self.viewModel.router.newPhoto ?? Photo()),
+                           isActive: self.$shouldShowView) {
+                            EmptyView()
             }
         }
     }

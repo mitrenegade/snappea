@@ -123,8 +123,11 @@ struct CameraRoot: View {
     
     func openLibrary() {
         // photo album
-        self.cameraSourceType = .photoLibrary
-        self.showCaptureImageView.toggle()
+//        self.cameraSourceType = .photoLibrary
+//        self.showCaptureImageView.toggle()
+
+        self.router.selectedTab = .photos
+        self.router.newPhoto = Photo(id: "abc", url: "https://i.redd.it/gbxhi6mwdvt41.jpg", timestamp: Date().timeIntervalSince1970)
     }
     
     func saveImage() {
@@ -135,6 +138,7 @@ struct CameraRoot: View {
                 if let url = result {
                     self.apiService.updatePhotoUrl(newPhoto, url: url) { error in
                         self.router.selectedTab = .photos
+                        self.router.newPhoto = newPhoto
                     }
                 }
             }

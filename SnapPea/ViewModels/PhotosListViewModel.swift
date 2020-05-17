@@ -12,7 +12,11 @@ import Foundation
 class PhotosListViewModel: ObservableObject {
     @Published var dataSource: [Photo] = []
     private var cancellables = Set<AnyCancellable>()
-    @Published var shouldShowNewPhotoDetail: Photo?
+    @Published var shouldShowNewPhotoDetail: Photo? {
+        didSet {
+            print("shouldShowNewPhotoDetail: \(shouldShowNewPhotoDetail != nil)")
+        }
+    }
     @Published var router: HomeViewRouter
 
     init(apiService: APIService, router: HomeViewRouter) {

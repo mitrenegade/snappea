@@ -77,3 +77,5 @@ https://www.google.com/search?q=swiftui+.actionsheet+modifier&oq=swiftui+.action
 
 `programmatically select a tab`
 https://nalexn.github.io/swiftui-deep-linking/
+`programmatically trigger navigationview`
+https://stackoverflow.com/questions/56513568/ios-swiftui-pop-or-dismiss-view-programmatically
