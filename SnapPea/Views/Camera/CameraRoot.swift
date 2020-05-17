@@ -14,11 +14,11 @@ struct CameraRoot: View {
     @State private var showingSheet = false
     @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
     
-    var router: HomeViewModel
+    var router: HomeViewRouter
     
     private var apiService: APIService
     
-    init(router: HomeViewModel, apiService: APIService = APIService.shared) {
+    init(router: HomeViewRouter, apiService: APIService = APIService.shared) {
         self.apiService = apiService
         self.router = router
     }
@@ -144,6 +144,6 @@ struct CameraRoot: View {
 
 struct CameraRoot_Previews: PreviewProvider {
     static var previews: some View {
-        CameraRoot(router: HomeViewModel())
+        CameraRoot(router: HomeViewRouter())
     }
 }

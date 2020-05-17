@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  HomeViewRouter.swift
 //  SnapPea
 //
 //  Created by Bobby Ren on 5/15/20.
@@ -14,8 +14,15 @@ enum Tab: Hashable {
     case camera
 }
 
-class HomeViewModel: ObservableObject {
+class HomeViewRouter: ObservableObject {
     @Published var selectedTab: Tab = .photos {
+        willSet {
+            objectWillChange.send()
+        }
+    }
+    
+    // display a photo
+    @Published var newPhotoId: String? {
         willSet {
             objectWillChange.send()
         }

@@ -23,7 +23,7 @@
 		8E3ABF1C2450065000FF378B /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF1B2450065000FF378B /* TagView.swift */; };
 		8E5FE327246C774400622DDA /* FirebaseImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE326246C774400622DDA /* FirebaseImageService.swift */; };
 		8E5FE329246E7B0300622DDA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE328246E7B0300622DDA /* HomeView.swift */; };
-		8E5FE32C246E800A00622DDA /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE32B246E800A00622DDA /* HomeViewModel.swift */; };
+		8E5FE32C246E800A00622DDA /* HomeViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE32B246E800A00622DDA /* HomeViewRouter.swift */; };
 		8E74F08A244D13F000F5A507 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F089244D13F000F5A507 /* DataHelper.swift */; };
 		8E74F095244D20C200F5A507 /* CameraRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F094244D20C200F5A507 /* CameraRoot.swift */; };
 		8E74F097244D21F500F5A507 /* CaptureImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F096244D21F500F5A507 /* CaptureImageView.swift */; };
@@ -90,7 +90,7 @@
 		8E3ABF1B2450065000FF378B /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		8E5FE326246C774400622DDA /* FirebaseImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseImageService.swift; sourceTree = "<group>"; };
 		8E5FE328246E7B0300622DDA /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		8E5FE32B246E800A00622DDA /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		8E5FE32B246E800A00622DDA /* HomeViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewRouter.swift; sourceTree = "<group>"; };
 		8E74F089244D13F000F5A507 /* DataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
 		8E74F094244D20C200F5A507 /* CameraRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRoot.swift; sourceTree = "<group>"; };
 		8E74F096244D21F500F5A507 /* CaptureImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureImageView.swift; sourceTree = "<group>"; };
@@ -222,7 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				8E5FE328246E7B0300622DDA /* HomeView.swift */,
-				8E5FE32B246E800A00622DDA /* HomeViewModel.swift */,
+				8E5FE32B246E800A00622DDA /* HomeViewRouter.swift */,
 			);
 			path = "Home Tabs";
 			sourceTree = "<group>";
@@ -561,7 +561,7 @@
 				8E5FE329246E7B0300622DDA /* HomeView.swift in Sources */,
 				8E74F0A6244D5AE600F5A507 /* Photo.swift in Sources */,
 				8EC86C012456234700AB2F92 /* ImageCache.swift in Sources */,
-				8E5FE32C246E800A00622DDA /* HomeViewModel.swift in Sources */,
+				8E5FE32C246E800A00622DDA /* HomeViewRouter.swift in Sources */,
 				8EC86BFD24560C2900AB2F92 /* PhotosListViewModel.swift in Sources */,
 				8E3ABF15244EB50E00FF378B /* PhotoRowViewModel.swift in Sources */,
 				8E74F097244D21F500F5A507 /* CaptureImageView.swift in Sources */,

@@ -9,16 +9,16 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var viewModel: HomeViewModel = HomeViewModel()
+    @ObservedObject var router: HomeViewRouter = HomeViewRouter()
     
     var body: some View {
-        TabView(selection: $viewModel.selectedTab) {
+        TabView(selection: $router.selectedTab) {
             PhotosRoot()
             .tabItem {
                 Image(systemName: "phone.fill")
                 Text("Photos")
             }.tag(Tab.photos)
-            CameraRoot(router: viewModel)
+            CameraRoot(router: router)
             .tabItem {
                  Image(systemName: "phone.fill")
                  Text("Camera")
