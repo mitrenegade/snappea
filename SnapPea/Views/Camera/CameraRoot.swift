@@ -15,7 +15,8 @@ struct CameraRoot: View {
     @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
     
     var router: HomeViewRouter
-    
+    @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
+
     private var apiService: APIService
     
     init(router: HomeViewRouter, apiService: APIService = APIService.shared) {
@@ -146,8 +147,8 @@ struct CameraRoot: View {
     
     func displayNewPhotoDetail(photo: Photo) {
         self.router.selectedTab = .photos
-//        self.router.newPhoto = photo // BOBBY TODO: this should set the photo on the global EnvironmentVariable
-
+        self.photoDetailSettings.newPhoto = photo
+        self.photoDetailSettings.shouldShowNewPhoto = true
     }
 }
 

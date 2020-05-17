@@ -11,7 +11,8 @@ import Combine
 
 struct PhotosRoot: View {
     @ObservedObject var viewModel: PhotosListViewModel
-    var auth: AuthenticationService
+    var auth: AuthenticationService // BOBBY TODO: use environment variable
+    @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -69,10 +70,11 @@ struct PhotosRoot: View {
     
     var newPhotoView: some View {
         Group {
-            // BOBBY TODO: photo should come from EnvironmentVariable
-            NavigationLink(destination: PhotoDetailView(photo: Photo()),
-                           isActive: self.$shouldShowView) {
-                            EmptyView()
+            if photoDetailSettings.newPhoto != nil {
+                NavigationLink(destination: PhotoDetailView(photo: photoDetailSettings.newPhoto!),
+                               isActive: self.$photoDetailSettings.shouldShowNewPhoto) {
+                                EmptyView()
+                }
             }
         }
     }
