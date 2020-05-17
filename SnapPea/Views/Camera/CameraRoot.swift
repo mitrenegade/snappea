@@ -14,10 +14,13 @@ struct CameraRoot: View {
     @State private var showingSheet = false
     @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
     
+    var router: HomeViewModel
+    
     private var apiService: APIService
     
-    init(apiService: APIService = APIService.shared) {
+    init(router: HomeViewModel, apiService: APIService = APIService.shared) {
         self.apiService = apiService
+        self.router = router
     }
 
     var body: some View {
@@ -131,7 +134,7 @@ struct CameraRoot: View {
             FirebaseImageService.uploadImage(image: image, type: .photo, uid: uid) { result in
                 if let url = result {
                     self.apiService.updatePhotoUrl(newPhoto, url: url) { error in
-                        
+                        self.router.selectedTab = .photos
                     }
                 }
             }
@@ -141,6 +144,6 @@ struct CameraRoot: View {
 
 struct CameraRoot_Previews: PreviewProvider {
     static var previews: some View {
-        CameraRoot()
+        CameraRoot(router: HomeViewModel())
     }
 }

@@ -15,7 +15,7 @@ enum Tab: Hashable {
 }
 
 class HomeViewModel: ObservableObject {
-    var selectedTab: Tab = .photos {
+    @Published var selectedTab: Tab = .photos {
         willSet {
             objectWillChange.send()
         }

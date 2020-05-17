@@ -12,23 +12,23 @@ struct HomeView: View {
     @ObservedObject var viewModel: HomeViewModel = HomeViewModel()
     
     var body: some View {
-        TabView() {
+        TabView(selection: $viewModel.selectedTab) {
             PhotosRoot()
             .tabItem {
                 Image(systemName: "phone.fill")
                 Text("Photos")
             }.tag(Tab.photos)
-            CameraRoot()
+            CameraRoot(router: viewModel)
             .tabItem {
                  Image(systemName: "phone.fill")
                  Text("Camera")
             }.tag(Tab.camera)
         }
-    }    
+    }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(viewModel: HomeViewModel())
+        HomeView()
     }
 }
