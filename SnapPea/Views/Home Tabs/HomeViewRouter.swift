@@ -20,22 +20,5 @@ class HomeViewRouter: ObservableObject {
             objectWillChange.send()
         }
     }
-    
-    // display a photo
-    @Published var newPhoto: Photo? {
-        willSet {
-            print("New photo updated: \(newValue)")
-            objectWillChange.send()
-        }
-        didSet {
-            hasNewPhoto = self.newPhoto != nil
-        }
-    }
-    
-    @Published var hasNewPhoto: Bool = false {
-        didSet {
-            print("hasNewPhoto: \(hasNewPhoto)")
-        }
-    }
 }
 

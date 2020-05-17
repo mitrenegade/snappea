@@ -126,8 +126,8 @@ struct CameraRoot: View {
 //        self.cameraSourceType = .photoLibrary
 //        self.showCaptureImageView.toggle()
 
-        self.router.selectedTab = .photos
-        self.router.newPhoto = Photo(id: "abc", url: "https://i.redd.it/gbxhi6mwdvt41.jpg", timestamp: Date().timeIntervalSince1970)
+        let photo = Photo(id: "abc", url: "https://i.redd.it/gbxhi6mwdvt41.jpg", timestamp: Date().timeIntervalSince1970)
+        displayNewPhotoDetail(photo: photo)
     }
     
     func saveImage() {
@@ -137,12 +137,17 @@ struct CameraRoot: View {
             FirebaseImageService.uploadImage(image: image, type: .photo, uid: uid) { result in
                 if let url = result {
                     self.apiService.updatePhotoUrl(newPhoto, url: url) { error in
-                        self.router.selectedTab = .photos
-                        self.router.newPhoto = newPhoto
+                        self.displayNewPhotoDetail(photo: newPhoto)
                     }
                 }
             }
         }
+    }
+    
+    func displayNewPhotoDetail(photo: Photo) {
+        self.router.selectedTab = .photos
+//        self.router.newPhoto = photo // BOBBY TODO: this should set the photo on the global EnvironmentVariable
+
     }
 }
 

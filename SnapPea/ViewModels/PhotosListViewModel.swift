@@ -14,6 +14,7 @@ class PhotosListViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     @Published var shouldShowNewPhotoDetail: Photo? {
         didSet {
+            // BOBBY TODO: this should be based on whether shared EnvironmentVariable has a new photo to display
             print("shouldShowNewPhotoDetail: \(shouldShowNewPhotoDetail != nil)")
         }
     }
@@ -24,11 +25,6 @@ class PhotosListViewModel: ObservableObject {
 
         apiService.$photos
             .assign(to: \.dataSource, on: self)
-            .store(in: &cancellables)
-        
-        $router
-            .map{ $0.newPhoto }
-            .assign(to: \.shouldShowNewPhotoDetail, on: self)
             .store(in: &cancellables)
     }
 }

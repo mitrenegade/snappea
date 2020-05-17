@@ -37,14 +37,6 @@ struct PhotosRoot: View {
         viewModel.$shouldShowNewPhotoDetail.map{ $0 != nil}
             .assign(to: \.shouldShowView, on: self)
             .store(in: &cancellables)
-
-//        viewModel.$router.map{ $0.hasNewPhoto}
-//            .assign(to: \.shouldShowView, on: self)
-//            .store(in: &cancellables)
-        
-//        router.$hasNewPhoto.map{ $0 }
-//            .assign(to: \.shouldShowView, on: self)
-//            .store(in: &cancellables)
     }
 
     var body: some View {
@@ -77,7 +69,8 @@ struct PhotosRoot: View {
     
     var newPhotoView: some View {
         Group {
-            NavigationLink(destination: PhotoDetailView(photo: self.viewModel.router.newPhoto ?? Photo()),
+            // BOBBY TODO: photo should come from EnvironmentVariable
+            NavigationLink(destination: PhotoDetailView(photo: Photo()),
                            isActive: self.$shouldShowView) {
                             EmptyView()
             }
