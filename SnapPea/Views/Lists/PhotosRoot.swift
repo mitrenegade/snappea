@@ -12,7 +12,6 @@ import Combine
 struct PhotosRoot: View {
     @ObservedObject var viewModel: PhotosListViewModel
     var auth: AuthenticationService
-    @ObservedObject var router: HomeViewRouter
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -20,9 +19,8 @@ struct PhotosRoot: View {
          auth: AuthenticationService = AuthenticationService.shared,
          apiService: APIService = APIService.shared) {
         self.auth = auth
-        self.router = router
         
-        viewModel = PhotosListViewModel(apiService: apiService)
+        viewModel = PhotosListViewModel(apiService: apiService, router: router)
         if auth.user != nil {
             apiService.loadGarden()
         }

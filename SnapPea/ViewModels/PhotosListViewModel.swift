@@ -12,10 +12,19 @@ import Foundation
 class PhotosListViewModel: ObservableObject {
     @Published var dataSource: [Photo] = []
     private var cancellables = Set<AnyCancellable>()
+    @Published var shouldShowNewPhotoDetail: Photo?
+    @Published var router: HomeViewRouter
 
-    init(apiService: APIService) {
+    init(apiService: APIService, router: HomeViewRouter) {
+        self.router = router
+
         apiService.$photos
             .assign(to: \.dataSource, on: self)
+            .store(in: &cancellables)
+        
+        $router
+            .map{ $0.newPhoto }
+            .assign(to: \.shouldShowNewPhotoDetail, on: self)
             .store(in: &cancellables)
     }
 }

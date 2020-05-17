@@ -22,7 +22,7 @@ class HomeViewRouter: ObservableObject {
     }
     
     // display a photo
-    @Published var newPhotoId: String? {
+    @Published var newPhoto: Photo? {
         willSet {
             objectWillChange.send()
         }
