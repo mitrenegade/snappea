@@ -59,7 +59,7 @@ struct PhotosRoot: View {
         Group {
             if photoDetailSettings.newPhoto != nil {
                 NavigationLink(destination: PhotoDetailView(photo: photoDetailSettings.newPhoto!),
-                               isActive: self.$photoDetailSettings.shouldShowNewPhoto) {
+                               isActive: $photoDetailSettings.shouldShowNewPhoto) {
                                 EmptyView()
                 }
             }
