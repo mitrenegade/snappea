@@ -14,8 +14,13 @@ struct PhotoDetailView: View {
 
     var body: some View {
         VStack {
-            imageSection
-            listSection
+//            imageSection
+            TagOverlayView(photo: $photoDetailViewModel.photo.wrappedValue) { photo in
+                self.photoDetailViewModel.photo = photo
+            }
+
+//            listSection
+            TagsListView(photo: $photoDetailViewModel.photo.wrappedValue)
         }
     }
     
