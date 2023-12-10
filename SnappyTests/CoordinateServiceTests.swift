@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import SnapPea
+@testable import Snappy
 
 class CoordinateServiceTests: XCTestCase {
     func testPixelToCoord() {

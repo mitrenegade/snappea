@@ -1,3 +1,6 @@
+source 'https://github.com/CocoaPods/Specs.git'
+source 'git@github.com:mitrenegade/render-specs.git'
+
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
@@ -7,12 +10,12 @@ target 'Snappy' do
 
   # Pods for Snappy
   pod 'Firebase'
-  pod 'Firebase/Database'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Firestore'
+  pod 'FirebaseDatabase'
+  pod 'FirebaseAuth'
+  pod 'FirebaseFirestore'
   pod 'FirebaseFirestoreSwift'
-#  pod 'RenderCloud', :git => 'git@bitbucket.org:renderapps/RenderCloud.git'
-  pod 'RenderCloud', :path => '../RenderCloud'
+  pod 'RenderCloud', :git => 'git@github.com:mitrenegade/rendercloud.git'
+#  pod 'RenderCloud', :path => '../RenderCloud'
   
   target 'SnappyTests' do
     inherit! :search_paths
