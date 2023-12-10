@@ -1,5 +1,5 @@
 //
-//  PhotosView.swift
+//  PhotosRoot.swift
 //  SnapPea
 //
 //  Created by Bobby Ren on 4/19/20.
@@ -7,19 +7,24 @@
 //
 
 import SwiftUI
+import Combine
 
-struct PhotosListView: View {
+struct PhotosRoot: View {
     @ObservedObject var viewModel: PhotosListViewModel
-    var auth: AuthenticationService
+    var auth: AuthenticationService // BOBBY TODO: use environment variable
+    @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
     
-    init(auth: AuthenticationService = AuthenticationService.shared,
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(router: HomeViewRouter,
+         auth: AuthenticationService = AuthenticationService.shared,
          apiService: APIService = APIService.shared) {
         self.auth = auth
-        
-        viewModel = PhotosListViewModel(apiService: apiService)
         if auth.user != nil {
             apiService.loadGarden()
         }
+        
+        viewModel = PhotosListViewModel(apiService: apiService, router: router)
     }
 
     var body: some View {
@@ -30,6 +35,7 @@ struct PhotosListView: View {
                 } else {
                     listView
                 }
+                newPhotoView
             }
             .navigationBarItems(leading:
                 Button(action: {
@@ -48,10 +54,21 @@ struct PhotosListView: View {
             }
         }
     }
+    
+    var newPhotoView: some View {
+        Group {
+            if photoDetailSettings.newPhoto != nil {
+                NavigationLink(destination: PhotoDetailView(photo: photoDetailSettings.newPhoto!),
+                               isActive: $photoDetailSettings.shouldShowNewPhoto) {
+                                EmptyView()
+                }
+            }
+        }
+    }
 }
 
-struct PhotosListView_Previews: PreviewProvider {
+struct PhotosRoot_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosListView()
+        PhotosRoot(router: HomeViewRouter())
     }
 }

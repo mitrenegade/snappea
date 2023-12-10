@@ -14,10 +14,14 @@ struct CameraRoot: View {
     @State private var showingSheet = false
     @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
     
+    var router: HomeViewRouter
+    @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
+
     private var apiService: APIService
     
-    init(apiService: APIService = APIService.shared) {
+    init(router: HomeViewRouter, apiService: APIService = APIService.shared) {
         self.apiService = apiService
+        self.router = router
     }
 
     var body: some View {
@@ -127,18 +131,27 @@ struct CameraRoot: View {
     func saveImage() {
         let photo = Photo(timestamp: Date().timeIntervalSince1970)
         apiService.addPhoto(photo) { result, error in
-            guard let newPhoto = result, let uid = newPhoto.id, let image = self.image else { return }
+            guard var newPhoto = result, let uid = newPhoto.id, let image = self.image else { return }
             FirebaseImageService.uploadImage(image: image, type: .photo, uid: uid) { result in
                 if let url = result {
-                    self.apiService.updatePhotoUrl(newPhoto, url: url)
+                    self.apiService.updatePhotoUrl(newPhoto, url: url) { error in
+                        newPhoto.url = url // manually update url in existing photo object locally
+                        self.displayNewPhotoDetail(photo: newPhoto)
+                    }
                 }
             }
         }
+    }
+    
+    func displayNewPhotoDetail(photo: Photo) {
+        self.router.selectedTab = .photos
+        self.photoDetailSettings.newPhoto = photo
+        self.photoDetailSettings.shouldShowNewPhoto = true
     }
 }
 
 struct CameraRoot_Previews: PreviewProvider {
     static var previews: some View {
-        CameraRoot()
+        CameraRoot(router: HomeViewRouter())
     }
 }

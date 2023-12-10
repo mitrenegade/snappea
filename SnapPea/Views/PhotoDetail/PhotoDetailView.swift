@@ -11,6 +11,7 @@ import Combine
 
 struct PhotoDetailView: View {
     @ObservedObject var photoDetailViewModel: PhotoDetailViewModel
+    @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
 
     var body: some View {
         VStack {

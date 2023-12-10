@@ -13,7 +13,7 @@
 		8E3ABF02244D704E00FF378B /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF01244D704E00FF378B /* AsyncImageView.swift */; };
 		8E3ABF05244D7D0A00FF378B /* PhotoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF04244D7D0A00FF378B /* PhotoRow.swift */; };
 		8E3ABF07244D7D4000FF378B /* TagRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF06244D7D4000FF378B /* TagRow.swift */; };
-		8E3ABF0A244D7DA300FF378B /* PhotosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF09244D7DA300FF378B /* PhotosListView.swift */; };
+		8E3ABF0A244D7DA300FF378B /* PhotosRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF09244D7DA300FF378B /* PhotosRoot.swift */; };
 		8E3ABF0C244D7DB300FF378B /* TagsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF0B244D7DB300FF378B /* TagsListView.swift */; };
 		8E3ABF11244EACA200FF378B /* PhotoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF10244EACA200FF378B /* PhotoDetailViewModel.swift */; };
 		8E3ABF13244EAD0A00FF378B /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF12244EAD0A00FF378B /* TagViewModel.swift */; };
@@ -22,6 +22,9 @@
 		8E3ABF192450009B00FF378B /* TagOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF182450009B00FF378B /* TagOverlayView.swift */; };
 		8E3ABF1C2450065000FF378B /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF1B2450065000FF378B /* TagView.swift */; };
 		8E5FE327246C774400622DDA /* FirebaseImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE326246C774400622DDA /* FirebaseImageService.swift */; };
+		8E5FE329246E7B0300622DDA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE328246E7B0300622DDA /* HomeView.swift */; };
+		8E5FE32C246E800A00622DDA /* HomeViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE32B246E800A00622DDA /* HomeViewRouter.swift */; };
+		8E5FE32F2471F96000622DDA /* PhotoDetailSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE32E2471F96000622DDA /* PhotoDetailSettings.swift */; };
 		8E74F08A244D13F000F5A507 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F089244D13F000F5A507 /* DataHelper.swift */; };
 		8E74F095244D20C200F5A507 /* CameraRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F094244D20C200F5A507 /* CameraRoot.swift */; };
 		8E74F097244D21F500F5A507 /* CaptureImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F096244D21F500F5A507 /* CaptureImageView.swift */; };
@@ -78,7 +81,7 @@
 		8E3ABF01244D704E00FF378B /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		8E3ABF04244D7D0A00FF378B /* PhotoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRow.swift; sourceTree = "<group>"; };
 		8E3ABF06244D7D4000FF378B /* TagRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRow.swift; sourceTree = "<group>"; };
-		8E3ABF09244D7DA300FF378B /* PhotosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosListView.swift; sourceTree = "<group>"; };
+		8E3ABF09244D7DA300FF378B /* PhotosRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosRoot.swift; sourceTree = "<group>"; };
 		8E3ABF0B244D7DB300FF378B /* TagsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsListView.swift; sourceTree = "<group>"; };
 		8E3ABF10244EACA200FF378B /* PhotoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewModel.swift; sourceTree = "<group>"; };
 		8E3ABF12244EAD0A00FF378B /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
@@ -87,6 +90,9 @@
 		8E3ABF182450009B00FF378B /* TagOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOverlayView.swift; sourceTree = "<group>"; };
 		8E3ABF1B2450065000FF378B /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		8E5FE326246C774400622DDA /* FirebaseImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseImageService.swift; sourceTree = "<group>"; };
+		8E5FE328246E7B0300622DDA /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		8E5FE32B246E800A00622DDA /* HomeViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewRouter.swift; sourceTree = "<group>"; };
+		8E5FE32E2471F96000622DDA /* PhotoDetailSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailSettings.swift; sourceTree = "<group>"; };
 		8E74F089244D13F000F5A507 /* DataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
 		8E74F094244D20C200F5A507 /* CameraRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRoot.swift; sourceTree = "<group>"; };
 		8E74F096244D21F500F5A507 /* CaptureImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureImageView.swift; sourceTree = "<group>"; };
@@ -189,7 +195,7 @@
 		8E3ABF08244D7D9400FF378B /* Lists */ = {
 			isa = PBXGroup;
 			children = (
-				8E3ABF09244D7DA300FF378B /* PhotosListView.swift */,
+				8E3ABF09244D7DA300FF378B /* PhotosRoot.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -214,6 +220,16 @@
 			path = TagView;
 			sourceTree = "<group>";
 		};
+		8E5FE32A246E7FEA00622DDA /* Home Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				8E5FE328246E7B0300622DDA /* HomeView.swift */,
+				8E5FE32B246E800A00622DDA /* HomeViewRouter.swift */,
+				8E5FE32E2471F96000622DDA /* PhotoDetailSettings.swift */,
+			);
+			path = "Home Tabs";
+			sourceTree = "<group>";
+		};
 		8E74F091244D1B7000F5A507 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +245,7 @@
 		8E74F092244D1B7800F5A507 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8E5FE32A246E7FEA00622DDA /* Home Tabs */,
 				8EF0B710246A6D95001C9CD8 /* PhotoDetail */,
 				8E74F098244D229200F5A507 /* Camera */,
 				8E3ABF1A245000A700FF378B /* TagView */,
@@ -537,16 +554,19 @@
 				8E5FE327246C774400622DDA /* FirebaseImageService.swift in Sources */,
 				8E3ABF05244D7D0A00FF378B /* PhotoRow.swift in Sources */,
 				8E3ABF1C2450065000FF378B /* TagView.swift in Sources */,
-				8E3ABF0A244D7DA300FF378B /* PhotosListView.swift in Sources */,
+				8E3ABF0A244D7DA300FF378B /* PhotosRoot.swift in Sources */,
 				8EC10BFF245F2EC7004D92EC /* User.swift in Sources */,
 				8E74F09A244D241000F5A507 /* Coordinator.swift in Sources */,
 				8E74F08A244D13F000F5A507 /* DataHelper.swift in Sources */,
 				8EF1FC712467C4AF005C4DE9 /* CoordinateService.swift in Sources */,
 				8EF1FC772467E69D005C4DE9 /* NormalizedCoordinate.swift in Sources */,
 				8E3ABF11244EACA200FF378B /* PhotoDetailViewModel.swift in Sources */,
+				8E5FE329246E7B0300622DDA /* HomeView.swift in Sources */,
 				8E74F0A6244D5AE600F5A507 /* Photo.swift in Sources */,
 				8EC86C012456234700AB2F92 /* ImageCache.swift in Sources */,
+				8E5FE32C246E800A00622DDA /* HomeViewRouter.swift in Sources */,
 				8EC86BFD24560C2900AB2F92 /* PhotosListViewModel.swift in Sources */,
+				8E5FE32F2471F96000622DDA /* PhotoDetailSettings.swift in Sources */,
 				8E3ABF15244EB50E00FF378B /* PhotoRowViewModel.swift in Sources */,
 				8E74F097244D21F500F5A507 /* CaptureImageView.swift in Sources */,
 				8E87C5C8245EA1B100482678 /* AuthenticationService.swift in Sources */,

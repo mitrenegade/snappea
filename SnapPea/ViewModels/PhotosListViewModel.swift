@@ -12,8 +12,11 @@ import Foundation
 class PhotosListViewModel: ObservableObject {
     @Published var dataSource: [Photo] = []
     private var cancellables = Set<AnyCancellable>()
+    @Published var router: HomeViewRouter
 
-    init(apiService: APIService) {
+    init(apiService: APIService, router: HomeViewRouter) {
+        self.router = router
+
         apiService.$photos
             .assign(to: \.dataSource, on: self)
             .store(in: &cancellables)
