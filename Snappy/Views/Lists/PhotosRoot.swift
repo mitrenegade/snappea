@@ -7,17 +7,18 @@
 //
 
 import SwiftUI
+import RenderCloud
 import Combine
 
 struct PhotosRoot: View {
     @ObservedObject var viewModel: PhotosListViewModel
-    var auth: AuthenticationService // BOBBY TODO: use environment variable
+    private let auth: RenderAuthService // BOBBY TODO: use environment variable
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
     
     private var cancellables = Set<AnyCancellable>()
     
     init(router: HomeViewRouter,
-         auth: AuthenticationService = AuthenticationService.shared,
+         auth: RenderAuthService = RenderAuthService(),
          apiService: APIService = APIService.shared) {
         self.auth = auth
         if auth.user != nil {
@@ -39,7 +40,7 @@ struct PhotosRoot: View {
             }
             .navigationBarItems(leading:
                 Button(action: {
-                    self.auth.signOut()
+                    try? self.auth.logout()
                 }) {
                     Text("Logout")
             })

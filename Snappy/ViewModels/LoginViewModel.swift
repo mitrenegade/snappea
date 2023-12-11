@@ -1,5 +1,5 @@
 //
-//  AuthenticationService.swift
+//  LoginViewModel.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 5/2/20.
@@ -8,11 +8,9 @@
 
 import RenderCloud
 
-class AuthenticationService: ObservableObject {
+class LoginViewModel: ObservableObject {
 
-    static let shared = AuthenticationService()
-
-    private lazy var authService: RenderAuthService = {
+    private lazy var auth: RenderAuthService = {
         RenderAuthService(delegate: self)
     }()
 
@@ -21,20 +19,20 @@ class AuthenticationService: ObservableObject {
 
     func signUp(email: String,
                 password: String) async throws {
-        _ = try await authService.signup(username: email, password: password)
+        _ = try await auth.signup(username: email, password: password)
     }
 
     func signIn(email: String,
                 password: String) async throws {
-        _ = try await authService.login(username: email, password: password)
+        _ = try await auth.login(username: email, password: password)
     }
 
     func signOut() {
-        try? authService.logout()
+        try? auth.logout()
     }
 }
 
-extension AuthenticationService: CloudAuthServiceDelegate {
+extension LoginViewModel: CloudAuthServiceDelegate {
     func userDidChange(user: RenderCloud.User?) {
         if let user = user {
             // logged in with a user

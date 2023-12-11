@@ -16,15 +16,15 @@ struct ContentView: View {
     @State private var showingAlert = false
     @State private var alert: Alert?
 
-    @ObservedObject var auth: AuthenticationService
+    @ObservedObject var viewModel: LoginViewModel
 
-    init(authService: AuthenticationService =  AuthenticationService.shared) {
-        self.auth = authService
+    init(viewModel: LoginViewModel = LoginViewModel()) {
+        self.viewModel = viewModel
     }
 
     var body: some View {
         Group {
-            if !auth.isLoggedIn {
+            if !viewModel.isLoggedIn {
                 VStack {
                     Text("Welcome and please login or sign up")
                         .font(.title)
@@ -71,7 +71,7 @@ struct ContentView: View {
     func doLogin() {
         Task {
             do {
-                _ = try await auth.signIn(email: self.email, password: self.password)
+                _ = try await viewModel.signIn(email: self.email, password: self.password)
             } catch {
                 DispatchQueue.main.async {
                     self.alert = Alert(title: Text("Could not log in"), message: Text("Login failed! Error: \(error.localizedDescription)"), dismissButton: .default(Text("Dismiss")))
@@ -90,7 +90,7 @@ struct ContentView: View {
 
         Task {
             do {
-                try await auth.signUp(email: self.email, password: self.password)
+                try await viewModel.signUp(email: self.email, password: self.password)
             } catch {
                 DispatchQueue.main.async {
                     self.alert = Alert(title: Text("Could not sign up"), message: Text("Signup failed! Error: \(error.localizedDescription)"), dismissButton: .default(Text("OK")))

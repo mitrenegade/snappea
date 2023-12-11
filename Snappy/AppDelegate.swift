@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // To start from signout
-//        AuthenticationService.shared.signOut()
+//        LoginViewModel.shared.signOut()
 
         return true
     }
