@@ -30,6 +30,15 @@ class LoginViewModel: ObservableObject {
     func signOut() {
         try? auth.logout()
     }
+
+    init(isLoggedIn: Bool = false, user: User? = nil) {
+        self.isLoggedIn = isLoggedIn
+        self.user = user
+
+        if AIRPLANE_MODE {
+            self.userDidChange(user: Stub.testUser)
+        }
+    }
 }
 
 extension LoginViewModel: CloudAuthServiceDelegate {

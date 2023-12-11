@@ -8,12 +8,12 @@
 
 import RenderCloud
 
-struct User {
-    var uid: String
-    var email: String
+struct User: Decodable, RenderCloud.User {
+    var id: String
+    var username: String
 
     init(user: RenderCloud.User) {
-        self.uid = user.id
-        self.email = user.username
+        self.id = user.id
+        self.username = user.username
     }
 }

@@ -39,6 +39,8 @@ enum Stub: String {
     static var tagDict: [String:Tag] = Stub.load(.tags)
     static var photoDict: [String: Photo] = Stub.load(.photos)
 
+    static var testUser: User = Stub.load(.user)
+
     static func load<T: Decodable>(_ stub: Stub) -> T {
         let filename = stub.file
         let data: Data = loadJSONData(filename: filename)
