@@ -1,4 +1,4 @@
-# SnapPea
+# Snappy
 
 ## Versions
 
