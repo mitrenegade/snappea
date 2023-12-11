@@ -6,13 +6,14 @@
 //  Copyright © 2020 RenderApps LLC. All rights reserved.
 //
 
-import UIKit
+import RenderCloud
 
-class User {
-    var uid: String?
-    var email: String?
-    init(uid: String?, email: String?) {
-        self.uid = uid
-        self.email = email
+struct User {
+    var uid: String
+    var email: String
+
+    init(user: RenderCloud.User) {
+        self.uid = user.id
+        self.email = user.username
     }
 }

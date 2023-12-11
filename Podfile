@@ -15,8 +15,8 @@ target 'Snappy' do
   pod 'FirebaseStorage'
   pod 'FirebaseFirestore'
   pod 'FirebaseFirestoreSwift'
-  pod 'RenderCloud', :git => 'git@github.com:mitrenegade/rendercloud.git'
-#  pod 'RenderCloud', :path => '../RenderCloud'
+#  pod 'RenderCloud', :git => 'git@github.com:mitrenegade/rendercloud.git'
+  pod 'RenderCloud', :path => '../RenderApps/RenderCloud'
   
   target 'SnappyTests' do
     inherit! :search_paths

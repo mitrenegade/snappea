@@ -15,18 +15,16 @@ struct ContentView: View {
     @State var confirmation: String = ""
     @State private var showingAlert = false
     @State private var alert: Alert?
-    
-    @ObservedObject var auth: AuthenticationService
 
-    init(authService: AuthenticationService =  AuthenticationService.shared) {
-        self.auth = authService
+    @ObservedObject var viewModel: LoginViewModel
+
+    init(viewModel: LoginViewModel = LoginViewModel()) {
+        self.viewModel = viewModel
     }
 
     var body: some View {
         Group {
-            if auth.user != nil {
-                HomeView()
-            } else if auth.user == nil {
+            if !viewModel.isLoggedIn {
                 VStack {
                     Text("Welcome and please login or sign up")
                         .font(.title)
@@ -35,6 +33,8 @@ struct ContentView: View {
                     Spacer()
                     signupView
                 }
+            } else {
+                HomeView()
             }
         }
         .alert(isPresented: $showingAlert) {
@@ -69,13 +69,14 @@ struct ContentView: View {
     }
     
     func doLogin() {
-        auth.signIn(email: self.email, password: self.password) { (result, error) in
-            if let error = error {
-                self.alert = Alert(title: Text("Could not log in"), message: Text("Login failed! Error: \(error.localizedDescription)"), dismissButton: .default(Text("Dismiss")))
-                self.showingAlert.toggle()
-            } else {
-                self.alert = Alert(title: Text("Login successful"), message: Text("You have logged in as \(self.email)"), dismissButton: .default(Text("Dismiss")))
-                self.showingAlert.toggle()
+        Task {
+            do {
+                _ = try await viewModel.signIn(email: self.email, password: self.password)
+            } catch {
+                DispatchQueue.main.async {
+                    self.alert = Alert(title: Text("Could not log in"), message: Text("Login failed! Error: \(error.localizedDescription)"), dismissButton: .default(Text("Dismiss")))
+                    self.showingAlert.toggle()
+                }
             }
         }
     }
@@ -86,11 +87,15 @@ struct ContentView: View {
             self.showingAlert.toggle()
             return
         }
-        
-        auth.signUp(email: self.email, password: self.password) { (result, error) in
-            if let error = error {
-                self.alert = Alert(title: Text("Could not sign up"), message: Text("Signup failed! Error: \(error.localizedDescription)"), dismissButton: .default(Text("OK")))
-                self.showingAlert.toggle()
+
+        Task {
+            do {
+                try await viewModel.signUp(email: self.email, password: self.password)
+            } catch {
+                DispatchQueue.main.async {
+                    self.alert = Alert(title: Text("Could not sign up"), message: Text("Signup failed! Error: \(error.localizedDescription)"), dismissButton: .default(Text("OK")))
+                    self.showingAlert.toggle()
+                }
             }
         }
     }
