@@ -6,52 +6,51 @@
 //  Copyright © 2020 RenderApps LLC. All rights reserved.
 //
 
-import Firebase
+import RenderCloud
 
 class AuthenticationService: ObservableObject {
-    static let shared: AuthenticationService = AuthenticationService()
+
+    static let shared = AuthenticationService()
+
+    private lazy var authService: RenderAuthService = {
+        RenderAuthService(delegate: self)
+    }()
+
     @Published var user: User?
-    var handle: AuthStateDidChangeListenerHandle?
-    
+
     func signInAnonymously() {
         // not used
-        Auth.auth().signInAnonymously()
-    }
-    
-    func signUp(
-        email: String,
-        password: String,
-        handler: @escaping AuthDataResultCallback
-    ) {
-        Auth.auth().createUser(withEmail: email, password: password, completion: handler)
+//        Auth.auth().signInAnonymously()
     }
 
-    func signIn(
-        email: String,
-        password: String,
-        handler: @escaping AuthDataResultCallback
-    ) {
-        Auth.auth().signIn(withEmail: email, password: password, completion: handler)
+    func signUp(email: String,
+                password: String) {
+        Task {
+            try await authService.signup(username: email, password: password)
+        }
     }
-    
+
+    func signIn(email: String,
+                password: String) {
+        Task {
+            try await authService.login(username: email, password: password)
+        }
+    }
+
     func signOut() {
-        try? Auth.auth().signOut()
+        try? authService.logout()
     }
-    
-    init() {
-        handle = Auth.auth().addStateDidChangeListener { (auth, user) in // (4)
-            print("Sign in state has changed with user \(String(describing: user)).")
-            if let user = user {
-                // logged in with a user
-                self.user = User(uid: user.uid, email: user.email)
-                
-//                // To upload test data
-                APIService.shared.uploadTestData()
-            }
-            else {
-                self.user = nil
-                print("User signed out.")
-            }
+}
+
+extension AuthenticationService: CloudAuthServiceDelegate {
+    func userDidChange(user: RenderCloud.User?) {
+        if let user = user {
+            // logged in with a user
+            self.user = User(user: user)
+        }
+        else {
+            self.user = nil
+            print("User signed out.")
         }
     }
 }

@@ -69,7 +69,9 @@ struct ContentView: View {
     }
     
     func doLogin() {
-        auth.signIn(email: self.email, password: self.password) { (result, error) in
+        auth.signIn(email: self.email, password: self.password) 
+/*
+        { (result, error) in
             if let error = error {
                 self.alert = Alert(title: Text("Could not log in"), message: Text("Login failed! Error: \(error.localizedDescription)"), dismissButton: .default(Text("Dismiss")))
                 self.showingAlert.toggle()
@@ -78,6 +80,7 @@ struct ContentView: View {
                 self.showingAlert.toggle()
             }
         }
+ */
     }
         
     func doSignup() {
@@ -87,12 +90,15 @@ struct ContentView: View {
             return
         }
         
-        auth.signUp(email: self.email, password: self.password) { (result, error) in
+        auth.signUp(email: self.email, password: self.password)
+        /*
+        { (result, error) in
             if let error = error {
                 self.alert = Alert(title: Text("Could not sign up"), message: Text("Signup failed! Error: \(error.localizedDescription)"), dismissButton: .default(Text("OK")))
                 self.showingAlert.toggle()
             }
         }
+         */
     }
 }
 
