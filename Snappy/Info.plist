@@ -21,9 +21,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>SnapPea needs camera access to take photos of your garden</string>
+	<string>Snappy needs camera access to take photos of your garden</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>SnapPea needs photo library access to select photos of your garden</string>
+	<string>Snappy needs photo library access to select photos of your garden</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

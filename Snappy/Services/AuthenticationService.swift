@@ -1,6 +1,6 @@
 //
 //  AuthenticationService.swift
-//  SnapPea
+//  Snappy
 //
 //  Created by Bobby Ren on 5/2/20.
 //  Copyright © 2020 RenderApps LLC. All rights reserved.

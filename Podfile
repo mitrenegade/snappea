@@ -12,6 +12,7 @@ target 'Snappy' do
   pod 'Firebase'
   pod 'FirebaseDatabase'
   pod 'FirebaseAuth'
+  pod 'FirebaseStorage'
   pod 'FirebaseFirestore'
   pod 'FirebaseFirestoreSwift'
   pod 'RenderCloud', :git => 'git@github.com:mitrenegade/rendercloud.git'
