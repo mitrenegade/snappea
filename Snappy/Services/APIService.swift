@@ -25,7 +25,8 @@ class APIService: NSObject, ObservableObject {
     
     private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
 
-    init(db: Firestore = Firestore.firestore()) {
+    init(db: Firestore = Firestore.firestore(),
+         authService: AuthenticationService = AuthenticationService.shared) {
         self.db = db
     }
     

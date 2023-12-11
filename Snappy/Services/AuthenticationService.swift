@@ -16,25 +16,17 @@ class AuthenticationService: ObservableObject {
         RenderAuthService(delegate: self)
     }()
 
+    @Published var isLoggedIn = false
     @Published var user: User?
 
-    func signInAnonymously() {
-        // not used
-//        Auth.auth().signInAnonymously()
-    }
-
     func signUp(email: String,
-                password: String) {
-        Task {
-            try await authService.signup(username: email, password: password)
-        }
+                password: String) async throws {
+        _ = try await authService.signup(username: email, password: password)
     }
 
     func signIn(email: String,
-                password: String) {
-        Task {
-            try await authService.login(username: email, password: password)
-        }
+                password: String) async throws {
+        _ = try await authService.login(username: email, password: password)
     }
 
     func signOut() {
@@ -47,9 +39,10 @@ extension AuthenticationService: CloudAuthServiceDelegate {
         if let user = user {
             // logged in with a user
             self.user = User(user: user)
+            self.isLoggedIn = true
         }
         else {
-            self.user = nil
+            self.isLoggedIn = false
             print("User signed out.")
         }
     }
