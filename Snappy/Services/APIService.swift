@@ -150,19 +150,19 @@ class APIService: NSObject, ObservableObject {
     // do this once
     func uploadTestData() {
         guard let userId = auth.user?.id else { return }
-        let photo = DataHelper.loadJSONData(filename: "photoData.json")
+        let photo = Stub.loadJSONData(filename: "photoData.json")
         let photoJSON = try! JSONSerialization.jsonObject(with: photo, options: .allowFragments) as! [String: [String:Any]]
         for (key, val) in photoJSON {
             db.collection(userId).document("garden").collection("photos").document(key).setData(val)
         }
 
-        let plant = DataHelper.loadJSONData(filename: "plantData.json")
+        let plant = Stub.loadJSONData(filename: "plantData.json")
         let plantJSON = try! JSONSerialization.jsonObject(with: plant, options: .allowFragments) as! [String: [String:Any]]
         for (key, val) in plantJSON {
             db.collection(userId).document("garden").collection("plants").document(key).setData(val)
         }
 
-        let tag = DataHelper.loadJSONData(filename: "tagData.json")
+        let tag = Stub.loadJSONData(filename: "tagData.json")
         let tagJSON = try! JSONSerialization.jsonObject(with: tag, options: .allowFragments) as! [String: [String:Any]]
         for (key, val) in tagJSON {
             db.collection(userId).document("garden").collection("tags").document(key).setData(val)

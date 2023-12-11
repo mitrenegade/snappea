@@ -86,7 +86,7 @@ struct TagOverlayView: View {
 
 struct TagOverlayView_Previews: PreviewProvider {
     static var previews: some View {
-        TagOverlayView(photo: DataHelper.photoData[0])
+        TagOverlayView(photo: Stub.photoData[0])
     }
 }
 

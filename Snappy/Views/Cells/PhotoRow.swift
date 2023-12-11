@@ -30,6 +30,6 @@ struct PhotoRow: View {
 
 struct PhotoRow_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoRow(photo: DataHelper.photoData[0])
+        PhotoRow(photo: Stub.photoData[0])
     }
 }

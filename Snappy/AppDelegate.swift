@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         // Firebase
-        let TESTING = true
         let plistFilename = "GoogleService-Info\(TESTING ? "-dev" : "")"
         let filePath = Bundle.main.path(forResource: plistFilename, ofType: "plist")
         assert(filePath != nil, "File doesn't exist")

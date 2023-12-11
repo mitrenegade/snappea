@@ -23,6 +23,6 @@ struct TagsListView: View {
 
 struct TagsListView_Previews: PreviewProvider {
     static var previews: some View {
-        TagsListView(photo: DataHelper.photoData[0])
+        TagsListView(photo: Stub.photoData[0])
     }
 }
