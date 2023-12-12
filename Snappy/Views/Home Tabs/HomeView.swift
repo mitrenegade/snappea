@@ -13,14 +13,14 @@ struct HomeView: View {
     
     var body: some View {
         TabView(selection: $router.selectedTab) {
-            PhotosRoot(router: router)
+            PlantsRoot(router: router)
             .tabItem {
-                Image(systemName: "phone.fill")
+                Image(systemName: "photo.fill")
                 Text("Photos")
             }.tag(Tab.photos)
             CameraRoot(router: router)
             .tabItem {
-                 Image(systemName: "phone.fill")
+                 Image(systemName: "camera.fill")
                  Text("Camera")
             }.tag(Tab.camera)
         }

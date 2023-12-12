@@ -1,5 +1,5 @@
 //
-//  PhotosRoot.swift
+//  PlantsRoot.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 4/19/20.
@@ -10,8 +10,9 @@ import SwiftUI
 import RenderCloud
 import Combine
 
-struct PhotosRoot: View {
-    @ObservedObject var viewModel: PhotosListViewModel
+/// Displays an index of plants
+struct PlantsRoot: View {
+    @ObservedObject var viewModel: PlantsListViewModel
     private let auth: RenderAuthService // BOBBY TODO: use environment variable
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
     
@@ -25,7 +26,7 @@ struct PhotosRoot: View {
             apiService.loadGarden()
         }
         
-        viewModel = PhotosListViewModel(apiService: apiService, router: router)
+        viewModel = PlantsListViewModel(apiService: apiService, router: router)
     }
 
     var body: some View {
@@ -49,10 +50,11 @@ struct PhotosRoot: View {
     }
     
     var listView: some View {
-        List(viewModel.dataSource) { photo in
-            NavigationLink(destination: PhotoDetailView(photo: photo)) {
-                PhotoRow(photo: photo)
-            }
+        List(viewModel.dataSource) { plant in
+            PlantRow(plant: plant)
+//            NavigationLink(destination: PhotoDetailView(photo: photo)) {
+//                PlantRow(plant: plant)
+//            }
         }
     }
     
@@ -68,8 +70,8 @@ struct PhotosRoot: View {
     }
 }
 
-struct PhotosRoot_Previews: PreviewProvider {
+struct PlantsRoot_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosRoot(router: HomeViewRouter())
+        PlantsRoot(router: HomeViewRouter())
     }
 }
