@@ -23,19 +23,21 @@ class APIService: NSObject, ObservableObject {
     @Published var tags: [Tag] = []
     
     private let db: Firestore
-    private let auth: RenderAuthService
-
+    private let authStore: AuthStore
+    /*BR TODO need a user provider that can change if login state changes
+solution: use a keychain like object to store the user. the keychain should be shared, and have a public function to modify the user. loginViewModel can update the user state, or API service if it receives any sort of token expiry, or other classes that call logout. The app should contain a layer that holds on to a User object, and this can be reactive.
+     */
     private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
 
     init(db: Firestore = Firestore.firestore(),
-         auth: RenderAuthService = RenderAuthService()) {
+         authStore: AuthStore = AuthStore.shared) {
         self.db = db
-        self.auth = auth
+        self.authStore = authStore
     }
     
     // upload to db and save locally
     func addPhoto(_ photo: Photo, completion: @escaping ((Photo?, Error?)->Void)) {
-        guard let userId = auth.user?.id else { return }
+        guard let userId = authStore.user?.id else { return }
         do {
             let ref = try db.collection(userId).document("garden").collection("photos").addDocument(from: photo)
             ref.getDocument { (snapshot, error) in
@@ -50,7 +52,7 @@ class APIService: NSObject, ObservableObject {
     }
 
     func updatePhotoUrl(_ photo: Photo, url: String, completion: ((Error?)->Void)? = nil) {
-        guard let userId = auth.user?.id else { return }
+        guard let userId = authStore.user?.id else { return }
         guard let id = photo.id else { return }
         let ref = db.collection(userId).document("garden").collection("photos").document(id)
         ref.updateData(["url":url], completion: completion)
@@ -60,7 +62,7 @@ class APIService: NSObject, ObservableObject {
         self.store(plant: plant)
         plants = Array(plantCache.values)
 
-        guard let userId = auth.user?.id else { return }
+        guard let userId = authStore.user?.id else { return }
         do {
             let result = try db.collection(userId).document("garden").collection("plants").addDocument(from: plant)
             print("AddPlant result \(result)")
@@ -71,7 +73,7 @@ class APIService: NSObject, ObservableObject {
 
     func addTag(_ tag: Tag, result: @escaping ((Tag?, Error?)->Void)) {
         // TODO: also update plants and photos?
-        guard let userId = auth.user?.id else { return }
+        guard let userId = authStore.user?.id else { return }
         do {
             let ref = try db.collection(userId).document("garden").collection("tags").addDocument(from: tag)
             print("AddTag result \(ref)")
@@ -87,7 +89,7 @@ class APIService: NSObject, ObservableObject {
     }
     
     func loadGarden() {
-        guard let userId = auth.user?.id else { return }
+        guard let userId = authStore.user?.id else { return }
         db.collection(userId).document("garden").collection("photos").addSnapshotListener { (snapshot, error) in
             self.photos = snapshot?.documents.compactMap { document -> Photo? in
                 if let object = try? document.data(as: Photo.self) {
@@ -149,7 +151,7 @@ class APIService: NSObject, ObservableObject {
 
     // do this once
     func uploadTestData() {
-        guard let userId = auth.user?.id else { return }
+        guard let userId = authStore.user?.id else { return }
         let photo = Stub.loadJSONData(filename: "photoData.json")
         let photoJSON = try! JSONSerialization.jsonObject(with: photo, options: .allowFragments) as! [String: [String:Any]]
         for (key, val) in photoJSON {

@@ -8,7 +8,7 @@
 
 import RenderCloud
 
-struct User: Decodable, RenderCloud.User {
+class User: Decodable, ObservableObject, RenderCloud.User {
     var id: String
     var username: String
 

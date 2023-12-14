@@ -13,19 +13,15 @@ import Combine
 /// Displays an index of plants
 struct PlantsRoot: View {
     @ObservedObject var viewModel: PlantsListViewModel
-    private let auth: RenderAuthService // BOBBY TODO: use environment variable
+    @EnvironmentObject var user: User
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
     
     private var cancellables = Set<AnyCancellable>()
     
     init(router: HomeViewRouter,
-         auth: RenderAuthService = RenderAuthService(),
          apiService: APIService = APIService.shared) {
-        self.auth = auth
-        if auth.user != nil {
-            apiService.loadGarden()
-        }
-        
+        apiService.loadGarden()
+
         viewModel = PlantsListViewModel(apiService: apiService, router: router)
     }
 
@@ -41,7 +37,7 @@ struct PlantsRoot: View {
             }
             .navigationBarItems(leading:
                 Button(action: {
-                    try? self.auth.logout()
+                LoginViewModel().signOut()
                 }) {
                     Text("Logout")
             })

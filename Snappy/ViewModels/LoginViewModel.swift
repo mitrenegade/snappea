@@ -8,14 +8,13 @@
 
 import RenderCloud
 
-class LoginViewModel: ObservableObject {
+class LoginViewModel {
 
-    private lazy var auth: RenderAuthService = {
+    private lazy var auth: CloudAuthService = {
         RenderAuthService(delegate: self)
     }()
 
-    @Published var isLoggedIn = false
-    @Published var user: User?
+    private lazy var store: AuthStore = AuthStore.shared
 
     func signUp(email: String,
                 password: String) async throws {
@@ -31,9 +30,9 @@ class LoginViewModel: ObservableObject {
         try? auth.logout()
     }
 
-    init(isLoggedIn: Bool = false, user: User? = nil) {
-        self.isLoggedIn = isLoggedIn
-        self.user = user
+    /// Mocks a user state
+    init(user: User? = nil) {
+        store.user = user
 
         if AIRPLANE_MODE {
             self.userDidChange(user: Stub.testUser)
@@ -45,11 +44,10 @@ extension LoginViewModel: CloudAuthServiceDelegate {
     func userDidChange(user: RenderCloud.User?) {
         if let user = user {
             // logged in with a user
-            self.user = User(user: user)
-            self.isLoggedIn = true
+            store.user = User(user: user)
         }
         else {
-            self.isLoggedIn = false
+            store.user = nil
             print("User signed out.")
         }
     }
