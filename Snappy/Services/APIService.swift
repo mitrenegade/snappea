@@ -24,9 +24,7 @@ class APIService: NSObject, ObservableObject {
     
     private let db: Firestore
     private let authStore: AuthStore
-    /*BR TODO need a user provider that can change if login state changes
-solution: use a keychain like object to store the user. the keychain should be shared, and have a public function to modify the user. loginViewModel can update the user state, or API service if it receives any sort of token expiry, or other classes that call logout. The app should contain a layer that holds on to a User object, and this can be reactive.
-     */
+
     private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
 
     init(db: Firestore = Firestore.firestore(),

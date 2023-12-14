@@ -16,7 +16,7 @@ struct ContentView: View {
     @State private var showingAlert = false
     @State private var alert: Alert?
 
-    @ObservedObject var viewModel: LoginViewModel
+    let viewModel: LoginViewModel
     @ObservedObject var authStore: AuthStore
 
     init(viewModel: LoginViewModel = LoginViewModel(),
