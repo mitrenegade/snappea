@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 /// Storage for user and login state
 /// Use in a similar way to Keychain, not LoginViewModel
 class AuthStore: ObservableObject {
