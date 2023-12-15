@@ -1,5 +1,5 @@
 //
-//  TagViewModelTests.swift
+//  SnapViewModelTests.swift
 //  SnappyTests
 //
 //  Created by Bobby Ren on 5/9/20.
@@ -9,5 +9,5 @@
 import XCTest
 @testable import Snappy
 
-class TagViewModelTests: XCTestCase {
+class SnapViewModelTests: XCTestCase {
 }

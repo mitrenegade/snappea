@@ -17,7 +17,7 @@ class MockDataStore: DataStore {
         return Stub.plantData
     }
     
-    func fetchSnaps() async throws -> [Tag] {
+    func fetchSnaps() async throws -> [Snap] {
         return Stub.snapData
     }
 }

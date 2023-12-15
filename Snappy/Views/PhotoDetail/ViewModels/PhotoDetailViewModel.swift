@@ -14,7 +14,7 @@ class PhotoDetailViewModel: ObservableObject {
     @Published var photo: Photo
     
     // datasource
-    @Published var tags: [Tag] = []
+    @Published var snaps: [Snap] = []
 
     private var cancellables = Set<AnyCancellable>()
     
@@ -22,8 +22,8 @@ class PhotoDetailViewModel: ObservableObject {
         self.photo = photo
         
         $photo
-            .map{ $0.tags }
-            .assign(to: \.tags, on: self)
+            .map{ $0.snaps }
+            .assign(to: \.snaps, on: self)
             .store(in: &cancellables)
     }
 }

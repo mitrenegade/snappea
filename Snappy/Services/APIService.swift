@@ -14,11 +14,11 @@ class APIService: NSObject, ObservableObject {
 
     var photoCache: [String: Photo] = [:]
     var plantCache: [String: Plant] = [:]
-    var tagCache: [String: Tag] = [:]
-    
+    var snapCache: [String: Snap] = [:]
+
     @Published var photos: [Photo] = []
     @Published var plants: [Plant] = []
-    @Published var snaps: [Tag] = []
+    @Published var snaps: [Snap] = []
 
     private let dataStore: DataStore
 
@@ -61,19 +61,19 @@ class APIService: NSObject, ObservableObject {
 //        }
     }
 
-    func addTag(_ tag: Tag, result: @escaping ((Tag?, Error?)->Void)) {
+    func addSnap(_ snap: Snap, result: @escaping ((Snap?, Error?)->Void)) {
         // TODO: also update plants and photos?
 //        do {
-//            let ref = try db.collection(userId).document("garden").collection("tags").addDocument(from: tag)
-//            print("AddTag result \(ref)")
+//            let ref = try db.collection(userId).document("garden").collection("snaps").addDocument(from: snap)
+//            print("AddSnap result \(ref)")
 //            ref.getDocument { (snapshot, error) in
-//                if let tag: Tag = try? snapshot?.data(as: Tag.self) {
+//                if let snap: Snap = try? snapshot?.data(as: Snap.self) {
 //                    self.store(tag: tag)
 //                    result(tag, error)
 //                }
 //            }
 //        } catch let error {
-//            print("AddTag error \(error)")
+//            print("AddSnap error \(error)")
 //        }
     }
     
@@ -102,10 +102,10 @@ class APIService: NSObject, ObservableObject {
         }
     }
 
-    private func store(tag: Tag) {
+    private func store(snap: Snap) {
         readWriteQueue.sync {
-            if let id = tag.id {
-                tagCache[id] = tag
+            if let id = snap.id {
+                snapCache[id] = snap
             }
         }
     }

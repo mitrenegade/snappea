@@ -26,7 +26,7 @@ struct Photo: Identifiable, Codable {
         return date.description
     }
     
-    var tags: [Tag] {
+    var snaps: [Snap] {
         return APIService.shared.snaps.filter{ return $0.photoId == self.id }
     }
 }

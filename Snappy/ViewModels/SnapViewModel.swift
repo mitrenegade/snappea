@@ -1,5 +1,5 @@
 //
-//  TagViewModel.swift
+//  SnapViewModel.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 4/20/20.
@@ -10,9 +10,9 @@ import Combine
 import SwiftUI
 import Foundation
 
-class TagViewModel: ObservableObject {
-    @Published var tag: Tag
-    
+class SnapViewModel: ObservableObject {
+    @Published var snap: Snap
+
     var id: String?
     
     var imageSize: CGSize
@@ -26,35 +26,35 @@ class TagViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
 
-    init(tag: Tag, imageWidth: CGFloat, imageHeight: CGFloat) {
-        self.tag = tag
+    init(snap: Snap, imageWidth: CGFloat, imageHeight: CGFloat) {
+        self.snap = snap
         self.imageSize = CGSize(width: imageWidth, height: imageHeight)
         
-        $tag
+        $snap
             .map{ $0.id }
             .assign(to: \.id, on: self)
             .store(in: &cancellables)
         
         // x0
-        $tag
+        $snap
             .map{ CoordinateService.coordToPixel(imageSize: self.imageSize, coordinate:$0.start).x }
             .assign(to: \.x0, on: self)
             .store(in: &cancellables)
 
         // y0
-        $tag
+        $snap
             .map{ CoordinateService.coordToPixel(imageSize: self.imageSize, coordinate:$0.start).y }
             .assign(to: \.y0, on: self)
             .store(in: &cancellables)
 
         // width
-        $tag
+        $snap
             .map{ CoordinateService.coordToPixel(imageSize: self.imageSize, coordinate:$0.end).x - self.x0 }
             .assign(to: \.width, on: self)
             .store(in: &cancellables)
 
         // height
-        $tag
+        $snap
             .map{ CoordinateService.coordToPixel(imageSize: self.imageSize, coordinate:$0.end).y - self.y0 }
             .assign(to: \.height, on: self)
             .store(in: &cancellables)

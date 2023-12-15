@@ -1,5 +1,5 @@
 //
-//  TagOverlayViewModel.swift
+//  SnapOverlayViewModel.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 4/25/20.
@@ -10,9 +10,9 @@ import Combine
 import Foundation
 import SwiftUI
 
-class TagOverlayViewModel: ObservableObject {
+class SnapOverlayViewModel: ObservableObject {
     @Published var photo: Photo
-    @Published var tags: [Tag] = []
+    @Published var snaps: [Snap] = []
     @Published var url: URL = URL(string: "www.google.com")!
     
     var photoId: String?
@@ -32,9 +32,9 @@ class TagOverlayViewModel: ObservableObject {
             .assign(to: \.photoId, on: self)
             .store(in: &cancellables)
 
-        self.tags = photo.tags
-//        $photo.map{ $0.tags }
-//            .assign(to: \.tags, on: self)
+        self.snaps = photo.snaps
+//        $photo.map{ $0.snaps }
+//            .assign(to: \.snaps, on: self)
 //            .store(in: &cancellables)
     }
 }

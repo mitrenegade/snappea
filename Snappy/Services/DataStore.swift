@@ -12,7 +12,7 @@ import Firebase
 protocol DataStore {
     func fetchPhotos() async throws -> [Photo]
     func fetchPlants() async throws -> [Plant]
-    func fetchSnaps() async throws -> [Tag]
+    func fetchSnaps() async throws -> [Snap]
 }
 
 enum DataStoreError: Error {
@@ -40,7 +40,7 @@ class FirebaseDataStore: DataStore {
         try await fetchObjects(collection: "plants")
     }
 
-    func fetchSnaps() async throws -> [Tag] {
+    func fetchSnaps() async throws -> [Snap] {
         try await fetchObjects(collection: "snaps")
     }
 

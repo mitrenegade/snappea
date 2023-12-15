@@ -1,5 +1,5 @@
 //
-//  TagOverlayView.swift
+//  SnapOverlayView.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 4/21/20.
@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct TagOverlayView: View {
-    @ObservedObject var viewModel: TagOverlayViewModel
+struct SnapOverlayView: View {
+    @ObservedObject var viewModel: SnapOverlayViewModel
     var imageSize: CGSize
     
     @State var dragging: Bool = false
@@ -17,15 +17,15 @@ struct TagOverlayView: View {
     @State var draggingEnd: CGPoint = CGPoint.zero
 
     private var apiService: APIService
-    var onAddTag: ((Photo)->Void)?
+    var onAddSnap: ((Photo)->Void)?
 
     init(photo: Photo,
          apiService: APIService = APIService.shared,
-         onAddTag:((Photo)->Void)? = nil) {
+         onAddSnap:((Photo)->Void)? = nil) {
 
-        viewModel = TagOverlayViewModel(photo: photo)
+        viewModel = SnapOverlayViewModel(photo: photo)
         imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
-        self.onAddTag = onAddTag
+        self.onAddSnap = onAddSnap
         
         self.apiService = apiService
     }
@@ -38,8 +38,8 @@ struct TagOverlayView: View {
                            cache: TemporaryImageCache.shared)
                 .aspectRatio(contentMode: .fill)
             drawBoxView
-            ForEach(viewModel.tags) {tag in
-                TagView(tag: tag)
+            ForEach(viewModel.snaps) {snap in
+                SnapView(snap: snap)
             }
         }.gesture(
             DragGesture(minimumDistance: 0)
@@ -66,10 +66,10 @@ struct TagOverlayView: View {
 
         print("createTag startCoord: \(startCoord) endCoord \(endCoord)")
 
-        let tag = Tag(photoId: photoId, start: startCoord, end: endCoord)
-        
-        apiService.addTag(tag) {_,_ in
-            self.onAddTag?(self.viewModel.photo)
+        let snap = Snap(photoId: photoId, start: startCoord, end: endCoord)
+
+        apiService.addSnap(snap) {_,_ in
+            self.onAddSnap?(self.viewModel.photo)
         }
     }
     
@@ -84,9 +84,6 @@ struct TagOverlayView: View {
     }
 }
 
-struct TagOverlayView_Previews: PreviewProvider {
-    static var previews: some View {
-        TagOverlayView(photo: Stub.photoData[0])
-    }
+#Preview {
+    SnapOverlayView(photo: Stub.photoData[0], apiService: APIService.shared, onAddSnap: nil)
 }
-

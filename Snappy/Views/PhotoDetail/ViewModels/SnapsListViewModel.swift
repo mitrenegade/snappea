@@ -1,5 +1,5 @@
 //
-//  TagsListViewModel.swift
+//  SnapsListViewModel.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 4/26/20.
@@ -9,15 +9,15 @@
 import Combine
 import Foundation
 
-class TagsListViewModel: ObservableObject {
-    @Published var dataSource: [Tag] = []
+class SnapsListViewModel: ObservableObject {
+    @Published var dataSource: [Snap] = []
     @Published var photo: Photo? = nil
     private var cancellables = Set<AnyCancellable>()
 
     init(photo: Photo) {
         self.photo = photo
 
-        $photo.compactMap{ $0?.tags }
+        $photo.compactMap{ $0?.snaps }
             .assign(to: \.dataSource, on: self)
             .store(in: &cancellables)
     }
