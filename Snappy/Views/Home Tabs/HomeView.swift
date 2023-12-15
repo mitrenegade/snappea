@@ -15,9 +15,10 @@ struct HomeView: View {
         TabView(selection: $router.selectedTab) {
             PlantsRoot(router: router)
             .tabItem {
-                Image(systemName: "photo.fill")
-                Text("Photos")
-            }.tag(Tab.photos)
+                // BR TODO make this a snap pea icon
+                Image(systemName: "leaf.fill")
+                Text("Plants")
+            }.tag(Tab.plants)
             CameraRoot(router: router)
             .tabItem {
                  Image(systemName: "camera.fill")
