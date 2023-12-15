@@ -8,20 +8,85 @@
 
 import RenderCloud
 import Combine
+import Firebase
 
-class APIService: NSObject, ObservableObject {
-    static let shared = APIService()
+protocol APIService {
+    func fetchPhotos() async throws -> [Photo]
+    func fetchPlants() async throws -> [Plant]
+    func fetchSnaps() async throws -> [Snap]
+}
+
+class FirebaseAPIService: APIService, ObservableObject {
+    static let shared = FirebaseAPIService()
 
     @Published var photos: [Photo] = []
     @Published var plants: [Plant] = []
     @Published var snaps: [Snap] = []
 
+    /// Auth
+    private let auth: AuthStore
+    private var userId: String? {
+        auth.user?.id
+    }
+
+    /// Store
     private let dataStore: DataStore
 
-    init(dataStore: DataStore = FirebaseDataStore()) {
+    /// Firebase
+    private let db = Firestore.firestore()
+
+    // MARK: - Initialization
+    init(authStore: AuthStore = AuthStore.shared,
+         dataStore: DataStore = FirebaseDataStore()) {
+        self.auth = authStore
         self.dataStore = dataStore
     }
-    
+
+    // MARK: - API Interface
+    func fetchPhotos() async throws -> [Photo] {
+        let photos: [Photo] = try await fetchObjects(collection: "photos")
+        for photo in photos {
+            dataStore.store(photo: photo)
+        }
+        return photos
+    }
+
+    func fetchPlants() async throws -> [Plant] {
+        let plants: [Plant] = try await fetchObjects(collection: "plants")
+        for plant in plants {
+            dataStore.store(plant: plant)
+        }
+        return plants
+    }
+
+    func fetchSnaps() async throws -> [Snap] {
+        let snaps: [Snap] = try await fetchObjects(collection: "snaps")
+        for snap in snaps {
+            dataStore.store(snap: snap)
+        }
+        return snaps
+    }
+
+    // MARK: - Generic interface into Firebase
+    /// Fetches an array of an object type given a collection name
+    private func fetchObjects<T: Decodable>(collection: String) async throws -> [T] {
+        guard let userId = userId else {
+            throw DataStoreError.notAuthorized
+        }
+        return try await withCheckedThrowingContinuation { continuation in
+            db.collection(userId).document("garden").collection(collection).addSnapshotListener { (snapshot, error) in
+                guard let snapshot else {
+                    continuation.resume(throwing: DataStoreError.databaseError(error))
+                    return
+                }
+                let objects = snapshot.documents.compactMap { document -> T? in
+                    try? document.data(as: T.self)
+                }
+                continuation.resume(returning: objects)
+            }
+        }
+    }
+
     // upload to db and save locally
     func addPhoto(_ photo: Photo, completion: @escaping ((Photo?, Error?)->Void)) {
 //        do {
@@ -72,9 +137,10 @@ class APIService: NSObject, ObservableObject {
     }
     
     func loadGarden() async throws {
-        self.photos = try await dataStore.fetchPhotos()
-        self.plants = try await dataStore.fetchPlants().sorted { $0.name < $1.name }
-        self.snaps = try await dataStore.fetchSnaps()
+        // TODO: these shouldn't await
+        self.photos = try await fetchPhotos()
+        self.plants = try await fetchPlants().sorted { $0.name < $1.name }
+        self.snaps = try await fetchSnaps()
     }
 
     // do this once
