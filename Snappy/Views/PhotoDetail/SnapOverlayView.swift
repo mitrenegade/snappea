@@ -20,7 +20,7 @@ struct SnapOverlayView: View {
     var onAddSnap: ((Photo)->Void)?
 
     init(photo: Photo,
-         apiService: APIService = APIService.shared,
+         apiService: APIService = FirebaseAPIService.shared,
          onAddSnap:((Photo)->Void)? = nil) {
 
         viewModel = SnapOverlayViewModel(photo: photo)
@@ -85,5 +85,5 @@ struct SnapOverlayView: View {
 }
 
 #Preview {
-    SnapOverlayView(photo: Stub.photoData[0], apiService: APIService.shared, onAddSnap: nil)
+    SnapOverlayView(photo: Stub.photoData[0], apiService: FirebaseAPIService.shared, onAddSnap: nil)
 }

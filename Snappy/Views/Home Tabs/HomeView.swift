@@ -13,9 +13,9 @@ struct HomeView: View {
 
     private var apiService: APIService {
         if AIRPLANE_MODE {
-            return APIService(dataStore: dataStore)
+            return FirebaseAPIService(dataStore: dataStore)
         } else {
-            return APIService.shared
+            return FirebaseAPIService.shared
         }
     }
 

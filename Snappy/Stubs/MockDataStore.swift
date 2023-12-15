@@ -9,6 +9,18 @@
 import Foundation
 
 class MockDataStore: DataStore {
+    func store(photo: Photo) {
+        // no op
+    }
+
+    func store(plant: Plant) {
+        // no op
+    }
+
+    func store(snap: Snap) {
+        // no op
+    }
+
     func photo(withId id: String) -> Photo? {
         Stub.photoData.first { $0.id == id }
     }
@@ -19,18 +31,6 @@ class MockDataStore: DataStore {
     
     func snap(withId id: String) -> Snap? {
         Stub.snapData.first { $0.id == id }
-    }
-
-    func fetchPhotos() async throws -> [Photo] {
-        return Stub.photoData
-    }
-    
-    func fetchPlants() async throws -> [Plant] {
-        return Stub.plantData
-    }
-    
-    func fetchSnaps() async throws -> [Snap] {
-        return Stub.snapData
     }
 
     /// Relationships

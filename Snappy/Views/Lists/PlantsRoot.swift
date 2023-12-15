@@ -21,7 +21,7 @@ struct PlantsRoot: View {
     private let dataStore: DataStore
 
     init(router: HomeViewRouter,
-         apiService: APIService = APIService.shared,
+         apiService: APIService = FirebaseAPIService.shared,
          dataStore: DataStore = FirebaseDataStore()
     ) {
         viewModel = PlantsListViewModel(apiService: apiService, router: router)
