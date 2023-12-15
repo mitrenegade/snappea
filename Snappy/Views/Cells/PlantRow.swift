@@ -19,7 +19,9 @@ struct PlantRow: View {
         HStack {
             Text($plantRowViewModel.name.wrappedValue)
             Text($plantRowViewModel.categoryString.wrappedValue)
+                .foregroundColor(Color($plantRowViewModel.categoryColor.wrappedValue))
             Text($plantRowViewModel.typeString.wrappedValue)
+                .foregroundColor(Color($plantRowViewModel.typeColor.wrappedValue))
         }
     }
 }
