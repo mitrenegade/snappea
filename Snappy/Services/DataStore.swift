@@ -13,6 +13,13 @@ protocol DataStore {
     func fetchPhotos() async throws -> [Photo]
     func fetchPlants() async throws -> [Plant]
     func fetchSnaps() async throws -> [Snap]
+
+    func photo(withId id: String) -> Photo?
+    func plant(withId id: String) -> Plant?
+    func snap(withId id: String) -> Snap?
+
+    func snaps(for plant: Plant) -> [Snap]
+    func photo(for snap: Snap) -> Photo?
 }
 
 enum DataStoreError: Error {
@@ -21,30 +28,78 @@ enum DataStoreError: Error {
 }
 
 class FirebaseDataStore: DataStore {
+    /// Firebase
     private let db = Firestore.firestore()
-    private let auth: AuthStore
 
+    /// Auth
+    private let auth: AuthStore
     private var userId: String? {
         auth.user?.id
     }
 
+    /// Caching
+    private var photoCache: [String: Photo] = [:]
+    private var plantCache: [String: Plant] = [:]
+    private var snapCache: [String: Snap] = [:]
+    private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
+
+    // MARK: - Initialization
     init(authStore: AuthStore = AuthStore.shared) {
         self.auth = authStore
     }
 
+    // MARK: - DataStore Interface
     func fetchPhotos() async throws -> [Photo] {
-        try await fetchObjects(collection: "photos")
+        let photos: [Photo] = try await fetchObjects(collection: "photos")
+        for photo in photos {
+            store(photo: photo)
+        }
+        return photos
     }
 
     func fetchPlants() async throws -> [Plant] {
-        try await fetchObjects(collection: "plants")
+        let plants: [Plant] = try await fetchObjects(collection: "plants")
+        for plant in plants {
+            store(plant: plant)
+        }
+        return plants
     }
 
     func fetchSnaps() async throws -> [Snap] {
-        try await fetchObjects(collection: "snaps")
+        let snaps: [Snap] = try await fetchObjects(collection: "snaps")
+        for snap in snaps {
+            store(snap: snap)
+        }
+        return snaps
     }
 
-    /// Generic to fetch an object given a collection name
+    func photo(withId id: String) -> Photo? {
+        photoCache[id]
+    }
+
+    func plant(withId id: String) -> Plant? {
+        plantCache[id]
+    }
+
+    func snap(withId id: String) -> Snap? {
+        snapCache[id]
+    }
+
+    func snaps(for plant: Plant) -> [Snap] {
+        let snaps = snapCache
+            .filter{ $0.value.plantId == plant.id }
+            .values
+        return Array(snaps)
+    }
+
+    func photo(for snap: Snap) -> Photo? {
+        photoCache
+            .first(where: { $0.value.id == snap.photoId })?
+            .value
+    }
+
+    // MARK: - Generic interface into Firebase
+    /// Fetches an array of an object type given a collection name
     private func fetchObjects<T: Decodable>(collection: String) async throws -> [T] {
         guard let userId = userId else {
             throw DataStoreError.notAuthorized
@@ -59,6 +114,31 @@ class FirebaseDataStore: DataStore {
                     try? document.data(as: T.self)
                 }
                 continuation.resume(returning: objects)
+            }
+        }
+    }
+
+    // MARK: - Cache
+    private func store(photo: Photo) {
+        readWriteQueue.sync {
+            if let id = photo.id {
+                photoCache[id] = photo
+            }
+        }
+    }
+
+    private func store(plant: Plant) {
+        readWriteQueue.sync {
+            if let id = plant.id {
+                plantCache[id] = plant
+            }
+        }
+    }
+
+    private func store(snap: Snap) {
+        readWriteQueue.sync {
+            if let id = snap.id {
+                snapCache[id] = snap
             }
         }
     }

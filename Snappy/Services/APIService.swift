@@ -12,17 +12,11 @@ import Combine
 class APIService: NSObject, ObservableObject {
     static let shared = APIService()
 
-    var photoCache: [String: Photo] = [:]
-    var plantCache: [String: Plant] = [:]
-    var snapCache: [String: Snap] = [:]
-
     @Published var photos: [Photo] = []
     @Published var plants: [Plant] = []
     @Published var snaps: [Snap] = []
 
     private let dataStore: DataStore
-
-    private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
 
     init(dataStore: DataStore = FirebaseDataStore()) {
         self.dataStore = dataStore
@@ -79,35 +73,8 @@ class APIService: NSObject, ObservableObject {
     
     func loadGarden() async throws {
         self.photos = try await dataStore.fetchPhotos()
-//        store(photo: photos)
         self.plants = try await dataStore.fetchPlants().sorted { $0.name < $1.name }
-//        store(plant: plants)
         self.snaps = try await dataStore.fetchSnaps()
-        // store(snaps: snaps)
-    }
-    
-    private func store(photo: Photo) {
-        readWriteQueue.sync {
-            if let id = photo.id {
-                photoCache[id] = photo
-            }
-        }
-    }
-
-    private func store(plant: Plant) {
-        readWriteQueue.sync {
-            if let id = plant.id {
-                plantCache[id] = plant
-            }
-        }
-    }
-
-    private func store(snap: Snap) {
-        readWriteQueue.sync {
-            if let id = snap.id {
-                snapCache[id] = snap
-            }
-        }
     }
 
     // do this once

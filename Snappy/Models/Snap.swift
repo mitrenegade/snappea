@@ -18,14 +18,6 @@ struct Snap: Identifiable, Codable {
     var start: NormalizedCoordinate
     var end: NormalizedCoordinate
 
-    var plant: Plant? {
-        return APIService.shared.plants.first { $0.id == plantId }
-    }
-    
-    var photo: Photo? {
-        return APIService.shared.photos.first { $0.id == photoId }
-    }
-    
     init(photoId: String, start: NormalizedCoordinate, end: NormalizedCoordinate) {
         self.id = UUID().uuidString
         self.photoId = photoId

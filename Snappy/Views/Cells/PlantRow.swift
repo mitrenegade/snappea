@@ -17,6 +17,7 @@ struct PlantRow: View {
 
     var body: some View {
         HStack {
+            Image($plantRowViewModel.image)
             Text($plantRowViewModel.name.wrappedValue)
             Text($plantRowViewModel.categoryString.wrappedValue)
                 .foregroundColor(Color($plantRowViewModel.categoryColor.wrappedValue))
