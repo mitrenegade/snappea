@@ -20,5 +20,9 @@ class PlantsListViewModel: ObservableObject {
         apiService.$plants
             .assign(to: \.dataSource, on: self)
             .store(in: &cancellables)
+
+        Task {
+            try await apiService.loadGarden()
+        }
     }
 }

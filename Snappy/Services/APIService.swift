@@ -30,51 +30,51 @@ class APIService: NSObject, ObservableObject {
     
     // upload to db and save locally
     func addPhoto(_ photo: Photo, completion: @escaping ((Photo?, Error?)->Void)) {
-        do {
-            let ref = try db.collection(userId).document("garden").collection("photos").addDocument(from: photo)
-            ref.getDocument { (snapshot, error) in
-                if let photo: Photo = try? snapshot?.data(as: Photo.self) {
-                    self.store(photo: photo)
-                    completion(photo, error)
-                }
-            }
-        } catch let error {
-            print("AddPhoto error \(error)")
-        }
+//        do {
+//            let ref = try db.collection(userId).document("garden").collection("photos").addDocument(from: photo)
+//            ref.getDocument { (snapshot, error) in
+//                if let photo: Photo = try? snapshot?.data(as: Photo.self) {
+//                    self.store(photo: photo)
+//                    completion(photo, error)
+//                }
+//            }
+//        } catch let error {
+//            print("AddPhoto error \(error)")
+//        }
     }
 
     func updatePhotoUrl(_ photo: Photo, url: String, completion: ((Error?)->Void)? = nil) {
-        guard let id = photo.id else { return }
-        let ref = db.collection(userId).document("garden").collection("photos").document(id)
-        ref.updateData(["url":url], completion: completion)
+//        guard let id = photo.id else { return }
+//        let ref = db.collection(userId).document("garden").collection("photos").document(id)
+//        ref.updateData(["url":url], completion: completion)
     }
     
     func addPlant(_ plant: Plant) {
-        self.store(plant: plant)
-        plants = Array(plantCache.values)
-
-        do {
-            let result = try db.collection(userId).document("garden").collection("plants").addDocument(from: plant)
-            print("AddPlant result \(result)")
-        } catch let error {
-            print("AddPlant error \(error)")
-        }
+//        self.store(plant: plant)
+//        plants = Array(plantCache.values)
+//
+//        do {
+//            let result = try db.collection(userId).document("garden").collection("plants").addDocument(from: plant)
+//            print("AddPlant result \(result)")
+//        } catch let error {
+//            print("AddPlant error \(error)")
+//        }
     }
 
     func addTag(_ tag: Tag, result: @escaping ((Tag?, Error?)->Void)) {
         // TODO: also update plants and photos?
-        do {
-            let ref = try db.collection(userId).document("garden").collection("tags").addDocument(from: tag)
-            print("AddTag result \(ref)")
-            ref.getDocument { (snapshot, error) in
-                if let tag: Tag = try? snapshot?.data(as: Tag.self) {
-                    self.store(tag: tag)
-                    result(tag, error)
-                }
-            }
-        } catch let error {
-            print("AddTag error \(error)")
-        }
+//        do {
+//            let ref = try db.collection(userId).document("garden").collection("tags").addDocument(from: tag)
+//            print("AddTag result \(ref)")
+//            ref.getDocument { (snapshot, error) in
+//                if let tag: Tag = try? snapshot?.data(as: Tag.self) {
+//                    self.store(tag: tag)
+//                    result(tag, error)
+//                }
+//            }
+//        } catch let error {
+//            print("AddTag error \(error)")
+//        }
     }
     
     func loadGarden() async throws {

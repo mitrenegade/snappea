@@ -20,8 +20,6 @@ struct PlantsRoot: View {
     
     init(router: HomeViewRouter,
          apiService: APIService = APIService.shared) {
-        apiService.loadGarden()
-
         viewModel = PlantsListViewModel(apiService: apiService, router: router)
     }
 

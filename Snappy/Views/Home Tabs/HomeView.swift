@@ -10,10 +10,19 @@ import SwiftUI
 
 struct HomeView: View {
     @ObservedObject var router: HomeViewRouter = HomeViewRouter()
-    
+
+    private var apiService: APIService {
+        if AIRPLANE_MODE {
+            let dataStore: DataStore = MockDataStore()
+            return APIService(dataStore: dataStore)
+        } else {
+            return APIService.shared
+        }
+    }
+
     var body: some View {
         TabView(selection: $router.selectedTab) {
-            PlantsRoot(router: router)
+            PlantsRoot(router: router, apiService: apiService)
             .tabItem {
                 // BR TODO make this a snap pea icon
                 Image(systemName: "leaf.fill")
