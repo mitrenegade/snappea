@@ -17,10 +17,15 @@ struct PlantsRoot: View {
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
     
     private var cancellables = Set<AnyCancellable>()
-    
+
+    private let dataStore: DataStore
+
     init(router: HomeViewRouter,
-         apiService: APIService = APIService.shared) {
+         apiService: APIService = APIService.shared,
+         dataStore: DataStore = FirebaseDataStore()
+    ) {
         viewModel = PlantsListViewModel(apiService: apiService, router: router)
+        self.dataStore = dataStore
     }
 
     var body: some View {
@@ -45,7 +50,7 @@ struct PlantsRoot: View {
     
     var listView: some View {
         List(viewModel.dataSource) { plant in
-            PlantRow(plant: plant)
+            PlantRow(viewModel: PlantRowViewModel(plant: plant, dataStore: dataStore))
 //            NavigationLink(destination: PhotoDetailView(photo: photo)) {
 //                PlantRow(plant: plant)
 //            }
