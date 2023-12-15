@@ -80,7 +80,7 @@ class APIService: NSObject, ObservableObject {
     func loadGarden() async throws {
         self.photos = try await dataStore.fetchPhotos()
 //        store(photo: photos)
-        self.plants = try await dataStore.fetchPlants()
+        self.plants = try await dataStore.fetchPlants().sorted { $0.name < $1.name }
 //        store(plant: plants)
         self.snaps = try await dataStore.fetchSnaps()
         // store(snaps: snaps)

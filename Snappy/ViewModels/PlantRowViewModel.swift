@@ -37,7 +37,7 @@ class PlantRowViewModel: ObservableObject, Identifiable {
             .assign(to: \.name, on: self)
             .store(in: &cancellables)
 
-        // assign category
+        // assign category properties
         $plant
             .map{ $0.category.rawValue }
             .assign(to: \.categoryString, on: self)
@@ -48,13 +48,12 @@ class PlantRowViewModel: ObservableObject, Identifiable {
             .assign(to: \.categoryColor, on: self)
             .store(in: &cancellables)
 
-        // assign category
+        // assign type properties
         $plant
             .map{ $0.type.rawValue }
             .assign(to: \.typeString, on: self)
             .store(in: &cancellables)
 
-        // assign category
         $plant
             .map{ self.color(for: $0.type) }
             .assign(to: \.typeColor, on: self)

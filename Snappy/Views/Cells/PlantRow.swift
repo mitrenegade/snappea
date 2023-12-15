@@ -24,8 +24,12 @@ struct PlantRow: View {
     }
 }
 
-struct PlantRow_Previews: PreviewProvider {
-    static var previews: some View {
-        PlantRow(plant: Stub.plantData[0])
-    }
+#Preview {
+    PlantRow(plant: Stub.plantData[0])
 }
+
+//struct PlantRow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PlantRow(plant: Stub.plantData[0])
+//    }
+//}
