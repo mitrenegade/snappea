@@ -11,12 +11,13 @@ import FirebaseFirestoreSwift
 
 /// An snapshot of a plant at a single instance in time.
 struct Tag: Identifiable, Codable {
-    @DocumentID var id: String? = nil
+//    @DocumentID var id: String? = nil
+    var id: String? = nil
     var photoId: String = ""
     var plantId: String = ""
     var start: NormalizedCoordinate
     var end: NormalizedCoordinate
-    
+
     var plant: Plant? {
         return APIService.shared.plants.first { $0.id == plantId }
     }

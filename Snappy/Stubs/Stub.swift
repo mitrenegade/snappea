@@ -31,13 +31,9 @@ enum Stub: String {
     }
 
 
-    static var photoData: [Photo] { return Array(Stub.photoDict.values) }
-    static var plantData: [Plant] { return Array(Stub.plantDict.values) }
-    static var snapData: [Tag] { return Array(Stub.snapDict.values) }
-
-    static var plantDict: [String:Plant] = Stub.load(.plants)
-    static var snapDict: [String:Tag] = Stub.load(.snaps)
-    static var photoDict: [String: Photo] = Stub.load(.photos)
+    static var photoData: [Photo] { Stub.load(.photos) }
+    static var plantData: [Plant] { Stub.load(.plants) }
+    static var snapData: [Tag] { Stub.load(.snaps) }
 
     static var testUser: User = Stub.load(.user)
 

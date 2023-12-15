@@ -11,8 +11,9 @@ import FirebaseFirestoreSwift
 
 struct Photo: Identifiable, Codable {
 
-    @DocumentID var id: String? = nil
-    
+//    @DocumentID var id: String? = nil
+    var id: String? = nil
+
     var url: String = ""
     var timestamp: TimeInterval = 0
 //    @ServerTimestamp var createdTime: Timestamp?

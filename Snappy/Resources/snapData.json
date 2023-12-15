@@ -1,27 +1,54 @@
-{
-    "snap1":{
+[
+    {
+        "id": "snap1",
         "photoId": "photo1",
         "plantId": "plant1",
-        "x": 0,
-        "y": 0
+        "start": {
+            "x": 0,
+            "y": 0
+        },
+        "end": {
+            "x": 0.5,
+            "y": 0.5
+        }
     },
-    "snap2":{
+    {
+        "id": "snap2",
         "photoId": "photo1",
         "plantId": "plant2",
-        "x": 200,
-        "y": 0,
-        "scale": 2
+        "start": {
+            "x": 0,
+            "y": 0
+        },
+        "end": {
+            "x": 0.5,
+            "y": 0.5
+        }
     },
-    "snap3":{
+    {
+        "id": "snap3",
         "photoId": "photo1",
         "plantId": "plant3",
-        "x": 0,
-        "y": 100
+        "start": {
+            "x": 0,
+            "y": 0
+        },
+        "end": {
+            "x": 0.5,
+            "y": 0.5
+        }
     },
-    "snap4":{
+    {
+        "id": "snap4",
         "photoId": "photo2",
         "plantId": "plant3",
-        "x": -150,
-        "y": -150
+        "start": {
+            "x": 0,
+            "y": 0
+        },
+        "end": {
+            "x": 0.5,
+            "y": 0.5
+        }
     }
-}
+]
