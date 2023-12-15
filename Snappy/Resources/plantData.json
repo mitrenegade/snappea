@@ -2,7 +2,7 @@
     "plant1":{
         "name": "Tomato1",
         "type": "tomato",
-        "category": "vegetable"
+        "category": "vegetable",
     },
     "plant2":{
         "name": "Cucumber1",

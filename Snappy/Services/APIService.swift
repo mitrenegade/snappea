@@ -162,10 +162,10 @@ class APIService: NSObject, ObservableObject {
             db.collection(userId).document("garden").collection("plants").document(key).setData(val)
         }
 
-        let tag = Stub.loadJSONData(filename: "tagData.json")
-        let tagJSON = try! JSONSerialization.jsonObject(with: tag, options: .allowFragments) as! [String: [String:Any]]
-        for (key, val) in tagJSON {
-            db.collection(userId).document("garden").collection("tags").document(key).setData(val)
+        let snap = Stub.loadJSONData(filename: "snapData.json")
+        let snapJSON = try! JSONSerialization.jsonObject(with: snap, options: .allowFragments) as! [String: [String:Any]]
+        for (key, val) in snapJSON {
+            db.collection(userId).document("garden").collection("snaps").document(key).setData(val)
         }
     }
 }

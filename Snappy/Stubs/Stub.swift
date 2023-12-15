@@ -3,7 +3,7 @@ import SwiftUI
 
 enum Stub: String {
     case plants
-    case tags
+    case snaps
     case photos
     case user
 
@@ -17,8 +17,8 @@ enum Stub: String {
         switch self {
         case .plants:
             return "plantData"
-        case .tags:
-            return "tagData"
+        case .snaps:
+            return "snapData"
         case .photos:
             return "photoData"
         case .user:
@@ -33,10 +33,10 @@ enum Stub: String {
 
     static var photoData: [Photo] { return Array(Stub.photoDict.values) }
     static var plantData: [Plant] { return Array(Stub.plantDict.values) }
-    static var tagData: [Tag] { return Array(Stub.tagDict.values) }
+    static var snapData: [Tag] { return Array(Stub.snapDict.values) }
 
     static var plantDict: [String:Plant] = Stub.load(.plants)
-    static var tagDict: [String:Tag] = Stub.load(.tags)
+    static var snapDict: [String:Tag] = Stub.load(.snaps)
     static var photoDict: [String: Photo] = Stub.load(.photos)
 
     static var testUser: User = Stub.load(.user)

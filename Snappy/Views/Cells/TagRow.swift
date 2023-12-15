@@ -21,6 +21,6 @@ struct TagRow: View {
 
 struct TagRow_Previews: PreviewProvider {
     static var previews: some View {
-        TagRow(tag: Stub.tagData[0])
+        TagRow(tag: Stub.snapData[0])
     }
 }
