@@ -55,16 +55,16 @@ struct SnapOverlayView: View {
                     self.draggingEnd = CGPoint.zero
 
                     print("Tapped: \(value)")
-                    self.createTag(start: value.startLocation, end: value.location)
+                    self.createSnap(start: value.startLocation, end: value.location)
                 }
         )
     }
     
-    func createTag(start: CGPoint, end: CGPoint) {
+    func createSnap(start: CGPoint, end: CGPoint) {
         guard let photoId = viewModel.photoId else { return }
         let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: self.imageSize, start: start, end: end)
 
-        print("createTag startCoord: \(startCoord) endCoord \(endCoord)")
+        print("createSnap startCoord: \(startCoord) endCoord \(endCoord)")
 
         let snap = Snap(photoId: photoId, start: startCoord, end: endCoord)
 

@@ -19,7 +19,7 @@ class SnapOverlayViewModel: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
     
-    init(photo: Photo) {
+    init(photo: Photo, dataStore: DataStore = FirebaseDataStore()) {
         self.photo = photo
 
         // assign url
@@ -32,7 +32,10 @@ class SnapOverlayViewModel: ObservableObject {
             .assign(to: \.photoId, on: self)
             .store(in: &cancellables)
 
-        self.snaps = photo.snaps
+        // TODO: snap should be the input
+        Task {
+            self.snaps = try await dataStore.fetchSnaps()
+        }
 //        $photo.map{ $0.snaps }
 //            .assign(to: \.snaps, on: self)
 //            .store(in: &cancellables)

@@ -21,7 +21,7 @@ class PlantRowViewModel: ObservableObject, Identifiable {
     var categoryColor: UIColor = .clear
     var typeString: String = ""
     var typeColor: UIColor = .clear
-    var image: UIImage? = nil
+    var url: URL? = nil
 
     init(plant: Plant, dataStore: DataStore = FirebaseDataStore()) {
         self.plant = plant
@@ -61,10 +61,18 @@ class PlantRowViewModel: ObservableObject, Identifiable {
             .assign(to: \.typeColor, on: self)
             .store(in: &cancellables)
 
+//        $plant
+//            .map { self.getPhoto(for: $0) }
+//            .assign(to: \.image, on: self)
+//            .store(in: &cancellables)
+
+        // assign photo url
         $plant
-            .map { self.getPhoto(for: $0) }
-            .assign(to: \.image, on: self)
+            .compactMap { self.getPhotoUrl(for: $0) }
+            .compactMap { URL(string: $0) }
+            .assign(to: \.url, on: self)
             .store(in: &cancellables)
+
 
     }
 
@@ -92,7 +100,10 @@ class PlantRowViewModel: ObservableObject, Identifiable {
         }
     }
 
-    func getPhoto(for plant: Plant) -> UIImage? {
-        dataStore.fetchPhotos()
+    /// Returns the photoUrl for the most recent photo of the plant
+    func getPhotoUrl(for plant: Plant) -> String? {
+        let photos = dataStore.photos(for: plant)
+            .sorted { $0.timestamp > $1.timestamp }
+        return photos.first?.url
     }
 }

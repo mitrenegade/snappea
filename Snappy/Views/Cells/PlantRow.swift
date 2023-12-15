@@ -17,7 +17,11 @@ struct PlantRow: View {
 
     var body: some View {
         HStack {
-            Image($plantRowViewModel.image)
+            AsyncImageView(url: $plantRowViewModel.url.wrappedValue!,
+                           frame: CGSize(width: 80, height: 80),
+                           placeholder: Text("Loading..."),
+                           cache: TemporaryImageCache.shared)
+                .aspectRatio(contentMode: .fill)
             Text($plantRowViewModel.name.wrappedValue)
             Text($plantRowViewModel.categoryString.wrappedValue)
                 .foregroundColor(Color($plantRowViewModel.categoryColor.wrappedValue))

@@ -21,9 +21,9 @@ class PhotoDetailViewModel: ObservableObject {
     init(photo: Photo) {
         self.photo = photo
         
-        $photo
-            .map{ $0.snaps }
-            .assign(to: \.snaps, on: self)
-            .store(in: &cancellables)
+//        $photo
+//            .map{ $0.snaps }
+//            .assign(to: \.snaps, on: self)
+//            .store(in: &cancellables)
     }
 }

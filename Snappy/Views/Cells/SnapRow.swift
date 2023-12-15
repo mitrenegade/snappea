@@ -9,13 +9,16 @@
 import SwiftUI
 
 struct SnapRow: View {
-    var snap: Snap
+    private let snap: Snap // TODO: use SnapRowViewModel
+    private let name: String
+
     var body: some View {
-        Text(snap.plant?.name ?? snap.id ?? "Unknown plant")
+        Text(name)
     }
     
-    init(snap: Snap) {
+    init(snap: Snap, dataStore: DataStore = FirebaseDataStore()) {
         self.snap = snap
+        name = dataStore.plant(withId: snap.plantId)?.name ?? "Unknown plant (\(snap.id))"
     }
 }
 

@@ -18,8 +18,19 @@ protocol DataStore {
     func plant(withId id: String) -> Plant?
     func snap(withId id: String) -> Snap?
 
+    /// Each plant has a collection of snaps
     func snaps(for plant: Plant) -> [Snap]
-    func photo(for snap: Snap) -> Photo?
+
+    /// Each photo has a collection of snaps.
+    func snaps(for photo: Photo) -> [Snap]
+
+    /// A photo can have multiple plants. The relationship
+    /// is determined by the snaps of that photo
+    func plants(for photo: Photo) -> [Plant]
+
+    /// A plant can have multiple photos. The relationship
+    /// is determined by the snaps of that plant
+    func photos(for plant: Plant) -> [Photo]
 }
 
 enum DataStoreError: Error {
@@ -28,6 +39,9 @@ enum DataStoreError: Error {
 }
 
 class FirebaseDataStore: DataStore {
+    // TODO: FirebaseDataStore should actually be FirebaseAPIService
+    // DataStore should just be a temporary cache or a persistence layer
+
     /// Firebase
     private let db = Firestore.firestore()
 
@@ -85,17 +99,31 @@ class FirebaseDataStore: DataStore {
         snapCache[id]
     }
 
-    func snaps(for plant: Plant) -> [Snap] {
+    /// Relationships
+    func snaps(for photo: Photo) -> [Snap] {
         let snaps = snapCache
-            .filter{ $0.value.plantId == plant.id }
-            .values
+            .compactMap { $0.value }
+            .filter{ $0.photoId == photo.id }
         return Array(snaps)
     }
 
-    func photo(for snap: Snap) -> Photo? {
-        photoCache
-            .first(where: { $0.value.id == snap.photoId })?
-            .value
+    func snaps(for plant: Plant) -> [Snap] {
+        let snaps = snapCache
+            .compactMap { $0.value }
+            .filter{ $0.plantId == plant.id }
+        return Array(snaps)
+    }
+
+    func plants(for photo: Photo) -> [Plant] {
+        let snaps = snaps(for: photo)
+        let plants = snaps.compactMap { plant(withId: $0.plantId) }
+        return Array(Set(plants))
+    }
+
+    func photos(for plant: Plant) -> [Photo] {
+        let snaps = snaps(for: plant)
+        let photos = snaps.compactMap { photo(withId:$0.photoId) }
+        return Array(Set(photos))
     }
 
     // MARK: - Generic interface into Firebase
@@ -121,25 +149,25 @@ class FirebaseDataStore: DataStore {
     // MARK: - Cache
     private func store(photo: Photo) {
         readWriteQueue.sync {
-            if let id = photo.id {
-                photoCache[id] = photo
-            }
+//            if let id = photo.id {
+            photoCache[photo.id] = photo
+//            }
         }
     }
 
     private func store(plant: Plant) {
         readWriteQueue.sync {
-            if let id = plant.id {
-                plantCache[id] = plant
-            }
+//            if let id = plant.id {
+            plantCache[plant.id] = plant
+//            }
         }
     }
 
     private func store(snap: Snap) {
         readWriteQueue.sync {
-            if let id = snap.id {
-                snapCache[id] = snap
-            }
+//            if let id = snap.id {
+            snapCache[snap.id] = snap
+//            }
         }
     }
 }

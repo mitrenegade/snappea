@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 /// An snapshot of a plant at a single instance in time.
 struct Snap: Identifiable, Codable {
 //    @DocumentID var id: String? = nil
-    var id: String? = nil
+    var id: String = ""
     var photoId: String = ""
     var plantId: String = ""
     var start: NormalizedCoordinate

@@ -9,10 +9,10 @@
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct Photo: Identifiable, Codable {
+struct Photo: Identifiable, Codable, Hashable {
 
 //    @DocumentID var id: String? = nil
-    var id: String? = nil
+    var id: String = ""
 
     var url: String = ""
     var timestamp: TimeInterval = 0

@@ -17,8 +17,8 @@ class SnapsListViewModel: ObservableObject {
     init(photo: Photo) {
         self.photo = photo
 
-        $photo.compactMap{ $0?.snaps }
-            .assign(to: \.dataSource, on: self)
-            .store(in: &cancellables)
+//        $photo.compactMap{ $0?.snaps }
+//            .assign(to: \.dataSource, on: self)
+//            .store(in: &cancellables)
     }
 }
