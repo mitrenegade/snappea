@@ -16,15 +16,18 @@ struct ContentView: View {
     @State private var showingAlert = false
     @State private var alert: Alert?
 
-    @ObservedObject var viewModel: LoginViewModel
+    let viewModel: LoginViewModel
+    @ObservedObject var authStore: AuthStore
 
-    init(viewModel: LoginViewModel = LoginViewModel()) {
+    init(viewModel: LoginViewModel = LoginViewModel(),
+         authStore: AuthStore = AuthStore.shared) {
         self.viewModel = viewModel
+        self.authStore = authStore
     }
 
     var body: some View {
         Group {
-            if !viewModel.isLoggedIn {
+            if !$authStore.isLoggedIn.wrappedValue {
                 VStack {
                     Text("Welcome and please login or sign up")
                         .font(.title)

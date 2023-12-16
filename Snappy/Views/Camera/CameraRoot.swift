@@ -144,7 +144,7 @@ struct CameraRoot: View {
     }
     
     func displayNewPhotoDetail(photo: Photo) {
-        self.router.selectedTab = .photos
+        self.router.selectedTab = .plants
         self.photoDetailSettings.newPhoto = photo
         self.photoDetailSettings.shouldShowNewPhoto = true
     }

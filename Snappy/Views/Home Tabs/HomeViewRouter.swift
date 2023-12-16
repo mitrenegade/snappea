@@ -10,12 +10,12 @@ import SwiftUI
 import Combine
 
 enum Tab: Hashable {
-    case photos
+    case plants
     case camera
 }
 
 class HomeViewRouter: ObservableObject {
-    @Published var selectedTab: Tab = .photos {
+    @Published var selectedTab: Tab = .plants {
         willSet {
             objectWillChange.send()
         }

@@ -11,8 +11,9 @@ import FirebaseFirestoreSwift
 
 struct Photo: Identifiable, Codable {
 
-    @DocumentID var id: String? = nil
-    
+//    @DocumentID var id: String? = nil
+    var id: String? = nil
+
     var url: String = ""
     var timestamp: TimeInterval = 0
 //    @ServerTimestamp var createdTime: Timestamp?
@@ -26,6 +27,6 @@ struct Photo: Identifiable, Codable {
     }
     
     var tags: [Tag] {
-        return APIService.shared.tags.filter{ return $0.photoId == self.id }
+        return APIService.shared.snaps.filter{ return $0.photoId == self.id }
     }
 }

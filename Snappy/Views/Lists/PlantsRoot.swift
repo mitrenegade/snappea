@@ -1,5 +1,5 @@
 //
-//  PhotosRoot.swift
+//  PlantsRoot.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 4/19/20.
@@ -10,22 +10,17 @@ import SwiftUI
 import RenderCloud
 import Combine
 
-struct PhotosRoot: View {
-    @ObservedObject var viewModel: PhotosListViewModel
-    private let auth: RenderAuthService // BOBBY TODO: use environment variable
+/// Displays an index of plants
+struct PlantsRoot: View {
+    @ObservedObject var viewModel: PlantsListViewModel
+    @EnvironmentObject var user: User
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
     
     private var cancellables = Set<AnyCancellable>()
     
     init(router: HomeViewRouter,
-         auth: RenderAuthService = RenderAuthService(),
          apiService: APIService = APIService.shared) {
-        self.auth = auth
-        if auth.user != nil {
-            apiService.loadGarden()
-        }
-        
-        viewModel = PhotosListViewModel(apiService: apiService, router: router)
+        viewModel = PlantsListViewModel(apiService: apiService, router: router)
     }
 
     var body: some View {
@@ -40,7 +35,7 @@ struct PhotosRoot: View {
             }
             .navigationBarItems(leading:
                 Button(action: {
-                    try? self.auth.logout()
+                LoginViewModel().signOut()
                 }) {
                     Text("Logout")
             })
@@ -49,10 +44,11 @@ struct PhotosRoot: View {
     }
     
     var listView: some View {
-        List(viewModel.dataSource) { photo in
-            NavigationLink(destination: PhotoDetailView(photo: photo)) {
-                PhotoRow(photo: photo)
-            }
+        List(viewModel.dataSource) { plant in
+            PlantRow(plant: plant)
+//            NavigationLink(destination: PhotoDetailView(photo: photo)) {
+//                PlantRow(plant: plant)
+//            }
         }
     }
     
@@ -68,8 +64,8 @@ struct PhotosRoot: View {
     }
 }
 
-struct PhotosRoot_Previews: PreviewProvider {
+struct PlantsRoot_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosRoot(router: HomeViewRouter())
+        PlantsRoot(router: HomeViewRouter())
     }
 }

@@ -1,5 +1,5 @@
 //
-//  PhotosListViewModel.swift
+//  PlantsListViewModel.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 4/26/20.
@@ -9,16 +9,20 @@
 import Combine
 import Foundation
 
-class PhotosListViewModel: ObservableObject {
-    @Published var dataSource: [Photo] = []
+class PlantsListViewModel: ObservableObject {
+    @Published var dataSource: [Plant] = []
     private var cancellables = Set<AnyCancellable>()
     @Published var router: HomeViewRouter
 
     init(apiService: APIService, router: HomeViewRouter) {
         self.router = router
 
-        apiService.$photos
+        apiService.$plants
             .assign(to: \.dataSource, on: self)
             .store(in: &cancellables)
+
+        Task {
+            try await apiService.loadGarden()
+        }
     }
 }
