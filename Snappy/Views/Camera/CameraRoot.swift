@@ -19,7 +19,7 @@ struct CameraRoot: View {
 
     private var apiService: APIService
     
-    init(router: HomeViewRouter, apiService: APIService = APIService.shared) {
+    init(router: HomeViewRouter, apiService: APIService = FirebaseAPIService.shared) {
         self.apiService = apiService
         self.router = router
     }
