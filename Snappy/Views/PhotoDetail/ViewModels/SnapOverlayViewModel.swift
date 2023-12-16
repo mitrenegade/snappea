@@ -1,5 +1,5 @@
 //
-//  TagOverlayViewModel.swift
+//  SnapOverlayViewModel.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 4/25/20.
@@ -10,16 +10,16 @@ import Combine
 import Foundation
 import SwiftUI
 
-class TagOverlayViewModel: ObservableObject {
+class SnapOverlayViewModel: ObservableObject {
     @Published var photo: Photo
-    @Published var tags: [Tag] = []
+    @Published var snaps: [Snap] = []
     @Published var url: URL = URL(string: "www.google.com")!
     
     var photoId: String?
 
     private var cancellables = Set<AnyCancellable>()
     
-    init(photo: Photo) {
+    init(photo: Photo, dataStore: DataStore = FirebaseDataStore()) {
         self.photo = photo
 
         // assign url
@@ -32,9 +32,12 @@ class TagOverlayViewModel: ObservableObject {
             .assign(to: \.photoId, on: self)
             .store(in: &cancellables)
 
-        self.tags = photo.tags
-//        $photo.map{ $0.tags }
-//            .assign(to: \.tags, on: self)
+        // TODO: snap should be the input
+        Task {
+            self.snaps = try await dataStore.fetchSnaps()
+        }
+//        $photo.map{ $0.snaps }
+//            .assign(to: \.snaps, on: self)
 //            .store(in: &cancellables)
     }
 }

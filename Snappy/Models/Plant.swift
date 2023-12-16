@@ -21,9 +21,9 @@ enum Category: String, Codable {
     case unknown
 }
 
-struct Plant: Identifiable, Codable {
+struct Plant: Identifiable, Codable, Hashable {
 //    @DocumentID var id: String? = nil
-    var id: String? = nil
+    var id: String = ""
     var name: String = ""
     var type: PlantType = .unknown
     var category: Category = .unknown

@@ -13,17 +13,19 @@ class PlantRowViewModel: ObservableObject, Identifiable {
     @Published var plant: Plant
     private var cancellables = Set<AnyCancellable>()
 
+    private let dataStore: DataStore
+
     var id: String?
     var name: String = ""
     var categoryString: String = ""
     var categoryColor: UIColor = .clear
     var typeString: String = ""
     var typeColor: UIColor = .clear
+    var url: URL? = nil
 
-    init(plant: Plant) {
+    init(plant: Plant, dataStore: DataStore = FirebaseDataStore()) {
         self.plant = plant
-
-        // TODO: fetch the most recent photo id for the plan
+        self.dataStore = dataStore
 
         // assign id
         $plant
@@ -58,6 +60,20 @@ class PlantRowViewModel: ObservableObject, Identifiable {
             .map{ self.color(for: $0.type) }
             .assign(to: \.typeColor, on: self)
             .store(in: &cancellables)
+
+//        $plant
+//            .map { self.getPhoto(for: $0) }
+//            .assign(to: \.image, on: self)
+//            .store(in: &cancellables)
+
+        // assign photo url
+        $plant
+            .compactMap { self.getPhotoUrl(for: $0) }
+            .compactMap { URL(string: $0) }
+            .assign(to: \.url, on: self)
+            .store(in: &cancellables)
+
+
     }
 
     func color(for category: Category) -> UIColor {
@@ -82,5 +98,12 @@ class PlantRowViewModel: ObservableObject, Identifiable {
         case .unknown:
             return .yellow
         }
+    }
+
+    /// Returns the photoUrl for the most recent photo of the plant
+    func getPhotoUrl(for plant: Plant) -> String? {
+        let photos = dataStore.photos(for: plant)
+            .sorted { $0.timestamp > $1.timestamp }
+        return photos.first?.url
     }
 }

@@ -9,10 +9,10 @@
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct Photo: Identifiable, Codable {
+struct Photo: Identifiable, Codable, Hashable {
 
 //    @DocumentID var id: String? = nil
-    var id: String? = nil
+    var id: String = ""
 
     var url: String = ""
     var timestamp: TimeInterval = 0
@@ -24,9 +24,5 @@ struct Photo: Identifiable, Codable {
     
     var dateString: String {
         return date.description
-    }
-    
-    var tags: [Tag] {
-        return APIService.shared.snaps.filter{ return $0.photoId == self.id }
     }
 }

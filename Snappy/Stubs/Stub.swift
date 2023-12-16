@@ -33,7 +33,7 @@ enum Stub: String {
 
     static var photoData: [Photo] { Stub.load(.photos) }
     static var plantData: [Plant] { Stub.load(.plants) }
-    static var snapData: [Tag] { Stub.load(.snaps) }
+    static var snapData: [Snap] { Stub.load(.snaps) }
 
     static var testUser: User = Stub.load(.user)
 

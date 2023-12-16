@@ -25,18 +25,16 @@ struct PhotoDetailView: View {
     }
     
     var imageSection: some View {
-        TagOverlayView(photo: $photoDetailViewModel.photo.wrappedValue) { photo in
+        SnapOverlayView(photo: $photoDetailViewModel.photo.wrappedValue) { photo in
             self.photoDetailViewModel.photo = photo
         }
     }
     
     var listSection: some View {
-        TagsListView(photo: $photoDetailViewModel.photo.wrappedValue)
+        SnapsListView(photo: $photoDetailViewModel.photo.wrappedValue)
     }
 }
 
-struct PhotoDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        PhotoDetailView(photo: Stub.photoData[0])
-    }
+#Preview {
+    PhotoDetailView(photo: Stub.photoData[0])
 }

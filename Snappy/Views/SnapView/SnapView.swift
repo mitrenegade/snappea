@@ -1,5 +1,5 @@
 //
-//  TagView.swift
+//  SnapView.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 4/21/20.
@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-struct TagView: View, Identifiable {
-    @ObservedObject var viewModel: TagViewModel
+struct SnapView: View, Identifiable {
+    @ObservedObject var viewModel: SnapViewModel
     var id: String?
     
-    init(tag: Tag) {
+    init(snap: Snap) {
         let screenWidth = UIScreen.main.bounds.width
-        self.viewModel = TagViewModel(tag: tag, imageWidth: screenWidth, imageHeight: screenWidth)
-        id = tag.id
+        self.viewModel = SnapViewModel(snap: snap, imageWidth: screenWidth, imageHeight: screenWidth)
+        id = snap.id
     }
 
     var body: some View {

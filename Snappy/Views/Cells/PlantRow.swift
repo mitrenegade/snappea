@@ -11,12 +11,21 @@ import SwiftUI
 struct PlantRow: View {
     @ObservedObject var plantRowViewModel: PlantRowViewModel
 
-    init(plant: Plant) {
-        self.plantRowViewModel = PlantRowViewModel(plant: plant)
+    init(viewModel: PlantRowViewModel) {
+        self.plantRowViewModel = viewModel
     }
 
     var body: some View {
         HStack {
+            if let url = $plantRowViewModel.url.wrappedValue {
+                AsyncImageView(url: url,
+                               frame: CGSize(width: 80, height: 80),
+                               placeholder: Image(systemName: "tree.fill"),
+                               cache: TemporaryImageCache.shared)
+                    .aspectRatio(contentMode: .fill)
+            } else {
+                Image(systemName: "camera")
+            }
             Text($plantRowViewModel.name.wrappedValue)
             Text($plantRowViewModel.categoryString.wrappedValue)
                 .foregroundColor(Color($plantRowViewModel.categoryColor.wrappedValue))
@@ -27,7 +36,7 @@ struct PlantRow: View {
 }
 
 #Preview {
-    PlantRow(plant: Stub.plantData[0])
+    PlantRow(viewModel: PlantRowViewModel(plant: Stub.plantData[0], dataStore: MockDataStore()))
 }
 
 //struct PlantRow_Previews: PreviewProvider {

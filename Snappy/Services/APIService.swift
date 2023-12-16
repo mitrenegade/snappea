@@ -12,17 +12,11 @@ import Combine
 class APIService: NSObject, ObservableObject {
     static let shared = APIService()
 
-    var photoCache: [String: Photo] = [:]
-    var plantCache: [String: Plant] = [:]
-    var tagCache: [String: Tag] = [:]
-    
     @Published var photos: [Photo] = []
     @Published var plants: [Plant] = []
-    @Published var snaps: [Tag] = []
+    @Published var snaps: [Snap] = []
 
     private let dataStore: DataStore
-
-    private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
 
     init(dataStore: DataStore = FirebaseDataStore()) {
         self.dataStore = dataStore
@@ -61,53 +55,26 @@ class APIService: NSObject, ObservableObject {
 //        }
     }
 
-    func addTag(_ tag: Tag, result: @escaping ((Tag?, Error?)->Void)) {
+    func addSnap(_ snap: Snap, result: @escaping ((Snap?, Error?)->Void)) {
         // TODO: also update plants and photos?
 //        do {
-//            let ref = try db.collection(userId).document("garden").collection("tags").addDocument(from: tag)
-//            print("AddTag result \(ref)")
+//            let ref = try db.collection(userId).document("garden").collection("snaps").addDocument(from: snap)
+//            print("AddSnap result \(ref)")
 //            ref.getDocument { (snapshot, error) in
-//                if let tag: Tag = try? snapshot?.data(as: Tag.self) {
+//                if let snap: Snap = try? snapshot?.data(as: Snap.self) {
 //                    self.store(tag: tag)
 //                    result(tag, error)
 //                }
 //            }
 //        } catch let error {
-//            print("AddTag error \(error)")
+//            print("AddSnap error \(error)")
 //        }
     }
     
     func loadGarden() async throws {
         self.photos = try await dataStore.fetchPhotos()
-//        store(photo: photos)
         self.plants = try await dataStore.fetchPlants().sorted { $0.name < $1.name }
-//        store(plant: plants)
         self.snaps = try await dataStore.fetchSnaps()
-        // store(snaps: snaps)
-    }
-    
-    private func store(photo: Photo) {
-        readWriteQueue.sync {
-            if let id = photo.id {
-                photoCache[id] = photo
-            }
-        }
-    }
-
-    private func store(plant: Plant) {
-        readWriteQueue.sync {
-            if let id = plant.id {
-                plantCache[id] = plant
-            }
-        }
-    }
-
-    private func store(tag: Tag) {
-        readWriteQueue.sync {
-            if let id = tag.id {
-                tagCache[id] = tag
-            }
-        }
     }
 
     // do this once

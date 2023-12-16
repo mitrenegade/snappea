@@ -17,15 +17,15 @@
 		8E3ABF00244D6FE000FF378B /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABEFF244D6FE000FF378B /* ImageLoader.swift */; };
 		8E3ABF02244D704E00FF378B /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF01244D704E00FF378B /* AsyncImageView.swift */; };
 		8E3ABF05244D7D0A00FF378B /* PhotoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF04244D7D0A00FF378B /* PhotoRow.swift */; };
-		8E3ABF07244D7D4000FF378B /* TagRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF06244D7D4000FF378B /* TagRow.swift */; };
+		8E3ABF07244D7D4000FF378B /* SnapRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF06244D7D4000FF378B /* SnapRow.swift */; };
 		8E3ABF0A244D7DA300FF378B /* PlantsRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF09244D7DA300FF378B /* PlantsRoot.swift */; };
-		8E3ABF0C244D7DB300FF378B /* TagsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF0B244D7DB300FF378B /* TagsListView.swift */; };
+		8E3ABF0C244D7DB300FF378B /* SnapsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF0B244D7DB300FF378B /* SnapsListView.swift */; };
 		8E3ABF11244EACA200FF378B /* PhotoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF10244EACA200FF378B /* PhotoDetailViewModel.swift */; };
-		8E3ABF13244EAD0A00FF378B /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF12244EAD0A00FF378B /* TagViewModel.swift */; };
+		8E3ABF13244EAD0A00FF378B /* SnapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF12244EAD0A00FF378B /* SnapViewModel.swift */; };
 		8E3ABF15244EB50E00FF378B /* PhotoRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF14244EB50E00FF378B /* PhotoRowViewModel.swift */; };
 		8E3ABF17244F83A300FF378B /* PhotoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF16244F83A300FF378B /* PhotoDetailView.swift */; };
-		8E3ABF192450009B00FF378B /* TagOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF182450009B00FF378B /* TagOverlayView.swift */; };
-		8E3ABF1C2450065000FF378B /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF1B2450065000FF378B /* TagView.swift */; };
+		8E3ABF192450009B00FF378B /* SnapOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF182450009B00FF378B /* SnapOverlayView.swift */; };
+		8E3ABF1C2450065000FF378B /* SnapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF1B2450065000FF378B /* SnapView.swift */; };
 		8E5FE327246C774400622DDA /* FirebaseImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE326246C774400622DDA /* FirebaseImageService.swift */; };
 		8E5FE329246E7B0300622DDA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE328246E7B0300622DDA /* HomeView.swift */; };
 		8E5FE32C246E800A00622DDA /* HomeViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE32B246E800A00622DDA /* HomeViewRouter.swift */; };
@@ -49,9 +49,9 @@
 		8E87C5C8245EA1B100482678 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E87C5C7245EA1B100482678 /* LoginViewModel.swift */; };
 		8EC10BFF245F2EC7004D92EC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC10BFE245F2EC7004D92EC /* User.swift */; };
 		8EC86BF92454E81D00AB2F92 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BF82454E81D00AB2F92 /* ImageStore.swift */; };
-		8EC86BFB245503CC00AB2F92 /* TagOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFA245503CC00AB2F92 /* TagOverlayViewModel.swift */; };
+		8EC86BFB245503CC00AB2F92 /* SnapOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */; };
 		8EC86BFD24560C2900AB2F92 /* PlantsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFC24560C2900AB2F92 /* PlantsListViewModel.swift */; };
-		8EC86BFF245613B900AB2F92 /* TagsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFE245613B900AB2F92 /* TagsListViewModel.swift */; };
+		8EC86BFF245613B900AB2F92 /* SnapsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFE245613B900AB2F92 /* SnapsListViewModel.swift */; };
 		8EC86C012456234700AB2F92 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86C002456234700AB2F92 /* ImageCache.swift */; };
 		8EC86C032456629100AB2F92 /* GoogleService-Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EC86C022456629100AB2F92 /* GoogleService-Info-dev.plist */; };
 		8EC86C07245A699D00AB2F92 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86C06245A699D00AB2F92 /* APIService.swift */; };
@@ -60,7 +60,7 @@
 		8EF0B70D24691940001C9CD8 /* DragView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0B70C24691940001C9CD8 /* DragView.swift */; };
 		8EF0B70F24691A0C001C9CD8 /* DragViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0B70E24691A0C001C9CD8 /* DragViewModel.swift */; };
 		8EF1FC6D24634A81005C4DE9 /* TappableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC6C24634A81005C4DE9 /* TappableView.swift */; };
-		8EF1FC6F24675AF2005C4DE9 /* TagViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC6E24675AF2005C4DE9 /* TagViewModelTests.swift */; };
+		8EF1FC6F24675AF2005C4DE9 /* SnapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC6E24675AF2005C4DE9 /* SnapViewModelTests.swift */; };
 		8EF1FC712467C4AF005C4DE9 /* CoordinateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC702467C4AF005C4DE9 /* CoordinateService.swift */; };
 		8EF1FC732467D1F4005C4DE9 /* CoordinateServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */; };
 		8EF1FC772467E69D005C4DE9 /* NormalizedCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC762467E69D005C4DE9 /* NormalizedCoordinate.swift */; };
@@ -96,15 +96,15 @@
 		8E3ABEFF244D6FE000FF378B /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		8E3ABF01244D704E00FF378B /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		8E3ABF04244D7D0A00FF378B /* PhotoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRow.swift; sourceTree = "<group>"; };
-		8E3ABF06244D7D4000FF378B /* TagRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRow.swift; sourceTree = "<group>"; };
+		8E3ABF06244D7D4000FF378B /* SnapRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapRow.swift; sourceTree = "<group>"; };
 		8E3ABF09244D7DA300FF378B /* PlantsRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsRoot.swift; sourceTree = "<group>"; };
-		8E3ABF0B244D7DB300FF378B /* TagsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsListView.swift; sourceTree = "<group>"; };
+		8E3ABF0B244D7DB300FF378B /* SnapsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapsListView.swift; sourceTree = "<group>"; };
 		8E3ABF10244EACA200FF378B /* PhotoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewModel.swift; sourceTree = "<group>"; };
-		8E3ABF12244EAD0A00FF378B /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
+		8E3ABF12244EAD0A00FF378B /* SnapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapViewModel.swift; sourceTree = "<group>"; };
 		8E3ABF14244EB50E00FF378B /* PhotoRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRowViewModel.swift; sourceTree = "<group>"; };
 		8E3ABF16244F83A300FF378B /* PhotoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailView.swift; sourceTree = "<group>"; };
-		8E3ABF182450009B00FF378B /* TagOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOverlayView.swift; sourceTree = "<group>"; };
-		8E3ABF1B2450065000FF378B /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		8E3ABF182450009B00FF378B /* SnapOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapOverlayView.swift; sourceTree = "<group>"; };
+		8E3ABF1B2450065000FF378B /* SnapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapView.swift; sourceTree = "<group>"; };
 		8E5FE326246C774400622DDA /* FirebaseImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseImageService.swift; sourceTree = "<group>"; };
 		8E5FE328246E7B0300622DDA /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8E5FE32B246E800A00622DDA /* HomeViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewRouter.swift; sourceTree = "<group>"; };
@@ -132,9 +132,9 @@
 		8E87C5C7245EA1B100482678 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		8EC10BFE245F2EC7004D92EC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8EC86BF82454E81D00AB2F92 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
-		8EC86BFA245503CC00AB2F92 /* TagOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOverlayViewModel.swift; sourceTree = "<group>"; };
+		8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapOverlayViewModel.swift; sourceTree = "<group>"; };
 		8EC86BFC24560C2900AB2F92 /* PlantsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsListViewModel.swift; sourceTree = "<group>"; };
-		8EC86BFE245613B900AB2F92 /* TagsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsListViewModel.swift; sourceTree = "<group>"; };
+		8EC86BFE245613B900AB2F92 /* SnapsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapsListViewModel.swift; sourceTree = "<group>"; };
 		8EC86C002456234700AB2F92 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		8EC86C022456629100AB2F92 /* GoogleService-Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-dev.plist"; sourceTree = "<group>"; };
 		8EC86C06245A699D00AB2F92 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 		8EF0B70C24691940001C9CD8 /* DragView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragView.swift; sourceTree = "<group>"; };
 		8EF0B70E24691A0C001C9CD8 /* DragViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragViewModel.swift; sourceTree = "<group>"; };
 		8EF1FC6C24634A81005C4DE9 /* TappableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableView.swift; sourceTree = "<group>"; };
-		8EF1FC6E24675AF2005C4DE9 /* TagViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModelTests.swift; sourceTree = "<group>"; };
+		8EF1FC6E24675AF2005C4DE9 /* SnapViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapViewModelTests.swift; sourceTree = "<group>"; };
 		8EF1FC702467C4AF005C4DE9 /* CoordinateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateService.swift; sourceTree = "<group>"; };
 		8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateServiceTests.swift; sourceTree = "<group>"; };
 		8EF1FC762467E69D005C4DE9 /* NormalizedCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalizedCoordinate.swift; sourceTree = "<group>"; };
@@ -214,7 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				8E3ABF04244D7D0A00FF378B /* PhotoRow.swift */,
-				8E3ABF06244D7D4000FF378B /* TagRow.swift */,
+				8E3ABF06244D7D4000FF378B /* SnapRow.swift */,
 				8E3684CB2B27DB1300B228F3 /* PlantRow.swift */,
 			);
 			path = Cells;
@@ -234,20 +234,20 @@
 				8EC86BFC24560C2900AB2F92 /* PlantsListViewModel.swift */,
 				8E3ABF14244EB50E00FF378B /* PhotoRowViewModel.swift */,
 				8E3684CD2B27DB3F00B228F3 /* PlantRowViewModel.swift */,
-				8E3ABF12244EAD0A00FF378B /* TagViewModel.swift */,
+				8E3ABF12244EAD0A00FF378B /* SnapViewModel.swift */,
 				8EF0B70E24691A0C001C9CD8 /* DragViewModel.swift */,
 				8E87C5C7245EA1B100482678 /* LoginViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		8E3ABF1A245000A700FF378B /* TagView */ = {
+		8E3ABF1A245000A700FF378B /* SnapView */ = {
 			isa = PBXGroup;
 			children = (
-				8E3ABF1B2450065000FF378B /* TagView.swift */,
+				8E3ABF1B2450065000FF378B /* SnapView.swift */,
 				8EF0B70C24691940001C9CD8 /* DragView.swift */,
 			);
-			path = TagView;
+			path = SnapView;
 			sourceTree = "<group>";
 		};
 		8E5FE32A246E7FEA00622DDA /* Home Tabs */ = {
@@ -278,7 +278,7 @@
 				8E5FE32A246E7FEA00622DDA /* Home Tabs */,
 				8EF0B710246A6D95001C9CD8 /* PhotoDetail */,
 				8E74F098244D229200F5A507 /* Camera */,
-				8E3ABF1A245000A700FF378B /* TagView */,
+				8E3ABF1A245000A700FF378B /* SnapView */,
 				8E3ABF03244D7CF100FF378B /* Cells */,
 				8E3ABF08244D7D9400FF378B /* Lists */,
 			);
@@ -362,7 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				8E7C796C244BB24600F295AD /* VeggieTagTests.swift */,
-				8EF1FC6E24675AF2005C4DE9 /* TagViewModelTests.swift */,
+				8EF1FC6E24675AF2005C4DE9 /* SnapViewModelTests.swift */,
 				8E7C796E244BB24600F295AD /* Info.plist */,
 				8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */,
 			);
@@ -374,8 +374,8 @@
 			children = (
 				8EF0B711246A6DBD001C9CD8 /* ViewModels */,
 				8E3ABF16244F83A300FF378B /* PhotoDetailView.swift */,
-				8E3ABF182450009B00FF378B /* TagOverlayView.swift */,
-				8E3ABF0B244D7DB300FF378B /* TagsListView.swift */,
+				8E3ABF182450009B00FF378B /* SnapOverlayView.swift */,
+				8E3ABF0B244D7DB300FF378B /* SnapsListView.swift */,
 			);
 			path = PhotoDetail;
 			sourceTree = "<group>";
@@ -384,8 +384,8 @@
 			isa = PBXGroup;
 			children = (
 				8E3ABF10244EACA200FF378B /* PhotoDetailViewModel.swift */,
-				8EC86BFA245503CC00AB2F92 /* TagOverlayViewModel.swift */,
-				8EC86BFE245613B900AB2F92 /* TagsListViewModel.swift */,
+				8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */,
+				8EC86BFE245613B900AB2F92 /* SnapsListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -586,13 +586,13 @@
 				8E74F0A4244D5A3400F5A507 /* Snap.swift in Sources */,
 				8EF0B70F24691A0C001C9CD8 /* DragViewModel.swift in Sources */,
 				8E74F095244D20C200F5A507 /* CameraRoot.swift in Sources */,
-				8E3ABF13244EAD0A00FF378B /* TagViewModel.swift in Sources */,
+				8E3ABF13244EAD0A00FF378B /* SnapViewModel.swift in Sources */,
 				8E3ABF00244D6FE000FF378B /* ImageLoader.swift in Sources */,
 				8E3684CE2B27DB3F00B228F3 /* PlantRowViewModel.swift in Sources */,
 				8E7C7956244BB24400F295AD /* AppDelegate.swift in Sources */,
 				8E5FE327246C774400622DDA /* FirebaseImageService.swift in Sources */,
 				8E3ABF05244D7D0A00FF378B /* PhotoRow.swift in Sources */,
-				8E3ABF1C2450065000FF378B /* TagView.swift in Sources */,
+				8E3ABF1C2450065000FF378B /* SnapView.swift in Sources */,
 				8E3684D42B2BFFE100B228F3 /* MockDataStore.swift in Sources */,
 				8E3684D02B2AC03500B228F3 /* AuthStore.swift in Sources */,
 				8E3ABF0A244D7DA300FF378B /* PlantsRoot.swift in Sources */,
@@ -616,18 +616,18 @@
 				8EF0B70D24691940001C9CD8 /* DragView.swift in Sources */,
 				8E3ABF17244F83A300FF378B /* PhotoDetailView.swift in Sources */,
 				8EE11201244CF0F200693609 /* Plant.swift in Sources */,
-				8EC86BFF245613B900AB2F92 /* TagsListViewModel.swift in Sources */,
+				8EC86BFF245613B900AB2F92 /* SnapsListViewModel.swift in Sources */,
 				8E7C7958244BB24400F295AD /* SceneDelegate.swift in Sources */,
-				8E3ABF0C244D7DB300FF378B /* TagsListView.swift in Sources */,
+				8E3ABF0C244D7DB300FF378B /* SnapsListView.swift in Sources */,
 				8EC86BF92454E81D00AB2F92 /* ImageStore.swift in Sources */,
 				8EC86C07245A699D00AB2F92 /* APIService.swift in Sources */,
 				8E3684D22B2BF86F00B228F3 /* DataStore.swift in Sources */,
-				8E3ABF07244D7D4000FF378B /* TagRow.swift in Sources */,
+				8E3ABF07244D7D4000FF378B /* SnapRow.swift in Sources */,
 				8E3ABF02244D704E00FF378B /* AsyncImageView.swift in Sources */,
 				8E7C795A244BB24400F295AD /* ContentView.swift in Sources */,
 				8EF1FC6D24634A81005C4DE9 /* TappableView.swift in Sources */,
-				8EC86BFB245503CC00AB2F92 /* TagOverlayViewModel.swift in Sources */,
-				8E3ABF192450009B00FF378B /* TagOverlayView.swift in Sources */,
+				8EC86BFB245503CC00AB2F92 /* SnapOverlayViewModel.swift in Sources */,
+				8E3ABF192450009B00FF378B /* SnapOverlayView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,7 +637,7 @@
 			files = (
 				8EF1FC732467D1F4005C4DE9 /* CoordinateServiceTests.swift in Sources */,
 				8E7C796D244BB24600F295AD /* VeggieTagTests.swift in Sources */,
-				8EF1FC6F24675AF2005C4DE9 /* TagViewModelTests.swift in Sources */,
+				8EF1FC6F24675AF2005C4DE9 /* SnapViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
