@@ -32,10 +32,6 @@ protocol APIService {
 class FirebaseAPIService: APIService, ObservableObject {
     static let shared = FirebaseAPIService()
 
-    @Published var photos: [Photo] = []
-    @Published var plants: [Plant] = []
-    @Published var snaps: [Snap] = []
-
     /// Auth
     private let auth: AuthStore
     private var userId: String? {
@@ -151,9 +147,9 @@ class FirebaseAPIService: APIService, ObservableObject {
     
     func loadGarden() async throws {
         // TODO: these shouldn't await
-        self.photos = try await fetchPhotos()
-        self.plants = try await fetchPlants().sorted { $0.name < $1.name }
-        self.snaps = try await fetchSnaps()
+        try await fetchPhotos()
+        try await fetchPlants().sorted { $0.name < $1.name }
+        try await fetchSnaps()
     }
 
     // do this once

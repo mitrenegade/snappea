@@ -9,6 +9,18 @@
 import Foundation
 
 class MockDataStore: DataStore {
+    var allPhotos: [Photo] {
+        Stub.photoData
+    }
+
+    var allPlants: [Plant] {
+        Stub.plantData
+    }
+
+    var allSnaps: [Snap] {
+        Stub.snapData
+    }
+
     func store(photo: Photo) {
         // no op
     }
@@ -22,28 +34,24 @@ class MockDataStore: DataStore {
     }
 
     func photo(withId id: String) -> Photo? {
-        Stub.photoData.first { $0.id == id }
+        allPhotos.first { $0.id == id }
     }
     
     func plant(withId id: String) -> Plant? {
-        Stub.plantData.first { $0.id == id }
+        allPlants.first { $0.id == id }
     }
     
     func snap(withId id: String) -> Snap? {
-        Stub.snapData.first { $0.id == id }
+        allSnaps.first { $0.id == id }
     }
 
     /// Relationships
     func snaps(for photo: Photo) -> [Snap] {
-        let snaps = Stub.snapData
-            .filter{ $0.photoId == photo.id }
-        return Array(snaps)
+        allSnaps.filter{ $0.photoId == photo.id }
     }
 
     func snaps(for plant: Plant) -> [Snap] {
-        let snaps = Stub.snapData
-            .filter{ $0.plantId == plant.id }
-        return Array(snaps)
+        allSnaps.filter{ $0.plantId == plant.id }
     }
 
     func plants(for photo: Photo) -> [Plant] {

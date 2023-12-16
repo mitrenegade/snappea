@@ -9,6 +9,10 @@
 import Foundation
 
 protocol DataStore {
+    var allPhotos: [Photo] { get }
+    var allPlants: [Plant] { get }
+    var allSnaps: [Snap] { get }
+
     func photo(withId id: String) -> Photo?
     func plant(withId id: String) -> Plant?
     func snap(withId id: String) -> Snap?
@@ -46,7 +50,13 @@ class FirebaseDataStore: DataStore {
     private var snapCache: [String: Snap] = [:]
     private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
 
-    // MARK: - 
+    // MARK: -
+
+    var allPhotos: [Photo] { Array(photoCache.values) }
+    var allPlants: [Plant] { Array(plantCache.values) }
+    var allSnaps: [Snap] { Array(snapCache.values) }
+
+    // MARK: -
 
     func photo(withId id: String) -> Photo? {
         photoCache[id]

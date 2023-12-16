@@ -33,9 +33,7 @@ class SnapOverlayViewModel: ObservableObject {
             .store(in: &cancellables)
 
         // TODO: snap should be the input
-        Task {
-            self.snaps = try await dataStore.fetchSnaps()
-        }
+        self.snaps = dataStore.allSnaps
 //        $photo.map{ $0.snaps }
 //            .assign(to: \.snaps, on: self)
 //            .store(in: &cancellables)
