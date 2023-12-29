@@ -38,16 +38,33 @@ struct PlantsRoot: View {
                 }
                 newPhotoView
             }
-            .navigationBarItems(leading:
-                Button(action: {
-                LoginViewModel().signOut()
-                }) {
-                    Text("Logout")
-            })
+            .navigationBarItems(leading: logoutButton,
+                                trailing: addPlantButton
+            )
         }
 
     }
-    
+
+    private var logoutButton = {
+        Button(action: {
+            LoginViewModel().signOut()
+        }) {
+            Text("Logout")
+        }
+    }()
+
+    private var addPlantButton = {
+        Button(action: {
+            
+        }) {
+            NavigationLink(destination: AddPlantView()) {
+                Image(systemName: "photo.badge.plus")
+            }
+        }
+    }()
+
+    private
+
     var listView: some View {
         List(viewModel.dataSource) { plant in
             PlantRow(viewModel: PlantRowViewModel(plant: plant, dataStore: dataStore))
