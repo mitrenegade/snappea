@@ -3,18 +3,18 @@
         "id": "plant1",
         "name": "Tomato1",
         "type": "tomato",
-        "category": "vegetable",
+        "category": "nightshade",
     },
     {
         "id": "plant2",
         "name": "Cucumber1",
         "type": "cucumber",
-        "category": "vegetable"
+        "category": "cucurbit"
     },
     {
         "id": "plant3",
         "name": "Lettuce1",
         "type": "lettuce",
-        "category": "vegetable"
+        "category": "leafy"
     }
 ]
