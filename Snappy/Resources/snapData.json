@@ -10,7 +10,8 @@
         "end": {
             "x": 0.5,
             "y": 0.5
-        }
+        },
+        "notes": "First photo of plant1"
     },
     {
         "id": "snap2",
@@ -23,7 +24,8 @@
         "end": {
             "x": 0.5,
             "y": 0.5
-        }
+        },
+        "notes": "First photo of plant2"
     },
     {
         "id": "snap3",
@@ -36,7 +38,8 @@
         "end": {
             "x": 0.5,
             "y": 0.5
-        }
+        },
+        "notes": "First photo of plant 3"
     },
     {
         "id": "snap4",
@@ -49,6 +52,7 @@
         "end": {
             "x": 0.5,
             "y": 0.5
-        }
+        },
+        "notes": "Second photo of plant 3"
     }
 ]

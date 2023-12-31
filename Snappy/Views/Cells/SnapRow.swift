@@ -10,15 +10,41 @@ import SwiftUI
 
 struct SnapRow: View {
     private let snap: Snap // TODO: use SnapRowViewModel
-    private let name: String
+    private var dateString: String
+    private let notes: String
+    private let photo: Photo
+
 
     var body: some View {
-        Text(name)
+        HStack {
+            if let url = URL(string: photo.url) {
+                AsyncImageView(url: url,
+                               frame: CGSize(width: 50, height: 50),
+                               placeholder: Image("folder.badge.questionmark").frame(width: 50, height: 50),
+                               cache: TemporaryImageCache.shared)
+            } else {
+                Image("folder.badge.question")
+                    .frame(width: 50, height: 50)
+            }
+            VStack {
+                if !dateString.isEmpty {
+                    Text("Taken: \(dateString)")
+                }
+                Text("Notes: \(notes)")
+            }
+        }
     }
     
-    init(snap: Snap, dataStore: DataStore = FirebaseDataStore()) {
+    init?(snap: Snap, dataStore: DataStore = FirebaseDataStore()) {
+        guard let photo = dataStore.photo(withId: snap.photoId) else {
+            return nil
+        }
+
         self.snap = snap
-        name = dataStore.plant(withId: snap.plantId)?.name ?? "Unknown plant (\(snap.id))"
+        self.photo = photo
+
+        dateString = photo.dateString
+        notes = snap.notes
     }
 }
 
