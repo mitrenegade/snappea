@@ -67,7 +67,7 @@ struct PlantsRoot: View {
 
     var listView: some View {
         List(viewModel.dataSource) { plant in
-            NavigationLink(destination: PlantGalleryView(plant: plant)) {
+            NavigationLink(destination: PlantGalleryView(plant: plant, store: dataStore)) {
                 PlantRow(viewModel: PlantRowViewModel(plant: plant, dataStore: dataStore))
             }
         }

@@ -11,15 +11,17 @@ import Combine
 
 struct PlantGalleryView: View {
     private let plant: Plant
+    private let store: DataStore
 
     var body: some View {
         VStack {
             Text(plant.name)
-            SnapsListView(plant: plant)
+            SnapsListView(plant: plant, store: store)
         }
     }
 
-    init(plant: Plant) {
+    init(plant: Plant, store: DataStore = FirebaseDataStore()) {
         self.plant = plant
+        self.store = store
     }
 }
