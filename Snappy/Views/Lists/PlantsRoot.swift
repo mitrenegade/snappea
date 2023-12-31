@@ -67,17 +67,16 @@ struct PlantsRoot: View {
 
     var listView: some View {
         List(viewModel.dataSource) { plant in
-            PlantRow(viewModel: PlantRowViewModel(plant: plant, dataStore: dataStore))
-//            NavigationLink(destination: PhotoDetailView(photo: photo)) {
-//                PlantRow(plant: plant)
-//            }
+            NavigationLink(destination: PlantGalleryView(plant: plant)) {
+                PlantRow(viewModel: PlantRowViewModel(plant: plant, dataStore: dataStore))
+            }
         }
     }
     
     var newPhotoView: some View {
         Group {
-            if photoDetailSettings.newPhoto != nil {
-                NavigationLink(destination: PhotoDetailView(photo: photoDetailSettings.newPhoto!),
+            if let photo = photoDetailSettings.newPhoto {
+                NavigationLink(destination: PhotoDetailView(photo: photo),
                                isActive: $photoDetailSettings.shouldShowNewPhoto) {
                                 EmptyView()
                 }

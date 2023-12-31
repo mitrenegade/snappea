@@ -11,13 +11,19 @@ import SwiftUI
 struct SnapsListView: View {
     @ObservedObject var viewModel: SnapsListViewModel
     var body: some View {
-        List(viewModel.dataSource) { snap in
+        List(viewModel.snaps) { snap in
             SnapRow(snap: snap)
         }
     }
     
-    init(photo: Photo) {
-        self.viewModel = SnapsListViewModel(photo: photo)
+    /// Creates a SnapsListView based on a given photo
+    init(photo: Photo, store: DataStore = FirebaseDataStore()) {
+        self.viewModel = SnapsListViewModel(photo: photo, store: store)
+    }
+
+    /// Creates a SnapsListView based on a given plant
+    init(plant: Plant, store: DataStore = FirebaseDataStore()) {
+        self.viewModel = SnapsListViewModel(plant: plant, store: store)
     }
 }
 

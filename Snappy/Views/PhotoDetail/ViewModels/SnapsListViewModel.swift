@@ -10,15 +10,30 @@ import Combine
 import Foundation
 
 class SnapsListViewModel: ObservableObject {
-    @Published var dataSource: [Snap] = []
-    @Published var photo: Photo? = nil
+    @Published var snaps: [Snap] = []
+
+    private let store: DataStore
+
     private var cancellables = Set<AnyCancellable>()
 
-    init(photo: Photo) {
-        self.photo = photo
+    init(photo: Photo, store: DataStore = FirebaseDataStore()) {
+        self.store = store
+        self.loadSnaps(photoId: photo.id)
+    }
 
-//        $photo.compactMap{ $0?.snaps }
-//            .assign(to: \.dataSource, on: self)
-//            .store(in: &cancellables)
+    init(plant: Plant, store: DataStore = FirebaseDataStore()) {
+        self.store = store
+        self.loadSnaps(plantId: plant.id)
+    }
+
+    private func loadSnaps(plantId: String) {
+        snaps = store.allSnaps.filter { $0.plantId == plantId }
+    }
+
+    private func loadSnaps(photoId: String) {
+        //        $photo.compactMap{ $0?.snaps }
+        //            .assign(to: \.dataSource, on: self)
+        //            .store(in: &cancellables)
+        snaps = store.allSnaps.filter { $0.photoId == photoId }
     }
 }

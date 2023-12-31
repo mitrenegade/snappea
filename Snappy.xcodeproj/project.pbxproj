@@ -49,6 +49,7 @@
 		8E7C796D244BB24600F295AD /* VeggieTagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7C796C244BB24600F295AD /* VeggieTagTests.swift */; };
 		8E87C5C8245EA1B100482678 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E87C5C7245EA1B100482678 /* LoginViewModel.swift */; };
 		8E9786BE2B3E8DDC00AD875D /* AddPlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9786BD2B3E8DDC00AD875D /* AddPlantView.swift */; };
+		8E9E7DA02B413D8900E9DF27 /* PlantGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9E7D9F2B413D8900E9DF27 /* PlantGalleryView.swift */; };
 		8EC10BFF245F2EC7004D92EC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC10BFE245F2EC7004D92EC /* User.swift */; };
 		8EC86BF92454E81D00AB2F92 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BF82454E81D00AB2F92 /* ImageStore.swift */; };
 		8EC86BFB245503CC00AB2F92 /* SnapOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */; };
@@ -134,6 +135,7 @@
 		8E7C796E244BB24600F295AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E87C5C7245EA1B100482678 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		8E9786BD2B3E8DDC00AD875D /* AddPlantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlantView.swift; sourceTree = "<group>"; };
+		8E9E7D9F2B413D8900E9DF27 /* PlantGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantGalleryView.swift; sourceTree = "<group>"; };
 		8EC10BFE245F2EC7004D92EC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8EC86BF82454E81D00AB2F92 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 		8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapOverlayViewModel.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				8E3ABF03244D7CF100FF378B /* Cells */,
 				8E3ABF08244D7D9400FF378B /* Lists */,
 				8E9786BD2B3E8DDC00AD875D /* AddPlantView.swift */,
+				8E9E7D9F2B413D8900E9DF27 /* PlantGalleryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -602,6 +605,7 @@
 				8E3ABF1C2450065000FF378B /* SnapView.swift in Sources */,
 				8E3684D42B2BFFE100B228F3 /* MockDataStore.swift in Sources */,
 				8E3684D02B2AC03500B228F3 /* AuthStore.swift in Sources */,
+				8E9E7DA02B413D8900E9DF27 /* PlantGalleryView.swift in Sources */,
 				8E3ABF0A244D7DA300FF378B /* PlantsRoot.swift in Sources */,
 				8EC10BFF245F2EC7004D92EC /* User.swift in Sources */,
 				8E3684CC2B27DB1300B228F3 /* PlantRow.swift in Sources */,
