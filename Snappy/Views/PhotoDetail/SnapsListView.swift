@@ -15,7 +15,12 @@ struct SnapsListView: View {
 
     var body: some View {
         List(viewModel.snaps) { snap in
-            SnapRow(snap: snap, dataStore: store)
+            NavigationLink {
+                // snap detail
+                PhotoDetailView(snap: snap, store: store)
+            } label: {
+                SnapRow(snap: snap, dataStore: store)
+            }
         }
     }
     
