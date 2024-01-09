@@ -238,12 +238,12 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		8E3ABF08244D7D9400FF378B /* Lists */ = {
+		8E3ABF08244D7D9400FF378B /* Plants */ = {
 			isa = PBXGroup;
 			children = (
 				8E3ABF09244D7DA300FF378B /* PlantsRoot.swift */,
 			);
-			path = Lists;
+			path = Plants;
 			sourceTree = "<group>";
 		};
 		8E3ABF0F244EAC6E00FF378B /* ViewModels */ = {
@@ -276,6 +276,8 @@
 				8E5FE328246E7B0300622DDA /* HomeView.swift */,
 				8E5FE32B246E800A00622DDA /* HomeViewRouter.swift */,
 				8E5FE32E2471F96000622DDA /* PhotoDetailSettings.swift */,
+				8E3ABF08244D7D9400FF378B /* Plants */,
+				8E74F098244D229200F5A507 /* Camera */,
 			);
 			path = "Home Tabs";
 			sourceTree = "<group>";
@@ -297,10 +299,8 @@
 			children = (
 				8E5FE32A246E7FEA00622DDA /* Home Tabs */,
 				8EF0B710246A6D95001C9CD8 /* PhotoDetail */,
-				8E74F098244D229200F5A507 /* Camera */,
 				8E3ABF1A245000A700FF378B /* SnapView */,
 				8E3ABF03244D7CF100FF378B /* Cells */,
-				8E3ABF08244D7D9400FF378B /* Lists */,
 				8E9786BD2B3E8DDC00AD875D /* AddPlantView.swift */,
 				8E9E7D9F2B413D8900E9DF27 /* PlantGalleryView.swift */,
 			);
