@@ -257,6 +257,9 @@
 				8E3ABF12244EAD0A00FF378B /* SnapViewModel.swift */,
 				8EF0B70E24691A0C001C9CD8 /* DragViewModel.swift */,
 				8E87C5C7245EA1B100482678 /* LoginViewModel.swift */,
+				8E3ABF10244EACA200FF378B /* PhotoDetailViewModel.swift */,
+				8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */,
+				8EC86BFE245613B900AB2F92 /* SnapsListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -395,22 +398,11 @@
 		8EF0B710246A6D95001C9CD8 /* PhotoDetail */ = {
 			isa = PBXGroup;
 			children = (
-				8EF0B711246A6DBD001C9CD8 /* ViewModels */,
 				8E3ABF16244F83A300FF378B /* PhotoDetailView.swift */,
 				8E3ABF182450009B00FF378B /* SnapOverlayView.swift */,
 				8E3ABF0B244D7DB300FF378B /* SnapsListView.swift */,
 			);
 			path = PhotoDetail;
-			sourceTree = "<group>";
-		};
-		8EF0B711246A6DBD001C9CD8 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				8E3ABF10244EACA200FF378B /* PhotoDetailViewModel.swift */,
-				8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */,
-				8EC86BFE245613B900AB2F92 /* SnapsListViewModel.swift */,
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		F15071D35029D35DBA11F786 /* Pods */ = {
