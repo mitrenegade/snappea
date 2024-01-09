@@ -23,7 +23,7 @@ struct PhotoDetailView: View {
 
     var title: String {
         if let snap {
-            return "PhotoDetailView: Snap"
+            return "PhotoDetailView: Snap \(snap.id)"
         } else {
             return "PhotoDetailView: Photo"
         }
