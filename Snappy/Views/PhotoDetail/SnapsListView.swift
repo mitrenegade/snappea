@@ -8,6 +8,11 @@
 
 import SwiftUI
 
+enum SnapsCollectionType {
+    case plant
+    case photo
+}
+
 struct SnapsListView: View {
     @ObservedObject var viewModel: SnapsListViewModel
 
@@ -27,13 +32,13 @@ struct SnapsListView: View {
     /// Creates a SnapsListView based on a given photo
     init(photo: Photo, store: DataStore = FirebaseDataStore()) {
         self.store = store
-        self.viewModel = SnapsListViewModel(photo: photo, store: store)
+        self.viewModel = SnapsListViewModel(for: photo.id, type: .photo, store: store)
     }
 
     /// Creates a SnapsListView based on a given plant
     init(plant: Plant, store: DataStore = FirebaseDataStore()) {
         self.store = store
-        self.viewModel = SnapsListViewModel(plant: plant, store: store)
+        self.viewModel = SnapsListViewModel(for: plant.id, type: .plant, store: store)
     }
 }
 

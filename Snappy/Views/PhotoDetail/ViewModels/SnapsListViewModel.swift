@@ -12,28 +12,28 @@ import Foundation
 class SnapsListViewModel: ObservableObject {
     @Published var snaps: [Snap] = []
 
+    private let belongsToId: String
+
+    private let belongsToType: SnapsCollectionType
+
     private let store: DataStore
 
     private var cancellables = Set<AnyCancellable>()
 
-    init(photo: Photo, store: DataStore = FirebaseDataStore()) {
+    init(for id: String, type: SnapsCollectionType, store: DataStore = FirebaseDataStore()) {
         self.store = store
-        self.loadSnaps(photoId: photo.id)
+        self.belongsToId = id
+        self.belongsToType = type
+
+        self.loadSnaps()
     }
 
-    init(plant: Plant, store: DataStore = FirebaseDataStore()) {
-        self.store = store
-        self.loadSnaps(plantId: plant.id)
-    }
-
-    private func loadSnaps(plantId: String) {
-        snaps = store.allSnaps.filter { $0.plantId == plantId }
-    }
-
-    private func loadSnaps(photoId: String) {
-        //        $photo.compactMap{ $0?.snaps }
-        //            .assign(to: \.dataSource, on: self)
-        //            .store(in: &cancellables)
-        snaps = store.allSnaps.filter { $0.photoId == photoId }
+    private func loadSnaps() {
+        switch belongsToType {
+        case .plant:
+            snaps = store.allSnaps.filter { $0.plantId == belongsToId }
+        case .photo:
+            snaps = store.allSnaps.filter { $0.photoId == belongsToId }
+        }
     }
 }
