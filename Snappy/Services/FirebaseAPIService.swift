@@ -1,33 +1,15 @@
 //
-//  APIService.swift
+//  FirebaseAPIService.swift
 //  Snappy
 //
-//  Created by Bobby Ren on 4/29/20.
-//  Copyright © 2020 RenderApps LLC. All rights reserved.
+//  Created by Bobby Ren on 1/9/24.
+//  Copyright © 2024 RenderApps LLC. All rights reserved.
 //
 
+import Foundation
 import RenderCloud
 import Combine
 import Firebase
-
-protocol APIService {
-    /// Fetch data
-    func loadGarden() async throws
-    /*
-    func fetchPhotos() async throws -> [Photo]
-    func fetchPlants() async throws -> [Plant]
-    func fetchSnaps() async throws -> [Snap]
-     */
-
-    /// Create data
-    func addSnap(_ snap: Snap, result: @escaping ((Snap?, Error?)->Void))
-    func addPlant(_ plant: Plant)
-    func addPhoto(_ photo: Photo, completion: @escaping ((Photo?, Error?)->Void))
-    func updatePhotoUrl(_ photo: Photo, url: String, completion: ((Error?)->Void)?)
-
-    /// Testing/misc
-    func uploadTestData()
-}
 
 class FirebaseAPIService: APIService, ObservableObject {
     static let shared = FirebaseAPIService()
@@ -116,7 +98,7 @@ class FirebaseAPIService: APIService, ObservableObject {
 //        let ref = db.collection(userId).document("garden").collection("photos").document(id)
 //        ref.updateData(["url":url], completion: completion)
     }
-    
+
     func addPlant(_ plant: Plant) {
 //        self.store(plant: plant)
 //        plants = Array(plantCache.values)
@@ -144,7 +126,7 @@ class FirebaseAPIService: APIService, ObservableObject {
 //            print("AddSnap error \(error)")
 //        }
     }
-    
+
     func loadGarden() async throws {
         // TODO: these shouldn't await
         try await fetchPhotos()

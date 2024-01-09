@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E18A2BC2B4DC3DD0083809A /* FirebaseAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18A2BB2B4DC3DD0083809A /* FirebaseAPIService.swift */; };
+		8E18A2BE2B4DC43B0083809A /* LocalDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18A2BD2B4DC43B0083809A /* LocalDataStore.swift */; };
 		8E3684C82B27CE3100B228F3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3684C72B27CE3100B228F3 /* Constants.swift */; };
 		8E3684CA2B27D01E00B228F3 /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E3684C92B27D01E00B228F3 /* user.json */; };
 		8E3684CC2B27DB1300B228F3 /* PlantRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3684CB2B27DB1300B228F3 /* PlantRow.swift */; };
@@ -89,6 +91,8 @@
 		6ED3DE204951880052FEF49A /* Pods-Snappy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snappy.debug.xcconfig"; path = "Target Support Files/Pods-Snappy/Pods-Snappy.debug.xcconfig"; sourceTree = "<group>"; };
 		7E69D289800C2D2BA2804ECD /* Pods-VeggieTag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTag.release.xcconfig"; path = "Target Support Files/Pods-VeggieTag/Pods-VeggieTag.release.xcconfig"; sourceTree = "<group>"; };
 		8613A4ED0662681AE7A7CC2E /* Pods-VeggieTag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTag.debug.xcconfig"; path = "Target Support Files/Pods-VeggieTag/Pods-VeggieTag.debug.xcconfig"; sourceTree = "<group>"; };
+		8E18A2BB2B4DC3DD0083809A /* FirebaseAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIService.swift; sourceTree = "<group>"; };
+		8E18A2BD2B4DC43B0083809A /* LocalDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataStore.swift; sourceTree = "<group>"; };
 		8E3684C72B27CE3100B228F3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8E3684C92B27D01E00B228F3 /* user.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		8E3684CB2B27DB1300B228F3 /* PlantRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRow.swift; sourceTree = "<group>"; };
@@ -191,6 +195,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8E18A2BA2B4DC3C60083809A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8EC86C06245A699D00AB2F92 /* APIService.swift */,
+				8E3684D12B2BF86F00B228F3 /* DataStore.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		8E3684C42B27CC3700B228F3 /* Stubs */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,7 +217,7 @@
 		8E3ABEFC244D6A9E00FF378B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8EC86C06245A699D00AB2F92 /* APIService.swift */,
+				8E18A2BB2B4DC3DD0083809A /* FirebaseAPIService.swift */,
 				8E3ABF01244D704E00FF378B /* AsyncImageView.swift */,
 				8EC86BF82454E81D00AB2F92 /* ImageStore.swift */,
 				8E3ABEFF244D6FE000FF378B /* ImageLoader.swift */,
@@ -212,7 +225,7 @@
 				8EF1FC702467C4AF005C4DE9 /* CoordinateService.swift */,
 				8E5FE326246C774400622DDA /* FirebaseImageService.swift */,
 				8E3684CF2B2AC03500B228F3 /* AuthStore.swift */,
-				8E3684D12B2BF86F00B228F3 /* DataStore.swift */,
+				8E18A2BD2B4DC43B0083809A /* LocalDataStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -341,6 +354,7 @@
 		8E7C7954244BB24400F295AD /* Snappy */ = {
 			isa = PBXGroup;
 			children = (
+				8E18A2BA2B4DC3C60083809A /* Protocols */,
 				8E3684C42B27CC3700B228F3 /* Stubs */,
 				8E74F091244D1B7000F5A507 /* Models */,
 				8E3ABF0F244EAC6E00FF378B /* ViewModels */,
@@ -636,6 +650,8 @@
 				8E3ABF07244D7D4000FF378B /* SnapRow.swift in Sources */,
 				8E3684D62B2C1D8500B228F3 /* MockAPIService.swift in Sources */,
 				8E3ABF02244D704E00FF378B /* AsyncImageView.swift in Sources */,
+				8E18A2BE2B4DC43B0083809A /* LocalDataStore.swift in Sources */,
+				8E18A2BC2B4DC3DD0083809A /* FirebaseAPIService.swift in Sources */,
 				8E7C795A244BB24400F295AD /* ContentView.swift in Sources */,
 				8EF1FC6D24634A81005C4DE9 /* TappableView.swift in Sources */,
 				8EC86BFB245503CC00AB2F92 /* SnapOverlayViewModel.swift in Sources */,
