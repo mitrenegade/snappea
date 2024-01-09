@@ -18,7 +18,21 @@ struct PhotoDetailView: View {
 
     private let photo: Photo
 
+    /// Used for debugging only
+    private let snap: Snap?
+
+    var title: String {
+        if let snap {
+            return "PhotoDetailView: Snap"
+        } else {
+            return "PhotoDetailView: Photo"
+        }
+    }
+
     var body: some View {
+        if TESTING {
+            Text(title)
+        }
         VStack {
             imageSection
             listSection
@@ -28,6 +42,7 @@ struct PhotoDetailView: View {
     /// Creates a PhotoDetailView
     /// Given a photo, shows all snaps
     init(photo: Photo, store: DataStore = FirebaseDataStore(), apiService: APIService = FirebaseAPIService()) {
+        self.snap = nil
         self.photo = photo
         self.store = store
         self.apiService = apiService
@@ -39,6 +54,7 @@ struct PhotoDetailView: View {
         guard let photo = store.photo(withId: snap.photoId) else {
             return nil
         }
+        self.snap = snap
         self.photo = photo
         self.store = store
         self.apiService = apiService

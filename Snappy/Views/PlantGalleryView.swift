@@ -13,9 +13,17 @@ struct PlantGalleryView: View {
     private let plant: Plant
     private let store: DataStore
 
+    private var title: String {
+        if TESTING {
+            return "PlantGalleryView: \(plant.name)"
+        } else {
+            return plant.name
+        }
+    }
+
     var body: some View {
         VStack {
-            Text(plant.name)
+            Text(title)
             SnapsListView(plant: plant, store: store)
         }
     }

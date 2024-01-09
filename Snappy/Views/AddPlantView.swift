@@ -14,7 +14,16 @@ struct AddPlantView: View {
     @State var category: Category = .other
     @State var plantType: PlantType = .unknown
 
+    private var title: String {
+        if TESTING {
+            return "AddPlantView"
+        } else {
+            return "New plant"
+        }
+    }
+
     var body: some View {
+        Text(title)
         VStack {
             addButton
             nameField
