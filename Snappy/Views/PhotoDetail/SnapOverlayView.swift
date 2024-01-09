@@ -16,18 +16,12 @@ struct SnapOverlayView: View {
     @State var draggingStart: CGPoint = CGPoint.zero
     @State var draggingEnd: CGPoint = CGPoint.zero
 
-    private var apiService: APIService
-    var onAddSnap: ((Photo)->Void)?
-
     init(photo: Photo,
-         apiService: APIService = FirebaseAPIService.shared,
-         onAddSnap:((Photo)->Void)? = nil) {
+         store: DataStore = FirebaseDataStore(),
+         apiService: APIService = FirebaseAPIService.shared) {
 
-        viewModel = SnapOverlayViewModel(photo: photo)
+        viewModel = SnapOverlayViewModel(photo: photo, store: store, apiService: apiService)
         imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
-        self.onAddSnap = onAddSnap
-        
-        self.apiService = apiService
     }
     
     var body: some View {
@@ -61,16 +55,7 @@ struct SnapOverlayView: View {
     }
     
     func createSnap(start: CGPoint, end: CGPoint) {
-        guard let photoId = viewModel.photoId else { return }
-        let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: self.imageSize, start: start, end: end)
-
-        print("createSnap startCoord: \(startCoord) endCoord \(endCoord)")
-
-        let snap = Snap(photoId: photoId, start: startCoord, end: endCoord)
-
-        apiService.addSnap(snap) {_,_ in
-            self.onAddSnap?(self.viewModel.photo)
-        }
+        viewModel.createSnap(start: start, end: end, imageSize: imageSize)
     }
     
     var drawBoxView: some View {
@@ -85,5 +70,5 @@ struct SnapOverlayView: View {
 }
 
 #Preview {
-    SnapOverlayView(photo: Stub.photoData[0], apiService: FirebaseAPIService.shared, onAddSnap: nil)
+    SnapOverlayView(photo: Stub.photoData[0], apiService: FirebaseAPIService.shared)
 }
