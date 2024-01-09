@@ -39,9 +39,6 @@ class SnapOverlayViewModel: ObservableObject {
 
         // TODO: snap should be the input
         self.snaps = store.allSnaps
-//        $photo.map{ $0.snaps }
-//            .assign(to: \.snaps, on: self)
-//            .store(in: &cancellables)
     }
 
     func createSnap(start: CGPoint, end: CGPoint, imageSize: CGSize) {

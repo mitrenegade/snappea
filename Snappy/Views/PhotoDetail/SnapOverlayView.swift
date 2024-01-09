@@ -26,11 +26,20 @@ struct SnapOverlayView: View {
     
     var body: some View {
         ZStack {
-            AsyncImageView(url: $viewModel.url.wrappedValue,
-                           frame: imageSize,
-                           placeholder: Text("Loading..."),
-                           cache: TemporaryImageCache.shared)
+            if AIRPLANE_MODE {
+                // TODO: how to resize image to fit?
+                Image("peas")
+                    .frame(width: imageSize.width, height: imageSize.height)
+                    .aspectRatio(contentMode: .fit)
+                    .clipped()
+                    .border(Color.green, width: 5)
+            } else {
+                AsyncImageView(url: $viewModel.url.wrappedValue,
+                               frame: imageSize,
+                               placeholder: Text("Loading..."),
+                               cache: TemporaryImageCache.shared)
                 .aspectRatio(contentMode: .fill)
+            }
             drawBoxView
             ForEach(viewModel.snaps) {snap in
                 SnapView(snap: snap)
