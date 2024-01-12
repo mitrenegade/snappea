@@ -17,10 +17,11 @@ struct SnapOverlayView: View {
     @State var draggingEnd: CGPoint = CGPoint.zero
 
     init(photo: Photo,
+         selectedSnaps: [Snap]? = nil,
          store: DataStore = FirebaseDataStore(),
          apiService: APIService = FirebaseAPIService.shared) {
 
-        viewModel = SnapOverlayViewModel(photo: photo, store: store, apiService: apiService)
+        viewModel = SnapOverlayViewModel(photo: photo, selectedSnaps: selectedSnaps, store: store, apiService: apiService)
         imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
     }
     
@@ -29,6 +30,7 @@ struct SnapOverlayView: View {
             if AIRPLANE_MODE {
                 // TODO: how to resize image to fit?
                 Image("peas")
+                    .resizable()
                     .frame(width: imageSize.width, height: imageSize.height)
                     .aspectRatio(contentMode: .fit)
                     .clipped()

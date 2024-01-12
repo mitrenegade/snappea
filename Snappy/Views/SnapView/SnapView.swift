@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+/// A bounding box representing a snapshot of a plant
+/// to be displayed on top of a photo
 struct SnapView: View, Identifiable {
     @ObservedObject var viewModel: SnapViewModel
     var id: String?

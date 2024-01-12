@@ -17,15 +17,23 @@ class SnapOverlayViewModel: ObservableObject {
     
     var photoId: String?
 
-    private let store: DataStore
     private let apiService: APIService
+
+    private let store: DataStore
 
     private var cancellables = Set<AnyCancellable>()
     
-    init(photo: Photo, store: DataStore = FirebaseDataStore(), apiService: APIService = FirebaseAPIService()) {
+    /// - Parameters:
+    ///     - photo: the Photo to be displayed which is related to the snaps.
+    ///     - selectedSnaps: if non-nil, a custom set of snaps. This may be a subset of the snaps for the photo, or  used to display a single snap
+    init(photo: Photo,
+         selectedSnaps: [Snap]? = nil,
+         store: DataStore = FirebaseDataStore(),
+         apiService: APIService = FirebaseAPIService()) {
         self.photo = photo
         self.store = store
         self.apiService = apiService
+        self.snaps = selectedSnaps ?? fetchSnapsForPhoto(id: photo.id)
 
         // assign url
         $photo
@@ -36,9 +44,10 @@ class SnapOverlayViewModel: ObservableObject {
         $photo.map{ $0.id }
             .assign(to: \.photoId, on: self)
             .store(in: &cancellables)
+    }
 
-        // TODO: snap should be the input
-        self.snaps = store.allSnaps
+    private func fetchSnapsForPhoto(id: String) -> [Snap] {
+        store.allSnaps.filter { $0.photoId == id }
     }
 
     func createSnap(start: CGPoint, end: CGPoint, imageSize: CGSize) {
@@ -49,8 +58,8 @@ class SnapOverlayViewModel: ObservableObject {
 
         let snap = Snap(photoId: photoId, start: startCoord, end: endCoord)
 
-        apiService.addSnap(snap) {_,_ in
-            // TODO: update snap locally and refresh view
+        apiService.addSnap(snap) { [weak self] _,_ in
+            self?.snaps.append(snap)
         }
     }
 }

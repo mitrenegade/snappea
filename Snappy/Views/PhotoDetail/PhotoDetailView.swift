@@ -60,8 +60,16 @@ struct PhotoDetailView: View {
         self.apiService = apiService
     }
 
+    private var selectedSnaps: [Snap]? {
+        if let snap {
+            return [snap]
+        }
+        return nil
+    }
+
     var imageSection: some View {
         SnapOverlayView(photo: photo,
+                        selectedSnaps: selectedSnaps,
                         store: store,
                         apiService: apiService)
     }

@@ -22,6 +22,7 @@ struct MockAPIService: APIService {
     
     func addSnap(_ snap: Snap, result: @escaping ((Snap?, Error?) -> Void)) {
         // no op
+        result(snap, nil)
     }
     
     func addPlant(_ plant: Plant) {
