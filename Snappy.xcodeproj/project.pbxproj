@@ -69,6 +69,8 @@
 		8EF1FC732467D1F4005C4DE9 /* CoordinateServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */; };
 		8EF1FC772467E69D005C4DE9 /* NormalizedCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC762467E69D005C4DE9 /* NormalizedCoordinate.swift */; };
 		8EF491B72B50E979009F12C0 /* SnapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF491B62B50E979009F12C0 /* SnapDetailView.swift */; };
+		8EF491BA2B50ED52009F12C0 /* GalleryRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF491B92B50ED52009F12C0 /* GalleryRoot.swift */; };
+		8EF491BC2B50EEAB009F12C0 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF491BB2B50EEAB009F12C0 /* GalleryViewModel.swift */; };
 		9F731D7E8625DDA5BFBCA40F /* Pods_SnappyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B92820827DDD98AF1552ED /* Pods_SnappyTests.framework */; };
 		DA6B2B3A480BD540BED0A347 /* Pods_Snappy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBE985568889B6671016687 /* Pods_Snappy.framework */; };
 /* End PBXBuildFile section */
@@ -157,6 +159,8 @@
 		8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateServiceTests.swift; sourceTree = "<group>"; };
 		8EF1FC762467E69D005C4DE9 /* NormalizedCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalizedCoordinate.swift; sourceTree = "<group>"; };
 		8EF491B62B50E979009F12C0 /* SnapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapDetailView.swift; sourceTree = "<group>"; };
+		8EF491B92B50ED52009F12C0 /* GalleryRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryRoot.swift; sourceTree = "<group>"; };
+		8EF491BB2B50EEAB009F12C0 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		939F718EB150763927B63820 /* Pods-SnapPea.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapPea.release.xcconfig"; path = "Target Support Files/Pods-SnapPea/Pods-SnapPea.release.xcconfig"; sourceTree = "<group>"; };
 		9B5A26874D5CE1C43BC9C171 /* Pods-SnapPea.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapPea.debug.xcconfig"; path = "Target Support Files/Pods-SnapPea/Pods-SnapPea.debug.xcconfig"; sourceTree = "<group>"; };
 		A6E6F5742B7706DAB9651E09 /* Pods-Snappy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snappy.release.xcconfig"; path = "Target Support Files/Pods-Snappy/Pods-Snappy.release.xcconfig"; sourceTree = "<group>"; };
@@ -252,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				8EC86BFC24560C2900AB2F92 /* PlantsListViewModel.swift */,
+				8EF491BB2B50EEAB009F12C0 /* GalleryViewModel.swift */,
 				8E3ABF14244EB50E00FF378B /* PhotoRowViewModel.swift */,
 				8E3684CD2B27DB3F00B228F3 /* PlantRowViewModel.swift */,
 				8E3ABF12244EAD0A00FF378B /* SnapViewModel.swift */,
@@ -279,6 +284,7 @@
 				8E5FE32B246E800A00622DDA /* HomeViewRouter.swift */,
 				8E5FE32E2471F96000622DDA /* PhotoDetailSettings.swift */,
 				8E3ABF08244D7D9400FF378B /* Plants */,
+				8EF491B82B50ED1F009F12C0 /* Gallery */,
 				8E74F098244D229200F5A507 /* Camera */,
 			);
 			path = "Home Tabs";
@@ -403,6 +409,14 @@
 				8E3ABF0B244D7DB300FF378B /* SnapsListView.swift */,
 			);
 			path = PhotoDetail;
+			sourceTree = "<group>";
+		};
+		8EF491B82B50ED1F009F12C0 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				8EF491B92B50ED52009F12C0 /* GalleryRoot.swift */,
+			);
+			path = Gallery;
 			sourceTree = "<group>";
 		};
 		F15071D35029D35DBA11F786 /* Pods */ = {
@@ -619,6 +633,7 @@
 				8E74F08A244D13F000F5A507 /* Stub.swift in Sources */,
 				8EF1FC712467C4AF005C4DE9 /* CoordinateService.swift in Sources */,
 				8EF1FC772467E69D005C4DE9 /* NormalizedCoordinate.swift in Sources */,
+				8EF491BC2B50EEAB009F12C0 /* GalleryViewModel.swift in Sources */,
 				8E5FE329246E7B0300622DDA /* HomeView.swift in Sources */,
 				8E74F0A6244D5AE600F5A507 /* Photo.swift in Sources */,
 				8EC86C012456234700AB2F92 /* ImageCache.swift in Sources */,
@@ -646,6 +661,7 @@
 				8E18A2BC2B4DC3DD0083809A /* FirebaseAPIService.swift in Sources */,
 				8E7C795A244BB24400F295AD /* ContentView.swift in Sources */,
 				8EF1FC6D24634A81005C4DE9 /* TappableView.swift in Sources */,
+				8EF491BA2B50ED52009F12C0 /* GalleryRoot.swift in Sources */,
 				8EC86BFB245503CC00AB2F92 /* SnapOverlayViewModel.swift in Sources */,
 				8E3ABF192450009B00FF378B /* SnapOverlayView.swift in Sources */,
 			);
