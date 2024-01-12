@@ -35,7 +35,7 @@ struct HomeView: View {
                 Image(systemName: "leaf.fill")
                 Text("Plants")
             }.tag(Tab.plants)
-            GalleryRoot(router: router)
+            GalleryRoot(router: router, apiService: apiService, dataStore: dataStore)
             .tabItem {
                  Image(systemName: "photo.fill")
                  Text("Gallery")

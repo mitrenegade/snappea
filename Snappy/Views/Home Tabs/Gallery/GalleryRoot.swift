@@ -14,6 +14,8 @@ import Combine
 struct GalleryRoot: View {
     private let dataStore: DataStore
 
+    private let apiService: APIService
+
     @ObservedObject var viewModel: GalleryViewModel
 
     init(router: HomeViewRouter,
@@ -21,6 +23,7 @@ struct GalleryRoot: View {
          dataStore: DataStore = FirebaseDataStore()
     ) {
         viewModel = GalleryViewModel(apiService: apiService, dataStore: dataStore, router: router)
+        self.apiService = apiService
         self.dataStore = dataStore
     }
 
@@ -38,18 +41,24 @@ struct GalleryRoot: View {
                     galleryView
                 }
             }
-//            .navigationBarItems(leading: logoutButton,
-//                                trailing: addPlantButton
-//            )
+            .navigationBarItems(leading: logoutButton)
         }
     }
+
+
+    private var logoutButton = {
+        Button(action: {
+            LoginViewModel().signOut()
+        }) {
+            Text("Logout")
+        }
+    }()
 
     private var galleryView: some View {
         // TODO: make this a gallery
         List(viewModel.dataSource) { photo in
-            NavigationLink {
-                PhotoDetailView(photo: photo)
-            } label: {
+            NavigationLink(destination: PhotoDetailView(photo: photo, store: dataStore, apiService: apiService)
+            ) {
                 PhotoRow(photo: photo)
             }
         }
