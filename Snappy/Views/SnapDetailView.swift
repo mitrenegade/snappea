@@ -21,16 +21,18 @@ struct SnapDetailView: View {
     private let photo: Photo
 
     var title: String {
-        "SnapDetailView: Snap \(snap.id)"
+        "SnapDetailView: \(snap.id)"
     }
 
     var body: some View {
-        if TESTING {
-            Text(title)
-        }
-        VStack {
-            imageSection
-            editSection
+        Group {
+            if TESTING {
+                Text(title)
+            }
+            VStack {
+                imageSection
+                editSection
+            }
         }
     }
 

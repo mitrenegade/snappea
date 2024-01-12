@@ -20,7 +20,7 @@ struct PhotoDetailView: View {
     private let photo: Photo
 
     var title: String {
-        "PhotoDetailView: Photo \(photo.id)"
+        "PhotoDetailView: \(photo.id)"
     }
 
     var body: some View {
