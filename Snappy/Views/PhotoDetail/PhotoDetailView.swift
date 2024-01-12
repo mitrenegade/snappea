@@ -75,7 +75,9 @@ struct PhotoDetailView: View {
     }
     
     var listSection: some View {
-        SnapsListView(photo: photo, store: store)
+        SnapsListView(photo: photo,
+                      selectedSnaps: selectedSnaps,
+                      store: store)
     }
 }
 

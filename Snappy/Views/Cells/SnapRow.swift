@@ -13,7 +13,7 @@ struct SnapRow: View {
     private var dateString: String
     private let notes: String
     private let photo: Photo
-
+    private let isDisabled: Bool
 
     var body: some View {
         HStack {
@@ -33,15 +33,17 @@ struct SnapRow: View {
                 Text("Notes: \(notes)")
             }
         }
+        .opacity(isDisabled ? 0.5 : 1)
     }
     
-    init?(snap: Snap, dataStore: DataStore = FirebaseDataStore()) {
+    init?(snap: Snap, dataStore: DataStore = FirebaseDataStore(), isDisabled: Bool = false) {
         guard let photo = dataStore.photo(withId: snap.photoId) else {
             return nil
         }
 
         self.snap = snap
         self.photo = photo
+        self.isDisabled = isDisabled
 
         dateString = photo.dateString
         notes = snap.notes
