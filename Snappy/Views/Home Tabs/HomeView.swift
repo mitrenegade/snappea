@@ -35,6 +35,11 @@ struct HomeView: View {
                 Image(systemName: "leaf.fill")
                 Text("Plants")
             }.tag(Tab.plants)
+            GalleryRoot(router: router)
+            .tabItem {
+                 Image(systemName: "photo.fill")
+                 Text("Gallery")
+            }.tag(Tab.camera)
             CameraRoot(router: router)
             .tabItem {
                  Image(systemName: "camera.fill")

@@ -14,7 +14,7 @@ import Combine
 struct GalleryRoot: View {
     private let dataStore: DataStore
 
-    private let viewModel: GalleryViewModel
+    @ObservedObject var viewModel: GalleryViewModel
 
     init(router: HomeViewRouter,
          apiService: APIService = FirebaseAPIService.shared,

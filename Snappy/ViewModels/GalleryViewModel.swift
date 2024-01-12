@@ -17,8 +17,12 @@ class GalleryViewModel: ObservableObject {
 
         Task {
             try await apiService.loadGarden()
-
-            dataSource = dataStore.allPhotos
+            await updateDataSource(dataStore.allPhotos)
         }
+    }
+
+    @MainActor
+    private func updateDataSource(_ photos: [Photo]) {
+        dataSource = photos
     }
 }
