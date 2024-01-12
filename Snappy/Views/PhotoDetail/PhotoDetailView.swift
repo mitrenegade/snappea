@@ -9,6 +9,7 @@
 import SwiftUI
 import Combine
 
+/// A detail view based on a photo and all its attributes, including all snaps
 struct PhotoDetailView: View {
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
 
@@ -18,15 +19,8 @@ struct PhotoDetailView: View {
 
     private let photo: Photo
 
-    /// Used for debugging only
-    private let snap: Snap?
-
     var title: String {
-        if let snap {
-            return "PhotoDetailView: Snap \(snap.id)"
-        } else {
-            return "PhotoDetailView: Photo"
-        }
+        "PhotoDetailView: Photo \(photo.id)"
     }
 
     var body: some View {
@@ -42,41 +36,19 @@ struct PhotoDetailView: View {
     /// Creates a PhotoDetailView
     /// Given a photo, shows all snaps
     init(photo: Photo, store: DataStore = FirebaseDataStore(), apiService: APIService = FirebaseAPIService()) {
-        self.snap = nil
         self.photo = photo
         self.store = store
         self.apiService = apiService
-    }
-
-    /// Creates a PhotoDetailView
-    /// Given a snap, shows the photo for only the snap
-    init?(snap: Snap, store: DataStore = FirebaseDataStore(), apiService: APIService = FirebaseAPIService()) {
-        guard let photo = store.photo(withId: snap.photoId) else {
-            return nil
-        }
-        self.snap = snap
-        self.photo = photo
-        self.store = store
-        self.apiService = apiService
-    }
-
-    private var selectedSnaps: [Snap]? {
-        if let snap {
-            return [snap]
-        }
-        return nil
     }
 
     var imageSection: some View {
         SnapOverlayView(photo: photo,
-                        selectedSnaps: selectedSnaps,
                         store: store,
                         apiService: apiService)
     }
     
     var listSection: some View {
         SnapsListView(photo: photo,
-                      selectedSnaps: selectedSnaps,
                       store: store)
     }
 }
