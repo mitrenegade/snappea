@@ -28,13 +28,11 @@ struct SnapOverlayView: View {
     var body: some View {
         ZStack {
             if AIRPLANE_MODE {
-                // TODO: how to resize image to fit?
                 Image("peas")
                     .resizable()
                     .frame(width: imageSize.width, height: imageSize.height)
                     .aspectRatio(contentMode: .fit)
                     .clipped()
-                    .border(Color.green, width: 5)
             } else {
                 AsyncImageView(url: $viewModel.url.wrappedValue,
                                frame: imageSize,

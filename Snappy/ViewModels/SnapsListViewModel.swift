@@ -36,4 +36,8 @@ class SnapsListViewModel: ObservableObject {
             snaps = store.allSnaps.filter { $0.photoId == belongsToId }
         }
     }
+
+    var title: String {
+        "SnapsListView: \(belongsToType)"
+    }
 }

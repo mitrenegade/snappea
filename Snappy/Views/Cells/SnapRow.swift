@@ -14,17 +14,27 @@ struct SnapRow: View {
     private let notes: String
     private let photo: Photo
     private let isDisabled: Bool
+    private let imageSize = CGSize(width: 50, height: 50)
 
     var body: some View {
         HStack {
             if let url = URL(string: photo.url) {
-                AsyncImageView(url: url,
-                               frame: CGSize(width: 50, height: 50),
-                               placeholder: Image("folder.badge.questionmark").frame(width: 50, height: 50),
-                               cache: TemporaryImageCache.shared)
+                if AIRPLANE_MODE {
+                    // TODO: how to resize image to fit?
+                    Image("peas")
+                        .resizable()
+                        .frame(width: imageSize.width, height: imageSize.height)
+                        .aspectRatio(contentMode: .fit)
+                        .clipped()
+                } else {
+                    AsyncImageView(url: url,
+                                   frame: CGSize(width: imageSize.width, height: imageSize.height),
+                                   placeholder: Image("folder.badge.questionmark").frame(width: imageSize.width, height: imageSize.height),
+                                   cache: TemporaryImageCache.shared)
+                }
             } else {
                 Image("folder.badge.question")
-                    .frame(width: 50, height: 50)
+                    .frame(width: imageSize.width, height: imageSize.height)
             }
             VStack {
                 if !dateString.isEmpty {

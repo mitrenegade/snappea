@@ -21,6 +21,9 @@ struct SnapsListView: View {
     private let store: DataStore
 
     var body: some View {
+        if TESTING {
+            Text(viewModel.title + "\(selectedSnaps.isEmpty ? "" : " selectedSnap")")
+        }
         List(viewModel.snaps) { snap in
             NavigationLink {
                 // snap detail

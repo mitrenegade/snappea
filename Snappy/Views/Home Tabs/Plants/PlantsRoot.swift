@@ -31,6 +31,9 @@ struct PlantsRoot: View {
     var body: some View {
         NavigationView{
             Group {
+                if TESTING {
+                    Text("PlantsRoot")
+                }
                 if viewModel.dataSource.count == 0 {
                     Text("Loading...")
                 } else {
