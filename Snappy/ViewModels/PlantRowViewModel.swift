@@ -80,9 +80,11 @@ class PlantRowViewModel: ObservableObject, Identifiable {
         switch category {
         case .herb:
             return .green
-        case .vegetable:
+        case .brassica:
             return .blue
-        case .unknown:
+        case .other:
+            return .red
+        default:
             return .red
         }
     }
