@@ -68,6 +68,7 @@
 		8EF1FC712467C4AF005C4DE9 /* CoordinateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC702467C4AF005C4DE9 /* CoordinateService.swift */; };
 		8EF1FC732467D1F4005C4DE9 /* CoordinateServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */; };
 		8EF1FC772467E69D005C4DE9 /* NormalizedCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC762467E69D005C4DE9 /* NormalizedCoordinate.swift */; };
+		8EF491B72B50E979009F12C0 /* SnapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF491B62B50E979009F12C0 /* SnapDetailView.swift */; };
 		9F731D7E8625DDA5BFBCA40F /* Pods_SnappyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B92820827DDD98AF1552ED /* Pods_SnappyTests.framework */; };
 		DA6B2B3A480BD540BED0A347 /* Pods_Snappy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBE985568889B6671016687 /* Pods_Snappy.framework */; };
 /* End PBXBuildFile section */
@@ -155,6 +156,7 @@
 		8EF1FC702467C4AF005C4DE9 /* CoordinateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateService.swift; sourceTree = "<group>"; };
 		8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateServiceTests.swift; sourceTree = "<group>"; };
 		8EF1FC762467E69D005C4DE9 /* NormalizedCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalizedCoordinate.swift; sourceTree = "<group>"; };
+		8EF491B62B50E979009F12C0 /* SnapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapDetailView.swift; sourceTree = "<group>"; };
 		939F718EB150763927B63820 /* Pods-SnapPea.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapPea.release.xcconfig"; path = "Target Support Files/Pods-SnapPea/Pods-SnapPea.release.xcconfig"; sourceTree = "<group>"; };
 		9B5A26874D5CE1C43BC9C171 /* Pods-SnapPea.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapPea.debug.xcconfig"; path = "Target Support Files/Pods-SnapPea/Pods-SnapPea.debug.xcconfig"; sourceTree = "<group>"; };
 		A6E6F5742B7706DAB9651E09 /* Pods-Snappy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snappy.release.xcconfig"; path = "Target Support Files/Pods-Snappy/Pods-Snappy.release.xcconfig"; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				8E3ABF03244D7CF100FF378B /* Cells */,
 				8E9786BD2B3E8DDC00AD875D /* AddPlantView.swift */,
 				8E9E7D9F2B413D8900E9DF27 /* PlantGalleryView.swift */,
+				8EF491B62B50E979009F12C0 /* SnapDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -636,6 +639,7 @@
 				8EC86C07245A699D00AB2F92 /* APIService.swift in Sources */,
 				8E3684D22B2BF86F00B228F3 /* DataStore.swift in Sources */,
 				8E3ABF07244D7D4000FF378B /* SnapRow.swift in Sources */,
+				8EF491B72B50E979009F12C0 /* SnapDetailView.swift in Sources */,
 				8E3684D62B2C1D8500B228F3 /* MockAPIService.swift in Sources */,
 				8E3ABF02244D704E00FF378B /* AsyncImageView.swift in Sources */,
 				8E18A2BE2B4DC43B0083809A /* LocalDataStore.swift in Sources */,

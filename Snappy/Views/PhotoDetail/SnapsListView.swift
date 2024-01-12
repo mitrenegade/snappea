@@ -26,8 +26,7 @@ struct SnapsListView: View {
         }
         List(viewModel.snaps) { snap in
             NavigationLink {
-                // snap detail
-                PhotoDetailView(snap: snap, store: store)
+                SnapDetailView(snap: snap, store: store)
             } label: {
                 SnapRow(snap: snap, dataStore: store, isDisabled: !isSelected(snap))
             }
