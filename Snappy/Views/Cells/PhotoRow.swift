@@ -10,6 +10,7 @@
 import SwiftUI
 
 struct PhotoRow: View {
+    private let imageSize = CGSize(width: 80, height: 80)
     @ObservedObject var photoRowViewModel: PhotoRowViewModel
     
     init(photo: Photo) {
@@ -18,11 +19,19 @@ struct PhotoRow: View {
     
     var body: some View {
         HStack {
-            AsyncImageView(url: $photoRowViewModel.url.wrappedValue,
-                           frame: CGSize(width: 80, height: 80),
-                           placeholder: Text("Loading..."),
-                           cache: TemporaryImageCache.shared)
+            if AIRPLANE_MODE {
+                Image("peas")
+                    .resizable()
+                    .frame(width: imageSize.width, height: imageSize.height)
+                    .aspectRatio(contentMode: .fit)
+                    .clipped()
+            } else {
+                AsyncImageView(url: $photoRowViewModel.url.wrappedValue,
+                               frame: CGSize(width: imageSize.width, height: imageSize.height),
+                               placeholder: Text("Loading..."),
+                               cache: TemporaryImageCache.shared)
                 .aspectRatio(contentMode: .fill)
+            }
             Text($photoRowViewModel.textString.wrappedValue)
         }
     }

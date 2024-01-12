@@ -19,8 +19,13 @@ class PlantsListViewModel: ObservableObject {
 
         Task {
             try await apiService.loadGarden()
-
-            dataSource = dataStore.allPlants
+            await updateDataSource(dataStore.allPlants)
         }
     }
+
+    @MainActor
+    private func updateDataSource(_ plants: [Plant]) {
+        dataSource = plants
+    }
+
 }
