@@ -17,6 +17,7 @@ struct Snap: Identifiable, Codable {
     var plantId: String = ""
     var start: NormalizedCoordinate
     var end: NormalizedCoordinate
+    var notes: String = ""
 
     init(photoId: String, start: NormalizedCoordinate, end: NormalizedCoordinate) {
         self.id = UUID().uuidString

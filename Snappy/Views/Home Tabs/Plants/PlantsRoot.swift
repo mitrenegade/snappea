@@ -31,6 +31,9 @@ struct PlantsRoot: View {
     var body: some View {
         NavigationView{
             Group {
+                if TESTING {
+                    Text("PlantsRoot")
+                }
                 if viewModel.dataSource.count == 0 {
                     Text("Loading...")
                 } else {
@@ -67,17 +70,16 @@ struct PlantsRoot: View {
 
     var listView: some View {
         List(viewModel.dataSource) { plant in
-            PlantRow(viewModel: PlantRowViewModel(plant: plant, dataStore: dataStore))
-//            NavigationLink(destination: PhotoDetailView(photo: photo)) {
-//                PlantRow(plant: plant)
-//            }
+            NavigationLink(destination: PlantGalleryView(plant: plant, store: dataStore)) {
+                PlantRow(viewModel: PlantRowViewModel(plant: plant, dataStore: dataStore))
+            }
         }
     }
     
     var newPhotoView: some View {
         Group {
-            if photoDetailSettings.newPhoto != nil {
-                NavigationLink(destination: PhotoDetailView(photo: photoDetailSettings.newPhoto!),
+            if let photo = photoDetailSettings.newPhoto {
+                NavigationLink(destination: PhotoDetailView(photo: photo),
                                isActive: $photoDetailSettings.shouldShowNewPhoto) {
                                 EmptyView()
                 }
