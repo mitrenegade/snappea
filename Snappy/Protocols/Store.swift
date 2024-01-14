@@ -1,5 +1,5 @@
 //
-//  DataStore.swift
+//  Store.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 12/14/23.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol DataStore {
+protocol Store {
     var allPhotos: [Photo] { get }
     var allPlants: [Plant] { get }
     var allSnaps: [Snap] { get }
