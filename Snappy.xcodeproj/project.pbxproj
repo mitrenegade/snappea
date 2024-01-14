@@ -16,7 +16,6 @@
 		8E3684D02B2AC03500B228F3 /* AuthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3684CF2B2AC03500B228F3 /* AuthStore.swift */; };
 		8E3684D22B2BF86F00B228F3 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3684D12B2BF86F00B228F3 /* Store.swift */; };
 		8E3684D42B2BFFE100B228F3 /* MockStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3684D32B2BFFE100B228F3 /* MockStore.swift */; };
-		8E3684D62B2C1D8500B228F3 /* MockAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3684D52B2C1D8500B228F3 /* MockAPIService.swift */; };
 		8E3ABF00244D6FE000FF378B /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABEFF244D6FE000FF378B /* ImageLoader.swift */; };
 		8E3ABF02244D704E00FF378B /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF01244D704E00FF378B /* AsyncImageView.swift */; };
 		8E3ABF05244D7D0A00FF378B /* PhotoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF04244D7D0A00FF378B /* PhotoRow.swift */; };
@@ -61,6 +60,7 @@
 		8EC86C07245A699D00AB2F92 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86C06245A699D00AB2F92 /* APIService.swift */; };
 		8EE11201244CF0F200693609 /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE11200244CF0F200693609 /* Plant.swift */; };
 		8EE11203244CF26B00693609 /* plantData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE11202244CF26B00693609 /* plantData.json */; };
+		8EE709CF2B54056C0078D509 /* FirebaseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE709CE2B54056C0078D509 /* FirebaseStore.swift */; };
 		8EF0B70D24691940001C9CD8 /* DragView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0B70C24691940001C9CD8 /* DragView.swift */; };
 		8EF0B70F24691A0C001C9CD8 /* DragViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0B70E24691A0C001C9CD8 /* DragViewModel.swift */; };
 		8EF1FC6D24634A81005C4DE9 /* TappableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC6C24634A81005C4DE9 /* TappableView.swift */; };
@@ -104,7 +104,6 @@
 		8E3684CF2B2AC03500B228F3 /* AuthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStore.swift; sourceTree = "<group>"; };
 		8E3684D12B2BF86F00B228F3 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		8E3684D32B2BFFE100B228F3 /* MockStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStore.swift; sourceTree = "<group>"; };
-		8E3684D52B2C1D8500B228F3 /* MockAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIService.swift; sourceTree = "<group>"; };
 		8E3ABEFF244D6FE000FF378B /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		8E3ABF01244D704E00FF378B /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		8E3ABF04244D7D0A00FF378B /* PhotoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRow.swift; sourceTree = "<group>"; };
@@ -153,6 +152,7 @@
 		8EC86C06245A699D00AB2F92 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		8EE11200244CF0F200693609 /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		8EE11202244CF26B00693609 /* plantData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = plantData.json; sourceTree = "<group>"; };
+		8EE709CE2B54056C0078D509 /* FirebaseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStore.swift; sourceTree = "<group>"; };
 		8EF0B70C24691940001C9CD8 /* DragView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragView.swift; sourceTree = "<group>"; };
 		8EF0B70E24691A0C001C9CD8 /* DragViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragViewModel.swift; sourceTree = "<group>"; };
 		8EF1FC6C24634A81005C4DE9 /* TappableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableView.swift; sourceTree = "<group>"; };
@@ -217,7 +217,6 @@
 			children = (
 				8E74F089244D13F000F5A507 /* Stub.swift */,
 				8E3684D32B2BFFE100B228F3 /* MockStore.swift */,
-				8E3684D52B2C1D8500B228F3 /* MockAPIService.swift */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -234,6 +233,7 @@
 				8E5FE326246C774400622DDA /* FirebaseImageService.swift */,
 				8E3684CF2B2AC03500B228F3 /* AuthStore.swift */,
 				8E18A2BD2B4DC43B0083809A /* LocalStore.swift */,
+				8EE709CE2B54056C0078D509 /* FirebaseStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -629,6 +629,7 @@
 				8E5FE327246C774400622DDA /* FirebaseImageService.swift in Sources */,
 				8E3ABF05244D7D0A00FF378B /* PhotoRow.swift in Sources */,
 				8E3ABF1C2450065000FF378B /* SnapView.swift in Sources */,
+				8EE709CF2B54056C0078D509 /* FirebaseStore.swift in Sources */,
 				8E3684D42B2BFFE100B228F3 /* MockStore.swift in Sources */,
 				8E3684D02B2AC03500B228F3 /* AuthStore.swift in Sources */,
 				8E9E7DA02B413D8900E9DF27 /* PlantGalleryView.swift in Sources */,
@@ -663,7 +664,6 @@
 				8E3684D22B2BF86F00B228F3 /* Store.swift in Sources */,
 				8E3ABF07244D7D4000FF378B /* SnapRow.swift in Sources */,
 				8EF491B72B50E979009F12C0 /* SnapDetailView.swift in Sources */,
-				8E3684D62B2C1D8500B228F3 /* MockAPIService.swift in Sources */,
 				8E3ABF02244D704E00FF378B /* AsyncImageView.swift in Sources */,
 				8E18A2BE2B4DC43B0083809A /* LocalStore.swift in Sources */,
 				8E18A2BC2B4DC3DD0083809A /* FirebaseAPIService.swift in Sources */,

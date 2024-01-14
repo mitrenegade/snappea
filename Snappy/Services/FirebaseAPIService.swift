@@ -11,7 +11,8 @@ import RenderCloud
 import Combine
 import Firebase
 
-class FirebaseAPIService: APIService, ObservableObject {
+/// The actual interface into Firebase
+class FirebaseAPIService {
     static let shared = FirebaseAPIService()
 
     /// Auth
@@ -20,41 +21,27 @@ class FirebaseAPIService: APIService, ObservableObject {
         auth.user?.id
     }
 
-    /// Store
-    private let store: Store
-
     /// Firebase
     private let db = Firestore.firestore()
 
     // MARK: - Initialization
-    init(authStore: AuthStore = AuthStore.shared,
-         store: Store = FirebaseStore()) {
+    init(authStore: AuthStore = AuthStore.shared) {
         self.auth = authStore
-        self.store = store
     }
 
     // MARK: - API Interface
     func fetchPhotos() async throws -> [Photo] {
         let photos: [Photo] = try await fetchObjects(collection: "photos")
-        for photo in photos {
-            store.store(photo: photo)
-        }
         return photos
     }
 
     func fetchPlants() async throws -> [Plant] {
         let plants: [Plant] = try await fetchObjects(collection: "plants")
-        for plant in plants {
-            store.store(plant: plant)
-        }
         return plants
     }
 
     func fetchSnaps() async throws -> [Snap] {
         let snaps: [Snap] = try await fetchObjects(collection: "snaps")
-        for snap in snaps {
-            store.store(snap: snap)
-        }
         return snaps
     }
 
@@ -125,13 +112,6 @@ class FirebaseAPIService: APIService, ObservableObject {
 //        } catch let error {
 //            print("AddSnap error \(error)")
 //        }
-    }
-
-    func loadGarden() async throws {
-        // TODO: these shouldn't await
-        try await fetchPhotos()
-        try await fetchPlants().sorted { $0.name < $1.name }
-        try await fetchSnaps()
     }
 
     // do this once

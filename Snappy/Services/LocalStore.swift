@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum StoreError: Error {
     case notAuthorized
@@ -17,7 +18,7 @@ enum StoreError: Error {
 class LocalStore: Store {
     func loadGarden() async throws {
         for photo in Stub.photoData {
-            store(photo: photo)
+            store(photo: photo, image: nil)
         }
         for plant in Stub.plantData {
             store(plant: plant)
@@ -32,6 +33,7 @@ class LocalStore: Store {
     private var plantCache: [String: Plant] = [:]
     private var snapCache: [String: Snap] = [:]
     private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
+    private var imageCache = TemporaryImageCache()
 
     // MARK: -
 
@@ -81,9 +83,12 @@ class LocalStore: Store {
     }
 
     // MARK: - Cache
-    public func store(photo: Photo) {
+    public func store(photo: Photo, image: UIImage?) {
         readWriteQueue.sync {
             photoCache[photo.id] = photo
+            if let url = URL(string: photo.url) {
+                imageCache[url] = image
+            }
         }
     }
 
@@ -100,7 +105,3 @@ class LocalStore: Store {
     }
 }
 
-/// Temporary
-class FirebaseStore: LocalStore {
-    // no op
-}

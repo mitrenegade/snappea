@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Data layer that is responsible for API or Cache
 /// Top level interface to the client that abstracts whether the data comes from local
@@ -22,7 +23,7 @@ protocol Store {
     func plant(withId id: String) -> Plant?
     func snap(withId id: String) -> Snap?
 
-    func store(photo: Photo)
+    func store(photo: Photo, image: UIImage?)
     func store(plant: Plant)
     func store(snap: Snap)
 

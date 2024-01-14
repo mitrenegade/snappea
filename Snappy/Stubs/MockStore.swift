@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class MockStore: Store {
     func loadGarden() async throws {
@@ -25,7 +26,7 @@ class MockStore: Store {
         Stub.snapData
     }
 
-    func store(photo: Photo) {
+    func store(photo: Photo, image: UIImage?) {
         // no op
     }
 

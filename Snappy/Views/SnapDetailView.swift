@@ -14,8 +14,6 @@ import Combine
 struct SnapDetailView: View {
     private let store: Store
 
-    private let apiService: APIService
-
     private let snap: Snap
 
     private let photo: Photo
@@ -38,14 +36,13 @@ struct SnapDetailView: View {
 
     /// Creates a PhotoDetailView
     /// Given a snap, shows the photo for only the snap
-    init?(snap: Snap, store: Store = FirebaseStore(), apiService: APIService = FirebaseAPIService()) {
+    init?(snap: Snap, store: Store = FirebaseStore()) {
         guard let photo = store.photo(withId: snap.photoId) else {
             return nil
         }
         self.photo = photo
         self.snap = snap
         self.store = store
-        self.apiService = apiService
     }
 
     var imageSection: some View {

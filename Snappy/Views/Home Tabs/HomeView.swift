@@ -11,14 +11,6 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var router: HomeViewRouter = HomeViewRouter()
 
-    private var apiService: APIService {
-        if AIRPLANE_MODE {
-            return MockAPIService()
-        } else {
-            return FirebaseAPIService.shared
-        }
-    }
-
     private var store: Store {
         if AIRPLANE_MODE {
             return MockStore()
@@ -29,13 +21,13 @@ struct HomeView: View {
 
     var body: some View {
         TabView(selection: $router.selectedTab) {
-            PlantsRoot(router: router, apiService: apiService, store: store)
+            PlantsRoot(router: router, store: store)
             .tabItem {
                 // BR TODO make this a snap pea icon
                 Image(systemName: "leaf.fill")
                 Text("Plants")
             }.tag(Tab.plants)
-            GalleryRoot(router: router, apiService: apiService, store: store)
+            GalleryRoot(router: router, store: store)
             .tabItem {
                  Image(systemName: "photo.fill")
                  Text("Gallery")
