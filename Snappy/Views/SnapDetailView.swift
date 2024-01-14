@@ -12,7 +12,7 @@ import Combine
 
 /// Displays a single snap on a photo with options to edit
 struct SnapDetailView: View {
-    private let store: DataStore
+    private let store: Store
 
     private let apiService: APIService
 
@@ -38,7 +38,7 @@ struct SnapDetailView: View {
 
     /// Creates a PhotoDetailView
     /// Given a snap, shows the photo for only the snap
-    init?(snap: Snap, store: DataStore = FirebaseDataStore(), apiService: APIService = FirebaseAPIService()) {
+    init?(snap: Snap, store: Store = FirebaseStore(), apiService: APIService = FirebaseAPIService()) {
         guard let photo = store.photo(withId: snap.photoId) else {
             return nil
         }

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Data layer that is responsible for API or Cache
 protocol Store {
     var allPhotos: [Photo] { get }
     var allPlants: [Plant] { get }

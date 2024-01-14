@@ -16,11 +16,11 @@ class SnapsListViewModel: ObservableObject {
 
     private let belongsToType: SnapsCollectionType
 
-    private let store: DataStore
+    private let store: Store
 
     private var cancellables = Set<AnyCancellable>()
 
-    init(for id: String, type: SnapsCollectionType, store: DataStore = FirebaseDataStore()) {
+    init(for id: String, type: SnapsCollectionType, store: Store = FirebaseStore()) {
         self.store = store
         self.belongsToId = id
         self.belongsToType = type

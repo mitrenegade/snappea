@@ -18,7 +18,7 @@ struct SnapOverlayView: View {
 
     init(photo: Photo,
          selectedSnaps: [Snap]? = nil,
-         store: DataStore = FirebaseDataStore(),
+         store: Store = FirebaseStore(),
          apiService: APIService = FirebaseAPIService.shared) {
 
         viewModel = SnapOverlayViewModel(photo: photo, selectedSnaps: selectedSnaps, store: store, apiService: apiService)

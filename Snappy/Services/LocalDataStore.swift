@@ -1,5 +1,5 @@
 //
-//  LocalDataStore.swift
+//  LocalStore.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 1/9/24.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-enum DataStoreError: Error {
+enum StoreError: Error {
     case notAuthorized
     case databaseError(Error?)
 }
 
 /// A persistence and caching layer
-class LocalDataStore: DataStore {
+class LocalStore: Store {
     /// Caching
     private var photoCache: [String: Photo] = [:]
     private var plantCache: [String: Plant] = [:]
@@ -95,6 +95,6 @@ class LocalDataStore: DataStore {
 }
 
 /// Temporary
-class FirebaseDataStore: LocalDataStore {
+class FirebaseStore: LocalStore {
     // no op
 }

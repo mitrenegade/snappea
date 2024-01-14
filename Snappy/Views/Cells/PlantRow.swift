@@ -36,7 +36,7 @@ struct PlantRow: View {
 }
 
 #Preview {
-    PlantRow(viewModel: PlantRowViewModel(plant: Stub.plantData[0], dataStore: MockDataStore()))
+    PlantRow(viewModel: PlantRowViewModel(plant: Stub.plantData[0], store: MockStore()))
 }
 
 //struct PlantRow_Previews: PreviewProvider {

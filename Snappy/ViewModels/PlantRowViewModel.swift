@@ -13,7 +13,7 @@ class PlantRowViewModel: ObservableObject, Identifiable {
     @Published var plant: Plant
     private var cancellables = Set<AnyCancellable>()
 
-    private let dataStore: DataStore
+    private let store: Store
 
     var id: String?
     var name: String = ""
@@ -23,9 +23,9 @@ class PlantRowViewModel: ObservableObject, Identifiable {
     var typeColor: UIColor = .clear
     var url: URL? = nil
 
-    init(plant: Plant, dataStore: DataStore = FirebaseDataStore()) {
+    init(plant: Plant, store: Store = FirebaseStore()) {
         self.plant = plant
-        self.dataStore = dataStore
+        self.store = store
 
         // assign id
         $plant
@@ -104,7 +104,7 @@ class PlantRowViewModel: ObservableObject, Identifiable {
 
     /// Returns the photoUrl for the most recent photo of the plant
     func getPhotoUrl(for plant: Plant) -> String? {
-        let photos = dataStore.photos(for: plant)
+        let photos = store.photos(for: plant)
             .sorted { $0.timestamp > $1.timestamp }
         return photos.first?.url
     }

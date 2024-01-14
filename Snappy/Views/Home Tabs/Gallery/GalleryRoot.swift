@@ -12,7 +12,7 @@ import Combine
 
 /// Displays a gallery of photos
 struct GalleryRoot: View {
-    private let dataStore: DataStore
+    private let store: Store
 
     private let apiService: APIService
 
@@ -20,11 +20,11 @@ struct GalleryRoot: View {
 
     init(router: HomeViewRouter,
          apiService: APIService = FirebaseAPIService.shared,
-         dataStore: DataStore = FirebaseDataStore()
+         store: Store = FirebaseStore()
     ) {
-        viewModel = PhotoGalleryViewModel(apiService: apiService, dataStore: dataStore, router: router)
+        viewModel = PhotoGalleryViewModel(apiService: apiService, store: store, router: router)
         self.apiService = apiService
-        self.dataStore = dataStore
+        self.store = store
     }
 
     var body: some View {
@@ -56,7 +56,7 @@ struct GalleryRoot: View {
 
     private var galleryView: some View {
         if #available(iOS 17.0, *) {
-            PhotoGalleryView(apiService: apiService, store: dataStore)
+            PhotoGalleryView(apiService: apiService, store: store)
                 .environment(viewModel)
         } else {
             // BR TODO handle safely

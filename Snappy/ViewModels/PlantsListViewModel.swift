@@ -14,12 +14,12 @@ class PlantsListViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     @Published var router: HomeViewRouter
 
-    init(apiService: APIService, dataStore: DataStore, router: HomeViewRouter) {
+    init(apiService: APIService, store: Store, router: HomeViewRouter) {
         self.router = router
 
         Task {
             try await apiService.loadGarden()
-            await updateDataSource(dataStore.allPlants)
+            await updateDataSource(store.allPlants)
         }
     }
 

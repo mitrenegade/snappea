@@ -1,5 +1,5 @@
 //
-//  MockDataStore.swift
+//  MockStore.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 12/14/23.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MockDataStore: DataStore {
+class MockStore: Store {
     var allPhotos: [Photo] {
         Stub.photoData
     }

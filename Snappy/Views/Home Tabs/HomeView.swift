@@ -19,23 +19,23 @@ struct HomeView: View {
         }
     }
 
-    private var dataStore: DataStore {
+    private var store: Store {
         if AIRPLANE_MODE {
-            return MockDataStore()
+            return MockStore()
         } else {
-            return FirebaseDataStore()
+            return FirebaseStore()
         }
     }
 
     var body: some View {
         TabView(selection: $router.selectedTab) {
-            PlantsRoot(router: router, apiService: apiService, dataStore: dataStore)
+            PlantsRoot(router: router, apiService: apiService, store: store)
             .tabItem {
                 // BR TODO make this a snap pea icon
                 Image(systemName: "leaf.fill")
                 Text("Plants")
             }.tag(Tab.plants)
-            GalleryRoot(router: router, apiService: apiService, dataStore: dataStore)
+            GalleryRoot(router: router, apiService: apiService, store: store)
             .tabItem {
                  Image(systemName: "photo.fill")
                  Text("Gallery")

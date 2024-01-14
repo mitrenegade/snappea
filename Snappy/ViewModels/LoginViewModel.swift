@@ -42,7 +42,6 @@ class LoginViewModel {
 
 extension LoginViewModel: CloudAuthServiceDelegate {
     func userDidChange(user: RenderCloud.User?) {
-        print("BRTEST user \(user)")
         if let user = user {
             // logged in with a user
             store.user = User(user: user)

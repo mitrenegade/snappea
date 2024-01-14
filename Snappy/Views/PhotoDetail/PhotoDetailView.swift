@@ -13,7 +13,7 @@ import Combine
 struct PhotoDetailView: View {
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
 
-    private let store: DataStore
+    private let store: Store
 
     private let apiService: APIService
 
@@ -35,7 +35,7 @@ struct PhotoDetailView: View {
 
     /// Creates a PhotoDetailView
     /// Given a photo, shows all snaps
-    init(photo: Photo, store: DataStore = FirebaseDataStore(), apiService: APIService = FirebaseAPIService()) {
+    init(photo: Photo, store: Store = FirebaseStore(), apiService: APIService = FirebaseAPIService()) {
         self.photo = photo
         self.store = store
         self.apiService = apiService

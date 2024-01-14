@@ -12,12 +12,12 @@ class PhotoGalleryViewModel: ObservableObject, Observable {
     @Published var dataSource: [Photo] = []
     @Published var router: HomeViewRouter
 
-    init(apiService: APIService, dataStore: DataStore, router: HomeViewRouter) {
+    init(apiService: APIService, store: Store, router: HomeViewRouter) {
         self.router = router
 
         Task {
             try await apiService.loadGarden()
-            await updateDataSource(dataStore.allPhotos)
+            await updateDataSource(store.allPhotos)
         }
     }
 

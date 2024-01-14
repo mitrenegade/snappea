@@ -21,23 +21,23 @@ class FirebaseAPIService: APIService, ObservableObject {
     }
 
     /// Store
-    private let dataStore: DataStore
+    private let store: Store
 
     /// Firebase
     private let db = Firestore.firestore()
 
     // MARK: - Initialization
     init(authStore: AuthStore = AuthStore.shared,
-         dataStore: DataStore = FirebaseDataStore()) {
+         store: Store = FirebaseStore()) {
         self.auth = authStore
-        self.dataStore = dataStore
+        self.store = store
     }
 
     // MARK: - API Interface
     func fetchPhotos() async throws -> [Photo] {
         let photos: [Photo] = try await fetchObjects(collection: "photos")
         for photo in photos {
-            dataStore.store(photo: photo)
+            store.store(photo: photo)
         }
         return photos
     }
@@ -45,7 +45,7 @@ class FirebaseAPIService: APIService, ObservableObject {
     func fetchPlants() async throws -> [Plant] {
         let plants: [Plant] = try await fetchObjects(collection: "plants")
         for plant in plants {
-            dataStore.store(plant: plant)
+            store.store(plant: plant)
         }
         return plants
     }
@@ -53,7 +53,7 @@ class FirebaseAPIService: APIService, ObservableObject {
     func fetchSnaps() async throws -> [Snap] {
         let snaps: [Snap] = try await fetchObjects(collection: "snaps")
         for snap in snaps {
-            dataStore.store(snap: snap)
+            store.store(snap: snap)
         }
         return snaps
     }
@@ -62,12 +62,12 @@ class FirebaseAPIService: APIService, ObservableObject {
     /// Fetches an array of an object type given a collection name
     private func fetchObjects<T: Decodable>(collection: String) async throws -> [T] {
         guard let userId = userId else {
-            throw DataStoreError.notAuthorized
+            throw StoreError.notAuthorized
         }
         return try await withCheckedThrowingContinuation { continuation in
             db.collection(userId).document("garden").collection(collection).addSnapshotListener { (snapshot, error) in
                 guard let snapshot else {
-                    continuation.resume(throwing: DataStoreError.databaseError(error))
+                    continuation.resume(throwing: StoreError.databaseError(error))
                     return
                 }
                 let objects = snapshot.documents.compactMap { document -> T? in

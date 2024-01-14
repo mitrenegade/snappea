@@ -16,9 +16,9 @@ struct PhotoGalleryView: View {
     }
 
     private let apiService: APIService
-    private let store: DataStore
+    private let store: Store
 
-    init(apiService: APIService, store: DataStore) {
+    init(apiService: APIService, store: Store) {
         self.apiService = apiService
         self.store = store
     }
