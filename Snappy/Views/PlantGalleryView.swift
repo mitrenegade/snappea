@@ -9,6 +9,7 @@
 import SwiftUI
 import Combine
 
+/// Shows a gallery of all photos for a single plant in list format
 struct PlantGalleryView: View {
     private let plant: Plant
     private let store: DataStore
