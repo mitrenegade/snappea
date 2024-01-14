@@ -16,19 +16,19 @@ struct GalleryRoot: View {
 
     private let apiService: APIService
 
-    @ObservedObject var viewModel: GalleryViewModel
+    @ObservedObject var viewModel: PhotoGalleryViewModel
 
     init(router: HomeViewRouter,
          apiService: APIService = FirebaseAPIService.shared,
          dataStore: DataStore = FirebaseDataStore()
     ) {
-        viewModel = GalleryViewModel(apiService: apiService, dataStore: dataStore, router: router)
+        viewModel = PhotoGalleryViewModel(apiService: apiService, dataStore: dataStore, router: router)
         self.apiService = apiService
         self.dataStore = dataStore
     }
 
     var body: some View {
-        NavigationView{
+        NavigationStack{
             Group {
                 if TESTING {
                     Text("GalleryRoot")
@@ -55,12 +55,11 @@ struct GalleryRoot: View {
     }()
 
     private var galleryView: some View {
-        // TODO: make this a gallery
-        List(viewModel.dataSource) { photo in
-            NavigationLink(destination: PhotoDetailView(photo: photo, store: dataStore, apiService: apiService)
-            ) {
-                PhotoRow(photo: photo)
-            }
+        if #available(iOS 17.0, *) {
+            PhotoGalleryView(apiService: apiService, store: dataStore)
+                .environment(viewModel)
+        } else {
+            fatalError()
         }
     }
 }

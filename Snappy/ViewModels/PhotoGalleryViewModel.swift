@@ -1,5 +1,5 @@
 //
-//  GalleryViewModel.swift
+//  PhotoGalleryViewModel.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 1/11/24.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GalleryViewModel: ObservableObject {
+class PhotoGalleryViewModel: ObservableObject, Observable {
     @Published var dataSource: [Photo] = []
     @Published var router: HomeViewRouter
 
