@@ -9,11 +9,16 @@
 import Foundation
 
 struct MockAPIService: APIService {
-    private let dataStore: DataStore
+    func fetchPhotos() async throws -> [Photo] {
+        []
+    }
 
-    init(dataStore: DataStore) {
-        // TODO: eventually, loading and caching needs to use datastore
-        self.dataStore = dataStore
+    func fetchPlants() async throws -> [Plant] {
+        []
+    }
+
+    func fetchSnaps() async throws -> [Snap] {
+        []
     }
 
     func loadGarden() async throws {

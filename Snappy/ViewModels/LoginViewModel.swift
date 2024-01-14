@@ -30,18 +30,19 @@ class LoginViewModel {
         try? auth.logout()
     }
 
-    /// Mocks a user state
-    init(user: User? = nil) {
-        store.user = user
-
+    init() {
         if AIRPLANE_MODE {
             self.userDidChange(user: Stub.testUser)
+        } else {
+            // start cloud service and listen for existing user
+            let _ = auth
         }
     }
 }
 
 extension LoginViewModel: CloudAuthServiceDelegate {
     func userDidChange(user: RenderCloud.User?) {
+        print("BRTEST user \(user)")
         if let user = user {
             // logged in with a user
             store.user = User(user: user)
