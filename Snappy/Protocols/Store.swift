@@ -9,7 +9,11 @@
 import Foundation
 
 /// Data layer that is responsible for API or Cache
+/// Top level interface to the client that abstracts whether the data comes from local
+/// store, an API interface, or is mocked
 protocol Store {
+    func loadGarden() async throws
+
     var allPhotos: [Photo] { get }
     var allPlants: [Plant] { get }
     var allSnaps: [Snap] { get }
@@ -18,7 +22,6 @@ protocol Store {
     func plant(withId id: String) -> Plant?
     func snap(withId id: String) -> Snap?
 
-    /// Cache
     func store(photo: Photo)
     func store(plant: Plant)
     func store(snap: Snap)

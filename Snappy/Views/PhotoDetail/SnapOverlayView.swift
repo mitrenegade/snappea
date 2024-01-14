@@ -18,10 +18,9 @@ struct SnapOverlayView: View {
 
     init(photo: Photo,
          selectedSnaps: [Snap]? = nil,
-         store: Store = FirebaseStore(),
-         apiService: APIService = FirebaseAPIService.shared) {
+         store: Store = FirebaseStore()) {
 
-        viewModel = SnapOverlayViewModel(photo: photo, selectedSnaps: selectedSnaps, store: store, apiService: apiService)
+        viewModel = SnapOverlayViewModel(photo: photo, selectedSnaps: selectedSnaps, store: store)
         imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
     }
     
@@ -76,8 +75,4 @@ struct SnapOverlayView: View {
             }
         }
     }
-}
-
-#Preview {
-    SnapOverlayView(photo: Stub.photoData[0], apiService: FirebaseAPIService.shared)
 }

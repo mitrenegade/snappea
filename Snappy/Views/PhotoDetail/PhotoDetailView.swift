@@ -15,8 +15,6 @@ struct PhotoDetailView: View {
 
     private let store: Store
 
-    private let apiService: APIService
-
     private let photo: Photo
 
     var title: String {
@@ -35,24 +33,18 @@ struct PhotoDetailView: View {
 
     /// Creates a PhotoDetailView
     /// Given a photo, shows all snaps
-    init(photo: Photo, store: Store = FirebaseStore(), apiService: APIService = FirebaseAPIService()) {
+    init(photo: Photo, store: Store = FirebaseStore()) {
         self.photo = photo
         self.store = store
-        self.apiService = apiService
     }
 
     var imageSection: some View {
         SnapOverlayView(photo: photo,
-                        store: store,
-                        apiService: apiService)
+                        store: store)
     }
     
     var listSection: some View {
         SnapsListView(photo: photo,
                       store: store)
     }
-}
-
-#Preview {
-    PhotoDetailView(photo: Stub.photoData[0])
 }

@@ -15,6 +15,18 @@ enum StoreError: Error {
 
 /// A persistence and caching layer
 class LocalStore: Store {
+    func loadGarden() async throws {
+        for photo in Stub.photoData {
+            store(photo: photo)
+        }
+        for plant in Stub.plantData {
+            store(plant: plant)
+        }
+        for snap in Stub.snapData {
+            store(snap: snap)
+        }
+    }
+
     /// Caching
     private var photoCache: [String: Photo] = [:]
     private var plantCache: [String: Plant] = [:]
@@ -71,25 +83,19 @@ class LocalStore: Store {
     // MARK: - Cache
     public func store(photo: Photo) {
         readWriteQueue.sync {
-//            if let id = photo.id {
             photoCache[photo.id] = photo
-//            }
         }
     }
 
     public func store(plant: Plant) {
         readWriteQueue.sync {
-//            if let id = plant.id {
             plantCache[plant.id] = plant
-//            }
         }
     }
 
     public func store(snap: Snap) {
         readWriteQueue.sync {
-//            if let id = snap.id {
             snapCache[snap.id] = snap
-//            }
         }
     }
 }

@@ -6,9 +6,9 @@
 //  Copyright © 2020 RenderApps LLC. All rights reserved.
 //
 
+/// Network interface 
 protocol APIService {
     /// Fetch data
-    func loadGarden() async throws
     func fetchPhotos() async throws -> [Photo]
     func fetchPlants() async throws -> [Plant]
     func fetchSnaps() async throws -> [Snap]

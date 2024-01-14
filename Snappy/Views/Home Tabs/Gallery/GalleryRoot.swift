@@ -22,7 +22,7 @@ struct GalleryRoot: View {
          apiService: APIService = FirebaseAPIService.shared,
          store: Store = FirebaseStore()
     ) {
-        viewModel = PhotoGalleryViewModel(apiService: apiService, store: store, router: router)
+        viewModel = PhotoGalleryViewModel(store: store, router: router)
         self.apiService = apiService
         self.store = store
     }
@@ -56,7 +56,7 @@ struct GalleryRoot: View {
 
     private var galleryView: some View {
         if #available(iOS 17.0, *) {
-            PhotoGalleryView(apiService: apiService, store: store)
+            PhotoGalleryView(store: store)
                 .environment(viewModel)
         } else {
             // BR TODO handle safely

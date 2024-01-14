@@ -15,11 +15,9 @@ struct PhotoGalleryView: View {
         gridColumns.count > 1 ? "\(gridColumns.count) Columns" : "1 Column"
     }
 
-    private let apiService: APIService
     private let store: Store
 
-    init(apiService: APIService, store: Store) {
-        self.apiService = apiService
+    init(store: Store) {
         self.store = store
     }
 
@@ -29,7 +27,7 @@ struct PhotoGalleryView: View {
                 LazyVGrid(columns: gridColumns) {
                     ForEach(viewModel.dataSource) { photo in
                         GeometryReader { geo in
-                            NavigationLink(destination: PhotoDetailView(photo: photo, store: store, apiService: apiService)
+                            NavigationLink(destination: PhotoDetailView(photo: photo, store: store)
                             ) {
                                 GridItemView(size: geo.size.width, item: photo)
                             }

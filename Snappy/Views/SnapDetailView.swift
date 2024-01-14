@@ -51,8 +51,7 @@ struct SnapDetailView: View {
     var imageSection: some View {
         SnapOverlayView(photo: photo,
                         selectedSnaps: [snap],
-                        store: store,
-                        apiService: apiService)
+                        store: store)
     }
 
     var editSection: some View {

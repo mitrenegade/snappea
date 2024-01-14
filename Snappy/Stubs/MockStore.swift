@@ -9,6 +9,10 @@
 import Foundation
 
 class MockStore: Store {
+    func loadGarden() async throws {
+        // no op
+    }
+
     var allPhotos: [Photo] {
         Stub.photoData
     }

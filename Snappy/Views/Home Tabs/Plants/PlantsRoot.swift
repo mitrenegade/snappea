@@ -24,7 +24,7 @@ struct PlantsRoot: View {
          apiService: APIService = FirebaseAPIService.shared,
          store: Store = FirebaseStore()
     ) {
-        viewModel = PlantsListViewModel(apiService: apiService, store: store, router: router)
+        viewModel = PlantsListViewModel(store: store, router: router)
         self.store = store
     }
 
