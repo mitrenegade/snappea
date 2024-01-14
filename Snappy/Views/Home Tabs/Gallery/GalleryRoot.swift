@@ -59,6 +59,7 @@ struct GalleryRoot: View {
             PhotoGalleryView(apiService: apiService, store: dataStore)
                 .environment(viewModel)
         } else {
+            // BR TODO handle safely
             fatalError()
         }
     }
