@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 
+enum StoreError: Error {
+    case notAuthorized
+    case databaseError(Error?)
+}
+
 /// Data layer that is responsible for API or Cache
 /// Top level interface to the client that abstracts whether the data comes from local
 /// store, an API interface, or is mocked

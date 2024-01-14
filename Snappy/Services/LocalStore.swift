@@ -9,12 +9,7 @@
 import Foundation
 import UIKit
 
-enum StoreError: Error {
-    case notAuthorized
-    case databaseError(Error?)
-}
-
-/// A persistence and caching layer
+/// A local persistence and caching layer
 class LocalStore: Store {
     func loadGarden() async throws {
         for photo in Stub.photoData {

@@ -19,7 +19,7 @@ struct GalleryRoot: View {
     init(router: HomeViewRouter,
          store: Store = FirebaseStore()
     ) {
-        viewModel = PhotoGalleryViewModel(store: store, router: router)
+        viewModel = PhotoGalleryViewModel(store: store)
         self.store = store
     }
 
@@ -31,10 +31,14 @@ struct GalleryRoot: View {
                 } else {
                     Text("Gallery")
                 }
-                if viewModel.dataSource.count == 0 {
+                if viewModel.isLoading {
                     Text("Loading...")
                 } else {
-                    galleryView
+                    if viewModel.dataSource.isEmpty {
+                        Text("No plants! Click to add some")
+                    } else {
+                        galleryView
+                    }
                 }
             }
             .navigationBarItems(leading: logoutButton)

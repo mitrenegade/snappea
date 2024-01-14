@@ -15,7 +15,22 @@ class FirebaseStore: Store {
     private let api = FirebaseAPIService()
 
     func loadGarden() async throws {
-        // no op
+        let group = DispatchGroup()
+        Task {
+            group.enter()
+            allPhotos = try await api.fetchPhotos()
+        }
+        Task {
+            group.enter()
+            allPlants = try await api.fetchPlants()
+        }
+        Task {
+            group.enter()
+            allSnaps = try await api.fetchSnaps()
+        }
+        group.notify(queue: DispatchQueue.global()) {
+            print("Load garden complete with \(self.allPhotos.count) photos, \(self.allPlants.count) plants, \(self.allSnaps.count) snaps")
+        }
     }
 
     var allPhotos: [Photo] = []

@@ -11,21 +11,10 @@ import Foundation
 
 class PlantsListViewModel: ObservableObject {
     @Published var dataSource: [Plant] = []
-    private var cancellables = Set<AnyCancellable>()
-    @Published var router: HomeViewRouter
+    @Published var isLoading: Bool = true
 
     init(store: Store, router: HomeViewRouter) {
-        self.router = router
-
-        Task {
-            try await store.loadGarden()
-            await updateDataSource(store.allPlants)
-        }
+        dataSource = store.allPlants
+        isLoading = false
     }
-
-    @MainActor
-    private func updateDataSource(_ plants: [Plant]) {
-        dataSource = plants
-    }
-
 }

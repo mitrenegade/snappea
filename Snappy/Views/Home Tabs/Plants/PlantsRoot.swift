@@ -33,10 +33,14 @@ struct PlantsRoot: View {
                 if TESTING {
                     Text("PlantsRoot")
                 }
-                if viewModel.dataSource.count == 0 {
+                if viewModel.isLoading {
                     Text("Loading...")
                 } else {
-                    listView
+                    if viewModel.dataSource.isEmpty {
+                        Text("No plants! Click to add some")
+                    } else {
+                        listView
+                    }
                 }
                 newPhotoView
             }

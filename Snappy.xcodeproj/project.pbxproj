@@ -57,7 +57,6 @@
 		8EC86BFF245613B900AB2F92 /* SnapsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFE245613B900AB2F92 /* SnapsListViewModel.swift */; };
 		8EC86C012456234700AB2F92 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86C002456234700AB2F92 /* ImageCache.swift */; };
 		8EC86C032456629100AB2F92 /* GoogleService-Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EC86C022456629100AB2F92 /* GoogleService-Info-dev.plist */; };
-		8EC86C07245A699D00AB2F92 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86C06245A699D00AB2F92 /* APIService.swift */; };
 		8EE11201244CF0F200693609 /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE11200244CF0F200693609 /* Plant.swift */; };
 		8EE11203244CF26B00693609 /* plantData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE11202244CF26B00693609 /* plantData.json */; };
 		8EE709CF2B54056C0078D509 /* FirebaseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE709CE2B54056C0078D509 /* FirebaseStore.swift */; };
@@ -149,7 +148,6 @@
 		8EC86BFE245613B900AB2F92 /* SnapsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapsListViewModel.swift; sourceTree = "<group>"; };
 		8EC86C002456234700AB2F92 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		8EC86C022456629100AB2F92 /* GoogleService-Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-dev.plist"; sourceTree = "<group>"; };
-		8EC86C06245A699D00AB2F92 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		8EE11200244CF0F200693609 /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		8EE11202244CF26B00693609 /* plantData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = plantData.json; sourceTree = "<group>"; };
 		8EE709CE2B54056C0078D509 /* FirebaseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStore.swift; sourceTree = "<group>"; };
@@ -207,7 +205,6 @@
 			isa = PBXGroup;
 			children = (
 				8E3684D12B2BF86F00B228F3 /* Store.swift */,
-				8EC86C06245A699D00AB2F92 /* APIService.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -660,7 +657,6 @@
 				8E7C7958244BB24400F295AD /* SceneDelegate.swift in Sources */,
 				8E3ABF0C244D7DB300FF378B /* SnapsListView.swift in Sources */,
 				8EC86BF92454E81D00AB2F92 /* ImageStore.swift in Sources */,
-				8EC86C07245A699D00AB2F92 /* APIService.swift in Sources */,
 				8E3684D22B2BF86F00B228F3 /* Store.swift in Sources */,
 				8E3ABF07244D7D4000FF378B /* SnapRow.swift in Sources */,
 				8EF491B72B50E979009F12C0 /* SnapDetailView.swift in Sources */,

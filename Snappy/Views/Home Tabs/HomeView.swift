@@ -20,23 +20,27 @@ struct HomeView: View {
     }
 
     var body: some View {
-        TabView(selection: $router.selectedTab) {
-            PlantsRoot(router: router, store: store)
-            .tabItem {
-                // BR TODO make this a snap pea icon
-                Image(systemName: "leaf.fill")
-                Text("Plants")
-            }.tag(Tab.plants)
-            GalleryRoot(router: router, store: store)
-            .tabItem {
-                 Image(systemName: "photo.fill")
-                 Text("Gallery")
-            }.tag(Tab.camera)
-            CameraRoot(router: router)
-            .tabItem {
-                 Image(systemName: "camera.fill")
-                 Text("Camera")
-            }.tag(Tab.camera)
+        if router.isLoading {
+            Text("Loading...")
+        } else {
+            TabView(selection: $router.selectedTab) {
+                PlantsRoot(router: router, store: store)
+                    .tabItem {
+                        // BR TODO make this a snap pea icon
+                        Image(systemName: "leaf.fill")
+                        Text("Plants")
+                    }.tag(Tab.plants)
+                GalleryRoot(router: router, store: store)
+                    .tabItem {
+                        Image(systemName: "photo.fill")
+                        Text("Gallery")
+                    }.tag(Tab.camera)
+                CameraRoot(router: router)
+                    .tabItem {
+                        Image(systemName: "camera.fill")
+                        Text("Camera")
+                    }.tag(Tab.camera)
+            }
         }
     }
 }
