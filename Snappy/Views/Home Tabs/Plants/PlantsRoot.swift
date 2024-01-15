@@ -28,11 +28,16 @@ struct PlantsRoot: View {
     }
 
     var body: some View {
-        NavigationView{
+        NavigationView {
             Group {
                 if TESTING {
-                    Text("PlantsRoot")
+                    Text("PlantsRoot").font(.title)
+                } else {
+                    Text("Plants").font(.title)
                 }
+                Text("Add a new plant to track it throughout its growth by adding snaps. Start by creating a plant.")
+                    .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                Spacer()
                 if viewModel.isLoading {
                     Text("Loading...")
                 } else {
@@ -43,6 +48,7 @@ struct PlantsRoot: View {
                     }
                 }
                 newPhotoView
+                Spacer()
             }
             .navigationBarItems(leading: logoutButton,
                                 trailing: addPlantButton

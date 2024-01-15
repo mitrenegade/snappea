@@ -27,10 +27,13 @@ struct GalleryRoot: View {
         NavigationStack{
             Group {
                 if TESTING {
-                    Text("GalleryRoot")
+                    Text("GalleryRoot").font(.title)
                 } else {
-                    Text("Gallery")
+                    Text("Gallery").font(.title)
                 }
+                Text("Start with a photo and tag all the plants in it. Click on the plus button to begin.")
+                    .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                Spacer()
                 if viewModel.isLoading {
                     Text("Loading...")
                 } else {
@@ -40,6 +43,7 @@ struct GalleryRoot: View {
                         galleryView
                     }
                 }
+                Spacer()
             }
             .navigationBarItems(leading: logoutButton)
         }
