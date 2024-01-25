@@ -64,6 +64,11 @@ struct AddPlantView: View {
         VStack {
             if let image = viewModel.image {
                 image
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width,
+                            height: UIScreen.main.bounds.width)
+                    .aspectRatio(contentMode: .fit)
+                    .clipped()
             } else {
                 PhotosPicker(selection: $viewModel.imageSelection,
                              matching: .images,
