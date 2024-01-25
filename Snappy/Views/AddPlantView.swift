@@ -9,6 +9,38 @@
 import SwiftUI
 import PhotosUI
 
+class AddPlantViewModel: ObservableObject {
+
+    @Published var image: Image? = nil
+
+    @Published var imageSelection: PhotosPickerItem? = nil {
+        didSet {
+            if let imageSelection {
+                loadTransferable(from: imageSelection)
+            } else {
+                // no op
+            }
+        }
+    }
+
+    private func loadTransferable(from imageSelection: PhotosPickerItem) {
+        imageSelection.loadTransferable(type: Image.self) { result in
+            DispatchQueue.main.async {
+                guard imageSelection == self.imageSelection else {
+                    print("Failed to get the selected item.")
+                    return
+                }
+                switch result {
+                case .success(let image):
+                    self.image = image
+                default:
+                    return
+                }
+            }
+        }
+    }
+}
+
 struct AddPlantView: View {
 
     @State var name: String = ""
@@ -17,13 +49,7 @@ struct AddPlantView: View {
 
     @State var image: Image?
 
-    @State var imageSelection: PhotosPickerItem? {
-        didSet {
-            if let imageSelection {
-                loadTransferable(from: imageSelection)
-            }
-        }
-    }
+    @ObservedObject var viewModel = AddPlantViewModel()
 
     private var title: String {
         if TESTING {
@@ -36,10 +62,10 @@ struct AddPlantView: View {
     var body: some View {
         Text(title)
         VStack {
-            if let image {
+            if let image = viewModel.image {
                 image
             } else {
-                PhotosPicker(selection: $imageSelection,
+                PhotosPicker(selection: $viewModel.imageSelection,
                              matching: .images,
                              photoLibrary: .shared()) {
                     Image(systemName: "camera")
@@ -87,25 +113,4 @@ struct AddPlantView: View {
                 }
             }
     }
-
-    private func loadTransferable(from imageSelection: PhotosPickerItem) {
-        imageSelection.loadTransferable(type: Image.self) { result in
-            DispatchQueue.main.async {
-                guard imageSelection == self.imageSelection else {
-                    print("Failed to get the selected item.")
-                    return
-                }
-                switch result {
-                case .success(let image):
-                    self.image = image
-                default:
-                    return
-                }
-            }
-        }
-    }
-}
-
-#Preview {
-    AddPlantView()
 }
