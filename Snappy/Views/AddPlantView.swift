@@ -36,16 +36,20 @@ struct AddPlantView: View {
     var body: some View {
         Text(title)
         VStack {
-            PhotosPicker(selection: $imageSelection,
-                         matching: .images,
-                         photoLibrary: .shared()) {
-                Image(systemName: "camera")
-                .frame(width: 100, height: 100)
-                .aspectRatio(contentMode: .fill)
-                .foregroundColor(Color.black)
-                .background(Color.green)
-                .clipShape(Circle())
-            }.buttonStyle(.borderless)
+            if let image {
+                image
+            } else {
+                PhotosPicker(selection: $imageSelection,
+                             matching: .images,
+                             photoLibrary: .shared()) {
+                    Image(systemName: "camera")
+                        .frame(width: 100, height: 100)
+                        .aspectRatio(contentMode: .fill)
+                        .foregroundColor(Color.black)
+                        .background(Color.green)
+                        .clipShape(Circle())
+                }.buttonStyle(.borderless)
+            }
 
             nameField
             categoryField
