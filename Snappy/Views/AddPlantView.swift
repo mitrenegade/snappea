@@ -7,12 +7,23 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct AddPlantView: View {
 
     @State var name: String = ""
     @State var category: Category = .other
     @State var plantType: PlantType = .unknown
+
+    @State var image: Image?
+
+    @State var imageSelection: PhotosPickerItem? {
+        didSet {
+            if let imageSelection {
+                loadTransferable(from: imageSelection)
+            }
+        }
+    }
 
     private var title: String {
         if TESTING {
@@ -25,25 +36,20 @@ struct AddPlantView: View {
     var body: some View {
         Text(title)
         VStack {
-            addButton
+            PhotosPicker(selection: $imageSelection,
+                         matching: .images,
+                         photoLibrary: .shared()) {
+                Image(systemName: "camera")
+                .frame(width: 100, height: 100)
+                .aspectRatio(contentMode: .fill)
+                .foregroundColor(Color.black)
+                .background(Color.green)
+                .clipShape(Circle())
+            }.buttonStyle(.borderless)
+
             nameField
             categoryField
             typeField
-        }
-    }
-
-    private var addButton: some View {
-        HStack {
-            Button {
-                // camera
-            } label: {
-                Image(systemName: "camera")
-            }
-            .frame(width: 100, height: 100)
-            .aspectRatio(contentMode: .fill)
-            .foregroundColor(Color.black)
-            .background(Color.green)
-            .clipShape(Circle())
         }
     }
 
@@ -76,6 +82,23 @@ struct AddPlantView: View {
                     }
                 }
             }
+    }
+
+    private func loadTransferable(from imageSelection: PhotosPickerItem) {
+        imageSelection.loadTransferable(type: Image.self) { result in
+            DispatchQueue.main.async {
+                guard imageSelection == self.imageSelection else {
+                    print("Failed to get the selected item.")
+                    return
+                }
+                switch result {
+                case .success(let image):
+                    self.image = image
+                default:
+                    return
+                }
+            }
+        }
     }
 }
 
