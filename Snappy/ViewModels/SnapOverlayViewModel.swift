@@ -26,7 +26,7 @@ class SnapOverlayViewModel: ObservableObject {
     ///     - selectedSnaps: if non-nil, a custom set of snaps. This may be a subset of the snaps for the photo, or  used to display a single snap
     init(photo: Photo,
          selectedSnaps: [Snap]? = nil,
-         store: Store = FirebaseStore()) {
+         store: Store = Constants.store) {
         self.photo = photo
         self.store = store
         self.snaps = selectedSnaps ?? fetchSnapsForPhoto(id: photo.id)
@@ -47,14 +47,11 @@ class SnapOverlayViewModel: ObservableObject {
     }
 
     func createSnap(start: CGPoint, end: CGPoint, imageSize: CGSize) {
-        guard let photoId = photoId else { return }
-        let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: imageSize, start: start, end: end)
-
-        print("createSnap startCoord: \(startCoord) endCoord \(endCoord)")
-
-        let snap = Snap(photoId: photoId, start: startCoord, end: endCoord)
-
-        store.store(snap: snap)
-        snaps.append(snap)
+        do {
+            let snap = try store.createSnap(photo: photo, start: start, end: end, imageSize: imageSize)
+            snaps.append(snap)
+        } catch {
+            print("Error creating snap: \(error)")
+        }
     }
 }

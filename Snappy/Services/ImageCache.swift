@@ -10,17 +10,17 @@ import UIKit
 import SwiftUI
 
 protocol ImageCache {
-    subscript(_ url: URL) -> UIImage? { get set }
+    subscript(_ key: String) -> UIImage? { get set }
 }
 
 struct TemporaryImageCache: ImageCache {
     static let shared = TemporaryImageCache()
 
-    private let cache = NSCache<NSURL, UIImage>()
-    
-    subscript(_ key: URL) -> UIImage? {
-        get { cache.object(forKey: key as NSURL) }
-        set { newValue == nil ? cache.removeObject(forKey: key as NSURL) : cache.setObject(newValue!, forKey: key as NSURL) }
+    private let cache = NSCache<NSString, UIImage>()
+
+    subscript(_ key: String) -> UIImage? {
+        get { cache.object(forKey: key as NSString) }
+        set { newValue == nil ? cache.removeObject(forKey: key as NSString) : cache.setObject(newValue!, forKey: key as NSString) }
     }
 }
 

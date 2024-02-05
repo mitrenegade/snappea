@@ -16,6 +16,16 @@ class AddPlantViewModel: ObservableObject {
     @Published var category: Category = .other
     @Published var plantType: PlantType = .unknown
 
+    var errorMessage: String? {
+        didSet {
+            isShowingError = errorMessage == nil
+        }
+    }
+
+    @Published var isShowingError: Bool = false
+
+    private let store = LocalStore()
+
     @Published var imageSelection: PhotosPickerItem? = nil {
         didSet {
             if let imageSelection {
@@ -48,16 +58,22 @@ class AddPlantViewModel: ObservableObject {
     }
 
     func savePlant() {
-        if name.isEmpty {
-            print("No")
-        } else if category == .other {
-            print("No")
-        } else if plantType == .unknown {
-            print("No")
-        } else {
-            // save to API layer
-            print("Saving plant \(name) of category \(category) and type \(plantType)")
+        guard !name.isEmpty,
+              category != .other,
+              plantType != .unknown else {
+            errorMessage = "Invalid information for plant. Please enter all fields."
+            return
         }
+
+        print("Saving plant \(name) of category \(category) and type \(plantType)")
+
+        do {
+            try store.createPlant(name: name, type: plantType, category: category)
+        } catch {
+            errorMessage = "Save error: \(error)"
+        }
+
+        // TODO: save photo
     }
 }
 
@@ -103,6 +119,9 @@ struct AddPlantView: View {
             typeField
         }
         .navigationBarItems(trailing: saveButton)
+        .alert(isPresented: $viewModel.isShowingError) {
+            Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
+        }
 
     }
 

@@ -17,7 +17,7 @@ struct GalleryRoot: View {
     @ObservedObject var viewModel: PhotoGalleryViewModel
 
     init(router: HomeViewRouter,
-         store: Store = FirebaseStore()
+         store: Store = Constants.store
     ) {
         viewModel = PhotoGalleryViewModel(store: store)
         self.store = store

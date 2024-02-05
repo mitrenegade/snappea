@@ -46,12 +46,12 @@ class ImageLoader: ObservableObject {
     
     private func getFromCache() -> UIImage? {
         print("Get from cache \(url)")
-        return cache?[url]
+        return cache?[url.absoluteString]
     }
 
     private func addToCache(_ image: UIImage?) {
         print("Add to cache \(url)")
-        image.map { cache?[url] = $0 }
+        image.map { cache?[url.absoluteString] = $0 }
     }
     
 }

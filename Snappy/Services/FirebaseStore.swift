@@ -11,7 +11,6 @@ import UIKit
 
 /// An implementation of Store that uses Firebase's API, via FirebaseAPIService
 class FirebaseStore: Store {
-
     private let api = FirebaseAPIService()
 
     func loadGarden() async throws {
@@ -51,31 +50,6 @@ class FirebaseStore: Store {
         nil
     }
 
-    func store(photo: Photo, image: UIImage?) {
-        api.addPhoto(photo) { result, error in
-            guard var newPhoto = result,
-                  let image = image else {
-              return
-          }
-            FirebaseImageService.uploadImage(image: image, type: .photo, uid: photo.id) { [weak self] result in
-                if let url = result {
-                    self?.api.updatePhotoUrl(newPhoto, url: url) { error in
-                        newPhoto.url = url // manually update url in existing photo object locally
-                    }
-                }
-            }
-        }
-        // no op
-    }
-
-    func store(plant: Plant) {
-        // no op
-    }
-
-    func store(snap: Snap) {
-        // no op
-    }
-
     func snaps(for plant: Plant) -> [Snap] {
         []
     }
@@ -90,6 +64,36 @@ class FirebaseStore: Store {
 
     func photos(for plant: Plant) -> [Photo] {
         []
+    }
+
+    // MARK: -
+    func createPhoto(image: UIImage) throws -> Photo {
+        let id = UUID().uuidString // TODO use firebase id
+        let timestamp = Date().timeIntervalSince1970
+        let photo = Photo(id: id, timestamp: timestamp)
+        api.addPhoto(photo) { result, error in
+            guard var newPhoto = result else {
+              return
+          }
+            FirebaseImageService.uploadImage(image: image, type: .photo, uid: photo.id) { [weak self] result in
+                if let url = result {
+                    self?.api.updatePhotoUrl(newPhoto, url: url) { error in
+                        newPhoto.url = url // manually update url in existing photo object locally
+                    }
+                }
+            }
+        }
+
+        return photo
+    }
+
+    func createPlant(name: String, type: PlantType, category: Category) throws {
+        // BR TODO
+    }
+
+    func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) throws -> Snap {
+        // BR TODO
+        fatalError()
     }
 }
 

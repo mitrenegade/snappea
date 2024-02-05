@@ -21,7 +21,7 @@ struct PlantsRoot: View {
     private let store: Store
 
     init(router: HomeViewRouter,
-         store: Store = FirebaseStore()
+         store: Store = Constants.store
     ) {
         viewModel = PlantsListViewModel(store: store, router: router)
         self.store = store

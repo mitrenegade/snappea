@@ -26,7 +26,7 @@ class HomeViewRouter: ObservableObject {
         }
     }
 
-    init(store: Store = FirebaseStore()) {
+    init(store: Store = Constants.store) {
         self.store = store
 
         Task {

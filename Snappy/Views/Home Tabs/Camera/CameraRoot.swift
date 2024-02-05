@@ -19,7 +19,7 @@ struct CameraRoot: View {
 
     private let store: Store
 
-    init(router: HomeViewRouter, store: Store = FirebaseStore()) {
+    init(router: HomeViewRouter, store: Store = Constants.store) {
         self.store = store
         self.router = router
     }
@@ -86,7 +86,9 @@ struct CameraRoot: View {
             if image != nil {
                 Button(action: {
                     // save
-                    self.saveImage()
+                    if let photo = self.saveImage() {
+                        displayNewPhotoDetail(photo: photo)
+                    }
                 }) {
                     Text("Save")
                 }
@@ -128,10 +130,14 @@ struct CameraRoot: View {
         self.showCaptureImageView.toggle()
     }
     
-    func saveImage() {
-        let photo = Photo(timestamp: Date().timeIntervalSince1970)
-        store.store(photo: photo, image: image)
-        displayNewPhotoDetail(photo: photo)
+    func saveImage() -> Photo? {
+        guard let image else {
+            // TODO: throw error
+            return nil
+        }
+
+        let photo = try? store.createPhoto(image: image)
+        return photo
     }
     
     func displayNewPhotoDetail(photo: Photo) {
