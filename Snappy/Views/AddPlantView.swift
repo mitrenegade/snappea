@@ -70,8 +70,10 @@ class AddPlantViewModel: ObservableObject {
         do {
             try store.createPlant(name: name, type: plantType, category: category)
         } catch {
-            errorMessage = "Save error: error"
+            errorMessage = "Save error: \(error)"
         }
+
+        // TODO: save photo
     }
 }
 

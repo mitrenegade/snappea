@@ -18,37 +18,78 @@ class LocalStore: Store {
         }
     }
 
+    private lazy var plantPath: URL = {
+        do {
+            let url = try baseURL.appending(path: "plant")
+            if !FileManager.default.fileExists(atPath: url.absoluteString, isDirectory: nil) {
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
+            }
+            return url
+        } catch {
+            fatalError("Could not create local store plant url: \(error)")
+        }
+    }()
+
+    private lazy var snapPath: URL = {
+        do {
+            let url = try baseURL.appending(path: "snap")
+            if !FileManager.default.fileExists(atPath: url.absoluteString, isDirectory: nil) {
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
+            }
+            return url
+        } catch {
+            fatalError("Could not create local store snap url: \(error)")
+        }
+    }()
+
+    private lazy var photoPath: URL = {
+        do {
+            let url = try baseURL.appending(path: "photo")
+            if !FileManager.default.fileExists(atPath: url.absoluteString, isDirectory: nil) {
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
+            }
+            return url
+        } catch {
+            fatalError("Could not create local store photo url: \(error)")
+        }
+    }()
+
     func loadGarden() async throws {
-        let plants = try FileManager.default
-            .contentsOfDirectory(atPath: baseURL.appending(path: "photo").absoluteString)
-            .compactMap { URL(string: $0) }
-        print("Plants: \(plants.count) \(plants)")
-        try plants.forEach { url in
-            let data = try Data(contentsOf: url)
-            let plant = try JSONDecoder().decode(Plant.self, from: data)
-            cachePlant(plant)
-        }
+        do {
+            let plants = try FileManager.default
+                .contentsOfDirectory(atPath: plantPath.absoluteString)
+                .compactMap { URL(string: $0) }
+            print("Plants: \(plants.count) \(plants)")
+            try plants.forEach { url in
+                let data = try Data(contentsOf: url)
+                let plant = try JSONDecoder().decode(Plant.self, from: data)
+                cachePlant(plant)
+            }
 
-        let snaps = try FileManager.default
-            .contentsOfDirectory(atPath: baseURL.appending(path: "snap").absoluteString)
-            .compactMap { URL(string: $0) }
-        print("Snaps: \(snaps.count) \(snaps)")
-        try snaps.forEach { url in
-            let data = try Data(contentsOf: url)
-            let snap = try JSONDecoder().decode(Snap.self, from: data)
-            cacheSnap(snap)
-        }
+            let snaps = try FileManager.default
+                .contentsOfDirectory(atPath: snapPath.absoluteString)
+                .compactMap { URL(string: $0) }
+            print("Snaps: \(snaps.count) \(snaps)")
+            try snaps.forEach { url in
+                let data = try Data(contentsOf: url)
+                let snap = try JSONDecoder().decode(Snap.self, from: data)
+                cacheSnap(snap)
+            }
 
-        let photos = try FileManager.default
-            .contentsOfDirectory(atPath: baseURL.appending(path: "photo").absoluteString)
-            .compactMap { URL(string: $0) }
-        print("Photos: \(photos.count) \(photos)")
-        try photos.forEach { url in
-            let data = try Data(contentsOf: url)
-            let photo = try JSONDecoder().decode(Photo.self, from: data)
+            let photos = try FileManager.default
+                .contentsOfDirectory(atPath: photoPath.absoluteString)
+                .compactMap { URL(string: $0) }
+            print("Photos: \(photos.count) \(photos)")
+            try photos.forEach { url in
+                let data = try Data(contentsOf: url)
+                let photo = try JSONDecoder().decode(Photo.self, from: data)
 
-            let image = try ImageStore().loadImage(name: photo.id)
-            cachePhoto(photo, image: image)
+                let image = try ImageStore().loadImage(name: photo.id)
+                cachePhoto(photo, image: image)
+            }
+        } catch {
+            print("Load garden error: \(error)")
+            throw error
         }
     }
 
@@ -155,6 +196,8 @@ class LocalStore: Store {
 
         return snap
     }
+
+    // MARK: - Caching
 
     private func cachePhoto(_ photo: Photo, image: UIImage) {
         readWriteQueue.sync {
