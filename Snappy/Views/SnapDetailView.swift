@@ -12,9 +12,7 @@ import Combine
 
 /// Displays a single snap on a photo with options to edit
 struct SnapDetailView: View {
-    private let store: DataStore
-
-    private let apiService: APIService
+    private let store: Store
 
     private let snap: Snap
 
@@ -38,21 +36,19 @@ struct SnapDetailView: View {
 
     /// Creates a PhotoDetailView
     /// Given a snap, shows the photo for only the snap
-    init?(snap: Snap, store: DataStore = FirebaseDataStore(), apiService: APIService = FirebaseAPIService()) {
+    init?(snap: Snap, store: Store = FirebaseStore()) {
         guard let photo = store.photo(withId: snap.photoId) else {
             return nil
         }
         self.photo = photo
         self.snap = snap
         self.store = store
-        self.apiService = apiService
     }
 
     var imageSection: some View {
         SnapOverlayView(photo: photo,
                         selectedSnaps: [snap],
-                        store: store,
-                        apiService: apiService)
+                        store: store)
     }
 
     var editSection: some View {

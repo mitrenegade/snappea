@@ -1,5 +1,5 @@
 //
-//  LocalDataStore.swift
+//  LocalStore.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 1/9/24.
@@ -7,19 +7,28 @@
 //
 
 import Foundation
+import UIKit
 
-enum DataStoreError: Error {
-    case notAuthorized
-    case databaseError(Error?)
-}
+/// A local persistence and caching layer
+class LocalStore: Store {
+    func loadGarden() async throws {
+        for photo in Stub.photoData {
+            store(photo: photo, image: nil)
+        }
+        for plant in Stub.plantData {
+            store(plant: plant)
+        }
+        for snap in Stub.snapData {
+            store(snap: snap)
+        }
+    }
 
-/// A persistence and caching layer
-class LocalDataStore: DataStore {
     /// Caching
     private var photoCache: [String: Photo] = [:]
     private var plantCache: [String: Plant] = [:]
     private var snapCache: [String: Snap] = [:]
     private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
+    private var imageCache = TemporaryImageCache()
 
     // MARK: -
 
@@ -69,32 +78,25 @@ class LocalDataStore: DataStore {
     }
 
     // MARK: - Cache
-    public func store(photo: Photo) {
+    public func store(photo: Photo, image: UIImage?) {
         readWriteQueue.sync {
-//            if let id = photo.id {
             photoCache[photo.id] = photo
-//            }
+            if let url = URL(string: photo.url) {
+                imageCache[url] = image
+            }
         }
     }
 
     public func store(plant: Plant) {
         readWriteQueue.sync {
-//            if let id = plant.id {
             plantCache[plant.id] = plant
-//            }
         }
     }
 
     public func store(snap: Snap) {
         readWriteQueue.sync {
-//            if let id = snap.id {
             snapCache[snap.id] = snap
-//            }
         }
     }
 }
 
-/// Temporary
-class FirebaseDataStore: LocalDataStore {
-    // no op
-}

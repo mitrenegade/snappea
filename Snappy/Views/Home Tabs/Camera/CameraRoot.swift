@@ -17,10 +17,10 @@ struct CameraRoot: View {
     var router: HomeViewRouter
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
 
-    private var apiService: APIService
-    
-    init(router: HomeViewRouter, apiService: APIService = FirebaseAPIService.shared) {
-        self.apiService = apiService
+    private let store: Store
+
+    init(router: HomeViewRouter, store: Store = FirebaseStore()) {
+        self.store = store
         self.router = router
     }
 
@@ -130,20 +130,8 @@ struct CameraRoot: View {
     
     func saveImage() {
         let photo = Photo(timestamp: Date().timeIntervalSince1970)
-        apiService.addPhoto(photo) { result, error in
-            guard var newPhoto = result,
-                    let image = self.image else {
-                return
-            }
-            FirebaseImageService.uploadImage(image: image, type: .photo, uid: photo.id) { result in
-                if let url = result {
-                    self.apiService.updatePhotoUrl(newPhoto, url: url) { error in
-                        newPhoto.url = url // manually update url in existing photo object locally
-                        self.displayNewPhotoDetail(photo: newPhoto)
-                    }
-                }
-            }
-        }
+        store.store(photo: photo, image: image)
+        displayNewPhotoDetail(photo: photo)
     }
     
     func displayNewPhotoDetail(photo: Photo) {

@@ -12,34 +12,38 @@ import Combine
 
 /// Displays a gallery of photos
 struct GalleryRoot: View {
-    private let dataStore: DataStore
-
-    private let apiService: APIService
+    private let store: Store
 
     @ObservedObject var viewModel: PhotoGalleryViewModel
 
     init(router: HomeViewRouter,
-         apiService: APIService = FirebaseAPIService.shared,
-         dataStore: DataStore = FirebaseDataStore()
+         store: Store = FirebaseStore()
     ) {
-        viewModel = PhotoGalleryViewModel(apiService: apiService, dataStore: dataStore, router: router)
-        self.apiService = apiService
-        self.dataStore = dataStore
+        viewModel = PhotoGalleryViewModel(store: store)
+        self.store = store
     }
 
     var body: some View {
         NavigationStack{
             Group {
                 if TESTING {
-                    Text("GalleryRoot")
+                    Text("GalleryRoot").font(.title)
                 } else {
-                    Text("Gallery")
+                    Text("Gallery").font(.title)
                 }
-                if viewModel.dataSource.count == 0 {
+                Text("Start with a photo and tag all the plants in it. Click on the plus button to begin.")
+                    .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                Spacer()
+                if viewModel.isLoading {
                     Text("Loading...")
                 } else {
-                    galleryView
+                    if viewModel.dataSource.isEmpty {
+                        Text("No plants! Click to add some")
+                    } else {
+                        galleryView
+                    }
                 }
+                Spacer()
             }
             .navigationBarItems(leading: logoutButton)
         }
@@ -56,7 +60,7 @@ struct GalleryRoot: View {
 
     private var galleryView: some View {
         if #available(iOS 17.0, *) {
-            PhotoGalleryView(apiService: apiService, store: dataStore)
+            PhotoGalleryView(store: store)
                 .environment(viewModel)
         } else {
             // BR TODO handle safely

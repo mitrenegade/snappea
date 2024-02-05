@@ -18,28 +18,37 @@ struct PlantsRoot: View {
     
     private var cancellables = Set<AnyCancellable>()
 
-    private let dataStore: DataStore
+    private let store: Store
 
     init(router: HomeViewRouter,
-         apiService: APIService = FirebaseAPIService.shared,
-         dataStore: DataStore = FirebaseDataStore()
+         store: Store = FirebaseStore()
     ) {
-        viewModel = PlantsListViewModel(apiService: apiService, dataStore: dataStore, router: router)
-        self.dataStore = dataStore
+        viewModel = PlantsListViewModel(store: store, router: router)
+        self.store = store
     }
 
     var body: some View {
-        NavigationView{
+        NavigationView {
             Group {
                 if TESTING {
-                    Text("PlantsRoot")
+                    Text("PlantsRoot").font(.title)
+                } else {
+                    Text("Plants").font(.title)
                 }
-                if viewModel.dataSource.count == 0 {
+                Text("Add a new plant to track it throughout its growth by adding snaps. Start by creating a plant.")
+                    .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                Spacer()
+                if viewModel.isLoading {
                     Text("Loading...")
                 } else {
-                    listView
+                    if viewModel.dataSource.isEmpty {
+                        Text("No plants! Click to add some")
+                    } else {
+                        listView
+                    }
                 }
                 newPhotoView
+                Spacer()
             }
             .navigationBarItems(leading: logoutButton,
                                 trailing: addPlantButton
@@ -70,8 +79,8 @@ struct PlantsRoot: View {
 
     var listView: some View {
         List(viewModel.dataSource) { plant in
-            NavigationLink(destination: PlantGalleryView(plant: plant, store: dataStore)) {
-                PlantRow(viewModel: PlantRowViewModel(plant: plant, dataStore: dataStore))
+            NavigationLink(destination: PlantGalleryView(plant: plant, store: store)) {
+                PlantRow(viewModel: PlantRowViewModel(plant: plant, store: store))
             }
         }
     }

@@ -7,12 +7,65 @@
 //
 
 import SwiftUI
+import PhotosUI
+
+class AddPlantViewModel: ObservableObject {
+
+    @Published var image: Image? = nil
+    @Published var name: String = ""
+    @Published var category: Category = .other
+    @Published var plantType: PlantType = .unknown
+
+    @Published var imageSelection: PhotosPickerItem? = nil {
+        didSet {
+            if let imageSelection {
+                loadTransferable(from: imageSelection)
+            } else {
+                // no op
+            }
+        }
+    }
+
+    @State var isShowingSaveButton: Bool = false
+
+    private func loadTransferable(from imageSelection: PhotosPickerItem) {
+        imageSelection.loadTransferable(type: Image.self) { result in
+            DispatchQueue.main.async {
+                guard imageSelection == self.imageSelection else {
+                    print("Failed to get the selected item.")
+                    return
+                }
+                switch result {
+                case .success(let image):
+                    self.image = image
+                    self.isShowingSaveButton = true
+                default:
+                    self.isShowingSaveButton = false
+                    return
+                }
+            }
+        }
+    }
+
+    func savePlant() {
+        if name.isEmpty {
+            print("No")
+        } else if category == .other {
+            print("No")
+        } else if plantType == .unknown {
+            print("No")
+        } else {
+            // save to API layer
+            print("Saving plant \(name) of category \(category) and type \(plantType)")
+        }
+    }
+}
 
 struct AddPlantView: View {
 
-    @State var name: String = ""
-    @State var category: Category = .other
-    @State var plantType: PlantType = .unknown
+    @State var image: Image?
+
+    @ObservedObject var viewModel = AddPlantViewModel()
 
     private var title: String {
         if TESTING {
@@ -25,32 +78,38 @@ struct AddPlantView: View {
     var body: some View {
         Text(title)
         VStack {
-            addButton
+            if let image = viewModel.image {
+                image
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width,
+                            height: UIScreen.main.bounds.width)
+                    .aspectRatio(contentMode: .fit)
+                    .clipped()
+            } else {
+                PhotosPicker(selection: $viewModel.imageSelection,
+                             matching: .images,
+                             photoLibrary: .shared()) {
+                    Image(systemName: "camera")
+                        .frame(width: 100, height: 100)
+                        .aspectRatio(contentMode: .fill)
+                        .foregroundColor(Color.black)
+                        .background(Color.green)
+                        .clipShape(Circle())
+                }.buttonStyle(.borderless)
+            }
+
             nameField
             categoryField
             typeField
         }
-    }
+        .navigationBarItems(trailing: saveButton)
 
-    private var addButton: some View {
-        HStack {
-            Button {
-                // camera
-            } label: {
-                Image(systemName: "camera")
-            }
-            .frame(width: 100, height: 100)
-            .aspectRatio(contentMode: .fill)
-            .foregroundColor(Color.black)
-            .background(Color.green)
-            .clipShape(Circle())
-        }
     }
 
     private var nameField: some View {
         HStack {
             Spacer()
-            TextField(text: $name) {
+            TextField(text: $viewModel.name) {
                 Text("Plant name")
             }
             .border(.gray)
@@ -60,7 +119,7 @@ struct AddPlantView: View {
 
     private var typeField: some View {
             List {
-                Picker("Type", selection: $plantType) {
+                Picker("Type", selection: $viewModel.plantType) {
                     ForEach(PlantType.allCases) { plantType in
                         Text(plantType.rawValue.capitalized)
                     }
@@ -70,15 +129,19 @@ struct AddPlantView: View {
 
     private var categoryField: some View {
             List {
-                Picker("Category", selection: $category) {
+                Picker("Category", selection: $viewModel.category) {
                     ForEach(Category.allCases) { category in
                         Text(category.rawValue.capitalized)
                     }
                 }
             }
     }
-}
 
-#Preview {
-    AddPlantView()
+    private var saveButton: some View {
+        Button(action: {
+            viewModel.savePlant()
+        }) {
+            Text("Save")
+        }
+    }
 }

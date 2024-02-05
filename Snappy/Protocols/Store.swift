@@ -1,5 +1,5 @@
 //
-//  DataStore.swift
+//  Store.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 12/14/23.
@@ -7,8 +7,19 @@
 //
 
 import Foundation
+import UIKit
 
-protocol DataStore {
+enum StoreError: Error {
+    case notAuthorized
+    case databaseError(Error?)
+}
+
+/// Data layer that is responsible for API or Cache
+/// Top level interface to the client that abstracts whether the data comes from local
+/// store, an API interface, or is mocked
+protocol Store {
+    func loadGarden() async throws
+
     var allPhotos: [Photo] { get }
     var allPlants: [Plant] { get }
     var allSnaps: [Snap] { get }
@@ -17,8 +28,7 @@ protocol DataStore {
     func plant(withId id: String) -> Plant?
     func snap(withId id: String) -> Snap?
 
-    /// Cache
-    func store(photo: Photo)
+    func store(photo: Photo, image: UIImage?)
     func store(plant: Plant)
     func store(snap: Snap)
 

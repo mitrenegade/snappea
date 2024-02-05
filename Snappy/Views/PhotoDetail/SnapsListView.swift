@@ -18,7 +18,7 @@ struct SnapsListView: View {
 
     private var selectedSnaps: [Snap] = []
 
-    private let store: DataStore
+    private let store: Store
 
     var body: some View {
         if TESTING {
@@ -28,7 +28,7 @@ struct SnapsListView: View {
             NavigationLink {
                 SnapDetailView(snap: snap, store: store)
             } label: {
-                SnapRow(snap: snap, dataStore: store, isDisabled: !isSelected(snap))
+                SnapRow(snap: snap, store: store, isDisabled: !isSelected(snap))
             }
         }
     }
@@ -44,14 +44,14 @@ struct SnapsListView: View {
     }
 
     /// Creates a SnapsListView based on a given photo
-    init(photo: Photo, selectedSnaps: [Snap]? = nil, store: DataStore = FirebaseDataStore()) {
+    init(photo: Photo, selectedSnaps: [Snap]? = nil, store: Store = FirebaseStore()) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: photo.id, type: .photo, store: store)
     }
 
     /// Creates a SnapsListView based on a given plant
-    init(plant: Plant, selectedSnaps: [Snap]? = nil, store: DataStore = FirebaseDataStore()) {
+    init(plant: Plant, selectedSnaps: [Snap]? = nil, store: Store = FirebaseStore()) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: plant.id, type: .plant, store: store)

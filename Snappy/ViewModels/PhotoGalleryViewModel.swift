@@ -10,19 +10,10 @@ import Foundation
 
 class PhotoGalleryViewModel: ObservableObject, Observable {
     @Published var dataSource: [Photo] = []
-    @Published var router: HomeViewRouter
+    @Published var isLoading: Bool = true
 
-    init(apiService: APIService, dataStore: DataStore, router: HomeViewRouter) {
-        self.router = router
-
-        Task {
-            try await apiService.loadGarden()
-            await updateDataSource(dataStore.allPhotos)
-        }
-    }
-
-    @MainActor
-    private func updateDataSource(_ photos: [Photo]) {
-        dataSource = photos
+    init(store: Store) {
+        dataSource = store.allPhotos
+        isLoading = false
     }
 }

@@ -12,7 +12,7 @@ import SwiftUI
 struct PhotoRow: View {
     private let imageSize = CGSize(width: 80, height: 80)
     @ObservedObject var photoRowViewModel: PhotoRowViewModel
-    
+
     init(photo: Photo) {
         self.photoRowViewModel = PhotoRowViewModel(photo: photo)
     }

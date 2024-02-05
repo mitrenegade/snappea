@@ -17,9 +17,7 @@ class SnapOverlayViewModel: ObservableObject {
     
     var photoId: String?
 
-    private let apiService: APIService
-
-    private let store: DataStore
+    private let store: Store
 
     private var cancellables = Set<AnyCancellable>()
     
@@ -28,11 +26,9 @@ class SnapOverlayViewModel: ObservableObject {
     ///     - selectedSnaps: if non-nil, a custom set of snaps. This may be a subset of the snaps for the photo, or  used to display a single snap
     init(photo: Photo,
          selectedSnaps: [Snap]? = nil,
-         store: DataStore = FirebaseDataStore(),
-         apiService: APIService = FirebaseAPIService()) {
+         store: Store = FirebaseStore()) {
         self.photo = photo
         self.store = store
-        self.apiService = apiService
         self.snaps = selectedSnaps ?? fetchSnapsForPhoto(id: photo.id)
 
         // assign url
@@ -58,8 +54,7 @@ class SnapOverlayViewModel: ObservableObject {
 
         let snap = Snap(photoId: photoId, start: startCoord, end: endCoord)
 
-        apiService.addSnap(snap) { [weak self] _,_ in
-            self?.snaps.append(snap)
-        }
+        store.store(snap: snap)
+        snaps.append(snap)
     }
 }

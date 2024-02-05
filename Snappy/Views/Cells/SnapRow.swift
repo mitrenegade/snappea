@@ -46,8 +46,8 @@ struct SnapRow: View {
         .opacity(isDisabled ? 0.5 : 1)
     }
     
-    init?(snap: Snap, dataStore: DataStore = FirebaseDataStore(), isDisabled: Bool = false) {
-        guard let photo = dataStore.photo(withId: snap.photoId) else {
+    init?(snap: Snap, store: Store = FirebaseStore(), isDisabled: Bool = false) {
+        guard let photo = store.photo(withId: snap.photoId) else {
             return nil
         }
 

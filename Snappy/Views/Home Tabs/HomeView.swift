@@ -11,40 +11,36 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var router: HomeViewRouter = HomeViewRouter()
 
-    private var apiService: APIService {
+    private var store: Store {
         if AIRPLANE_MODE {
-            return MockAPIService(dataStore: dataStore)
+            return MockStore()
         } else {
-            return FirebaseAPIService.shared
-        }
-    }
-
-    private var dataStore: DataStore {
-        if AIRPLANE_MODE {
-            return MockDataStore()
-        } else {
-            return FirebaseDataStore()
+            return FirebaseStore()
         }
     }
 
     var body: some View {
-        TabView(selection: $router.selectedTab) {
-            PlantsRoot(router: router, apiService: apiService, dataStore: dataStore)
-            .tabItem {
-                // BR TODO make this a snap pea icon
-                Image(systemName: "leaf.fill")
-                Text("Plants")
-            }.tag(Tab.plants)
-            GalleryRoot(router: router, apiService: apiService, dataStore: dataStore)
-            .tabItem {
-                 Image(systemName: "photo.fill")
-                 Text("Gallery")
-            }.tag(Tab.camera)
-            CameraRoot(router: router)
-            .tabItem {
-                 Image(systemName: "camera.fill")
-                 Text("Camera")
-            }.tag(Tab.camera)
+        if router.isLoading {
+            Text("Loading...")
+        } else {
+            TabView(selection: $router.selectedTab) {
+                PlantsRoot(router: router, store: store)
+                    .tabItem {
+                        // BR TODO make this a snap pea icon
+                        Image(systemName: "leaf.fill")
+                        Text("Plants")
+                    }.tag(Tab.plants)
+                GalleryRoot(router: router, store: store)
+                    .tabItem {
+                        Image(systemName: "photo.fill")
+                        Text("Gallery")
+                    }.tag(Tab.camera)
+                CameraRoot(router: router)
+                    .tabItem {
+                        Image(systemName: "camera.fill")
+                        Text("Camera")
+                    }.tag(Tab.camera)
+            }
         }
     }
 }

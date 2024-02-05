@@ -1,5 +1,5 @@
 //
-//  MockDataStore.swift
+//  MockStore.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 12/14/23.
@@ -7,8 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
-class MockDataStore: DataStore {
+class MockStore: Store {
+    func loadGarden() async throws {
+        // no op
+    }
+
     var allPhotos: [Photo] {
         Stub.photoData
     }
@@ -21,7 +26,7 @@ class MockDataStore: DataStore {
         Stub.snapData
     }
 
-    func store(photo: Photo) {
+    func store(photo: Photo, image: UIImage?) {
         // no op
     }
 

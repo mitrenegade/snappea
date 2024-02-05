@@ -12,7 +12,7 @@ import Combine
 /// Shows a gallery of all photos for a single plant in list format
 struct PlantGalleryView: View {
     private let plant: Plant
-    private let store: DataStore
+    private let store: Store
 
     private var title: String {
         if TESTING {
@@ -29,7 +29,7 @@ struct PlantGalleryView: View {
         }
     }
 
-    init(plant: Plant, store: DataStore = FirebaseDataStore()) {
+    init(plant: Plant, store: Store = FirebaseStore()) {
         self.plant = plant
         self.store = store
     }
