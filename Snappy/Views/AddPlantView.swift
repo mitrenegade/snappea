@@ -12,6 +12,9 @@ import PhotosUI
 class AddPlantViewModel: ObservableObject {
 
     @Published var image: Image? = nil
+    @Published var name: String = ""
+    @Published var category: Category = .other
+    @Published var plantType: PlantType = .unknown
 
     @Published var imageSelection: PhotosPickerItem? = nil {
         didSet {
@@ -23,6 +26,8 @@ class AddPlantViewModel: ObservableObject {
         }
     }
 
+    @State var isShowingSaveButton: Bool = false
+
     private func loadTransferable(from imageSelection: PhotosPickerItem) {
         imageSelection.loadTransferable(type: Image.self) { result in
             DispatchQueue.main.async {
@@ -33,19 +38,30 @@ class AddPlantViewModel: ObservableObject {
                 switch result {
                 case .success(let image):
                     self.image = image
+                    self.isShowingSaveButton = true
                 default:
+                    self.isShowingSaveButton = false
                     return
                 }
             }
         }
     }
+
+    func savePlant() {
+        if name.isEmpty {
+            print("No")
+        } else if category == .other {
+            print("No")
+        } else if plantType == .unknown {
+            print("No")
+        } else {
+            // save to API layer
+            print("Saving plant \(name) of category \(category) and type \(plantType)")
+        }
+    }
 }
 
 struct AddPlantView: View {
-
-    @State var name: String = ""
-    @State var category: Category = .other
-    @State var plantType: PlantType = .unknown
 
     @State var image: Image?
 
@@ -86,12 +102,14 @@ struct AddPlantView: View {
             categoryField
             typeField
         }
+        .navigationBarItems(trailing: saveButton)
+
     }
 
     private var nameField: some View {
         HStack {
             Spacer()
-            TextField(text: $name) {
+            TextField(text: $viewModel.name) {
                 Text("Plant name")
             }
             .border(.gray)
@@ -101,7 +119,7 @@ struct AddPlantView: View {
 
     private var typeField: some View {
             List {
-                Picker("Type", selection: $plantType) {
+                Picker("Type", selection: $viewModel.plantType) {
                     ForEach(PlantType.allCases) { plantType in
                         Text(plantType.rawValue.capitalized)
                     }
@@ -111,11 +129,19 @@ struct AddPlantView: View {
 
     private var categoryField: some View {
             List {
-                Picker("Category", selection: $category) {
+                Picker("Category", selection: $viewModel.category) {
                     ForEach(Category.allCases) { category in
                         Text(category.rawValue.capitalized)
                     }
                 }
             }
+    }
+
+    private var saveButton: some View {
+        Button(action: {
+            viewModel.savePlant()
+        }) {
+            Text("Save")
+        }
     }
 }
