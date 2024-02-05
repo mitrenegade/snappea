@@ -10,3 +10,13 @@ import Foundation
 
 let TESTING = true
 let AIRPLANE_MODE = false
+
+struct Constants {
+    static var store: Store = {
+        if TESTING {
+            return LocalStore()
+        } else {
+            return FirebaseStore()
+        }
+    }()
+}

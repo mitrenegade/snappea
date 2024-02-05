@@ -138,12 +138,19 @@ class LocalStore: Store {
         cachePlant(plant)
     }
 
-    public func store(snap: Snap) throws {
+    public func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) throws -> Snap{
+        let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: imageSize, start: start, end: end)
+
+        print("createSnap startCoord: \(startCoord) endCoord \(endCoord)")
+
+        let snap = Snap(photoId: photo.id, start: startCoord, end: endCoord)
         let url = try baseURL.appending(path: "snap").appending(path: snap.id)
         let data = try JSONEncoder().encode(snap)
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cacheSnap(snap)
+
+        return snap
     }
 
     private func cachePhoto(_ photo: Photo, image: UIImage) {

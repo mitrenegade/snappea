@@ -86,7 +86,9 @@ struct CameraRoot: View {
             if image != nil {
                 Button(action: {
                     // save
-                    self.saveImage()
+                    if let photo = self.saveImage() {
+                        displayNewPhotoDetail(photo: photo)
+                    }
                 }) {
                     Text("Save")
                 }
@@ -128,14 +130,14 @@ struct CameraRoot: View {
         self.showCaptureImageView.toggle()
     }
     
-    func saveImage() {
+    func saveImage() -> Photo? {
         guard let image else {
             // TODO: throw error
-            return
+            return nil
         }
 
         let photo = try? store.createPhoto(image: image)
-        displayNewPhotoDetail(photo: photo)
+        return photo
     }
     
     func displayNewPhotoDetail(photo: Photo) {

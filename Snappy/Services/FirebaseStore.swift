@@ -50,6 +50,23 @@ class FirebaseStore: Store {
         nil
     }
 
+    func snaps(for plant: Plant) -> [Snap] {
+        []
+    }
+
+    func snaps(for photo: Photo) -> [Snap] {
+        []
+    }
+
+    func plants(for photo: Photo) -> [Plant] {
+        []
+    }
+
+    func photos(for plant: Plant) -> [Photo] {
+        []
+    }
+
+    // MARK: -
     func createPhoto(image: UIImage) throws -> Photo {
         let id = UUID().uuidString // TODO use firebase id
         let timestamp = Date().timeIntervalSince1970
@@ -70,34 +87,13 @@ class FirebaseStore: Store {
         return photo
     }
 
-    func store(plant: Plant) throws {
-        // no op
-    }
-
-    func store(snap: Snap) throws {
-        // no op
-    }
-
-    func snaps(for plant: Plant) -> [Snap] {
-        []
-    }
-
-    func snaps(for photo: Photo) -> [Snap] {
-        []
-    }
-
-    func plants(for photo: Photo) -> [Plant] {
-        []
-    }
-
-    func photos(for plant: Plant) -> [Photo] {
-        []
-    }
-
-    // MARK: -
-
     func createPlant(name: String, type: PlantType, category: Category) throws {
         // BR TODO
+    }
+
+    func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) throws -> Snap {
+        // BR TODO
+        fatalError()
     }
 }
 
