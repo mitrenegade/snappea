@@ -6,9 +6,6 @@
 //  Copyright © 2020 RenderApps LLC. All rights reserved.
 //
 
-import FirebaseFirestore
-import FirebaseFirestoreSwift
-
 enum PlantType: String, Codable, CaseIterable, Identifiable {
     case tomato
     case cucumber
@@ -33,10 +30,8 @@ enum Category: String, Codable, CaseIterable, Identifiable {
 }
 
 struct Plant: Identifiable, Codable, Hashable {
-//    @DocumentID var id: String? = nil
     var id: String = ""
     var name: String = ""
     var type: PlantType = .unknown
     var category: Category = .other
-//    @ServerTimestamp var createdTime: Timestamp?
 }

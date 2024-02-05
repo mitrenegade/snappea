@@ -10,35 +10,30 @@ import SwiftUI
 import Combine
 import Foundation
 
+/// Persists images
 final class ImageStore {
-    typealias _ImageDictionary = [String: CGImage]
-    fileprivate var images: _ImageDictionary = [:]
-
-    fileprivate static var scale = 2
-    
-    static var shared = ImageStore()
-    
-    func image(name: String) -> Image {
-        let index = _guaranteeImage(name: name)
-        
-        return Image(images.values[index], scale: CGFloat(ImageStore.scale), label: Text(name))
+    enum ImageStoreError: Error {
+        case documentsDirectoryError
+        case readFailure
+        case writeFailure
     }
 
-    static func loadImage(name: String) -> CGImage {
-        guard
-            let url = Bundle.main.url(forResource: name, withExtension: "jpg"),
-            let imageSource = CGImageSourceCreateWithURL(url as NSURL, nil),
-            let image = CGImageSourceCreateImageAtIndex(imageSource, 0, nil)
-        else {
-            fatalError("Couldn't load image \(name).jpg from main bundle.")
+    func loadImage(name: String) throws -> UIImage {
+        let url = URL.documentsDirectory.appending(path: "image").appending(path: name)
+        if let imageData = try? Data(contentsOf: url),
+           let image = UIImage(data: imageData) {
+            return image
+        } else {
+            throw ImageStoreError.readFailure
         }
-        return image
     }
-    
-    fileprivate func _guaranteeImage(name: String) -> _ImageDictionary.Index {
-        if let index = images.index(forKey: name) { return index }
+
+    func saveImage(_ image: UIImage, name: String) throws {
+        let url = URL.documentsDirectory.appending(path: "image").appending(path: name)
         
-        images[name] = ImageStore.loadImage(name: name)
-        return images.index(forKey: name)!
+        guard let data = image.pngData() else {
+            throw ImageStoreError.writeFailure
+        }
+        try data.write(to: url, options: [.atomic, .completeFileProtection])
     }
 }

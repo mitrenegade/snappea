@@ -41,11 +41,11 @@ class MockStore: Store {
     func photo(withId id: String) -> Photo? {
         allPhotos.first { $0.id == id }
     }
-    
+
     func plant(withId id: String) -> Plant? {
         allPlants.first { $0.id == id }
     }
-    
+
     func snap(withId id: String) -> Snap? {
         allSnaps.first { $0.id == id }
     }
@@ -69,5 +69,11 @@ class MockStore: Store {
         let snaps = snaps(for: plant)
         let photos = snaps.compactMap { photo(withId:$0.photoId) }
         return Array(Set(photos))
+    }
+
+    // MARK: -
+
+    func createPlant(name: String, type: PlantType, category: Category) async {
+        // BR TODO
     }
 }

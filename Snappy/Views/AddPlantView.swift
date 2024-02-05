@@ -16,6 +16,8 @@ class AddPlantViewModel: ObservableObject {
     @Published var category: Category = .other
     @Published var plantType: PlantType = .unknown
 
+    private let store = LocalStore()
+
     @Published var imageSelection: PhotosPickerItem? = nil {
         didSet {
             if let imageSelection {
@@ -57,6 +59,8 @@ class AddPlantViewModel: ObservableObject {
         } else {
             // save to API layer
             print("Saving plant \(name) of category \(category) and type \(plantType)")
+
+            store.createPlant(name: name, type: plantType, category: category)
         }
     }
 }

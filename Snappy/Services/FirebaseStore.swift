@@ -11,7 +11,6 @@ import UIKit
 
 /// An implementation of Store that uses Firebase's API, via FirebaseAPIService
 class FirebaseStore: Store {
-
     private let api = FirebaseAPIService()
 
     func loadGarden() async throws {
@@ -90,6 +89,12 @@ class FirebaseStore: Store {
 
     func photos(for plant: Plant) -> [Photo] {
         []
+    }
+
+    // MARK: -
+
+    func createPlant(name: String, type: PlantType, category: Category) async {
+        // BR TODO
     }
 }
 

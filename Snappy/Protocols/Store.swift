@@ -24,13 +24,19 @@ protocol Store {
     var allPlants: [Plant] { get }
     var allSnaps: [Snap] { get }
 
+    // MARK: - Fetch
+
     func photo(withId id: String) -> Photo?
     func plant(withId id: String) -> Plant?
     func snap(withId id: String) -> Snap?
 
+    // MARK: - Saving
+
     func store(photo: Photo, image: UIImage?)
     func store(plant: Plant)
     func store(snap: Snap)
+
+    // MARK: - Relationships
 
     /// Each plant has a collection of snaps
     func snaps(for plant: Plant) -> [Snap]
@@ -45,5 +51,9 @@ protocol Store {
     /// A plant can have multiple photos. The relationship
     /// is determined by the snaps of that plant
     func photos(for plant: Plant) -> [Photo]
+
+    // MARK: - Creating
+
+    func createPlant(name: String, type: PlantType, category: Category) async
 }
 
