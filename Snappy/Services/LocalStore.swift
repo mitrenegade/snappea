@@ -14,51 +14,32 @@ import UIKit
 class LocalStore: Store {
     private var baseURL: URL {
         get throws {
-            try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         }
     }
 
-    private lazy var plantPath: URL = {
+    private func subpath(_ type: String) -> URL {
         do {
-            let url = try baseURL.appending(path: "plant")
-            if !FileManager.default.fileExists(atPath: url.absoluteString, isDirectory: nil) {
-                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
+            let url = try baseURL.appendingPathComponent("plant")
+            do {
+                if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
+                    try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
+                }
+            } catch {
+                print("Could not create path but ignoring: \(error)")
             }
             return url
         } catch {
-            fatalError("Could not create local store plant url: \(error)")
+            fatalError("Could not access local store plant url: \(error)")
         }
-    }()
-
-    private lazy var snapPath: URL = {
-        do {
-            let url = try baseURL.appending(path: "snap")
-            if !FileManager.default.fileExists(atPath: url.absoluteString, isDirectory: nil) {
-                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
-            }
-            return url
-        } catch {
-            fatalError("Could not create local store snap url: \(error)")
-        }
-    }()
-
-    private lazy var photoPath: URL = {
-        do {
-            let url = try baseURL.appending(path: "photo")
-            if !FileManager.default.fileExists(atPath: url.absoluteString, isDirectory: nil) {
-                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
-            }
-            return url
-        } catch {
-            fatalError("Could not create local store photo url: \(error)")
-        }
-    }()
+    }
 
     func loadGarden() async throws {
         do {
+            let plantPath = subpath("plant")
             let plants = try FileManager.default
-                .contentsOfDirectory(atPath: plantPath.absoluteString)
-                .compactMap { URL(string: $0) }
+                .contentsOfDirectory(atPath: plantPath.path)
+                .compactMap { plantPath.appending(path: $0) }
             print("Plants: \(plants.count) \(plants)")
             try plants.forEach { url in
                 let data = try Data(contentsOf: url)
@@ -66,9 +47,10 @@ class LocalStore: Store {
                 cachePlant(plant)
             }
 
+            let snapPath = subpath("snap")
             let snaps = try FileManager.default
-                .contentsOfDirectory(atPath: snapPath.absoluteString)
-                .compactMap { URL(string: $0) }
+                .contentsOfDirectory(atPath: snapPath.path)
+                .compactMap { snapPath.appending(path: $0) }
             print("Snaps: \(snaps.count) \(snaps)")
             try snaps.forEach { url in
                 let data = try Data(contentsOf: url)
@@ -76,9 +58,10 @@ class LocalStore: Store {
                 cacheSnap(snap)
             }
 
+            let photoPath = subpath("photo")
             let photos = try FileManager.default
-                .contentsOfDirectory(atPath: photoPath.absoluteString)
-                .compactMap { URL(string: $0) }
+                .contentsOfDirectory(atPath: photoPath.path)
+                .compactMap { photoPath.appending(path: $0) }
             print("Photos: \(photos.count) \(photos)")
             try photos.forEach { url in
                 let data = try Data(contentsOf: url)
