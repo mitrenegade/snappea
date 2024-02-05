@@ -50,10 +50,12 @@ class FirebaseStore: Store {
         nil
     }
 
-    func store(photo: Photo, image: UIImage?) {
+    func createPhoto(image: UIImage) throws -> Photo {
+        let id = UUID().uuidString // TODO use firebase id
+        let timestamp = Date().timeIntervalSince1970
+        let photo = Photo(id: id, timestamp: timestamp)
         api.addPhoto(photo) { result, error in
-            guard var newPhoto = result,
-                  let image = image else {
+            guard var newPhoto = result else {
               return
           }
             FirebaseImageService.uploadImage(image: image, type: .photo, uid: photo.id) { [weak self] result in
@@ -64,14 +66,15 @@ class FirebaseStore: Store {
                 }
             }
         }
+
+        return photo
+    }
+
+    func store(plant: Plant) throws {
         // no op
     }
 
-    func store(plant: Plant) {
-        // no op
-    }
-
-    func store(snap: Snap) {
+    func store(snap: Snap) throws {
         // no op
     }
 
@@ -93,7 +96,7 @@ class FirebaseStore: Store {
 
     // MARK: -
 
-    func createPlant(name: String, type: PlantType, category: Category) async {
+    func createPlant(name: String, type: PlantType, category: Category) throws {
         // BR TODO
     }
 }

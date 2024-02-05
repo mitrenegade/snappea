@@ -26,17 +26,7 @@ class MockStore: Store {
         Stub.snapData
     }
 
-    func store(photo: Photo, image: UIImage?) {
-        // no op
-    }
-
-    func store(plant: Plant) {
-        // no op
-    }
-
-    func store(snap: Snap) {
-        // no op
-    }
+    // MARK: - Fetch
 
     func photo(withId id: String) -> Photo? {
         allPhotos.first { $0.id == id }
@@ -73,7 +63,13 @@ class MockStore: Store {
 
     // MARK: -
 
-    func createPlant(name: String, type: PlantType, category: Category) async {
-        // BR TODO
+    func createPlant(name: String, type: PlantType, category: Category) throws {
+        // no op
     }
+
+    func createPhoto(image: UIImage) throws -> Photo {
+        // no op
+        fatalError()
+    }
+
 }

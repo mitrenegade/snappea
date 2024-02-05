@@ -30,12 +30,6 @@ protocol Store {
     func plant(withId id: String) -> Plant?
     func snap(withId id: String) -> Snap?
 
-    // MARK: - Saving
-
-    func store(photo: Photo, image: UIImage?)
-    func store(plant: Plant)
-    func store(snap: Snap)
-
     // MARK: - Relationships
 
     /// Each plant has a collection of snaps
@@ -55,5 +49,7 @@ protocol Store {
     // MARK: - Creating
 
     func createPlant(name: String, type: PlantType, category: Category) throws
+
+    @discardableResult func createPhoto(image: UIImage) throws -> Photo
 }
 

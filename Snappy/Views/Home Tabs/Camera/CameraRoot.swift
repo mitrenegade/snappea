@@ -129,8 +129,12 @@ struct CameraRoot: View {
     }
     
     func saveImage() {
-        let photo = Photo(timestamp: Date().timeIntervalSince1970)
-        store.store(photo: photo, image: image)
+        guard let image else {
+            // TODO: throw error
+            return
+        }
+
+        let photo = try? store.createPhoto(image: image)
         displayNewPhotoDetail(photo: photo)
     }
     

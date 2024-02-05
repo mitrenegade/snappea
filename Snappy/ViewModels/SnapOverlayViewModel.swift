@@ -54,7 +54,7 @@ class SnapOverlayViewModel: ObservableObject {
 
         let snap = Snap(photoId: photoId, start: startCoord, end: endCoord)
 
-        store.store(snap: snap)
+        try? store.store(snap: snap)
         snaps.append(snap)
     }
 }

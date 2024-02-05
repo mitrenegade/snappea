@@ -113,10 +113,10 @@ class LocalStore: Store {
 
     // MARK: - Saving
 
-    public func store(photo: Photo, image: UIImage?) throws{
-        guard let image else {
-            return
-        }
+    public func createPhoto(image: UIImage) throws -> Photo {
+        let id = UUID().uuidString
+        let timestamp = Date().timeIntervalSince1970
+        let photo = Photo(id: id, timestamp: timestamp)
 
         let url = try baseURL.appending(path: "photo").appending(path: photo.id)
         try imageStore.saveImage(image, name: photo.id)
@@ -124,9 +124,13 @@ class LocalStore: Store {
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cachePhoto(photo, image: image)
+
+        return photo
     }
 
-    public func store(plant: Plant) throws {
+    public func createPlant(name: String, type: PlantType, category: Category) throws {
+        let id = UUID().uuidString
+        let plant = Plant(id: id, name: name, type: type, category: category)
         let url = try baseURL.appending(path: "plant").appending(path: plant.id)
         let data = try JSONEncoder().encode(plant)
         try data.write(to: url, options: [.atomic, .completeFileProtection])
@@ -161,12 +165,5 @@ class LocalStore: Store {
         }
     }
 
-    // MARK: - Saving
-
-    public func createPlant(name: String, type: PlantType, category: Category) throws {
-        let id = UUID().uuidString
-        let plant = Plant(id: id, name: name, type: type, category: category)
-        try store(plant: plant)
-    }
 }
 
