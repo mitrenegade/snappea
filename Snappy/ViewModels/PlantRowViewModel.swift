@@ -23,7 +23,7 @@ class PlantRowViewModel: ObservableObject, Identifiable {
     var typeColor: UIColor = .clear
     var url: URL? = nil
 
-    init(plant: Plant, store: Store = FirebaseStore()) {
+    init(plant: Plant, store: Store = Constants.store) {
         self.plant = plant
         self.store = store
 

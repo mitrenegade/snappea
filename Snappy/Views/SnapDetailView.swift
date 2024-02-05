@@ -36,7 +36,7 @@ struct SnapDetailView: View {
 
     /// Creates a PhotoDetailView
     /// Given a snap, shows the photo for only the snap
-    init?(snap: Snap, store: Store = FirebaseStore()) {
+    init?(snap: Snap, store: Store = Constants.store) {
         guard let photo = store.photo(withId: snap.photoId) else {
             return nil
         }

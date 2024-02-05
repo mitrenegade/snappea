@@ -44,14 +44,14 @@ struct SnapsListView: View {
     }
 
     /// Creates a SnapsListView based on a given photo
-    init(photo: Photo, selectedSnaps: [Snap]? = nil, store: Store = FirebaseStore()) {
+    init(photo: Photo, selectedSnaps: [Snap]? = nil, store: Store = Constants.store) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: photo.id, type: .photo, store: store)
     }
 
     /// Creates a SnapsListView based on a given plant
-    init(plant: Plant, selectedSnaps: [Snap]? = nil, store: Store = FirebaseStore()) {
+    init(plant: Plant, selectedSnaps: [Snap]? = nil, store: Store = Constants.store) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: plant.id, type: .plant, store: store)

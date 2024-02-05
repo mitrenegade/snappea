@@ -19,7 +19,7 @@ struct CameraRoot: View {
 
     private let store: Store
 
-    init(router: HomeViewRouter, store: Store = FirebaseStore()) {
+    init(router: HomeViewRouter, store: Store = Constants.store) {
         self.store = store
         self.router = router
     }

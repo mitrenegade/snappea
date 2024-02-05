@@ -22,6 +22,7 @@ class LocalStore: Store {
         let plants = try FileManager.default
             .contentsOfDirectory(atPath: baseURL.appending(path: "photo").absoluteString)
             .compactMap { URL(string: $0) }
+        print("Plants: \(plants.count) \(plants)")
         try plants.forEach { url in
             let data = try Data(contentsOf: url)
             let plant = try JSONDecoder().decode(Plant.self, from: data)
@@ -31,6 +32,7 @@ class LocalStore: Store {
         let snaps = try FileManager.default
             .contentsOfDirectory(atPath: baseURL.appending(path: "snap").absoluteString)
             .compactMap { URL(string: $0) }
+        print("Snaps: \(snaps.count) \(snaps)")
         try snaps.forEach { url in
             let data = try Data(contentsOf: url)
             let snap = try JSONDecoder().decode(Snap.self, from: data)
@@ -40,6 +42,7 @@ class LocalStore: Store {
         let photos = try FileManager.default
             .contentsOfDirectory(atPath: baseURL.appending(path: "photo").absoluteString)
             .compactMap { URL(string: $0) }
+        print("Photos: \(photos.count) \(photos)")
         try photos.forEach { url in
             let data = try Data(contentsOf: url)
             let photo = try JSONDecoder().decode(Photo.self, from: data)

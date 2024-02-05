@@ -15,7 +15,7 @@ struct HomeView: View {
         if AIRPLANE_MODE {
             return MockStore()
         } else {
-            return FirebaseStore()
+            return Constants.store
         }
     }
 

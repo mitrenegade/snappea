@@ -29,7 +29,7 @@ struct PlantGalleryView: View {
         }
     }
 
-    init(plant: Plant, store: Store = FirebaseStore()) {
+    init(plant: Plant, store: Store = Constants.store) {
         self.plant = plant
         self.store = store
     }
