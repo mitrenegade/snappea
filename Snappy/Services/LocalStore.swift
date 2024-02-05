@@ -20,7 +20,7 @@ class LocalStore: Store {
 
     private func subpath(_ type: String) -> URL {
         do {
-            let url = try baseURL.appendingPathComponent("plant")
+            let url = try baseURL.appendingPathComponent(type)
             do {
                 if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
                     try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
@@ -40,7 +40,7 @@ class LocalStore: Store {
             let plants = try FileManager.default
                 .contentsOfDirectory(atPath: plantPath.path)
                 .compactMap { plantPath.appending(path: $0) }
-            print("Plants: \(plants.count) \(plants)")
+            print("BRDEBUG Plants: \(plants.count) \(plants)")
             try plants.forEach { url in
                 let data = try Data(contentsOf: url)
                 let plant = try JSONDecoder().decode(Plant.self, from: data)
@@ -51,7 +51,7 @@ class LocalStore: Store {
             let snaps = try FileManager.default
                 .contentsOfDirectory(atPath: snapPath.path)
                 .compactMap { snapPath.appending(path: $0) }
-            print("Snaps: \(snaps.count) \(snaps)")
+            print("BRDEBUG Snaps: \(snaps.count) \(snaps)")
             try snaps.forEach { url in
                 let data = try Data(contentsOf: url)
                 let snap = try JSONDecoder().decode(Snap.self, from: data)
@@ -62,7 +62,7 @@ class LocalStore: Store {
             let photos = try FileManager.default
                 .contentsOfDirectory(atPath: photoPath.path)
                 .compactMap { photoPath.appending(path: $0) }
-            print("Photos: \(photos.count) \(photos)")
+            print("BRDEBUG Photos: \(photos.count) \(photos)")
             try photos.forEach { url in
                 let data = try Data(contentsOf: url)
                 let photo = try JSONDecoder().decode(Photo.self, from: data)
@@ -132,7 +132,11 @@ class LocalStore: Store {
 
     func photos(for plant: Plant) -> [Photo] {
         readWriteQueue.sync {
-            let snaps = snaps(for: plant)
+            // snapsForPlant
+            let snaps = snapCache
+                .compactMap { $0.value }
+                .filter{ $0.plantId == plant.id }
+
             let photos = snaps.compactMap { photo(withId:$0.photoId) }
             return Array(Set(photos))
         }
@@ -145,7 +149,7 @@ class LocalStore: Store {
         let timestamp = Date().timeIntervalSince1970
         let photo = Photo(id: id, timestamp: timestamp)
 
-        let url = try baseURL.appending(path: "photo").appending(path: photo.id)
+        let url = subpath("photo").appending(path: photo.id)
         try imageStore.saveImage(image, name: photo.id)
         let data = try JSONEncoder().encode(photo)
         try data.write(to: url, options: [.atomic, .completeFileProtection])
@@ -158,7 +162,7 @@ class LocalStore: Store {
     public func createPlant(name: String, type: PlantType, category: Category) throws {
         let id = UUID().uuidString
         let plant = Plant(id: id, name: name, type: type, category: category)
-        let url = try baseURL.appending(path: "plant").appending(path: plant.id)
+        let url = try subpath("plant").appending(path: plant.id)
         let data = try JSONEncoder().encode(plant)
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
