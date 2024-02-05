@@ -54,6 +54,6 @@ protocol Store {
 
     // MARK: - Creating
 
-    func createPlant(name: String, type: PlantType, category: Category) async
+    func createPlant(name: String, type: PlantType, category: Category) throws
 }
 

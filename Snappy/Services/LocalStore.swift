@@ -19,16 +19,6 @@ class LocalStore: Store {
     }
 
     func loadGarden() async throws {
-//        for photo in Stub.photoData {
-//            store(photo: photo, image: nil)
-//        }
-//        for plant in Stub.plantData {
-//            store(plant: plant)
-//        }
-//        for snap in Stub.snapData {
-//            store(snap: snap)
-//        }
-
         let plants = try FileManager.default
             .contentsOfDirectory(atPath: baseURL.appending(path: "photo").absoluteString)
             .compactMap { URL(string: $0) }
@@ -123,43 +113,31 @@ class LocalStore: Store {
 
     // MARK: - Saving
 
-    public func store(photo: Photo, image: UIImage?) {
+    public func store(photo: Photo, image: UIImage?) throws{
         guard let image else {
             return
         }
 
-        do {
-            let url = try baseURL.appending(path: "photo").appending(path: photo.id)
-            try imageStore.saveImage(image, name: photo.id)
-            let data = try JSONEncoder().encode(photo)
-            try data.write(to: url, options: [.atomic, .completeFileProtection])
-        } catch {
-            print("Write error")
-        }
+        let url = try baseURL.appending(path: "photo").appending(path: photo.id)
+        try imageStore.saveImage(image, name: photo.id)
+        let data = try JSONEncoder().encode(photo)
+        try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cachePhoto(photo, image: image)
     }
 
-    public func store(plant: Plant) {
-        do {
-            let url = try baseURL.appending(path: "plant").appending(path: plant.id)
-            let data = try JSONEncoder().encode(plant)
-            try data.write(to: url, options: [.atomic, .completeFileProtection])
-        } catch {
-            print("Write error")
-        }
+    public func store(plant: Plant) throws {
+        let url = try baseURL.appending(path: "plant").appending(path: plant.id)
+        let data = try JSONEncoder().encode(plant)
+        try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cachePlant(plant)
     }
 
-    public func store(snap: Snap) {
-        do {
-            let url = try baseURL.appending(path: "snap").appending(path: snap.id)
-            let data = try JSONEncoder().encode(snap)
-            try data.write(to: url, options: [.atomic, .completeFileProtection])
-        } catch {
-            print("Write error")
-        }
+    public func store(snap: Snap) throws {
+        let url = try baseURL.appending(path: "snap").appending(path: snap.id)
+        let data = try JSONEncoder().encode(snap)
+        try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cacheSnap(snap)
     }
@@ -185,10 +163,10 @@ class LocalStore: Store {
 
     // MARK: - Saving
 
-    public func createPlant(name: String, type: PlantType, category: Category) {
+    public func createPlant(name: String, type: PlantType, category: Category) throws {
         let id = UUID().uuidString
         let plant = Plant(id: id, name: name, type: type, category: category)
-        store(plant: plant)
+        try store(plant: plant)
     }
 }
 
