@@ -61,7 +61,7 @@ class AddPlantViewModel: ObservableObject {
         }
     }
 
-    func savePlant() {
+    func savePlant(completion: (() -> Void)) {
         guard !name.isEmpty,
               category != .other,
               plantType != .unknown else {
@@ -78,10 +78,12 @@ class AddPlantViewModel: ObservableObject {
         }
 
         // TODO: save photo
+        completion()
     }
 }
 
 struct AddPlantView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @State var image: Image?
 
@@ -166,7 +168,9 @@ struct AddPlantView: View {
 
     private var saveButton: some View {
         Button(action: {
-            viewModel.savePlant()
+            viewModel.savePlant() {
+                self.presentationMode.wrappedValue.dismiss()
+            }
         }) {
             Text("Save")
         }
