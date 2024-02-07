@@ -17,7 +17,7 @@ struct GalleryRoot: View {
     @ObservedObject var viewModel: PhotoGalleryViewModel
 
     init(router: HomeViewRouter,
-         store: Store = Constants.store
+         store: Store
     ) {
         viewModel = PhotoGalleryViewModel(store: store)
         self.store = store

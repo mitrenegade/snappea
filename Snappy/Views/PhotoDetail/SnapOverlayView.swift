@@ -18,7 +18,7 @@ struct SnapOverlayView: View {
 
     init(photo: Photo,
          selectedSnaps: [Snap]? = nil,
-         store: Store = Constants.store) {
+         store: Store) {
 
         viewModel = SnapOverlayViewModel(photo: photo, selectedSnaps: selectedSnaps, store: store)
         imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)

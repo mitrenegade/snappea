@@ -9,14 +9,13 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var router: HomeViewRouter = HomeViewRouter()
+    @ObservedObject var router: HomeViewRouter
 
-    private var store: Store {
-        if AIRPLANE_MODE {
-            return MockStore()
-        } else {
-            return Constants.store
-        }
+    private let store: Store
+
+    init(store: Store) {
+        self.router = HomeViewRouter(store: store)
+        self.store = store
     }
 
     var body: some View {
@@ -35,7 +34,7 @@ struct HomeView: View {
                         Image(systemName: "photo.fill")
                         Text("Gallery")
                     }.tag(Tab.camera)
-                CameraRoot(router: router)
+                CameraRoot(router: router, store: store)
                     .tabItem {
                         Image(systemName: "camera.fill")
                         Text("Camera")
@@ -47,6 +46,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(store: MockStore())
     }
 }

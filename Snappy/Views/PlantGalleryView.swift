@@ -29,7 +29,7 @@ struct PlantGalleryView: View {
         }
     }
 
-    init(plant: Plant, store: Store = Constants.store) {
+    init(plant: Plant, store: Store) {
         self.plant = plant
         self.store = store
     }

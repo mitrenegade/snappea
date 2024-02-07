@@ -46,7 +46,7 @@ struct SnapRow: View {
         .opacity(isDisabled ? 0.5 : 1)
     }
     
-    init?(snap: Snap, store: Store = Constants.store, isDisabled: Bool = false) {
+    init?(snap: Snap, store: Store, isDisabled: Bool = false) {
         guard let photo = store.photo(withId: snap.photoId) else {
             return nil
         }
@@ -61,5 +61,5 @@ struct SnapRow: View {
 }
 
 #Preview {
-    SnapRow(snap: Stub.snapData[0])
+    SnapRow(snap: Stub.snapData[0], store: MockStore())
 }

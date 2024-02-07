@@ -21,7 +21,7 @@ struct PlantsRoot: View {
     private let store: Store
 
     init(router: HomeViewRouter,
-         store: Store = Constants.store
+         store: Store
     ) {
         viewModel = PlantsListViewModel(store: store, router: router)
         self.store = store
@@ -65,15 +65,15 @@ struct PlantsRoot: View {
         }
     }()
 
-    private var addPlantButton = {
+    private var addPlantButton: some View {
         Button(action: {
             
         }) {
-            NavigationLink(destination: AddPlantView()) {
+            NavigationLink(destination: AddPlantView(store: store)) {
                 Image(systemName: "photo.badge.plus")
             }
         }
-    }()
+    }
 
     private
 
@@ -88,7 +88,7 @@ struct PlantsRoot: View {
     var newPhotoView: some View {
         Group {
             if let photo = photoDetailSettings.newPhoto {
-                NavigationLink(destination: PhotoDetailView(photo: photo),
+                NavigationLink(destination: PhotoDetailView(photo: photo, store: store),
                                isActive: $photoDetailSettings.shouldShowNewPhoto) {
                                 EmptyView()
                 }
@@ -99,6 +99,6 @@ struct PlantsRoot: View {
 
 struct PlantsRoot_Previews: PreviewProvider {
     static var previews: some View {
-        PlantsRoot(router: HomeViewRouter())
+        PlantsRoot(router: HomeViewRouter(store: MockStore()), store: MockStore())
     }
 }

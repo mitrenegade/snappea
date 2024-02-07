@@ -24,7 +24,7 @@ class AddPlantViewModel: ObservableObject {
 
     @Published var isShowingError: Bool = false
 
-    private let store = LocalStore()
+    private let store: Store
 
     @Published var imageSelection: PhotosPickerItem? = nil {
         didSet {
@@ -37,6 +37,10 @@ class AddPlantViewModel: ObservableObject {
     }
 
     @State var isShowingSaveButton: Bool = false
+
+    init(store: Store) {
+        self.store = store
+    }
 
     private func loadTransferable(from imageSelection: PhotosPickerItem) {
         imageSelection.loadTransferable(type: Image.self) { result in
@@ -81,7 +85,7 @@ struct AddPlantView: View {
 
     @State var image: Image?
 
-    @ObservedObject var viewModel = AddPlantViewModel()
+    @ObservedObject var viewModel: AddPlantViewModel
 
     private var title: String {
         if TESTING {
@@ -89,6 +93,10 @@ struct AddPlantView: View {
         } else {
             return "New plant"
         }
+    }
+
+    init(store: Store) {
+        self.viewModel = AddPlantViewModel(store: store)
     }
 
     var body: some View {

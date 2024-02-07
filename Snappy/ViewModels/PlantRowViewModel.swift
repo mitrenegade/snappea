@@ -23,7 +23,7 @@ class PlantRowViewModel: ObservableObject, Identifiable {
     var typeColor: UIColor = .clear
     var url: URL? = nil
 
-    init(plant: Plant, store: Store = Constants.store) {
+    init(plant: Plant, store: Store) {
         self.plant = plant
         self.store = store
 

@@ -19,7 +19,7 @@ struct CameraRoot: View {
 
     private let store: Store
 
-    init(router: HomeViewRouter, store: Store = Constants.store) {
+    init(router: HomeViewRouter, store: Store) {
         self.store = store
         self.router = router
     }
@@ -149,6 +149,6 @@ struct CameraRoot: View {
 
 struct CameraRoot_Previews: PreviewProvider {
     static var previews: some View {
-        CameraRoot(router: HomeViewRouter())
+        CameraRoot(router: HomeViewRouter(store: MockStore()), store: MockStore())
     }
 }

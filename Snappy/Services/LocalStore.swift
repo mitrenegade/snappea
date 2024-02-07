@@ -12,9 +12,26 @@ import UIKit
 /// A local persistence and caching layer
 /// Stores into local file structure as data
 class LocalStore: Store {
+    private let gardenID: String
+
     private var baseURL: URL {
         get throws {
             try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                .appending(path: gardenID)
+        }
+    }
+
+    init(gardenID: String) {
+        self.gardenID = gardenID
+
+        /// create base url with gardenID as the first path
+        do {
+            let url = try baseURL
+            if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
+            }
+        } catch {
+            print("Could not create path but ignoring: \(error)")
         }
     }
 

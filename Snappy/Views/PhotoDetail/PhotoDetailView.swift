@@ -33,7 +33,7 @@ struct PhotoDetailView: View {
 
     /// Creates a PhotoDetailView
     /// Given a photo, shows all snaps
-    init(photo: Photo, store: Store = Constants.store) {
+    init(photo: Photo, store: Store) {
         self.photo = photo
         self.store = store
     }
