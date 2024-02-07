@@ -14,7 +14,7 @@ let AIRPLANE_MODE = false
 struct Constants {
     static var store: Store = {
         if TESTING {
-            return LocalStore()
+            return LocalStore(gardenID: "abc")
         } else {
             return FirebaseStore()
         }

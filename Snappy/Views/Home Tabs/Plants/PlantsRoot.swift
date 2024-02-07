@@ -69,7 +69,7 @@ struct PlantsRoot: View {
         Button(action: {
             
         }) {
-            NavigationLink(destination: AddPlantView()) {
+            NavigationLink(destination: AddPlantView(store: store)) {
                 Image(systemName: "photo.badge.plus")
             }
         }
