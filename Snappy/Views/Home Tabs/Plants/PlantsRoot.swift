@@ -65,7 +65,7 @@ struct PlantsRoot: View {
         }
     }()
 
-    private var addPlantButton = {
+    private var addPlantButton: some View {
         Button(action: {
             
         }) {
@@ -73,7 +73,7 @@ struct PlantsRoot: View {
                 Image(systemName: "photo.badge.plus")
             }
         }
-    }()
+    }
 
     private
 
@@ -88,7 +88,7 @@ struct PlantsRoot: View {
     var newPhotoView: some View {
         Group {
             if let photo = photoDetailSettings.newPhoto {
-                NavigationLink(destination: PhotoDetailView(photo: photo),
+                NavigationLink(destination: PhotoDetailView(photo: photo, store: store),
                                isActive: $photoDetailSettings.shouldShowNewPhoto) {
                                 EmptyView()
                 }
