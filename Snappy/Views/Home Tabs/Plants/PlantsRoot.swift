@@ -21,7 +21,7 @@ struct PlantsRoot: View {
     private let store: Store
 
     init(router: HomeViewRouter,
-         store: Store = Constants.store
+         store: Store
     ) {
         viewModel = PlantsListViewModel(store: store, router: router)
         self.store = store
@@ -99,6 +99,6 @@ struct PlantsRoot: View {
 
 struct PlantsRoot_Previews: PreviewProvider {
     static var previews: some View {
-        PlantsRoot(router: HomeViewRouter())
+        PlantsRoot(router: HomeViewRouter(store: MockStore()), store: MockStore())
     }
 }

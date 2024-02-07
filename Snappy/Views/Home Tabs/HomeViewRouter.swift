@@ -26,7 +26,7 @@ class HomeViewRouter: ObservableObject {
         }
     }
 
-    init(store: Store = Constants.store) {
+    init(store: Store) {
         self.store = store
 
         Task {

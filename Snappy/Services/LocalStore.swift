@@ -23,6 +23,16 @@ class LocalStore: Store {
 
     init(gardenID: String) {
         self.gardenID = gardenID
+
+        /// create base url with gardenID as the first path
+        do {
+            let url = try baseURL
+            if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
+            }
+        } catch {
+            print("Could not create path but ignoring: \(error)")
+        }
     }
 
     private func subpath(_ type: String) -> URL {
