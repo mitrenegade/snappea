@@ -44,14 +44,14 @@ struct SnapsListView: View {
     }
 
     /// Creates a SnapsListView based on a given photo
-    init(photo: Photo, selectedSnaps: [Snap]? = nil, store: Store = Constants.store) {
+    init(photo: Photo, selectedSnaps: [Snap]? = nil, store: Store) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: photo.id, type: .photo, store: store)
     }
 
     /// Creates a SnapsListView based on a given plant
-    init(plant: Plant, selectedSnaps: [Snap]? = nil, store: Store = Constants.store) {
+    init(plant: Plant, selectedSnaps: [Snap]? = nil, store: Store) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: plant.id, type: .plant, store: store)
@@ -59,5 +59,5 @@ struct SnapsListView: View {
 }
 
 #Preview {
-    SnapsListView(photo: Stub.photoData[0])
+    SnapsListView(photo: Stub.photoData[0], store: MockStore())
 }
