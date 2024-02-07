@@ -12,10 +12,17 @@ import UIKit
 /// A local persistence and caching layer
 /// Stores into local file structure as data
 class LocalStore: Store {
+    private let gardenID: String
+
     private var baseURL: URL {
         get throws {
             try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                .appending(path: gardenID)
         }
+    }
+
+    init(gardenID: String) {
+        self.gardenID = gardenID
     }
 
     private func subpath(_ type: String) -> URL {

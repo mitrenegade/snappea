@@ -21,8 +21,9 @@ struct ContentView: View {
     @ObservedObject var authStore: AuthStore
 
     var store: Store {
-        if let id = authStore.user {
-            return LocalStore()
+        // BR TODO edit this when user changes
+        if let id = authStore.user?.id {
+            return LocalStore(gardenID: id)
         } else {
             return MockStore()
         }
