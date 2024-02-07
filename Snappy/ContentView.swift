@@ -17,7 +17,16 @@ struct ContentView: View {
     @State private var alert: Alert?
 
     let viewModel: LoginViewModel
+
     @ObservedObject var authStore: AuthStore
+
+    var store: Store {
+        if let id = authStore.user {
+            return LocalStore()
+        } else {
+            return MockStore()
+        }
+    }
 
     init(viewModel: LoginViewModel = LoginViewModel(),
          authStore: AuthStore = AuthStore.shared) {
@@ -37,7 +46,7 @@ struct ContentView: View {
                     signupView
                 }
             } else {
-                HomeView()
+                HomeView(store: store)
             }
         }
         .alert(isPresented: $showingAlert) {
