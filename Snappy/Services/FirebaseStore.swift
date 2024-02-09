@@ -179,26 +179,26 @@ extension FirebaseStore {
     }
 
     // upload to db and save locally
-    private func add<T: Codable>(_ object: T,
-                                 collection: String,
-                                 completion: @escaping ((Result<T, Error>) -> Void)) {
-        guard let userId = userId else {
-            completion(.failure(StoreError.notAuthorized))
-            return
-        }
-        do {
-            let ref = try db.collection(userId)
-                .document("garden").collection(collection)
-                .addDocument(from: object)
-            ref.getDocument { (snapshot, error) in
-                if let result = try? snapshot?.data(as: T.self) {
-                    completion(.success(result))
-                } else {
-                    completion(.failure(StoreError.databaseError(error)))
-                }
+    private func add<T: Codable>(_ object: T, collection: String) async throws -> T {
+        return try await withCheckedThrowingContinuation { continuation in
+            guard let userId = self.userId else {
+                continuation.resume(throwing: StoreError.notAuthorized)
             }
-        } catch {
-            completion(.failure(error))
+
+            do {
+                let ref = try db.collection(userId)
+                    .document("garden").collection(collection)
+                    .addDocument(from: object)
+                ref.getDocument { (snapshot, error) in
+                    if let result = try? snapshot?.data(as: T.self) {
+                        continuation.resume(with: .success(result))
+                    } else {
+                        continuation.resume(with: .failure(StoreError.databaseError(error)))
+                    }
+                }
+            }catch {
+                continuation.resume(throwing: error)
+            }
         }
     }
 
