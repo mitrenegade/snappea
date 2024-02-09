@@ -48,10 +48,10 @@ protocol Store {
 
     // MARK: - Creating
 
-    func createPlant(name: String, type: PlantType, category: Category) throws
+    @discardableResult func createPlant(name: String, type: PlantType, category: Category) async throws -> Plant
 
-    @discardableResult func createPhoto(image: UIImage) throws -> Photo
+    @discardableResult func createPhoto(image: UIImage) async throws -> Photo
 
-    @discardableResult func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) throws -> Snap
+    @discardableResult func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) async throws -> Snap
 }
 

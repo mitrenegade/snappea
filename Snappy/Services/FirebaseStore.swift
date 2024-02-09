@@ -78,35 +78,41 @@ class FirebaseStore: Store {
     }
 
     // MARK: -
-    func createPhoto(image: UIImage) throws -> Photo {
+    func createPhoto(image: UIImage) async throws -> Photo {
         let id = UUID().uuidString // TODO use firebase id
         let timestamp = Date().timeIntervalSince1970
         let photo = Photo(id: id, timestamp: timestamp)
-        try addPhoto(photo) { result in
-            if case let .success(newPhoto) = result {
-                FirebaseImageService.uploadImage(image: image, type: .photo, uid: photo.id) { [weak self] result in
-                    if let url = result {
-                        do {
-                            try self?.updatePhotoUrl(newPhoto, url: url) { error in
-//                                newPhoto.url = url // manually update url in existing photo object locally
-                            }
-                        } catch {
-                            print("Update photo \(error)")
-                        }
+        var result = try await addPhoto(photo)
+
+        // BR TODO: contain uploadImage into uploadURL
+        FirebaseImageService.uploadImage(image: image, type: .photo, uid: photo.id) { [weak self] url in
+            if let url {
+                do {
+                    try self?.updatePhotoUrl(result, url: url) { error in
+                        result.url = url // manually update url in existing photo object locally
                     }
+                } catch {
+                    print("Update photo \(error)")
                 }
             }
         }
-
-        return photo
+        return result
     }
 
-    func createPlant(name: String, type: PlantType, category: Category) throws {
+    func createPlant(name: String, type: PlantType, category: Category) async throws -> Plant {
+        let id = UUID().uuidString // TODO use firebase id
+        let plant = Plant(id: id, name: name, type: type, category: category)
+        let result = try await addPlant(plant)
+        return result
     }
 
-    func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) throws -> Snap {
-        // BR TODO
-        fatalError()
+    func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) async throws -> Snap {
+        let id = UUID().uuidString // TODO use firebase id
+        let snap = Snap(photoId: photo.id,
+                        start: NormalizedCoordinate(x: start.x, y: start.y),
+                        end: NormalizedCoordinate(x: end.x, y: start.y))
+        let result = try await addSnap(snap)
+        return result
     }
 }
 
@@ -129,34 +135,21 @@ extension FirebaseStore {
         try await fetchObjects(collection: "snaps")
     }
 
-    // MARK: - Upload with completion
+    // MARK: - Upload async/await
 
     /// Creates a Photo object in firebase
     /// Note: image upload and url update are done separately
-    private func addPhoto(_ photo: Photo, result: @escaping ((Result<Photo, Error>)->Void)) throws {
-        try add(photo, collection: "photos", completion: result)
+    private func addPhoto(_ photo: Photo) async throws -> Photo {
+        try await add(photo, collection: "photos")
     }
 
-    private func addPlant(_ plant: Plant, result: @escaping ((Result<Plant, Error>)->Void)) throws {
-        try add(plant, collection: "plants", completion: result)
+    private func addPlant(_ plant: Plant) async throws -> Plant {
+        try await add(plant, collection: "plants")
     }
 
-    private func addSnap(_ snap: Snap, result: @escaping ((Result<Snap, Error>)->Void)) throws {
-        try add(snap, collection: "snaps", completion: result)
+    private func addSnap(_ snap: Snap) async throws -> Snap {
+        try await add(snap, collection: "snaps")
     }
-
-    // MARK: - Upload async/await
-//    private func addPhoto(_ photo: Photo) async throws {
-//        try add(photo, collection: "photos")
-//    }
-//
-//    private func addPlant(_ plant: Plant) async throws {
-//        try add(plant, collection: "plants")
-//    }
-//
-//    private func addSnap(_ snap: Snap) async throws {
-//        try add(snap, collection: "snaps")
-//    }
 
     // MARK: - Generic interface into Firebase
     /// Fetches an array of an object type given a collection name
@@ -183,6 +176,7 @@ extension FirebaseStore {
         return try await withCheckedThrowingContinuation { continuation in
             guard let userId = self.userId else {
                 continuation.resume(throwing: StoreError.notAuthorized)
+                return
             }
 
             do {
