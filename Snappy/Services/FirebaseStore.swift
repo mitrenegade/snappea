@@ -82,18 +82,17 @@ class FirebaseStore: Store {
         let id = UUID().uuidString // TODO use firebase id
         let timestamp = Date().timeIntervalSince1970
         let photo = Photo(id: id, timestamp: timestamp)
-        try addPhoto(photo) { result, error in
-            guard var newPhoto = result else {
-                return
-            }
-            FirebaseImageService.uploadImage(image: image, type: .photo, uid: photo.id) { [weak self] result in
-                if let url = result {
-                    do {
-                        try self?.updatePhotoUrl(newPhoto, url: url) { error in
-                            newPhoto.url = url // manually update url in existing photo object locally
+        try addPhoto(photo) { result in
+            if case let .success(newPhoto) = result {
+                FirebaseImageService.uploadImage(image: image, type: .photo, uid: photo.id) { [weak self] result in
+                    if let url = result {
+                        do {
+                            try self?.updatePhotoUrl(newPhoto, url: url) { error in
+//                                newPhoto.url = url // manually update url in existing photo object locally
+                            }
+                        } catch {
+                            print("Update photo \(error)")
                         }
-                    } catch {
-                        print("Update photo \(error)")
                     }
                 }
             }
@@ -117,7 +116,7 @@ extension FirebaseStore {
         auth.user?.id
     }
 
-    // MARK: - API Interface
+    // MARK: - Fetch
     private func fetchPhotos() async throws -> [Photo] {
         try await fetchObjects(collection: "photos")
     }
@@ -129,6 +128,35 @@ extension FirebaseStore {
     private func fetchSnaps() async throws -> [Snap] {
         try await fetchObjects(collection: "snaps")
     }
+
+    // MARK: - Upload with completion
+
+    /// Creates a Photo object in firebase
+    /// Note: image upload and url update are done separately
+    private func addPhoto(_ photo: Photo, result: @escaping ((Result<Photo, Error>)->Void)) throws {
+        try add(photo, collection: "photos", completion: result)
+    }
+
+    private func addPlant(_ plant: Plant, result: @escaping ((Result<Plant, Error>)->Void)) throws {
+        try add(plant, collection: "plants", completion: result)
+    }
+
+    private func addSnap(_ snap: Snap, result: @escaping ((Result<Snap, Error>)->Void)) throws {
+        try add(snap, collection: "snaps", completion: result)
+    }
+
+    // MARK: - Upload async/await
+//    private func addPhoto(_ photo: Photo) async throws {
+//        try add(photo, collection: "photos")
+//    }
+//
+//    private func addPlant(_ plant: Plant) async throws {
+//        try add(plant, collection: "plants")
+//    }
+//
+//    private func addSnap(_ snap: Snap) async throws {
+//        try add(snap, collection: "snaps")
+//    }
 
     // MARK: - Generic interface into Firebase
     /// Fetches an array of an object type given a collection name
@@ -152,10 +180,11 @@ extension FirebaseStore {
 
     // upload to db and save locally
     private func add<T: Codable>(_ object: T,
-                                   collection: String,
-                                   completion: @escaping ((T?, Error?)->Void)) throws {
+                                 collection: String,
+                                 completion: @escaping ((Result<T, Error>) -> Void)) {
         guard let userId = userId else {
-            throw StoreError.notAuthorized
+            completion(.failure(StoreError.notAuthorized))
+            return
         }
         do {
             let ref = try db.collection(userId)
@@ -163,11 +192,13 @@ extension FirebaseStore {
                 .addDocument(from: object)
             ref.getDocument { (snapshot, error) in
                 if let result = try? snapshot?.data(as: T.self) {
-                    completion(result, error)
+                    completion(.success(result))
+                } else {
+                    completion(.failure(StoreError.databaseError(error)))
                 }
             }
-        } catch let error {
-            print("AddPhoto error \(error)")
+        } catch {
+            completion(.failure(error))
         }
     }
 
@@ -179,17 +210,4 @@ extension FirebaseStore {
         ref.updateData(["url":url], completion: completion)
     }
 
-    // only creates Photo object; image upload and url update are done separately
-    private func addPhoto(_ photo: Photo, result: @escaping ((Photo?, Error?)->Void)) throws {
-        try add(photo, collection: "photos", completion: result)
-    }
-
-    private func addPlant(_ plant: Plant, result: @escaping ((Plant?, Error?)->Void)) throws {
-        try add(plant, collection: "plants", completion: result)
-    }
-
-    private func addSnap(_ snap: Snap, result: @escaping ((Snap?, Error?)->Void)) throws {
-        // TODO: also update plants and photos?
-        try add(snap, collection: "snaps", completion: result)
-    }
 }
