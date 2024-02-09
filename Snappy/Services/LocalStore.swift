@@ -186,12 +186,10 @@ class LocalStore: Store {
         return plant
     }
 
-    public func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) throws -> Snap{
-        let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: imageSize, start: start, end: end)
+    func createSnap(photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
+        print("createSnap startCoord: \(start) endCoord \(end)")
 
-        print("createSnap startCoord: \(startCoord) endCoord \(endCoord)")
-
-        let snap = Snap(photoId: photo.id, start: startCoord, end: endCoord)
+        let snap = Snap(photoId: photo.id, start: start, end: end)
         let url = try baseURL.appending(path: "snap").appending(path: snap.id)
         let data = try JSONEncoder().encode(snap)
         try data.write(to: url, options: [.atomic, .completeFileProtection])

@@ -79,13 +79,11 @@ class FirebaseStore: Store {
 
     // MARK: -
     func createPhoto(image: UIImage) async throws -> Photo {
-        let id = UUID().uuidString // TODO use firebase id
         let timestamp = Date().timeIntervalSince1970
-        let photo = Photo(id: id, timestamp: timestamp)
-        var result = try await addPhoto(photo)
+        var result = try await addPhoto(timestamp: timestamp)
 
         // BR TODO: contain uploadImage into uploadURL
-        FirebaseImageService.uploadImage(image: image, type: .photo, uid: photo.id) { [weak self] url in
+        FirebaseImageService.uploadImage(image: image, type: .photo, uid: result.id) { [weak self] url in
             if let url {
                 do {
                     try self?.updatePhotoUrl(result, url: url) { error in
@@ -100,19 +98,13 @@ class FirebaseStore: Store {
     }
 
     func createPlant(name: String, type: PlantType, category: Category) async throws -> Plant {
-        let id = UUID().uuidString // TODO use firebase id
-        let plant = Plant(id: id, name: name, type: type, category: category)
-        let result = try await addPlant(plant)
-        return result
+        let plant = try await addPlant(name: name, type: type, category: category)
+        return plant
     }
 
-    func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) async throws -> Snap {
-        let id = UUID().uuidString // TODO use firebase id
-        let snap = Snap(photoId: photo.id,
-                        start: NormalizedCoordinate(x: start.x, y: start.y),
-                        end: NormalizedCoordinate(x: end.x, y: start.y))
-        let result = try await addSnap(snap)
-        return result
+    func createSnap(photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
+        let snap = try await addSnap(photoId: photo.id, start: start, end: end)
+        return snap
     }
 }
 
@@ -139,16 +131,20 @@ extension FirebaseStore {
 
     /// Creates a Photo object in firebase
     /// Note: image upload and url update are done separately
-    private func addPhoto(_ photo: Photo) async throws -> Photo {
-        try await add(photo, collection: "photos")
+    private func addPhoto(timestamp: Double) async throws -> Photo {
+        return try await add(collection: "photos", data: ["timestamp": timestamp])
     }
 
-    private func addPlant(_ plant: Plant) async throws -> Plant {
-        try await add(plant, collection: "plants")
+    private func addPlant(name: String, type: PlantType, category: Category) async throws -> Plant {
+        let data: [String: Any] = ["namne": name, "type": type, "category": category]
+        return try await add(collection: "plants", data: data)
     }
 
-    private func addSnap(_ snap: Snap) async throws -> Snap {
-        try await add(snap, collection: "snaps")
+    private func addSnap(photoId: String, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
+        let data: [String: Any] = ["photoId": photoId,
+                                   "start": start,
+                                   "end": end]
+        return try await add(collection: "snaps", data: data)
     }
 
     // MARK: - Generic interface into Firebase
@@ -172,26 +168,22 @@ extension FirebaseStore {
     }
 
     // upload to db and save locally
-    private func add<T: Codable>(_ object: T, collection: String) async throws -> T {
+    private func add<T: Codable>(collection: String, data: [String: Any]) async throws -> T {
         return try await withCheckedThrowingContinuation { continuation in
             guard let userId = self.userId else {
                 continuation.resume(throwing: StoreError.notAuthorized)
                 return
             }
 
-            do {
-                let ref = try db.collection(userId)
-                    .document("garden").collection(collection)
-                    .addDocument(from: object)
-                ref.getDocument { (snapshot, error) in
-                    if let result = try? snapshot?.data(as: T.self) {
-                        continuation.resume(with: .success(result))
-                    } else {
-                        continuation.resume(with: .failure(StoreError.databaseError(error)))
-                    }
+            let ref = db.collection(userId)
+                .document("garden").collection(collection)
+                .addDocument(data: data)
+            ref.getDocument { (snapshot, error) in
+                if let result = try? snapshot?.data(as: T.self) {
+                    continuation.resume(with: .success(result))
+                } else {
+                    continuation.resume(with: .failure(StoreError.databaseError(error)))
                 }
-            }catch {
-                continuation.resume(throwing: error)
             }
         }
     }

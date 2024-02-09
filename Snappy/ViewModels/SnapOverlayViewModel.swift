@@ -48,7 +48,9 @@ class SnapOverlayViewModel: ObservableObject {
 
     func createSnap(start: CGPoint, end: CGPoint, imageSize: CGSize) {
         Task {
-            if let snap = try? await store.createSnap(photo: photo, start: start, end: end, imageSize: imageSize) {
+            let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: imageSize, start: start, end: end)
+
+            if let snap = try? await store.createSnap(photo: photo, start: startCoord, end: endCoord) {
                 snaps.append(snap)
             }
         }

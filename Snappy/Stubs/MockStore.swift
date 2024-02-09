@@ -73,7 +73,7 @@ class MockStore: Store {
         fatalError()
     }
 
-    func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) throws -> Snap {
+    func createSnap(photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
         // no op
         fatalError()
     }

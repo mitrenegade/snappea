@@ -52,6 +52,6 @@ protocol Store {
 
     @discardableResult func createPhoto(image: UIImage) async throws -> Photo
 
-    @discardableResult func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) async throws -> Snap
+    @discardableResult func createSnap(photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap
 }
 
