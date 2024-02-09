@@ -86,8 +86,10 @@ struct CameraRoot: View {
             if image != nil {
                 Button(action: {
                     // save
-                    if let photo = self.saveImage() {
-                        displayNewPhotoDetail(photo: photo)
+                    Task {
+                        if let photo = await self.saveImage() {
+                            displayNewPhotoDetail(photo: photo)
+                        }
                     }
                 }) {
                     Text("Save")
@@ -130,16 +132,17 @@ struct CameraRoot: View {
         self.showCaptureImageView.toggle()
     }
     
-    func saveImage() -> Photo? {
+    func saveImage() async -> Photo? {
         guard let image else {
             // TODO: throw error
             return nil
         }
 
-        let photo = try? store.createPhoto(image: image)
+        let photo = try? await store.createPhoto(image: image)
         return photo
     }
     
+    @MainActor
     func displayNewPhotoDetail(photo: Photo) {
         self.router.selectedTab = .plants
         self.photoDetailSettings.newPhoto = photo

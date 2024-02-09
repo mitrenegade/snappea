@@ -63,8 +63,9 @@ class MockStore: Store {
 
     // MARK: -
 
-    func createPlant(name: String, type: PlantType, category: Category) throws {
+    func createPlant(name: String, type: PlantType, category: Category) throws -> Plant {
         // no op
+        fatalError()
     }
 
     func createPhoto(image: UIImage) throws -> Photo {

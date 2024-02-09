@@ -172,18 +172,18 @@ class LocalStore: Store {
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cachePhoto(photo, image: image)
-
         return photo
     }
 
-    public func createPlant(name: String, type: PlantType, category: Category) throws {
+    public func createPlant(name: String, type: PlantType, category: Category) throws -> Plant {
         let id = UUID().uuidString
         let plant = Plant(id: id, name: name, type: type, category: category)
-        let url = try subpath("plant").appending(path: plant.id)
+        let url = subpath("plant").appending(path: plant.id)
         let data = try JSONEncoder().encode(plant)
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cachePlant(plant)
+        return plant
     }
 
     public func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) throws -> Snap{
@@ -197,7 +197,6 @@ class LocalStore: Store {
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cacheSnap(snap)
-
         return snap
     }
 
