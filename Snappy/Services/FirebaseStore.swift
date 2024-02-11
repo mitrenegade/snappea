@@ -136,7 +136,7 @@ extension FirebaseStore {
     }
 
     private func addPlant(name: String, type: PlantType, category: Category) async throws -> Plant {
-        let data: [String: Any] = ["namne": name, "type": type, "category": category]
+        let data: [String: Any] = ["namne": name, "type": type.rawValue, "category": category.rawValue]
         return try await add(collection: "plants", data: data)
     }
 
@@ -153,39 +153,26 @@ extension FirebaseStore {
         guard let userId = userId else {
             throw StoreError.notAuthorized
         }
-        return try await withCheckedThrowingContinuation { continuation in
-            db.collection(userId).document("garden").collection(collection).addSnapshotListener { (snapshot, error) in
-                guard let snapshot else {
-                    continuation.resume(throwing: StoreError.databaseError(error))
-                    return
-                }
-                let objects = snapshot.documents.compactMap { document -> T? in
-                    try? document.data(as: T.self)
-                }
-                continuation.resume(returning: objects)
-            }
+        let snapshot = try await db.collection(userId).document("garden").collection(collection).getDocuments()
+
+        let objects = snapshot.documents.compactMap { document -> T? in
+            try? document.data(as: T.self)
         }
+        return objects
     }
 
     // upload to db and save locally
     private func add<T: Codable>(collection: String, data: [String: Any]) async throws -> T {
-        return try await withCheckedThrowingContinuation { continuation in
-            guard let userId = self.userId else {
-                continuation.resume(throwing: StoreError.notAuthorized)
-                return
-            }
-
-            let ref = db.collection(userId)
-                .document("garden").collection(collection)
-                .addDocument(data: data)
-            ref.getDocument { (snapshot, error) in
-                if let result = try? snapshot?.data(as: T.self) {
-                    continuation.resume(with: .success(result))
-                } else {
-                    continuation.resume(with: .failure(StoreError.databaseError(error)))
-                }
-            }
+        guard let userId = userId else {
+            throw StoreError.notAuthorized
         }
+        let ref = try await db.collection(userId)
+            .document("garden").collection(collection)
+            .addDocument(data: data)
+
+        let snapshot = try await ref.getDocument()
+        let result = try snapshot.data(as: T.self)
+        return result
     }
 
     private func updatePhotoUrl(_ photo: Photo, url: String, completion: ((Error?)->Void)? = nil) throws {
