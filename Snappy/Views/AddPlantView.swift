@@ -168,7 +168,9 @@ struct AddPlantView: View {
     private var saveButton: some View {
         Button(action: {
             viewModel.savePlant() {
-                self.presentationMode.wrappedValue.dismiss()
+                DispatchQueue.main.async {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
             }
         }) {
             Text("Save")
