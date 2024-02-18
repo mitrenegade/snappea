@@ -61,7 +61,7 @@ class AddPlantViewModel: ObservableObject {
         }
     }
 
-    func savePlant(completion: (() -> Void)) {
+    func savePlant(completion: @escaping (() -> Void)) {
         guard !name.isEmpty,
               category != .other,
               plantType != .unknown else {
@@ -71,14 +71,13 @@ class AddPlantViewModel: ObservableObject {
 
         print("Saving plant \(name) of category \(category) and type \(plantType)")
 
-        do {
-            try store.createPlant(name: name, type: plantType, category: category)
-        } catch {
-            errorMessage = "Save error: \(error)"
+        Task {
+            let plant = try await store.createPlant(name: name, type: plantType, category: category)
+
+            // TODO: save photo
+            completion()
         }
 
-        // TODO: save photo
-        completion()
     }
 }
 
@@ -169,7 +168,9 @@ struct AddPlantView: View {
     private var saveButton: some View {
         Button(action: {
             viewModel.savePlant() {
-                self.presentationMode.wrappedValue.dismiss()
+                DispatchQueue.main.async {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
             }
         }) {
             Text("Save")

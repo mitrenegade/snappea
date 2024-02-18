@@ -47,11 +47,12 @@ class SnapOverlayViewModel: ObservableObject {
     }
 
     func createSnap(start: CGPoint, end: CGPoint, imageSize: CGSize) {
-        do {
-            let snap = try store.createSnap(photo: photo, start: start, end: end, imageSize: imageSize)
-            snaps.append(snap)
-        } catch {
-            print("Error creating snap: \(error)")
+        Task {
+            let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: imageSize, start: start, end: end)
+
+            if let snap = try? await store.createSnap(photo: photo, start: startCoord, end: endCoord) {
+                snaps.append(snap)
+            }
         }
     }
 }

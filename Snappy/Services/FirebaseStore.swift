@@ -8,24 +8,38 @@
 
 import Foundation
 import UIKit
+import FirebaseFirestore
 
 /// An implementation of Store that uses Firebase's API, via FirebaseAPIService
 class FirebaseStore: Store {
-    private let api = FirebaseAPIService()
+
+    /// Auth
+    private let auth: AuthStore
+
+    /// Firebase Database
+    let db = Firestore.firestore()
+
+    // MARK: - Initialization
+    init(authStore: AuthStore = AuthStore.shared) {
+        self.auth = authStore
+    }
 
     func loadGarden() async throws {
         let group = DispatchGroup()
+        group.enter()
         Task {
-            group.enter()
-            allPhotos = try await api.fetchPhotos()
+            allPhotos = try await fetchPhotos()
+            group.leave()
         }
+        group.enter()
         Task {
-            group.enter()
-            allPlants = try await api.fetchPlants()
+            allPlants = try await fetchPlants()
+            group.leave()
         }
+        group.enter()
         Task {
-            group.enter()
-            allSnaps = try await api.fetchSnaps()
+            allSnaps = try await fetchSnaps()
+            group.leave()
         }
         group.notify(queue: DispatchQueue.global()) {
             print("Load garden complete with \(self.allPhotos.count) photos, \(self.allPlants.count) plants, \(self.allSnaps.count) snaps")
@@ -67,33 +81,111 @@ class FirebaseStore: Store {
     }
 
     // MARK: -
-    func createPhoto(image: UIImage) throws -> Photo {
-        let id = UUID().uuidString // TODO use firebase id
+    func createPhoto(image: UIImage) async throws -> Photo {
         let timestamp = Date().timeIntervalSince1970
-        let photo = Photo(id: id, timestamp: timestamp)
-        api.addPhoto(photo) { result, error in
-            guard var newPhoto = result else {
-              return
-          }
-            FirebaseImageService.uploadImage(image: image, type: .photo, uid: photo.id) { [weak self] result in
-                if let url = result {
-                    self?.api.updatePhotoUrl(newPhoto, url: url) { error in
-                        newPhoto.url = url // manually update url in existing photo object locally
+        var result = try await addPhoto(timestamp: timestamp)
+
+        // BR TODO: contain uploadImage into uploadURL
+        FirebaseImageService.uploadImage(image: image, type: .photo, uid: result.id) { [weak self] url in
+            if let url {
+                do {
+                    try self?.updatePhotoUrl(result, url: url) { error in
+                        result.url = url // manually update url in existing photo object locally
                     }
+                } catch {
+                    print("Update photo \(error)")
                 }
             }
         }
-
-        return photo
+        return result
     }
 
-    func createPlant(name: String, type: PlantType, category: Category) throws {
-        // BR TODO
+    func createPlant(name: String, type: PlantType, category: Category) async throws -> Plant {
+        let plant = try await addPlant(name: name, type: type, category: category)
+        return plant
     }
 
-    func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) throws -> Snap {
-        // BR TODO
-        fatalError()
+    func createSnap(photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
+        let snap = try await addSnap(photoId: photo.id, start: start, end: end)
+        return snap
     }
 }
 
+/// Direct calls to API
+extension FirebaseStore {
+    private var userId: String? {
+        auth.user?.id
+    }
+
+    // MARK: - Fetch
+    private func fetchPhotos() async throws -> [Photo] {
+        try await fetchObjects(collection: "photos")
+    }
+
+    private func fetchPlants() async throws -> [Plant] {
+        try await fetchObjects(collection: "plants")
+    }
+
+    private func fetchSnaps() async throws -> [Snap] {
+        try await fetchObjects(collection: "snaps")
+    }
+
+    // MARK: - Upload async/await
+
+    /// Creates a Photo object in firebase
+    /// Note: image upload and url update are done separately
+    private func addPhoto(timestamp: Double) async throws -> Photo {
+        return try await add(collection: "photos", data: ["timestamp": timestamp])
+    }
+
+    private func addPlant(name: String, type: PlantType, category: Category) async throws -> Plant {
+        let data: [String: Any] = ["name": name, "type": type.rawValue, "category": category.rawValue]
+        return try await add(collection: "plants", data: data)
+    }
+
+    private func addSnap(photoId: String, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
+        let data: [String: Any] = ["photoId": photoId,
+                                   "start": start,
+                                   "end": end]
+        return try await add(collection: "snaps", data: data)
+    }
+
+    // MARK: - Generic interface into Firebase
+    /// Fetches an array of an object type given a collection name
+    /// Performs this fetch once
+    private func fetchObjects<T: Decodable>(collection: String) async throws -> [T] {
+        guard let userId = userId else {
+            throw StoreError.notAuthorized
+        }
+        let snapshot = try await db.collection(userId).document("garden").collection(collection).getDocuments()
+
+        let objects = snapshot.documents.compactMap { document -> T? in
+            try? document.data(as: T.self)
+        }
+        return objects
+    }
+
+    // upload to db and save locally
+    private func add<T: Codable>(collection: String, data: [String: Any]) async throws -> T {
+        guard let userId = userId else {
+            throw StoreError.notAuthorized
+        }
+        let ref = try await db.collection(userId)
+            .document("garden").collection(collection)
+            .addDocument(data: data)
+        try await ref.updateData(["id": ref.documentID])
+
+        let snapshot = try await ref.getDocument()
+        let result = try snapshot.data(as: T.self)
+        return result
+    }
+
+    private func updatePhotoUrl(_ photo: Photo, url: String, completion: ((Error?)->Void)? = nil) throws {
+        guard let userId = userId else {
+            throw StoreError.notAuthorized
+        }
+        let ref = db.collection(userId).document("garden").collection("photos").document(photo.id)
+        ref.updateData(["url":url], completion: completion)
+    }
+
+}

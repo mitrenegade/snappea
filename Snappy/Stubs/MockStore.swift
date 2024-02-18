@@ -63,8 +63,9 @@ class MockStore: Store {
 
     // MARK: -
 
-    func createPlant(name: String, type: PlantType, category: Category) throws {
+    func createPlant(name: String, type: PlantType, category: Category) throws -> Plant {
         // no op
+        fatalError()
     }
 
     func createPhoto(image: UIImage) throws -> Photo {
@@ -72,7 +73,7 @@ class MockStore: Store {
         fatalError()
     }
 
-    func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) throws -> Snap {
+    func createSnap(photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
         // no op
         fatalError()
     }

@@ -172,32 +172,29 @@ class LocalStore: Store {
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cachePhoto(photo, image: image)
-
         return photo
     }
 
-    public func createPlant(name: String, type: PlantType, category: Category) throws {
+    public func createPlant(name: String, type: PlantType, category: Category) throws -> Plant {
         let id = UUID().uuidString
         let plant = Plant(id: id, name: name, type: type, category: category)
-        let url = try subpath("plant").appending(path: plant.id)
+        let url = subpath("plant").appending(path: plant.id)
         let data = try JSONEncoder().encode(plant)
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cachePlant(plant)
+        return plant
     }
 
-    public func createSnap(photo: Photo, start: CGPoint, end: CGPoint, imageSize: CGSize) throws -> Snap{
-        let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: imageSize, start: start, end: end)
+    func createSnap(photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
+        print("createSnap startCoord: \(start) endCoord \(end)")
 
-        print("createSnap startCoord: \(startCoord) endCoord \(endCoord)")
-
-        let snap = Snap(photoId: photo.id, start: startCoord, end: endCoord)
+        let snap = Snap(photoId: photo.id, start: start, end: end)
         let url = try baseURL.appending(path: "snap").appending(path: snap.id)
         let data = try JSONEncoder().encode(snap)
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cacheSnap(snap)
-
         return snap
     }
 
