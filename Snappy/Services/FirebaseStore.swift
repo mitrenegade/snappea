@@ -26,17 +26,20 @@ class FirebaseStore: Store {
 
     func loadGarden() async throws {
         let group = DispatchGroup()
+        group.enter()
         Task {
-            group.enter()
             allPhotos = try await fetchPhotos()
+            group.leave()
         }
+        group.enter()
         Task {
-            group.enter()
             allPlants = try await fetchPlants()
+            group.leave()
         }
+        group.enter()
         Task {
-            group.enter()
             allSnaps = try await fetchSnaps()
+            group.leave()
         }
         group.notify(queue: DispatchQueue.global()) {
             print("Load garden complete with \(self.allPhotos.count) photos, \(self.allPlants.count) plants, \(self.allSnaps.count) snaps")
