@@ -136,7 +136,7 @@ extension FirebaseStore {
     }
 
     private func addPlant(name: String, type: PlantType, category: Category) async throws -> Plant {
-        let data: [String: Any] = ["namne": name, "type": type.rawValue, "category": category.rawValue]
+        let data: [String: Any] = ["name": name, "type": type.rawValue, "category": category.rawValue]
         return try await add(collection: "plants", data: data)
     }
 
@@ -149,6 +149,7 @@ extension FirebaseStore {
 
     // MARK: - Generic interface into Firebase
     /// Fetches an array of an object type given a collection name
+    /// Performs this fetch once
     private func fetchObjects<T: Decodable>(collection: String) async throws -> [T] {
         guard let userId = userId else {
             throw StoreError.notAuthorized
@@ -169,6 +170,7 @@ extension FirebaseStore {
         let ref = try await db.collection(userId)
             .document("garden").collection(collection)
             .addDocument(data: data)
+        try await ref.updateData(["id": ref.documentID])
 
         let snapshot = try await ref.getDocument()
         let result = try snapshot.data(as: T.self)
