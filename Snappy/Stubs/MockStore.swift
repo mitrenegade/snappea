@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MockStore: Store {
+class MockStore { //}: Store {
     func loadGarden() async throws {
         // no op
     }

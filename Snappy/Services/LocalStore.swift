@@ -63,6 +63,9 @@ class LocalStore: Store {
                 let plant = try JSONDecoder().decode(Plant.self, from: data)
                 cachePlant(plant)
             }
+            readWriteQueue.sync {
+                allPlants = Array(plantCache.values)
+            }
 
             let snapPath = subpath("snap")
             let snaps = try FileManager.default
@@ -104,8 +107,16 @@ class LocalStore: Store {
     // MARK: -
 
     var allPhotos: [Photo] { Array(photoCache.values) }
-    var allPlants: [Plant] { Array(plantCache.values) }
     var allSnaps: [Snap] { Array(snapCache.values) }
+
+    // MARK: - Store as an ObservedObject
+    @Published var allPlants: [Plant] = []
+    var allPlantsValue: Published<[Plant]> {
+        return _allPlants
+    }
+    var allPlantsPublisher: Published<[Plant]>.Publisher {
+        return $allPlants
+    }
 
     // MARK: - Fetch
 
@@ -183,6 +194,9 @@ class LocalStore: Store {
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cachePlant(plant)
+        readWriteQueue.sync {
+            allPlants = Array(plantCache.values)
+        }
         return plant
     }
 

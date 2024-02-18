@@ -23,7 +23,7 @@ struct ContentView: View {
     var store: Store {
         // BR TODO edit this when user changes
         if let id = authStore.user?.id {
-            return FirebaseStore(authStore: authStore)
+            return LocalStore(gardenID: id) //FirebaseStore(authStore: authStore)
         } else {
             return MockStore()
         }

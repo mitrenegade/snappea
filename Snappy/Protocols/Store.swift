@@ -17,12 +17,17 @@ enum StoreError: Error {
 /// Data layer that is responsible for API or Cache
 /// Top level interface to the client that abstracts whether the data comes from local
 /// store, an API interface, or is mocked
-protocol Store {
+protocol Store: ObservableObject {
     func loadGarden() async throws
 
+    // MARK: - ObservedObject
+    // see https://medium.com/expedia-group-tech/observableobject-published-and-protocols-with-swiftui-uikit-and-cuckoo-cce69a47f08a
     var allPhotos: [Photo] { get }
     var allPlants: [Plant] { get }
     var allSnaps: [Snap] { get }
+
+    var allPlantsValue: Published<[Plant]> { get }
+    var allPlantsPublisher: Published<[Plant]>.Publisher { get }
 
     // MARK: - Fetch
 
