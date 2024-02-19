@@ -72,8 +72,14 @@ struct PlantsRoot<T>: View where T: Store {
 
     var listView: some View {
         List(store.allPlants) { plant in
-            NavigationLink(destination: PlantGalleryView(plant: plant, store: store)) {
-                PlantRow(viewModel: PlantRowViewModel(plant: plant, store: store))
+            Group {
+                let photo = store.photos(for: plant)
+                    .sorted { $0.timestamp > $1.timestamp }
+                    .first
+
+                NavigationLink(destination: PlantGalleryView(plant: plant, store: store)) {
+                    PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
+                }
             }
         }
     }
