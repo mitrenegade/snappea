@@ -15,16 +15,9 @@ enum Tab: Hashable {
 }
 
 struct HomeView: View {
-//    @ObservedObject var router: HomeViewRouter = HomeViewRouter()
-
-    @State var store = LocalStore()
+    @State var store = MockStore() //LocalStore()
 
     @State var selectedTab: Tab = .plants
-//    {
-//        willSet {
-//            objectWillChange.send()
-//        }
-//    }
 
     init(user: User) {
         self.load(user: user)

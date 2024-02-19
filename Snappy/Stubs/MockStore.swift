@@ -9,21 +9,38 @@
 import Foundation
 import UIKit
 
-class MockStore { //}: Store {
-    func loadGarden() async throws {
+class MockStore: Store {
+    var isLoading: Bool = false
+
+    func loadGarden(id: String) async throws {
         // no op
     }
 
-    var allPhotos: [Photo] {
-        Stub.photoData
+    // MARK: - Plants
+    @Published var allPlants: [Plant] = Stub.plantData
+    var allPlantsValue: Published<[Plant]> {
+        return _allPlants
+    }
+    var allPlantsPublisher: Published<[Plant]>.Publisher {
+        return $allPlants
     }
 
-    var allPlants: [Plant] {
-        Stub.plantData
+    // MARK: - Photos
+    @Published var allPhotos: [Photo] = Stub.photoData
+    var allPhotosValue: Published<[Photo]> {
+        return _allPhotos
+    }
+    var allPhotosPublisher: Published<[Photo]>.Publisher {
+        return $allPhotos
     }
 
-    var allSnaps: [Snap] {
-        Stub.snapData
+    // MARK: - Snaps
+    @Published var allSnaps: [Snap] = Stub.snapData
+    var allSnapsValue: Published<[Snap]> {
+        return _allSnaps
+    }
+    var allSnapsPublisher: Published<[Snap]>.Publisher {
+        return $allSnaps
     }
 
     // MARK: - Fetch
