@@ -11,8 +11,8 @@ import SwiftUI
 import Combine
 
 /// Displays a single snap on a photo with options to edit
-struct SnapDetailView: View {
-    private let store: Store
+struct SnapDetailView<T>: View where T: Store {
+    @ObservedObject var store: T
 
     private let snap: Snap
 
@@ -36,7 +36,7 @@ struct SnapDetailView: View {
 
     /// Creates a PhotoDetailView
     /// Given a snap, shows the photo for only the snap
-    init?(snap: Snap, store: Store) {
+    init?(snap: Snap, store: T) {
         guard let photo = store.photo(withId: snap.photoId) else {
             return nil
         }

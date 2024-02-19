@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SnapOverlayView: View {
+struct SnapOverlayView<T>: View where T: Store {
     @ObservedObject var viewModel: SnapOverlayViewModel
     var imageSize: CGSize
     
@@ -18,7 +18,7 @@ struct SnapOverlayView: View {
 
     init(photo: Photo,
          selectedSnaps: [Snap]? = nil,
-         store: Store) {
+         store: T) {
 
         viewModel = SnapOverlayViewModel(photo: photo, selectedSnaps: selectedSnaps, store: store)
         imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
