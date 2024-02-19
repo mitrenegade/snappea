@@ -13,12 +13,12 @@ enum SnapsCollectionType {
     case photo
 }
 
-struct SnapsListView: View {
-    @ObservedObject var viewModel: SnapsListViewModel
+struct SnapsListView<T>: View where T: Store {
+    @ObservedObject var viewModel: SnapsListViewModel<T>
 
     private var selectedSnaps: [Snap] = []
 
-    private let store: Store
+    @ObservedObject var store: T
 
     var body: some View {
         if TESTING {
@@ -44,14 +44,14 @@ struct SnapsListView: View {
     }
 
     /// Creates a SnapsListView based on a given photo
-    init(photo: Photo, selectedSnaps: [Snap]? = nil, store: Store) {
+    init(photo: Photo, selectedSnaps: [Snap]? = nil, store: T) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: photo.id, type: .photo, store: store)
     }
 
     /// Creates a SnapsListView based on a given plant
-    init(plant: Plant, selectedSnaps: [Snap]? = nil, store: Store) {
+    init(plant: Plant, selectedSnaps: [Snap]? = nil, store: T) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: plant.id, type: .plant, store: store)
