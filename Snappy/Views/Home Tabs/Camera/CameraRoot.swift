@@ -8,20 +8,21 @@
 
 import SwiftUI
 
-struct CameraRoot: View {
+struct CameraRoot<T>: View where T: Store {
     @State var image: UIImage? = nil
     @State var showCaptureImageView: Bool = false
     @State private var showingSheet = false
     @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
     
-    var router: HomeViewRouter
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
 
-    private let store: Store
+    private let store: T
 
-    init(router: HomeViewRouter, store: Store) {
+    @State var selectedTab: Tab
+
+    init(store: T, selectedTab: Tab) {
         self.store = store
-        self.router = router
+        self.selectedTab = selectedTab
     }
 
     var body: some View {
@@ -144,14 +145,14 @@ struct CameraRoot: View {
     
     @MainActor
     func displayNewPhotoDetail(photo: Photo) {
-        self.router.selectedTab = .plants
+        selectedTab = .gallery
         self.photoDetailSettings.newPhoto = photo
         self.photoDetailSettings.shouldShowNewPhoto = true
     }
 }
-
-struct CameraRoot_Previews: PreviewProvider {
-    static var previews: some View {
-        CameraRoot(router: HomeViewRouter(store: MockStore()), store: MockStore())
-    }
-}
+//
+//struct CameraRoot_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CameraRoot(router: HomeViewRouter(store: MockStore()), store: MockStore())
+//    }
+//}

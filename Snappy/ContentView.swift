@@ -20,15 +20,6 @@ struct ContentView: View {
 
     @ObservedObject var authStore: AuthStore
 
-    var store: Store {
-        // BR TODO edit this when user changes
-        if let id = authStore.user?.id {
-            return FirebaseStore(authStore: authStore)
-        } else {
-            return MockStore()
-        }
-    }
-
     init(viewModel: LoginViewModel = LoginViewModel(),
          authStore: AuthStore = AuthStore.shared) {
         self.viewModel = viewModel
@@ -46,8 +37,8 @@ struct ContentView: View {
                     Spacer()
                     signupView
                 }
-            } else {
-                HomeView(store: store)
+            } else if let user = authStore.user {
+                HomeView(user: user)
             }
         }
         .alert(isPresented: $showingAlert) {
@@ -113,9 +104,9 @@ struct ContentView: View {
         }
     }
 }
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

@@ -13,8 +13,6 @@ class PlantRowViewModel: ObservableObject, Identifiable {
     @Published var plant: Plant
     private var cancellables = Set<AnyCancellable>()
 
-    private let store: Store
-
     var id: String?
     var name: String = ""
     var categoryString: String = ""
@@ -23,9 +21,11 @@ class PlantRowViewModel: ObservableObject, Identifiable {
     var typeColor: UIColor = .clear
     var url: URL? = nil
 
-    init(plant: Plant, store: Store) {
+    private var photo: Photo?
+
+    init(plant: Plant, photo: Photo?) {
         self.plant = plant
-        self.store = store
+        self.photo = photo
 
         // assign id
         $plant
@@ -68,7 +68,7 @@ class PlantRowViewModel: ObservableObject, Identifiable {
 
         // assign photo url
         $plant
-            .compactMap { self.getPhotoUrl(for: $0) }
+            .compactMap { _ in self.photo?.url }
             .compactMap { URL(string: $0) }
             .assign(to: \.url, on: self)
             .store(in: &cancellables)
@@ -100,12 +100,5 @@ class PlantRowViewModel: ObservableObject, Identifiable {
         case .unknown:
             return .yellow
         }
-    }
-
-    /// Returns the photoUrl for the most recent photo of the plant
-    func getPhotoUrl(for plant: Plant) -> String? {
-        let photos = store.photos(for: plant)
-            .sorted { $0.timestamp > $1.timestamp }
-        return photos.first?.url
     }
 }

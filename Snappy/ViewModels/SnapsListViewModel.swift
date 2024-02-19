@@ -9,18 +9,18 @@
 import Combine
 import Foundation
 
-class SnapsListViewModel: ObservableObject {
+class SnapsListViewModel<T>: ObservableObject where T: Store {
     @Published var snaps: [Snap] = []
 
     private let belongsToId: String
 
     private let belongsToType: SnapsCollectionType
 
-    private let store: Store
+    @Published var store: T
 
     private var cancellables = Set<AnyCancellable>()
 
-    init(for id: String, type: SnapsCollectionType, store: Store) {
+    init(for id: String, type: SnapsCollectionType, store: T) {
         self.store = store
         self.belongsToId = id
         self.belongsToType = type

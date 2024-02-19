@@ -9,7 +9,7 @@
 import SwiftUI
 import PhotosUI
 
-class AddPlantViewModel: ObservableObject {
+class AddPlantViewModel<T>: ObservableObject where T: Store {
 
     @Published var image: Image? = nil
     @Published var name: String = ""
@@ -24,7 +24,7 @@ class AddPlantViewModel: ObservableObject {
 
     @Published var isShowingError: Bool = false
 
-    private let store: Store
+    @Published var store: T
 
     @Published var imageSelection: PhotosPickerItem? = nil {
         didSet {
@@ -38,7 +38,7 @@ class AddPlantViewModel: ObservableObject {
 
     @State var isShowingSaveButton: Bool = false
 
-    init(store: Store) {
+    init(store: T) {
         self.store = store
     }
 
@@ -72,7 +72,7 @@ class AddPlantViewModel: ObservableObject {
         print("Saving plant \(name) of category \(category) and type \(plantType)")
 
         Task {
-            let plant = try await store.createPlant(name: name, type: plantType, category: category)
+            _ = try await store.createPlant(name: name, type: plantType, category: category)
 
             // TODO: save photo
             completion()
@@ -81,12 +81,12 @@ class AddPlantViewModel: ObservableObject {
     }
 }
 
-struct AddPlantView: View {
+struct AddPlantView<T>: View where T: Store {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @State var image: Image?
 
-    @ObservedObject var viewModel: AddPlantViewModel
+    @ObservedObject var viewModel: AddPlantViewModel<T>
 
     private var title: String {
         if TESTING {
@@ -96,7 +96,7 @@ struct AddPlantView: View {
         }
     }
 
-    init(store: Store) {
+    init(store: T) {
         self.viewModel = AddPlantViewModel(store: store)
     }
 

@@ -2,22 +2,19 @@
 
 import SwiftUI
 
-struct PhotoGalleryView: View {
-    @EnvironmentObject var viewModel: PhotoGalleryViewModel
-
-    private static let initialColumns = 3
+struct PhotoGalleryView<T>: View where T: Store {
     @State private var isAddingPhoto = false
 
-    @State private var gridColumns = Array(repeating: GridItem(.flexible()), count: initialColumns)
-    @State private var numColumns = initialColumns
+    @State private var gridColumns = Array(repeating: GridItem(.flexible()), count: 3)
+    @State private var numColumns = 3
 
     private var columnsTitle: String {
         gridColumns.count > 1 ? "\(gridColumns.count) Columns" : "1 Column"
     }
 
-    private let store: Store
+    @ObservedObject var store: T
 
-    init(store: Store) {
+    init(store: T) {
         self.store = store
     }
 
@@ -25,7 +22,7 @@ struct PhotoGalleryView: View {
         VStack {
             ScrollView {
                 LazyVGrid(columns: gridColumns) {
-                    ForEach(viewModel.dataSource) { photo in
+                    ForEach(store.allPhotos) { photo in
                         GeometryReader { geo in
                             NavigationLink(destination: PhotoDetailView(photo: photo, store: store)
                             ) {

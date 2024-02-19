@@ -12,7 +12,8 @@ import UIKit
 /// A local persistence and caching layer
 /// Stores into local file structure as data
 class LocalStore: Store {
-    private let gardenID: String
+
+    private var gardenID: String = ""
 
     private var baseURL: URL {
         get throws {
@@ -21,9 +22,10 @@ class LocalStore: Store {
         }
     }
 
-    init(gardenID: String) {
-        self.gardenID = gardenID
+    @Published var isLoading: Bool
 
+    init() {
+        isLoading = true
         /// create base url with gardenID as the first path
         do {
             let url = try baseURL
@@ -51,7 +53,11 @@ class LocalStore: Store {
         }
     }
 
-    func loadGarden() async throws {
+    func loadGarden(id: String) async throws {
+        isLoading = true
+
+        self.gardenID = id
+
         do {
             let plantPath = subpath("plant")
             let plants = try FileManager.default
@@ -63,6 +69,9 @@ class LocalStore: Store {
                 let plant = try JSONDecoder().decode(Plant.self, from: data)
                 cachePlant(plant)
             }
+            readWriteQueue.sync {
+                allPlants = Array(plantCache.values)
+            }
 
             let snapPath = subpath("snap")
             let snaps = try FileManager.default
@@ -73,6 +82,9 @@ class LocalStore: Store {
                 let data = try Data(contentsOf: url)
                 let snap = try JSONDecoder().decode(Snap.self, from: data)
                 cacheSnap(snap)
+            }
+            readWriteQueue.sync {
+                allSnaps = Array(snapCache.values)
             }
 
             let photoPath = subpath("photo")
@@ -87,6 +99,11 @@ class LocalStore: Store {
                 let image = try ImageStore().loadImage(name: photo.id)
                 cachePhoto(photo, image: image)
             }
+            readWriteQueue.sync {
+                allPhotos = Array(photoCache.values)
+            }
+
+            isLoading = false
         } catch {
             print("Load garden error: \(error)")
             throw error
@@ -103,9 +120,30 @@ class LocalStore: Store {
 
     // MARK: -
 
-    var allPhotos: [Photo] { Array(photoCache.values) }
-    var allPlants: [Plant] { Array(plantCache.values) }
-    var allSnaps: [Snap] { Array(snapCache.values) }
+    // MARK: - Store as an ObservedObject
+    @Published var allPlants: [Plant] = []
+    var allPlantsValue: Published<[Plant]> {
+        return _allPlants
+    }
+    var allPlantsPublisher: Published<[Plant]>.Publisher {
+        return $allPlants
+    }
+
+    @Published var allPhotos: [Photo] = []
+    var allPhotosValue: Published<[Photo]> {
+        return _allPhotos
+    }
+    var allPhotosPublisher: Published<[Photo]>.Publisher {
+        return $allPhotos
+    }
+
+    @Published var allSnaps: [Snap] = []
+    var allSnapsValue: Published<[Snap]> {
+        return _allSnaps
+    }
+    var allSnapsPublisher: Published<[Snap]>.Publisher {
+        return $allSnaps
+    }
 
     // MARK: - Fetch
 
@@ -172,6 +210,9 @@ class LocalStore: Store {
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cachePhoto(photo, image: image)
+        readWriteQueue.sync {
+            allPhotos = Array(photoCache.values)
+        }
         return photo
     }
 
@@ -183,6 +224,9 @@ class LocalStore: Store {
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cachePlant(plant)
+        readWriteQueue.sync {
+            allPlants = Array(plantCache.values)
+        }
         return plant
     }
 
@@ -195,6 +239,9 @@ class LocalStore: Store {
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cacheSnap(snap)
+        readWriteQueue.sync {
+            allSnaps = Array(snapCache.values)
+        }
         return snap
     }
 

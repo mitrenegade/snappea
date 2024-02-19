@@ -11,19 +11,12 @@ import RenderCloud
 import Combine
 
 /// Displays an index of plants
-struct PlantsRoot: View {
-    @ObservedObject var viewModel: PlantsListViewModel
-    @EnvironmentObject var user: User
+struct PlantsRoot<T>: View where T: Store {
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
-    
-    private var cancellables = Set<AnyCancellable>()
 
-    private let store: Store
+    @ObservedObject var store: T
 
-    init(router: HomeViewRouter,
-         store: Store
-    ) {
-        viewModel = PlantsListViewModel(store: store, router: router)
+    public init(store: T) {
         self.store = store
     }
 
@@ -38,10 +31,10 @@ struct PlantsRoot: View {
                 Text("Add a new plant to track it throughout its growth by adding snaps. Start by creating a plant.")
                     .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                 Spacer()
-                if viewModel.isLoading {
+                if store.isLoading {
                     Text("Loading...")
                 } else {
-                    if viewModel.dataSource.isEmpty {
+                    if store.allPlants.isEmpty {
                         Text("No plants! Click to add some")
                     } else {
                         listView
@@ -75,12 +68,16 @@ struct PlantsRoot: View {
         }
     }
 
-    private
-
     var listView: some View {
-        List(viewModel.dataSource) { plant in
-            NavigationLink(destination: PlantGalleryView(plant: plant, store: store)) {
-                PlantRow(viewModel: PlantRowViewModel(plant: plant, store: store))
+        List(store.allPlants) { plant in
+            Group {
+                let photo = store.photos(for: plant)
+                    .sorted { $0.timestamp > $1.timestamp }
+                    .first
+
+                NavigationLink(destination: PlantGalleryView(plant: plant, store: store)) {
+                    PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
+                }
             }
         }
     }
@@ -97,8 +94,8 @@ struct PlantsRoot: View {
     }
 }
 
-struct PlantsRoot_Previews: PreviewProvider {
-    static var previews: some View {
-        PlantsRoot(router: HomeViewRouter(store: MockStore()), store: MockStore())
-    }
-}
+//struct PlantsRoot_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PlantsRoot(router: HomeViewRouter(store: MockStore()), store: MockStore())
+//    }
+//}

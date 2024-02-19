@@ -10,9 +10,10 @@ import SwiftUI
 import Combine
 
 /// Shows a gallery of all photos for a single plant in list format
-struct PlantGalleryView: View {
+struct PlantGalleryView<T>: View where T: Store {
     private let plant: Plant
-    private let store: Store
+
+    @ObservedObject var store: T
 
     private var title: String {
         if TESTING {
@@ -29,7 +30,7 @@ struct PlantGalleryView: View {
         }
     }
 
-    init(plant: Plant, store: Store) {
+    init(plant: Plant, store: T) {
         self.plant = plant
         self.store = store
     }

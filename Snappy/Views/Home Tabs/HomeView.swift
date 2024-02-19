@@ -8,44 +8,58 @@
 
 import SwiftUI
 
+enum Tab: Hashable {
+    case plants
+    case gallery
+    case camera
+}
+
 struct HomeView: View {
-    @ObservedObject var router: HomeViewRouter
+//    @ObservedObject var router: HomeViewRouter = HomeViewRouter()
 
-    private let store: Store
+    @State var store = LocalStore()
 
-    init(store: Store) {
-        self.router = HomeViewRouter(store: store)
-        self.store = store
+    @State var selectedTab: Tab = .plants
+//    {
+//        willSet {
+//            objectWillChange.send()
+//        }
+//    }
+
+    init(user: User) {
+        self.load(user: user)
+    }
+
+    private func load(user: User) {
+        Task {
+            try await store.loadGarden(id: user.id)
+        }
     }
 
     var body: some View {
-        if router.isLoading {
-            Text("Loading...")
-        } else {
-            TabView(selection: $router.selectedTab) {
-                PlantsRoot(router: router, store: store)
-                    .tabItem {
-                        // BR TODO make this a snap pea icon
-                        Image(systemName: "leaf.fill")
-                        Text("Plants")
-                    }.tag(Tab.plants)
-                GalleryRoot(router: router, store: store)
-                    .tabItem {
-                        Image(systemName: "photo.fill")
-                        Text("Gallery")
-                    }.tag(Tab.camera)
-                CameraRoot(router: router, store: store)
-                    .tabItem {
-                        Image(systemName: "camera.fill")
-                        Text("Camera")
-                    }.tag(Tab.camera)
-            }
+        TabView(selection: $selectedTab) {
+            PlantsRoot(store: store)
+                .tabItem {
+                    // BR TODO make this a snap pea icon
+                    Image(systemName: "leaf.fill")
+                    Text("Plants")
+                }.tag(Tab.plants)
+            GalleryRoot(store: store)
+                .tabItem {
+                    Image(systemName: "photo.fill")
+                    Text("Gallery")
+                }.tag(Tab.camera)
+            CameraRoot(store: store, selectedTab: selectedTab)
+                .tabItem {
+                    Image(systemName: "camera.fill")
+                    Text("Camera")
+                }.tag(Tab.camera)
         }
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView(store: MockStore())
-    }
-}
+//struct HomeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeView(store: MockStore())
+//    }
+//}

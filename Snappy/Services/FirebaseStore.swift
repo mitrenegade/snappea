@@ -11,7 +11,7 @@ import UIKit
 import FirebaseFirestore
 
 /// An implementation of Store that uses Firebase's API, via FirebaseAPIService
-class FirebaseStore: Store {
+class FirebaseStore { //}: Store {
 
     /// Auth
     private let auth: AuthStore

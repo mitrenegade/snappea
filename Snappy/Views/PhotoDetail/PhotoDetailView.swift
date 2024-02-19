@@ -10,10 +10,10 @@ import SwiftUI
 import Combine
 
 /// A detail view based on a photo and all its attributes, including all snaps
-struct PhotoDetailView: View {
+struct PhotoDetailView<T>: View where T: Store {
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
 
-    private let store: Store
+    @ObservedObject var store: T
 
     private let photo: Photo
 
@@ -33,7 +33,7 @@ struct PhotoDetailView: View {
 
     /// Creates a PhotoDetailView
     /// Given a photo, shows all snaps
-    init(photo: Photo, store: Store) {
+    init(photo: Photo, store: T) {
         self.photo = photo
         self.store = store
     }

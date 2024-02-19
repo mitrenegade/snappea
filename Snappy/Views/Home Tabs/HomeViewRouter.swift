@@ -7,32 +7,8 @@
 //
 
 import SwiftUI
-import Combine
-
-enum Tab: Hashable {
-    case plants
-    case gallery
-    case camera
-}
 
 class HomeViewRouter: ObservableObject {
-    private let store: Store
 
-    @Published var isLoading: Bool = true
-
-    @Published var selectedTab: Tab = .plants {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-
-    init(store: Store) {
-        self.store = store
-
-        Task {
-            try await store.loadGarden()
-            isLoading = false
-        }
-    }
 }
 

@@ -10,23 +10,24 @@ import Combine
 import Foundation
 import SwiftUI
 
-class SnapOverlayViewModel: ObservableObject {
+class SnapOverlayViewModel<T>: ObservableObject where T: Store {
     @Published var photo: Photo
     @Published var snaps: [Snap] = []
     @Published var url: URL = URL(string: "www.google.com")!
     
     var photoId: String?
 
-    private let store: Store
+    @ObservedObject var store: T
 
     private var cancellables = Set<AnyCancellable>()
     
     /// - Parameters:
     ///     - photo: the Photo to be displayed which is related to the snaps.
     ///     - selectedSnaps: if non-nil, a custom set of snaps. This may be a subset of the snaps for the photo, or  used to display a single snap
+    ///     - store: an instance of Store
     init(photo: Photo,
          selectedSnaps: [Snap]? = nil,
-         store: Store) {
+         store: T) {
         self.photo = photo
         self.store = store
         self.snaps = selectedSnaps ?? fetchSnapsForPhoto(id: photo.id)
