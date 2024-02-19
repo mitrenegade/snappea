@@ -16,10 +16,7 @@ class MockStore: Store {
         // no op
     }
 
-    var allPhotos: [Photo] {
-        Stub.photoData
-    }
-
+    // MARK: - Plants
     @Published var allPlants: [Plant] = Stub.plantData
     var allPlantsValue: Published<[Plant]> {
         return _allPlants
@@ -28,8 +25,22 @@ class MockStore: Store {
         return $allPlants
     }
 
-    var allSnaps: [Snap] {
-        Stub.snapData
+    // MARK: - Photos
+    @Published var allPhotos: [Photo] = Stub.photoData
+    var allPhotosValue: Published<[Photo]> {
+        return _allPhotos
+    }
+    var allPhotosPublisher: Published<[Photo]>.Publisher {
+        return $allPhotos
+    }
+
+    // MARK: - Snaps
+    @Published var allSnaps: [Snap] = Stub.snapData
+    var allSnapsValue: Published<[Snap]> {
+        return _allSnaps
+    }
+    var allSnapsPublisher: Published<[Snap]>.Publisher {
+        return $allSnaps
     }
 
     // MARK: - Fetch

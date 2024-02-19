@@ -23,12 +23,17 @@ protocol Store: ObservableObject {
 
     // MARK: - ObservedObject
     // see https://medium.com/expedia-group-tech/observableobject-published-and-protocols-with-swiftui-uikit-and-cuckoo-cce69a47f08a
-    var allPhotos: [Photo] { get }
-    var allSnaps: [Snap] { get }
-
     var allPlants: [Plant] { get }
     var allPlantsValue: Published<[Plant]> { get }
     var allPlantsPublisher: Published<[Plant]>.Publisher { get }
+
+    var allPhotos: [Photo] { get }
+    var allPhotosValue: Published<[Photo]> { get }
+    var allPhotosPublisher: Published<[Photo]>.Publisher { get }
+
+    var allSnaps: [Snap] { get }
+    var allSnapsValue: Published<[Snap]> { get }
+    var allSnapsPublisher: Published<[Snap]>.Publisher { get }
 
     // MARK: - Fetch
 
