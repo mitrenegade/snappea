@@ -9,7 +9,7 @@
 import SwiftUI
 import Firebase
 
-struct ContentView<StoreObservable>: View where StoreObservable: Store {
+struct ContentView: View {
     @State var email: String = ""
     @State var password: String = ""
     @State var confirmation: String = ""
@@ -46,8 +46,7 @@ struct ContentView<StoreObservable>: View where StoreObservable: Store {
                     signupView
                 }
             } else {
-                let router = HomeViewRouter(store: store)
-                HomeView(router: router)
+                HomeView(router: HomeViewRouter(), store: store)
             }
         }
         .alert(isPresented: $showingAlert) {

@@ -8,8 +8,9 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct HomeView<T>: View where T: Store {
     @ObservedObject var router: HomeViewRouter
+    @ObservedObject var store: T
 
 //    init(store: Store) {
 //        self.router = HomeViewRouter(store: store)
@@ -21,13 +22,13 @@ struct HomeView: View {
 //            Text("Loading...")
 //        } else {
             TabView(selection: $router.selectedTab) {
-                PlantsRoot(router: router)
+                PlantsRoot()
                     .tabItem {
                         // BR TODO make this a snap pea icon
                         Image(systemName: "leaf.fill")
                         Text("Plants")
                     }.tag(Tab.plants)
-                GalleryRoot(router: router)
+                GalleryRoot( )
                     .tabItem {
                         Image(systemName: "photo.fill")
                         Text("Gallery")

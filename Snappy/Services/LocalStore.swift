@@ -12,6 +12,7 @@ import UIKit
 /// A local persistence and caching layer
 /// Stores into local file structure as data
 class LocalStore: Store {
+
     private var gardenID: String = ""
 
     private var baseURL: URL {
@@ -21,7 +22,10 @@ class LocalStore: Store {
         }
     }
 
+    @Published var isLoading: Bool
+
     init() {
+        isLoading = true
         /// create base url with gardenID as the first path
         do {
             let url = try baseURL
@@ -50,6 +54,7 @@ class LocalStore: Store {
     }
 
     func loadGarden(id: String) async throws {
+        isLoading = true
 
         self.gardenID = id
 
@@ -91,6 +96,8 @@ class LocalStore: Store {
                 let image = try ImageStore().loadImage(name: photo.id)
                 cachePhoto(photo, image: image)
             }
+
+            isLoading = false
         } catch {
             print("Load garden error: \(error)")
             throw error

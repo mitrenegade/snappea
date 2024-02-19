@@ -9,12 +9,12 @@
 import Combine
 import Foundation
 
-class PlantsListViewModel: ObservableObject {
-    @Published var dataSource: [Plant] = []
-    @Published var isLoading: Bool = true
-
-    init(store: Store, router: HomeViewRouter) {
-        dataSource = store.allPlants
-        isLoading = false
-    }
-}
+//class PlantsListViewModel: ObservableObject {
+//    @Published var dataSource: [Plant] = []
+//    @Published var isLoading: Bool = true
+//
+//    init(store: Store) {
+//        dataSource = store.allPlants
+//        isLoading = false
+//    }
+//}

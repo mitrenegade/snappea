@@ -149,9 +149,9 @@ struct CameraRoot: View {
         self.photoDetailSettings.shouldShowNewPhoto = true
     }
 }
-
-struct CameraRoot_Previews: PreviewProvider {
-    static var previews: some View {
-        CameraRoot(router: HomeViewRouter(store: MockStore()), store: MockStore())
-    }
-}
+//
+//struct CameraRoot_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CameraRoot(router: HomeViewRouter(store: MockStore()), store: MockStore())
+//    }
+//}
