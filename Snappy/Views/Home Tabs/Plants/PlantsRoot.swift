@@ -13,17 +13,14 @@ import Combine
 /// Displays an index of plants
 struct PlantsRoot<T>: View where T: Store {
 //    @ObservedObject var viewModel: PlantsListViewModel
-    @EnvironmentObject var user: User
+//    @EnvironmentObject var user: User
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
-    
-    private var cancellables = Set<AnyCancellable>()
 
-    @ObservedObject private var store: T
+    @ObservedObject var store: T
 
-//    init(store: Store) {
-//        viewModel = PlantsListViewModel(store: store)
-//        self.store = store
-//    }
+    public init(store: T) {
+        self.store = store
+    }
 
     var body: some View {
         NavigationView {
@@ -72,8 +69,6 @@ struct PlantsRoot<T>: View where T: Store {
             }
         }
     }
-
-    private
 
     var listView: some View {
         List(store.allPlants) { plant in

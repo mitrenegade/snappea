@@ -11,13 +11,12 @@ import RenderCloud
 import Combine
 
 /// Displays a gallery of photos
-struct GalleryRoot: View {
-    private let store: Store
+struct GalleryRoot<T>: View where T: Store {
+    @ObservedObject var store: T
 
-    @ObservedObject var viewModel: PhotoGalleryViewModel
+//    @ObservedObject var viewModel: PhotoGalleryViewModel
 
-    init(store: Store) {
-        viewModel = PhotoGalleryViewModel(store: store)
+    public init(store: T) {
         self.store = store
     }
 
@@ -32,10 +31,10 @@ struct GalleryRoot: View {
                 Text("Start with a photo and tag all the plants in it. Click on the plus button to begin.")
                     .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                 Spacer()
-                if viewModel.isLoading {
+                if store.isLoading {
                     Text("Loading...")
                 } else {
-                    if viewModel.dataSource.isEmpty {
+                    if store.allPhotos.isEmpty {
                         Text("No plants! Click to add some")
                     } else {
                         galleryView
@@ -59,7 +58,7 @@ struct GalleryRoot: View {
     private var galleryView: some View {
         if #available(iOS 17.0, *) {
             PhotoGalleryView(store: store)
-                .environment(viewModel)
+//                .environment(viewModel)
         } else {
             // BR TODO handle safely
             fatalError()

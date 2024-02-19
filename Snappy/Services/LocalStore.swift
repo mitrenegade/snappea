@@ -83,6 +83,9 @@ class LocalStore: Store {
                 let snap = try JSONDecoder().decode(Snap.self, from: data)
                 cacheSnap(snap)
             }
+            readWriteQueue.sync {
+                allSnaps = Array(snapCache.values)
+            }
 
             let photoPath = subpath("photo")
             let photos = try FileManager.default
@@ -95,6 +98,9 @@ class LocalStore: Store {
 
                 let image = try ImageStore().loadImage(name: photo.id)
                 cachePhoto(photo, image: image)
+            }
+            readWriteQueue.sync {
+                allPhotos = Array(photoCache.values)
             }
 
             isLoading = false
@@ -114,9 +120,6 @@ class LocalStore: Store {
 
     // MARK: -
 
-    var allPhotos: [Photo] { Array(photoCache.values) }
-    var allSnaps: [Snap] { Array(snapCache.values) }
-
     // MARK: - Store as an ObservedObject
     @Published var allPlants: [Plant] = []
     var allPlantsValue: Published<[Plant]> {
@@ -124,6 +127,22 @@ class LocalStore: Store {
     }
     var allPlantsPublisher: Published<[Plant]>.Publisher {
         return $allPlants
+    }
+
+    @Published var allPhotos: [Photo] = []
+    var allPhotosValue: Published<[Photo]> {
+        return _allPhotos
+    }
+    var allPhotosPublisher: Published<[Photo]>.Publisher {
+        return $allPhotos
+    }
+
+    @Published var allSnaps: [Snap] = []
+    var allSnapsValue: Published<[Snap]> {
+        return _allSnaps
+    }
+    var allSnapsPublisher: Published<[Snap]>.Publisher {
+        return $allSnaps
     }
 
     // MARK: - Fetch
@@ -191,6 +210,9 @@ class LocalStore: Store {
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cachePhoto(photo, image: image)
+        readWriteQueue.sync {
+            allPhotos = Array(photoCache.values)
+        }
         return photo
     }
 
@@ -217,6 +239,9 @@ class LocalStore: Store {
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cacheSnap(snap)
+        readWriteQueue.sync {
+            allSnaps = Array(snapCache.values)
+        }
         return snap
     }
 

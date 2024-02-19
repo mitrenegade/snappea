@@ -22,13 +22,13 @@ struct HomeView<T>: View where T: Store {
 //            Text("Loading...")
 //        } else {
             TabView(selection: $router.selectedTab) {
-                PlantsRoot()
+                PlantsRoot(store: store)
                     .tabItem {
                         // BR TODO make this a snap pea icon
                         Image(systemName: "leaf.fill")
                         Text("Plants")
                     }.tag(Tab.plants)
-                GalleryRoot( )
+                GalleryRoot()
                     .tabItem {
                         Image(systemName: "photo.fill")
                         Text("Gallery")

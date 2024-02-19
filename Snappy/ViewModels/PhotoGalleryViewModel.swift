@@ -8,12 +8,12 @@
 
 import Foundation
 
-class PhotoGalleryViewModel: ObservableObject, Observable {
-    @Published var dataSource: [Photo] = []
-    @Published var isLoading: Bool = true
-
-    init(store: Store) {
-        dataSource = store.allPhotos
-        isLoading = false
-    }
-}
+//class PhotoGalleryViewModel: ObservableObject, Observable {
+//    @Published var dataSource: [Photo] = []
+//    @Published var isLoading: Bool = true
+//
+//    init(store: Store) {
+//        dataSource = store.allPhotos
+//        isLoading = false
+//    }
+//}
