@@ -8,10 +8,23 @@
 
 import SwiftUI
 
+enum Tab: Hashable {
+    case plants
+    case gallery
+    case camera
+}
+
 struct HomeView: View {
-    @ObservedObject var router: HomeViewRouter = HomeViewRouter()
+//    @ObservedObject var router: HomeViewRouter = HomeViewRouter()
 
     @StateObject var store = LocalStore()
+
+    @State var selectedTab: Tab = .plants
+//    {
+//        willSet {
+//            objectWillChange.send()
+//        }
+//    }
 
     init(user: User) {
         self.load(user: user)
@@ -24,7 +37,7 @@ struct HomeView: View {
     }
 
     var body: some View {
-        TabView(selection: $router.selectedTab) {
+        TabView(selection: $selectedTab) {
             PlantsRoot(store: store)
                 .tabItem {
                     // BR TODO make this a snap pea icon
@@ -36,7 +49,7 @@ struct HomeView: View {
                     Image(systemName: "photo.fill")
                     Text("Gallery")
                 }.tag(Tab.camera)
-            CameraRoot(router: router, store: store)
+            CameraRoot(store: store, selectedTab: selectedTab)
                 .tabItem {
                     Image(systemName: "camera.fill")
                     Text("Camera")

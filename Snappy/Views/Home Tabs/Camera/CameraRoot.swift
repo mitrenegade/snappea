@@ -14,14 +14,15 @@ struct CameraRoot<T>: View where T: Store {
     @State private var showingSheet = false
     @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
     
-    var router: HomeViewRouter
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
 
     private let store: T
 
-    init(router: HomeViewRouter, store: T) {
+    @State var selectedTab: Tab
+
+    init(store: T, selectedTab: Tab) {
         self.store = store
-        self.router = router
+        self.selectedTab = selectedTab
     }
 
     var body: some View {
@@ -144,7 +145,7 @@ struct CameraRoot<T>: View where T: Store {
     
     @MainActor
     func displayNewPhotoDetail(photo: Photo) {
-        self.router.selectedTab = .plants
+        selectedTab = .gallery
         self.photoDetailSettings.newPhoto = photo
         self.photoDetailSettings.shouldShowNewPhoto = true
     }

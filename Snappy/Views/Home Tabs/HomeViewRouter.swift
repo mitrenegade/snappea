@@ -8,18 +8,7 @@
 
 import SwiftUI
 
-enum Tab: Hashable {
-    case plants
-    case gallery
-    case camera
-}
-
 class HomeViewRouter: ObservableObject {
 
-    @Published var selectedTab: Tab = .plants {
-        willSet {
-            objectWillChange.send()
-        }
-    }
 }
 
