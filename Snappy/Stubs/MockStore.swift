@@ -9,8 +9,10 @@
 import Foundation
 import UIKit
 
-class MockStore { //}: Store {
-    func loadGarden() async throws {
+class MockStore: Store {
+    var isLoading: Bool = false
+
+    func loadGarden(id: String) async throws {
         // no op
     }
 
@@ -18,8 +20,12 @@ class MockStore { //}: Store {
         Stub.photoData
     }
 
-    var allPlants: [Plant] {
-        Stub.plantData
+    @Published var allPlants: [Plant] = Stub.plantData
+    var allPlantsValue: Published<[Plant]> {
+        return _allPlants
+    }
+    var allPlantsPublisher: Published<[Plant]>.Publisher {
+        return $allPlants
     }
 
     var allSnaps: [Snap] {
