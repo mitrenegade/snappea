@@ -17,7 +17,7 @@ enum Tab: Hashable {
 struct HomeView: View {
 //    @ObservedObject var router: HomeViewRouter = HomeViewRouter()
 
-    @StateObject var store = LocalStore()
+    @State var store = LocalStore()
 
     @State var selectedTab: Tab = .plants
 //    {
