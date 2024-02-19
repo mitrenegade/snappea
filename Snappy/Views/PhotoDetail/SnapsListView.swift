@@ -58,6 +58,6 @@ struct SnapsListView: View {
     }
 }
 
-#Preview {
-    SnapsListView(photo: Stub.photoData[0], store: MockStore())
-}
+//#Preview {
+//    SnapsListView(photo: Stub.photoData[0], store: MockStore())
+//}

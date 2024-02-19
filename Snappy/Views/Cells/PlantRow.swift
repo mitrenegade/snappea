@@ -35,6 +35,6 @@ struct PlantRow: View {
     }
 }
 
-#Preview {
-    PlantRow(viewModel: PlantRowViewModel(plant: Stub.plantData[0], store: MockStore()))
-}
+//#Preview {
+//    PlantRow(viewModel: PlantRowViewModel(plant: Stub.plantData[0], store: MockStore()))
+//}

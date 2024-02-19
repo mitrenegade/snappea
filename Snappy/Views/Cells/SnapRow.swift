@@ -60,6 +60,6 @@ struct SnapRow: View {
     }
 }
 
-#Preview {
-    SnapRow(snap: Stub.snapData[0], store: MockStore())
-}
+//#Preview {
+//    SnapRow(snap: Stub.snapData[0], store: MockStore())
+//}
