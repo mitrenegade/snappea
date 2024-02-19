@@ -28,12 +28,12 @@ struct HomeView<T>: View where T: Store {
                         Image(systemName: "leaf.fill")
                         Text("Plants")
                     }.tag(Tab.plants)
-                GalleryRoot()
+                GalleryRoot(store: store)
                     .tabItem {
                         Image(systemName: "photo.fill")
                         Text("Gallery")
                     }.tag(Tab.camera)
-                CameraRoot(router: router)
+                CameraRoot(router: router, store: store)
                     .tabItem {
                         Image(systemName: "camera.fill")
                         Text("Camera")

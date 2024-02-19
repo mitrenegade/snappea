@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct CameraRoot: View {
+struct CameraRoot<T>: View where T: Store {
     @State var image: UIImage? = nil
     @State var showCaptureImageView: Bool = false
     @State private var showingSheet = false
@@ -17,9 +17,9 @@ struct CameraRoot: View {
     var router: HomeViewRouter
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
 
-    private let store: Store
+    private let store: T
 
-    init(router: HomeViewRouter, store: Store) {
+    init(router: HomeViewRouter, store: T) {
         self.store = store
         self.router = router
     }
