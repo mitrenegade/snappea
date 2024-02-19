@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SnapOverlayView<T>: View where T: Store {
-    @ObservedObject var viewModel: SnapOverlayViewModel
+    @ObservedObject var viewModel: SnapOverlayViewModel<T>
     var imageSize: CGSize
     
     @State var dragging: Bool = false

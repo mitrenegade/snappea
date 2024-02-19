@@ -46,11 +46,7 @@ struct SnapRow: View {
         .opacity(isDisabled ? 0.5 : 1)
     }
     
-    init?(snap: Snap, store: Store, isDisabled: Bool = false) {
-        guard let photo = store.photo(withId: snap.photoId) else {
-            return nil
-        }
-
+    init?(snap: Snap, photo: Photo, isDisabled: Bool = false) {
         self.snap = snap
         self.photo = photo
         self.isDisabled = isDisabled

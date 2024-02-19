@@ -28,7 +28,9 @@ struct SnapsListView<T>: View where T: Store {
             NavigationLink {
                 SnapDetailView(snap: snap, store: store)
             } label: {
-                SnapRow(snap: snap, store: store, isDisabled: !isSelected(snap))
+                if let photo = store.photo(withId: snap.photoId) {
+                    SnapRow(snap: snap, photo: photo, isDisabled: !isSelected(snap))
+                } // else: display error? display snap without photo? filter out this snap?
             }
         }
     }
