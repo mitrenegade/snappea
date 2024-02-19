@@ -8,13 +8,19 @@
 
 import SwiftUI
 
-struct HomeView<T>: View where T: Store {
-    @ObservedObject var router: HomeViewRouter
-    @ObservedObject var store: T
+struct HomeView: View {
+    @ObservedObject var router: HomeViewRouter = HomeViewRouter()
 
-    init(store: T) {
-        self.router = HomeViewRouter()
-        self.store = store
+    @StateObject var store = LocalStore()
+
+    init(user: User) {
+        self.load(user: user)
+    }
+
+    private func load(user: User) {
+        Task {
+            try await store.loadGarden(id: user.id)
+        }
     }
 
     var body: some View {

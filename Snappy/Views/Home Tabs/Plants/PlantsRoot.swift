@@ -12,8 +12,6 @@ import Combine
 
 /// Displays an index of plants
 struct PlantsRoot<T>: View where T: Store {
-//    @ObservedObject var viewModel: PlantsListViewModel
-//    @EnvironmentObject var user: User
     @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
 
     @ObservedObject var store: T

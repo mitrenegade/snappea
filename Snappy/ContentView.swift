@@ -20,8 +20,6 @@ struct ContentView: View {
 
     @ObservedObject var authStore: AuthStore
 
-    @StateObject var store = LocalStore()
-
     init(viewModel: LoginViewModel = LoginViewModel(),
          authStore: AuthStore = AuthStore.shared) {
         self.viewModel = viewModel
@@ -39,8 +37,8 @@ struct ContentView: View {
                     Spacer()
                     signupView
                 }
-            } else {
-                HomeView(store: store)
+            } else if let user = authStore.user {
+                HomeView(user: user)
             }
         }
         .alert(isPresented: $showingAlert) {
