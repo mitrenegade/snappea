@@ -48,7 +48,7 @@ struct HomeView: View {
                 .tabItem {
                     Image(systemName: "photo.fill")
                     Text("Gallery")
-                }.tag(Tab.camera)
+                }.tag(Tab.gallery)
             CameraRoot(store: store, selectedTab: selectedTab)
                 .tabItem {
                     Image(systemName: "camera.fill")
