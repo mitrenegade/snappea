@@ -12,7 +12,7 @@ import UIKit
 /// A local persistence and caching layer
 /// Stores into local file structure as data
 class LocalStore: Store {
-    private let gardenID: String
+    private var gardenID: String = ""
 
     private var baseURL: URL {
         get throws {
@@ -21,9 +21,7 @@ class LocalStore: Store {
         }
     }
 
-    init(gardenID: String) {
-        self.gardenID = gardenID
-
+    init() {
         /// create base url with gardenID as the first path
         do {
             let url = try baseURL
@@ -51,7 +49,10 @@ class LocalStore: Store {
         }
     }
 
-    func loadGarden() async throws {
+    func loadGarden(id: String) async throws {
+
+        self.gardenID = id
+
         do {
             let plantPath = subpath("plant")
             let plants = try FileManager.default

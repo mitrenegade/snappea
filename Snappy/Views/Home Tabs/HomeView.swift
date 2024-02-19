@@ -11,41 +11,39 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var router: HomeViewRouter
 
-    private let store: Store
-
-    init(store: Store) {
-        self.router = HomeViewRouter(store: store)
-        self.store = store
-    }
+//    init(store: Store) {
+//        self.router = HomeViewRouter(store: store)
+//        self.store = store
+//    }
 
     var body: some View {
-        if router.isLoading {
-            Text("Loading...")
-        } else {
+//        if router.isLoading {
+//            Text("Loading...")
+//        } else {
             TabView(selection: $router.selectedTab) {
-                PlantsRoot(router: router, store: store)
+                PlantsRoot(router: router)
                     .tabItem {
                         // BR TODO make this a snap pea icon
                         Image(systemName: "leaf.fill")
                         Text("Plants")
                     }.tag(Tab.plants)
-                GalleryRoot(router: router, store: store)
+                GalleryRoot(router: router)
                     .tabItem {
                         Image(systemName: "photo.fill")
                         Text("Gallery")
                     }.tag(Tab.camera)
-                CameraRoot(router: router, store: store)
+                CameraRoot(router: router)
                     .tabItem {
                         Image(systemName: "camera.fill")
                         Text("Camera")
                     }.tag(Tab.camera)
             }
-        }
+//        }
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView(store: MockStore())
-    }
-}
+//struct HomeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeView(store: MockStore())
+//    }
+//}

@@ -9,7 +9,7 @@
 import SwiftUI
 import Firebase
 
-struct ContentView: View {
+struct ContentView<StoreObservable>: View where StoreObservable: Store {
     @State var email: String = ""
     @State var password: String = ""
     @State var confirmation: String = ""
@@ -20,19 +20,18 @@ struct ContentView: View {
 
     @ObservedObject var authStore: AuthStore
 
-    var store: Store {
-        // BR TODO edit this when user changes
-        if let id = authStore.user?.id {
-            return LocalStore(gardenID: id) //FirebaseStore(authStore: authStore)
-        } else {
-            return MockStore()
-        }
-    }
+    @StateObject var store = LocalStore()
 
     init(viewModel: LoginViewModel = LoginViewModel(),
          authStore: AuthStore = AuthStore.shared) {
         self.viewModel = viewModel
         self.authStore = authStore
+//        // BR TODO edit this when user changes
+//        if let id = authStore.user?.id {
+//            store = LocalStore()
+////        } else {
+////            store = MockStore()
+//        }
     }
 
     var body: some View {
@@ -47,7 +46,8 @@ struct ContentView: View {
                     signupView
                 }
             } else {
-                HomeView(store: store)
+                let router = HomeViewRouter(store: store)
+                HomeView(router: router)
             }
         }
         .alert(isPresented: $showingAlert) {
@@ -113,9 +113,9 @@ struct ContentView: View {
         }
     }
 }
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

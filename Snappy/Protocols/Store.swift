@@ -18,7 +18,7 @@ enum StoreError: Error {
 /// Top level interface to the client that abstracts whether the data comes from local
 /// store, an API interface, or is mocked
 protocol Store: ObservableObject {
-    func loadGarden() async throws
+    func loadGarden(id: String) async throws
 
     // MARK: - ObservedObject
     // see https://medium.com/expedia-group-tech/observableobject-published-and-protocols-with-swiftui-uikit-and-cuckoo-cce69a47f08a
