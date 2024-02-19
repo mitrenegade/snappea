@@ -26,12 +26,6 @@ struct ContentView: View {
          authStore: AuthStore = AuthStore.shared) {
         self.viewModel = viewModel
         self.authStore = authStore
-//        // BR TODO edit this when user changes
-//        if let id = authStore.user?.id {
-//            store = LocalStore()
-////        } else {
-////            store = MockStore()
-//        }
     }
 
     var body: some View {
@@ -46,7 +40,7 @@ struct ContentView: View {
                     signupView
                 }
             } else {
-                HomeView(router: HomeViewRouter(), store: store)
+                HomeView(store: store)
             }
         }
         .alert(isPresented: $showingAlert) {

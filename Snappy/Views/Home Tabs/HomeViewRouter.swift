@@ -16,21 +16,11 @@ enum Tab: Hashable {
 }
 
 class HomeViewRouter: ObservableObject {
-//    @Published var isLoading: Bool = true
 
     @Published var selectedTab: Tab = .plants {
         willSet {
             objectWillChange.send()
         }
     }
-
-//    init(store: any Store) {
-//        self.store = store
-
-//        Task {
-//            try await store.loadGarden()
-//            isLoading = false
-//        }
-//    }
 }
 
