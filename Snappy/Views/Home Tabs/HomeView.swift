@@ -15,9 +15,9 @@ enum Tab: Hashable {
 }
 
 struct HomeView: View {
-    @State var store = MockStore() //LocalStore()
+    @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
 
-    @State var selectedTab: Tab = .plants
+    @State var store = MockStore() //LocalStore()
 
     init(user: User) {
         self.load(user: user)
@@ -30,7 +30,7 @@ struct HomeView: View {
     }
 
     var body: some View {
-        TabView(selection: $selectedTab) {
+        TabView(selection: $photoDetailSettings.selectedTab) {
             PlantsRoot(store: store)
                 .tabItem {
                     // BR TODO make this a snap pea icon
@@ -42,7 +42,7 @@ struct HomeView: View {
                     Image(systemName: "photo.fill")
                     Text("Gallery")
                 }.tag(Tab.gallery)
-            CameraRoot(store: store, selectedTab: selectedTab)
+            CameraRoot(store: store)
                 .tabItem {
                     Image(systemName: "camera.fill")
                     Text("Camera")

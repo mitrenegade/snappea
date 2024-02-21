@@ -16,7 +16,7 @@ struct PlantsRoot<T>: View where T: Store {
 
     @ObservedObject var store: T
 
-    public init(store: T) {
+    init(store: T) {
         self.store = store
     }
 

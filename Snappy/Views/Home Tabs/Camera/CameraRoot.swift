@@ -18,11 +18,8 @@ struct CameraRoot<T>: View where T: Store {
 
     private let store: T
 
-    @State var selectedTab: Tab
-
-    init(store: T, selectedTab: Tab) {
+    init(store: T) {
         self.store = store
-        self.selectedTab = selectedTab
     }
 
     var body: some View {
@@ -145,7 +142,7 @@ struct CameraRoot<T>: View where T: Store {
     
     @MainActor
     func displayNewPhotoDetail(photo: Photo) {
-        selectedTab = .gallery
+        self.photoDetailSettings.selectedTab = .gallery
         self.photoDetailSettings.newPhoto = photo
         self.photoDetailSettings.shouldShowNewPhoto = true
     }

@@ -9,6 +9,10 @@
 import SwiftUI
 
 class PhotoDetailSettings: ObservableObject {
+    @Published var selectedTab: Tab = .plants
+
     @Published var newPhoto: Photo? = nil
     @Published var shouldShowNewPhoto: Bool = false
+
+    @Published var isAddingPhotoToPlant: Bool = false
 }
