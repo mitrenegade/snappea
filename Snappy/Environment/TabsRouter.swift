@@ -8,7 +8,8 @@
 
 import SwiftUI
 
-class HomeViewRouter: ObservableObject {
-
+/// Global state for selected tab
+class TabsRouter: ObservableObject {
+    @Published var selectedTab: Tab = .plants
 }
 

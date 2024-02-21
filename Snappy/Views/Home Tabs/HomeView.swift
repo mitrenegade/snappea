@@ -15,7 +15,7 @@ enum Tab: Hashable {
 }
 
 struct HomeView: View {
-    @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
+    @EnvironmentObject var router: TabsRouter
 
     @State var store = MockStore() //LocalStore()
 
@@ -30,7 +30,7 @@ struct HomeView: View {
     }
 
     var body: some View {
-        TabView(selection: $photoDetailSettings.selectedTab) {
+        TabView(selection: $router.selectedTab) {
             PlantsRoot(store: store)
                 .tabItem {
                     // BR TODO make this a snap pea icon

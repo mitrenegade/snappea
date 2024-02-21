@@ -12,7 +12,7 @@ import Combine
 
 /// Displays an index of plants
 struct PlantsRoot<T>: View where T: Store {
-    @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
+    @EnvironmentObject var photoEnvironment: PhotoEnvironment
 
     @ObservedObject var store: T
 
@@ -84,9 +84,9 @@ struct PlantsRoot<T>: View where T: Store {
     
     var newPhotoView: some View {
         Group {
-            if let photo = photoDetailSettings.newPhoto {
+            if let photo = photoEnvironment.newPhoto {
                 NavigationLink(destination: PhotoDetailView(photo: photo, store: store),
-                               isActive: $photoDetailSettings.shouldShowNewPhoto) {
+                               isActive: $photoEnvironment.shouldShowNewPhoto) {
                                 EmptyView()
                 }
             }

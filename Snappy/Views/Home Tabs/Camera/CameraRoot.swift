@@ -14,7 +14,8 @@ struct CameraRoot<T>: View where T: Store {
     @State private var showingSheet = false
     @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
     
-    @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
+    @EnvironmentObject var photoEnvironment: PhotoEnvironment
+    @EnvironmentObject var router: TabsRouter
 
     private let store: T
 
@@ -142,9 +143,9 @@ struct CameraRoot<T>: View where T: Store {
     
     @MainActor
     func displayNewPhotoDetail(photo: Photo) {
-        self.photoDetailSettings.selectedTab = .gallery
-        self.photoDetailSettings.newPhoto = photo
-        self.photoDetailSettings.shouldShowNewPhoto = true
+        self.router.selectedTab = .gallery
+        self.photoEnvironment.newPhoto = photo
+        self.photoEnvironment.shouldShowNewPhoto = true
     }
 }
 //

@@ -17,7 +17,8 @@ protocol PlantGalleryDelegate {
 struct PlantGalleryView<T>: View where T: Store {
     private let plant: Plant
 
-    @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
+    @EnvironmentObject var photoEnvironment: PhotoEnvironment
+    @EnvironmentObject var router: TabsRouter
 
     @ObservedObject var store: T
 
@@ -44,8 +45,8 @@ struct PlantGalleryView<T>: View where T: Store {
 
     private var addSnapButton: some View {
         Button(action: {
-            photoDetailSettings.selectedTab = .camera
-            photoDetailSettings.isAddingPhotoToPlant = true
+            router.selectedTab = .camera
+            photoEnvironment.isAddingPhotoToPlant = true
         }) {
             Image(systemName: "photo.badge.plus")
         }

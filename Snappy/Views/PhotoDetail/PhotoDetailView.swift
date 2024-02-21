@@ -11,8 +11,6 @@ import Combine
 
 /// A detail view based on a photo and all its attributes, including all snaps
 struct PhotoDetailView<T>: View where T: Store {
-    @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
-
     @ObservedObject var store: T
 
     private let photo: Photo
