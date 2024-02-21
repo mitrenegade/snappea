@@ -17,7 +17,7 @@ enum Tab: Hashable {
 struct HomeView: View {
     @EnvironmentObject var router: TabsRouter
 
-    @State var store = MockStore() //LocalStore()
+    @State var store = LocalStore()
 
     init(user: User) {
         self.load(user: user)

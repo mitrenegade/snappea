@@ -137,13 +137,18 @@ struct CameraRoot<T>: View where T: Store {
             return nil
         }
 
-        let photo = try? await store.createPhoto(image: image)
-        return photo
+        do {
+            let photo = try await store.createPhoto(image: image)
+            return photo
+        } catch {
+            print("Save photo error \(error)")
+            return nil
+        }
     }
     
     @MainActor
     func displayNewPhotoDetail(photo: Photo) {
-        self.router.selectedTab = .gallery
+        self.router.selectedTab = .plants
         self.photoEnvironment.newPhoto = photo
         self.photoEnvironment.shouldShowNewPhoto = true
     }

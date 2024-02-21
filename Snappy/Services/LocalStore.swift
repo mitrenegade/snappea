@@ -96,7 +96,7 @@ class LocalStore: Store {
                 let data = try Data(contentsOf: url)
                 let photo = try JSONDecoder().decode(Photo.self, from: data)
 
-                let image = try ImageStore().loadImage(name: photo.id)
+                let image = try imageStore.loadImage(name: photo.id)
                 cachePhoto(photo, image: image)
             }
             readWriteQueue.sync {
@@ -116,7 +116,9 @@ class LocalStore: Store {
     private var snapCache: [String: Snap] = [:]
     private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
     private var imageCache = TemporaryImageCache()
-    private let imageStore = ImageStore()
+    private lazy var imageStore: ImageStore = {
+        ImageStore(baseURL: self.subpath("image"))
+    }()
 
     // MARK: -
 
@@ -202,12 +204,13 @@ class LocalStore: Store {
     public func createPhoto(image: UIImage) throws -> Photo {
         let id = UUID().uuidString
         let timestamp = Date().timeIntervalSince1970
-        let photo = Photo(id: id, timestamp: timestamp)
 
-        let url = subpath("photo").appending(path: photo.id)
-        try imageStore.saveImage(image, name: photo.id)
+        let imageURL = try imageStore.saveImage(image, name: id)
+        let photo = Photo(id: id, url: imageURL.absoluteString, timestamp: timestamp)
+
+        let objectUrl = subpath("photo").appending(path: photo.id)
         let data = try JSONEncoder().encode(photo)
-        try data.write(to: url, options: [.atomic, .completeFileProtection])
+        try data.write(to: objectUrl, options: [.atomic, .completeFileProtection])
 
         cachePhoto(photo, image: image)
         readWriteQueue.sync {
