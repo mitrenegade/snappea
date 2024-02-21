@@ -12,8 +12,6 @@ import Combine
 
 /// Displays an index of plants
 struct PlantsRoot<T>: View where T: Store {
-    @EnvironmentObject var photoEnvironment: PhotoEnvironment
-
     @ObservedObject var store: T
 
     init(store: T) {
@@ -40,7 +38,6 @@ struct PlantsRoot<T>: View where T: Store {
                         listView
                     }
                 }
-                newPhotoView
                 Spacer()
             }
             .navigationBarItems(leading: logoutButton,
@@ -77,17 +74,6 @@ struct PlantsRoot<T>: View where T: Store {
 
                 NavigationLink(destination: PlantGalleryView(plant: plant, store: store)) {
                     PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
-                }
-            }
-        }
-    }
-    
-    var newPhotoView: some View {
-        Group {
-            if let photo = photoEnvironment.newPhoto {
-                NavigationLink(destination: PhotoDetailView(photo: photo, store: store),
-                               isActive: $photoEnvironment.shouldShowNewPhoto) {
-                                EmptyView()
                 }
             }
         }

@@ -148,7 +148,7 @@ struct CameraRoot<T>: View where T: Store {
     
     @MainActor
     func displayNewPhotoDetail(photo: Photo) {
-        self.router.selectedTab = .plants
+        self.router.selectedTab = .gallery
         self.photoEnvironment.newPhoto = photo
         self.photoEnvironment.shouldShowNewPhoto = true
     }

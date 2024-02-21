@@ -12,16 +12,16 @@ import Combine
 
 /// Displays a gallery of photos
 struct GalleryRoot<T>: View where T: Store {
-    @ObservedObject var store: T
+    @EnvironmentObject var photoEnvironment: PhotoEnvironment
 
-//    @ObservedObject var viewModel: PhotoGalleryViewModel
+    @ObservedObject var store: T
 
     public init(store: T) {
         self.store = store
     }
 
     var body: some View {
-        NavigationStack{
+        NavigationView {
             Group {
                 if TESTING {
                     Text("GalleryRoot").font(.title)
@@ -40,12 +40,23 @@ struct GalleryRoot<T>: View where T: Store {
                         galleryView
                     }
                 }
+                newPhotoView
                 Spacer()
             }
             .navigationBarItems(leading: logoutButton)
         }
     }
 
+    var newPhotoView: some View {
+        Group {
+            if let photo = photoEnvironment.newPhoto {
+                NavigationLink(destination: PhotoDetailView(photo: photo, store: store),
+                               isActive: $photoEnvironment.shouldShowNewPhoto) {
+                                EmptyView()
+                }
+            }
+        }
+    }
 
     private var logoutButton = {
         Button(action: {
