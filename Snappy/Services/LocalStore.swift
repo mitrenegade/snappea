@@ -22,18 +22,14 @@ class LocalStore: Store {
         }
     }
 
-    @Published var isLoading: Bool
+    @Published var isLoading: Bool = true
 
-    init() {
-        isLoading = true
-        /// create base url with gardenID as the first path
+    func purge() {
         do {
-            let url = try baseURL
-            if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
-                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
-            }
+            try FileManager.default.removeItem(atPath: baseURL.path)
+            print("File directory purged")
         } catch {
-            print("Could not create path but ignoring: \(error)")
+            print("Error purging")
         }
     }
 
@@ -57,6 +53,15 @@ class LocalStore: Store {
         isLoading = true
 
         self.gardenID = id
+        /// create base url with gardenID as the first path
+        do {
+            let url = try baseURL
+            if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
+            }
+        } catch {
+            print("Could not create path but ignoring: \(error)")
+        }
 
         do {
             let plantPath = subpath("plant")
