@@ -63,6 +63,6 @@ protocol Store: ObservableObject {
 
     @discardableResult func createPhoto(image: UIImage) async throws -> Photo
 
-    @discardableResult func createSnap(photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap
+    @discardableResult func createSnap(plant: Plant?, photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap
 }
 

@@ -12,3 +12,8 @@ struct NormalizedCoordinate: Codable {
     var x: Double
     var y: Double
 }
+
+extension NormalizedCoordinate {
+    static let start = NormalizedCoordinate(x: -1, y: -1)
+    static let end = NormalizedCoordinate(x: 1, y: 1)
+}

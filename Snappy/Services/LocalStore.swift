@@ -239,10 +239,10 @@ class LocalStore: Store {
         return plant
     }
 
-    func createSnap(photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
+    func createSnap(plant: Plant?, photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
         print("createSnap startCoord: \(start) endCoord \(end)")
 
-        let snap = Snap(photoId: photo.id, start: start, end: end)
+        let snap = Snap(plantId: plant?.id, photoId: photo.id, start: start, end: end)
         let url = try baseURL.appending(path: "snap").appending(path: snap.id)
         let data = try JSONEncoder().encode(snap)
         try data.write(to: url, options: [.atomic, .completeFileProtection])
