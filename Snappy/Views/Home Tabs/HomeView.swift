@@ -22,6 +22,7 @@ struct HomeView: View {
 
     init(user: User) {
         self.load(user: user)
+//        store.purge(id: user.id)
     }
 
     private func load(user: User) {

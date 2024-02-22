@@ -24,9 +24,10 @@ class LocalStore: Store {
 
     @Published var isLoading: Bool = true
 
-    func purge() {
+    func purge(id: String) {
         do {
-            try FileManager.default.removeItem(atPath: baseURL.path)
+            let url = try baseURL.appendingPathComponent(id)
+            try FileManager.default.removeItem(atPath: url.path)
             print("File directory purged")
         } catch {
             print("Error purging")
