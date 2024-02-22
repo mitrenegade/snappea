@@ -14,8 +14,13 @@ import Combine
 struct PlantsRoot<T>: View where T: Store {
     @ObservedObject var store: T
 
-    init(store: T) {
+    private let imageLoaderType: any ImageLoader.Type
+
+    init(store: T,
+         imageLoaderType: any ImageLoader.Type
+    ) {
         self.store = store
+        self.imageLoaderType = imageLoaderType
     }
 
     var body: some View {
@@ -72,8 +77,8 @@ struct PlantsRoot<T>: View where T: Store {
                     .sorted { $0.timestamp > $1.timestamp }
                     .first
 
-                NavigationLink(destination: PlantGalleryView(plant: plant, store: store)) {
-                    PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
+                NavigationLink(destination: PlantGalleryView(plant: plant, store: store, imageLoaderType: imageLoaderType)) {
+                    PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo), imageLoaderType: imageLoaderType)
                 }
             }
         }

@@ -13,8 +13,13 @@ struct PhotoRow: View {
     private let imageSize = CGSize(width: 80, height: 80)
     @ObservedObject var photoRowViewModel: PhotoRowViewModel
 
-    init(photo: Photo) {
+    private let imageLoaderType: any ImageLoader.Type
+
+    init(photo: Photo,
+         imageLoaderType: any ImageLoader.Type
+    ) {
         self.photoRowViewModel = PhotoRowViewModel(photo: photo)
+        self.imageLoaderType = imageLoaderType
     }
     
     var body: some View {
@@ -26,19 +31,19 @@ struct PhotoRow: View {
                     .aspectRatio(contentMode: .fit)
                     .clipped()
             } else {
-                AsyncImageView(url: $photoRowViewModel.url.wrappedValue,
-                               frame: CGSize(width: imageSize.width, height: imageSize.height),
-                               placeholder: Text("Loading..."),
-                               cache: TemporaryImageCache.shared)
-                .aspectRatio(contentMode: .fill)
+                let imageLoader = imageLoaderType.init(url: $photoRowViewModel.url.wrappedValue, cache: TemporaryImageCache.shared)
+                let frame = CGSize(width: imageSize.width, height: imageSize.height)
+                let placeholder = Text("Loading...")
+                AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
+                    .aspectRatio(contentMode: .fill)
             }
             Text($photoRowViewModel.textString.wrappedValue)
         }
     }
 }
 
-struct PhotoRow_Previews: PreviewProvider {
-    static var previews: some View {
-        PhotoRow(photo: Stub.photoData[0])
-    }
-}
+//struct PhotoRow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PhotoRow(photo: Stub.photoData[0])
+//    }
+//}

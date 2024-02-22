@@ -16,8 +16,12 @@ struct GalleryRoot<T>: View where T: Store {
 
     @ObservedObject var store: T
 
-    public init(store: T) {
+    private let imageLoaderType: any ImageLoader.Type
+
+    init(store: T,
+         imageLoaderType: any ImageLoader.Type) {
         self.store = store
+        self.imageLoaderType = imageLoaderType
     }
 
     var body: some View {
@@ -50,7 +54,9 @@ struct GalleryRoot<T>: View where T: Store {
     var newPhotoView: some View {
         Group {
             if let photo = photoEnvironment.newPhoto {
-                NavigationLink(destination: PhotoDetailView(photo: photo, store: store),
+                NavigationLink(destination: PhotoDetailView(photo: photo,
+                                                            store: store,
+                                                            imageLoaderType: imageLoaderType),
                                isActive: $photoEnvironment.shouldShowNewPhoto) {
                                 EmptyView()
                 }
@@ -68,8 +74,7 @@ struct GalleryRoot<T>: View where T: Store {
 
     private var galleryView: some View {
         if #available(iOS 17.0, *) {
-            PhotoGalleryView(store: store)
-//                .environment(viewModel)
+            PhotoGalleryView(store: store, imageLoaderType: imageLoaderType)
         } else {
             // BR TODO handle safely
             fatalError()

@@ -16,6 +16,8 @@ struct SnapRow: View {
     private let isDisabled: Bool
     private let imageSize = CGSize(width: 50, height: 50)
 
+    private let imageLoaderType: any ImageLoader.Type
+
     var body: some View {
         HStack {
             if let url = URL(string: photo.url) {
@@ -27,10 +29,11 @@ struct SnapRow: View {
                         .aspectRatio(contentMode: .fit)
                         .clipped()
                 } else {
-                    AsyncImageView(url: url,
-                                   frame: CGSize(width: imageSize.width, height: imageSize.height),
-                                   placeholder: Image("folder.badge.questionmark").frame(width: imageSize.width, height: imageSize.height),
-                                   cache: TemporaryImageCache.shared)
+                    let imageLoader = imageLoaderType.init(url: url, cache: TemporaryImageCache.shared)
+                    let frame = CGSize(width: imageSize.width, height: imageSize.height)
+                    let placeholder = Image("folder.badge.questionmark").frame(width: imageSize.width, height: imageSize.height)
+                    AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
+                        .aspectRatio(contentMode: .fill)
                 }
             } else {
                 Image("folder.badge.question")
@@ -46,10 +49,15 @@ struct SnapRow: View {
         .opacity(isDisabled ? 0.5 : 1)
     }
     
-    init?(snap: Snap, photo: Photo, isDisabled: Bool = false) {
+    init?(snap: Snap,
+          photo: Photo,
+          isDisabled: Bool = false,
+          imageLoaderType: any ImageLoader.Type
+    ) {
         self.snap = snap
         self.photo = photo
         self.isDisabled = isDisabled
+        self.imageLoaderType = imageLoaderType
 
         dateString = photo.dateString
         notes = snap.notes

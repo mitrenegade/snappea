@@ -12,16 +12,23 @@ import Combine
 import Foundation
 
 struct AsyncImageView<Placeholder: View>: View {
-    @ObservedObject private var loader: ImageLoader
+    private var loader: any ImageLoader
+
     private let placeholder: Placeholder?
     private var frame: CGSize?
 
-    init(url: URL, frame: CGSize?, placeholder: Placeholder? = nil, cache: ImageCache? = nil) {
-        loader = ImageLoader(url: url, cache: cache)
+//    init(url: URL, frame: CGSize?, placeholder: Placeholder? = nil, cache: ImageCache? = nil) {
+//        loader = NetworkImageLoader(url: url, cache: cache)
+//        self.placeholder = placeholder
+//        self.frame = frame
+//    }
+
+    init(imageLoader: any ImageLoader, frame: CGSize?, placeholder: Placeholder? = nil) {
+        loader = imageLoader
         self.placeholder = placeholder
         self.frame = frame
     }
-    
+
     var body: some View {
         image
             .onAppear(perform: loader.load)

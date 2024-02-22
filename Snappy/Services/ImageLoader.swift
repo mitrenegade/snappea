@@ -10,14 +10,21 @@ import SwiftUI
 import Combine
 import Foundation
 
-class ImageLoader: ObservableObject {
+protocol ImageLoader: ObservableObject {
+    func load()
+    func cancel()
+    var image: UIImage? { get }
+    init(url: URL, cache: ImageCache?)
+}
+
+class NetworkImageLoader: ImageLoader {
     @Published var image: UIImage?
     private let url: URL
     private var cancellable: AnyCancellable?
     
     private var cache: ImageCache?
     
-    init(url: URL, cache: ImageCache? = TemporaryImageCache.shared) {
+    required init(url: URL, cache: ImageCache? = TemporaryImageCache.shared) {
         self.url = url
         self.cache = cache
     }
