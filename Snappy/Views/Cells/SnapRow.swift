@@ -30,7 +30,6 @@ struct SnapRow: View {
                         .clipped()
                 } else {
                     let imageLoader = imageLoaderType.init(url: url, cache: TemporaryImageCache.shared)
-                    let frame = CGSize(width: imageSize.width, height: imageSize.height)
                     let placeholder = Image("folder.badge.questionmark").frame(width: imageSize.width, height: imageSize.height)
                     AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
                         .aspectRatio(contentMode: .fill)

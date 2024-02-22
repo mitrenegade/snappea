@@ -17,8 +17,8 @@ enum Tab: Hashable {
 struct HomeView: View {
     @EnvironmentObject var router: TabsRouter
 
-    @State var store = MockStore() //LocalStore()
-    @State var imageLoaderType: any ImageLoader.Type = NetworkImageLoader.self
+    @State var store = LocalStore()
+    @State var imageLoaderType: any ImageLoader.Type = DiskImageLoader.self //NetworkImageLoader.self
 
     init(user: User) {
         self.load(user: user)

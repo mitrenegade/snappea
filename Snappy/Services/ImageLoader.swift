@@ -62,3 +62,39 @@ class NetworkImageLoader: ImageLoader {
     }
     
 }
+
+class DiskImageLoader: ImageLoader {
+    @Published var image: UIImage?
+    private let url: URL
+//    private var cancellable: AnyCancellable?
+
+    private var cache: ImageCache?
+
+    private let imageStore: ImageStore
+
+    /// URL: the url of an actual image
+    required init(url: URL, cache: ImageCache? = TemporaryImageCache.shared) {
+        self.url = url
+        self.cache = cache
+        self.imageStore = ImageStore(baseURL: url)
+    }
+
+//    deinit {
+//        cancellable?.cancel()
+//    }
+
+    func load() {
+//        cancellable = URLSession.shared.dataTaskPublisher(for: url)
+//            .map{ UIImage(data: $0.data) }
+//            .replaceError(with: nil)
+//            .handleEvents(receiveOutput: { [weak self] in self?.addToCache($0) })
+//            .receive(on: DispatchQueue.main)
+//            .assign(to: \.image, on: self)
+        image = try? imageStore.loadImage(name: "")
+    }
+
+    func cancel() {
+        // no op
+//        cancellable?.cancel()
+    }
+}
