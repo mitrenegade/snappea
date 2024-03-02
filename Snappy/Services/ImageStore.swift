@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 import Foundation
 
-/// Persists images
+/// Persists images locally
 final class ImageStore {
     enum ImageStoreError: Error {
         case documentsDirectoryError
