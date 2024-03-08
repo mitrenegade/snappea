@@ -33,14 +33,17 @@ struct PlantGalleryView<T>: View where T: Store {
     }
 
     var body: some View {
-        VStack {
+        VStack(spacing: 4) {
             Text(title)
             PlantBasicView(plant: plant, photo:
                             store.photos(for: plant).first,
                            imageLoaderType: imageLoaderType)
-            SnapsListView(plant: plant, store: store, imageLoaderType: imageLoaderType)
+            SnapsListView(plant: plant, store: store, imageLoaderType: imageLoaderType) {
+                router.selectedTab = .camera
+                photoEnvironment.isAddingPhotoToPlant = true
+            }
         }
-        .navigationBarItems(trailing: addSnapButton)
+//        .navigationBarItems(trailing: addSnapButton)
     }
 
     init(plant: Plant,
@@ -52,12 +55,13 @@ struct PlantGalleryView<T>: View where T: Store {
         self.imageLoaderType = imageLoaderType
     }
 
-    private var addSnapButton: some View {
-        Button(action: {
-            router.selectedTab = .camera
-            photoEnvironment.isAddingPhotoToPlant = true
-        }) {
-            Image(systemName: "photo.badge.plus")
-        }
-    }
+//    private var addSnapButton: some View {
+//        Button(action: {
+//            router.selectedTab = .camera
+//            photoEnvironment.isAddingPhotoToPlant = true
+//        }) {
+//            Image(systemName: "photo.badge.plus")
+//        }
+//    }
+
 }
