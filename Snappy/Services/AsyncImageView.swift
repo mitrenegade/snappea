@@ -27,12 +27,13 @@ struct AsyncImageView<Placeholder: View>: View {
         loader = imageLoader
         self.placeholder = placeholder
         self.frame = frame
+        loader.load()
     }
 
     var body: some View {
         image
-            .onAppear(perform: loader.load)
-            .onDisappear(perform: loader.cancel)
+//            .onAppear(perform: loader.load)
+//            .onDisappear(perform: loader.cancel)
     }
     
     var image: some View {

@@ -66,6 +66,14 @@ class NetworkImageLoader: ImageLoader {
 class DiskImageLoader: ImageLoader {
     @Published var image: UIImage?
 
+    var imageValue: Published<UIImage?> {
+        return _image
+    }
+
+    var imagePublisher: Published<UIImage?>.Publisher {
+        return $image
+    }
+
     private let name: String
 
     private let baseURL: URL

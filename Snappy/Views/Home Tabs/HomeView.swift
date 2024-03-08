@@ -18,7 +18,7 @@ struct HomeView: View {
     @EnvironmentObject var router: TabsRouter
 
     @State var store = LocalStore()
-    @State var imageLoaderType: any ImageLoader.Type = DiskImageLoader.self //NetworkImageLoader.self
+    @State var imageLoaderType = DiskImageLoader.self //NetworkImageLoader.self
 
     init(user: User) {
         self.load(user: user)
