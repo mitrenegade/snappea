@@ -38,8 +38,8 @@ struct AsyncImageView<Placeholder: View>: View {
     
     var image: some View {
         Group {
-            if loader.image != nil {
-                Image(uiImage: loader.image!)
+            if let image = loader.image  {
+                Image(uiImage: image)
                     .resizable()
                     .frame(width: self.frame?.width, height: self.frame?.height, alignment: .center)
             } else {
