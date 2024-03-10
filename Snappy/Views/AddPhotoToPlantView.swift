@@ -21,15 +21,7 @@ struct AddPhotoToPlantView<T>: View where T: Store {
     private let plant: Plant
 
 //    @ObservedObject var viewModel: AddPlantViewModel<T>
-    @State var imageSelection: PhotosPickerItem? = nil {
-        didSet {
-            if let imageSelection {
-                loadTransferable(from: imageSelection)
-            } else {
-                // no op
-            }
-        }
-    }
+    @State var imageSelection: PhotosPickerItem?
 
     @State var isShowingSaveButton: Bool = false
 
@@ -66,7 +58,17 @@ struct AddPhotoToPlantView<T>: View where T: Store {
                         .foregroundColor(Color.black)
                         .background(Color.green)
                         .clipShape(Circle())
-                }.buttonStyle(.borderless)
+                }
+                             .buttonStyle(.borderless)
+                                .onChange(of: imageSelection) { oldValue, newValue in
+                                 Task {
+                                     if let data = try? await imageSelection?.loadTransferable(type: Data.self),
+                                     let loadedImage = UIImage(data: data) {
+                                         uiImage = loadedImage
+                                         image = Image(uiImage: loadedImage)
+                                     }
+                                 }
+                             }
             }
         }
         .navigationBarItems(trailing: saveButton)
@@ -78,7 +80,7 @@ struct AddPhotoToPlantView<T>: View where T: Store {
 
     private var saveButton: some View {
         Button(action: {
-//            viewModel.savePlant() {
+//            savePhoto()
             // TODO: Save photo to plant
                 DispatchQueue.main.async {
                     self.presentationMode.wrappedValue.dismiss()
