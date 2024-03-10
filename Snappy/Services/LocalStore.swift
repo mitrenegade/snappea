@@ -22,18 +22,15 @@ class LocalStore: Store {
         }
     }
 
-    @Published var isLoading: Bool
+    @Published var isLoading: Bool = true
 
-    init() {
-        isLoading = true
-        /// create base url with gardenID as the first path
+    func purge(id: String) {
         do {
-            let url = try baseURL
-            if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
-                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
-            }
+            let url = try baseURL.appendingPathComponent(id)
+            try FileManager.default.removeItem(atPath: url.path)
+            print("File directory purged")
         } catch {
-            print("Could not create path but ignoring: \(error)")
+            print("Error purging")
         }
     }
 
@@ -57,6 +54,15 @@ class LocalStore: Store {
         isLoading = true
 
         self.gardenID = id
+        /// create base url with gardenID as the first path
+        do {
+            let url = try baseURL
+            if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
+            }
+        } catch {
+            print("Could not create path but ignoring: \(error)")
+        }
 
         do {
             let plantPath = subpath("plant")
@@ -96,7 +102,7 @@ class LocalStore: Store {
                 let data = try Data(contentsOf: url)
                 let photo = try JSONDecoder().decode(Photo.self, from: data)
 
-                let image = try ImageStore().loadImage(name: photo.id)
+                let image = try imageStore.loadImage(name: photo.id)
                 cachePhoto(photo, image: image)
             }
             readWriteQueue.sync {
@@ -116,7 +122,9 @@ class LocalStore: Store {
     private var snapCache: [String: Snap] = [:]
     private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
     private var imageCache = TemporaryImageCache()
-    private let imageStore = ImageStore()
+    private lazy var imageStore: ImageStore = {
+        ImageStore(baseURL: self.subpath("image"))
+    }()
 
     // MARK: -
 
@@ -202,12 +210,13 @@ class LocalStore: Store {
     public func createPhoto(image: UIImage) throws -> Photo {
         let id = UUID().uuidString
         let timestamp = Date().timeIntervalSince1970
-        let photo = Photo(id: id, timestamp: timestamp)
 
-        let url = subpath("photo").appending(path: photo.id)
-        try imageStore.saveImage(image, name: photo.id)
+        let imageURL = try imageStore.saveImage(image, name: id)
+        let photo = Photo(id: id, url: imageURL.absoluteString, timestamp: timestamp)
+
+        let objectUrl = subpath("photo").appending(path: photo.id)
         let data = try JSONEncoder().encode(photo)
-        try data.write(to: url, options: [.atomic, .completeFileProtection])
+        try data.write(to: objectUrl, options: [.atomic, .completeFileProtection])
 
         cachePhoto(photo, image: image)
         readWriteQueue.sync {
@@ -230,10 +239,10 @@ class LocalStore: Store {
         return plant
     }
 
-    func createSnap(photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
+    func createSnap(plant: Plant?, photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
         print("createSnap startCoord: \(start) endCoord \(end)")
 
-        let snap = Snap(photoId: photo.id, start: start, end: end)
+        let snap = Snap(plantId: plant?.id, photoId: photo.id, start: start, end: end)
         let url = try baseURL.appending(path: "snap").appending(path: snap.id)
         let data = try JSONEncoder().encode(snap)
         try data.write(to: url, options: [.atomic, .completeFileProtection])

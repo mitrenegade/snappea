@@ -1,5 +1,5 @@
 //
-//  PhotoDetailSettings.swift
+//  PhotoEnvironment.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 5/17/20.
@@ -8,7 +8,11 @@
 
 import SwiftUI
 
-class PhotoDetailSettings: ObservableObject {
+/// Global environment for adding new photos
+class PhotoEnvironment: ObservableObject {
     @Published var newPhoto: Photo? = nil
     @Published var shouldShowNewPhoto: Bool = false
+
+    // if true, returns to plant gallery
+    @Published var isAddingPhotoToPlant: Bool = false
 }

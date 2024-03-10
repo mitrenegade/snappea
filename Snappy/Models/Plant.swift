@@ -10,9 +10,19 @@ enum PlantType: String, Codable, CaseIterable, Identifiable {
     case tomato
     case cucumber
     case lettuce
+    case squash
     case unknown
 
     var id: Self { self }
+
+    init?(rawValue: String) {
+        for type in PlantType.allCases {
+            if rawValue == type.rawValue {
+                self = type
+            }
+        }
+        self = .unknown
+    }
 }
 enum Category: String, Codable, CaseIterable, Identifiable {
     case nightshade

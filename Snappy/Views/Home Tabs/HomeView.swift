@@ -15,12 +15,14 @@ enum Tab: Hashable {
 }
 
 struct HomeView: View {
-    @State var store = MockStore() //LocalStore()
+    @EnvironmentObject var router: TabsRouter
 
-    @State var selectedTab: Tab = .plants
+    @State var store = LocalStore()
+    @State var imageLoaderType = DiskImageLoader.self //NetworkImageLoader.self
 
     init(user: User) {
         self.load(user: user)
+        store.purge(id: user.id)
     }
 
     private func load(user: User) {
@@ -30,19 +32,19 @@ struct HomeView: View {
     }
 
     var body: some View {
-        TabView(selection: $selectedTab) {
-            PlantsRoot(store: store)
+        TabView(selection: $router.selectedTab) {
+            PlantsRoot(store: store, imageLoaderType: imageLoaderType)
                 .tabItem {
                     // BR TODO make this a snap pea icon
                     Image(systemName: "leaf.fill")
                     Text("Plants")
                 }.tag(Tab.plants)
-            GalleryRoot(store: store)
+            GalleryRoot(store: store, imageLoaderType: imageLoaderType)
                 .tabItem {
                     Image(systemName: "photo.fill")
                     Text("Gallery")
                 }.tag(Tab.gallery)
-            CameraRoot(store: store, selectedTab: selectedTab)
+            CameraRoot(store: store)
                 .tabItem {
                     Image(systemName: "camera.fill")
                     Text("Camera")

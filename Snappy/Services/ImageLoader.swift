@@ -10,14 +10,21 @@ import SwiftUI
 import Combine
 import Foundation
 
-class ImageLoader: ObservableObject {
+protocol ImageLoader: ObservableObject {
+    func load()
+    func cancel()
+    var image: UIImage? { get }
+    init(url: URL, cache: ImageCache?)
+}
+
+class NetworkImageLoader: ImageLoader {
     @Published var image: UIImage?
     private let url: URL
     private var cancellable: AnyCancellable?
     
     private var cache: ImageCache?
     
-    init(url: URL, cache: ImageCache? = TemporaryImageCache.shared) {
+    required init(url: URL, cache: ImageCache? = TemporaryImageCache.shared) {
         self.url = url
         self.cache = cache
     }
@@ -54,4 +61,42 @@ class ImageLoader: ObservableObject {
         image.map { cache?[url.absoluteString] = $0 }
     }
     
+}
+
+class DiskImageLoader: ImageLoader {
+    @Published var image: UIImage?
+
+    var imageValue: Published<UIImage?> {
+        return _image
+    }
+
+    var imagePublisher: Published<UIImage?>.Publisher {
+        return $image
+    }
+
+    private let name: String
+
+    private let baseURL: URL
+
+    private var cache: ImageCache?
+
+    private let imageStore: ImageStore
+
+    /// - Parameters:
+    ///    - url: the url of an actual image
+    required init(url: URL, cache: ImageCache? = TemporaryImageCache.shared) {
+        self.cache = cache
+        self.baseURL = url.deletingLastPathComponent()
+        self.name = url.lastPathComponent
+        self.imageStore = ImageStore(baseURL: baseURL)
+    }
+
+    func load() {
+        image = try? imageStore.loadImage(name: name)
+    }
+
+    func cancel() {
+        // no op
+//        cancellable?.cancel()
+    }
 }

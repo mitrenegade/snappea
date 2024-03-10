@@ -14,15 +14,13 @@ struct CameraRoot<T>: View where T: Store {
     @State private var showingSheet = false
     @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
     
-    @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
+    @EnvironmentObject var photoEnvironment: PhotoEnvironment
+    @EnvironmentObject var router: TabsRouter
 
     private let store: T
 
-    @State var selectedTab: Tab
-
-    init(store: T, selectedTab: Tab) {
+    init(store: T) {
         self.store = store
-        self.selectedTab = selectedTab
     }
 
     var body: some View {
@@ -139,15 +137,20 @@ struct CameraRoot<T>: View where T: Store {
             return nil
         }
 
-        let photo = try? await store.createPhoto(image: image)
-        return photo
+        do {
+            let photo = try await store.createPhoto(image: image)
+            return photo
+        } catch {
+            print("Save photo error \(error)")
+            return nil
+        }
     }
     
     @MainActor
     func displayNewPhotoDetail(photo: Photo) {
-        selectedTab = .gallery
-        self.photoDetailSettings.newPhoto = photo
-        self.photoDetailSettings.shouldShowNewPhoto = true
+        self.router.selectedTab = .gallery
+        self.photoEnvironment.newPhoto = photo
+        self.photoEnvironment.shouldShowNewPhoto = true
     }
 }
 //

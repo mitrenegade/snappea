@@ -12,12 +12,15 @@ import Combine
 
 /// Displays an index of plants
 struct PlantsRoot<T>: View where T: Store {
-    @EnvironmentObject var photoDetailSettings: PhotoDetailSettings
-
     @ObservedObject var store: T
 
-    public init(store: T) {
+    private let imageLoaderType: any ImageLoader.Type
+
+    init(store: T,
+         imageLoaderType: any ImageLoader.Type
+    ) {
         self.store = store
+        self.imageLoaderType = imageLoaderType
     }
 
     var body: some View {
@@ -40,7 +43,6 @@ struct PlantsRoot<T>: View where T: Store {
                         listView
                     }
                 }
-                newPhotoView
                 Spacer()
             }
             .navigationBarItems(leading: logoutButton,
@@ -75,19 +77,8 @@ struct PlantsRoot<T>: View where T: Store {
                     .sorted { $0.timestamp > $1.timestamp }
                     .first
 
-                NavigationLink(destination: PlantGalleryView(plant: plant, store: store)) {
-                    PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
-                }
-            }
-        }
-    }
-    
-    var newPhotoView: some View {
-        Group {
-            if let photo = photoDetailSettings.newPhoto {
-                NavigationLink(destination: PhotoDetailView(photo: photo, store: store),
-                               isActive: $photoDetailSettings.shouldShowNewPhoto) {
-                                EmptyView()
+                NavigationLink(destination: PlantGalleryView(plant: plant, store: store, imageLoaderType: imageLoaderType)) {
+                    PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo), imageLoaderType: imageLoaderType)
                 }
             }
         }

@@ -16,5 +16,11 @@
         "name": "Lettuce1",
         "type": "lettuce",
         "category": "leafy"
+    },
+    {
+        "id": "plant4",
+        "name": "Squash",
+        "type": "squash",
+        "category": "cucurbit"
     }
 ]

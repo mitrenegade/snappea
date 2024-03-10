@@ -51,7 +51,7 @@ class SnapOverlayViewModel<T>: ObservableObject where T: Store {
         Task {
             let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: imageSize, start: start, end: end)
 
-            if let snap = try? await store.createSnap(photo: photo, start: startCoord, end: endCoord) {
+            if let snap = try? await store.createSnap(plant: nil, photo: photo, start: startCoord, end: endCoord) {
                 snaps.append(snap)
             }
         }

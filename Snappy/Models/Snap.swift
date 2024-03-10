@@ -19,8 +19,11 @@ struct Snap: Identifiable, Codable {
     var end: NormalizedCoordinate
     var notes: String = ""
 
-    init(photoId: String, start: NormalizedCoordinate, end: NormalizedCoordinate) {
+    init(plantId: String?, photoId: String, start: NormalizedCoordinate, end: NormalizedCoordinate) {
         self.id = UUID().uuidString
+        if let plantId {
+            self.plantId = plantId
+        }
         self.photoId = photoId
         self.start = start
         self.end = end

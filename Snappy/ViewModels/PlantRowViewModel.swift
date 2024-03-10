@@ -97,6 +97,8 @@ class PlantRowViewModel: ObservableObject, Identifiable {
             return .blue
         case .tomato:
             return .red
+        case .squash:
+            return .cyan
         case .unknown:
             return .yellow
         }
