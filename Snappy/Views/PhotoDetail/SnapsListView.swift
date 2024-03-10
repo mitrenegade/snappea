@@ -22,8 +22,6 @@ struct SnapsListView<T>: View where T: Store {
 
     private let imageLoaderType: any ImageLoader.Type
 
-    var addSnapHandler: (() -> Void)?
-
     var body: some View {
         if TESTING {
             Text(viewModel.title + "\(selectedSnaps.isEmpty ? "" : " selectedSnap")")
@@ -35,11 +33,6 @@ struct SnapsListView<T>: View where T: Store {
                 if let photo = store.photo(withId: snap.photoId) {
                     SnapRow(snap: snap, photo: photo, isDisabled: !isSelected(snap), imageLoaderType: imageLoaderType)
                 } // else: display error? display snap without photo? filter out this snap?
-            }
-        }
-        if let addSnapHandler {
-            Button("Add a new snap") {
-                addSnapHandler()
             }
         }
     }
@@ -58,28 +51,24 @@ struct SnapsListView<T>: View where T: Store {
     init(photo: Photo,
          selectedSnaps: [Snap]? = nil,
          store: T,
-         imageLoaderType: any ImageLoader.Type,
-         addSnapHandler: (() -> Void)? = nil
+         imageLoaderType: any ImageLoader.Type
     ) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: photo.id, type: .photo, store: store)
         self.imageLoaderType = imageLoaderType
-        self.addSnapHandler = addSnapHandler
     }
 
     /// Creates a SnapsListView based on a given plant
     init(plant: Plant,
          selectedSnaps: [Snap]? = nil,
          store: T,
-         imageLoaderType: any ImageLoader.Type,
-         addSnapHandler: (() -> Void)? = nil
+         imageLoaderType: any ImageLoader.Type
     ) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: plant.id, type: .plant, store: store)
         self.imageLoaderType = imageLoaderType
-        self.addSnapHandler = addSnapHandler
     }
 }
 
