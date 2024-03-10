@@ -54,12 +54,11 @@ struct PlantGalleryView<T>: View where T: Store {
 
     private var addSnapButton: some View {
         Button(action: {
-            photoEnvironment.isAddingPhotoToPlant = true
-            NavigationLink(destination: AddPlantView(store: store)) {
+            // no op
+        }) {
+            NavigationLink(destination: AddPhotoToPlantView(store: store, plant: plant)) {
                 Image(systemName: "photo.badge.plus")
             }
-        }) {
-            Image(systemName: "photo.badge.plus")
         }
     }
 
