@@ -36,7 +36,7 @@
 		8E74F08A244D13F000F5A507 /* Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F089244D13F000F5A507 /* Stub.swift */; };
 		8E74F095244D20C200F5A507 /* CameraRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F094244D20C200F5A507 /* CameraRoot.swift */; };
 		8E74F097244D21F500F5A507 /* CaptureImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F096244D21F500F5A507 /* CaptureImageView.swift */; };
-		8E74F09A244D241000F5A507 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F099244D241000F5A507 /* ImagePicker.swift */; };
+		8E74F09A244D241000F5A507 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F099244D241000F5A507 /* ImagePickerCoordinator.swift */; };
 		8E74F09C244D29EC00F5A507 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8E74F09B244D29EC00F5A507 /* README.md */; };
 		8E74F0A0244D393800F5A507 /* snapData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E74F09F244D393800F5A507 /* snapData.json */; };
 		8E74F0A2244D39E000F5A507 /* photoData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E74F0A1244D39E000F5A507 /* photoData.json */; };
@@ -122,7 +122,7 @@
 		8E74F089244D13F000F5A507 /* Stub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stub.swift; sourceTree = "<group>"; };
 		8E74F094244D20C200F5A507 /* CameraRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRoot.swift; sourceTree = "<group>"; };
 		8E74F096244D21F500F5A507 /* CaptureImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureImageView.swift; sourceTree = "<group>"; };
-		8E74F099244D241000F5A507 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		8E74F099244D241000F5A507 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
 		8E74F09B244D29EC00F5A507 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8E74F09F244D393800F5A507 /* snapData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = snapData.json; sourceTree = "<group>"; };
 		8E74F0A1244D39E000F5A507 /* photoData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = photoData.json; sourceTree = "<group>"; };
@@ -341,7 +341,7 @@
 			children = (
 				8E74F094244D20C200F5A507 /* CameraRoot.swift */,
 				8E74F096244D21F500F5A507 /* CaptureImageView.swift */,
-				8E74F099244D241000F5A507 /* ImagePicker.swift */,
+				8E74F099244D241000F5A507 /* ImagePickerCoordinator.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -638,7 +638,7 @@
 				8E3ABF0A244D7DA300FF378B /* PlantsRoot.swift in Sources */,
 				8EC10BFF245F2EC7004D92EC /* User.swift in Sources */,
 				8E3684CC2B27DB1300B228F3 /* PlantRow.swift in Sources */,
-				8E74F09A244D241000F5A507 /* ImagePicker.swift in Sources */,
+				8E74F09A244D241000F5A507 /* ImagePickerCoordinator.swift in Sources */,
 				8E74F08A244D13F000F5A507 /* Stub.swift in Sources */,
 				8EF1FC712467C4AF005C4DE9 /* CoordinateService.swift in Sources */,
 				8EF1FC772467E69D005C4DE9 /* NormalizedCoordinate.swift in Sources */,

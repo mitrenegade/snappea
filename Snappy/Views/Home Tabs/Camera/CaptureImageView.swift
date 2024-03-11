@@ -14,8 +14,10 @@ struct CaptureImageView {
     @Binding var image: UIImage?
     @Binding var mode: UIImagePickerController.SourceType
 
-    func makeCoordinator() -> ImagePicker {
-        return ImagePicker(isShown: $isShown, image: $image)
+    // MARK: - UIViewControllerRepresentable
+
+    func makeCoordinator() -> ImagePickerCoordinator {
+        return ImagePickerCoordinator(isShown: $isShown, image: $image)
     }
 }
 
@@ -29,6 +31,6 @@ extension CaptureImageView: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: UIImagePickerController,
                                 context: UIViewControllerRepresentableContext<CaptureImageView>) {
-        
+        print("BRDEBUG updated")
     }
 }

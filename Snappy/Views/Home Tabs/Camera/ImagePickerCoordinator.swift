@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-class ImagePicker: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     @Binding var isShown: Bool
     @Binding var image: UIImage?
 
