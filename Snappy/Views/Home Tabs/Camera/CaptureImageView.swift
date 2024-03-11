@@ -14,8 +14,8 @@ struct CaptureImageView {
     @Binding var image: UIImage?
     @Binding var mode: UIImagePickerController.SourceType
 
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(isShown: $isShown, image: $image)
+    func makeCoordinator() -> ImagePicker {
+        return ImagePicker(isShown: $isShown, image: $image)
     }
 }
 

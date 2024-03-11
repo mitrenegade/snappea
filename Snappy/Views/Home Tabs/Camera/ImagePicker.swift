@@ -1,5 +1,5 @@
 //
-//  Coordinator.swift
+//  ImagePicker.swift
 //  Snappy
 //
 //  Created by Bobby Ren on 4/19/20.
@@ -8,22 +8,22 @@
 
 import SwiftUI
 
-class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    @Binding var isCoordinatorShown: Bool
-    @Binding var imageInCoordinator: UIImage?
-    
+class ImagePicker: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    @Binding var isShown: Bool
+    @Binding var image: UIImage?
+
     init(isShown: Binding<Bool>, image: Binding<UIImage?>) {
-      _isCoordinatorShown = isShown
-      _imageInCoordinator = image
+      _isShown = isShown
+      _image = image
     }
 
     func imagePickerController(_ picker: UIImagePickerController,
                   didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
        guard let unwrapImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
-       imageInCoordinator = unwrapImage
-       isCoordinatorShown = false
+       image = unwrapImage
+       isShown = false
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-       isCoordinatorShown = false
+       isShown = false
     }
 }
