@@ -80,12 +80,15 @@ struct AddPhotoToPlantView<T>: View where T: Store {
 
     private var saveButton: some View {
         Button(action: {
-//            savePhoto()
-            // TODO: Save photo to plant
+            guard let uiImage else {
+                return
+            }
+            Task {
+                await saveImage(image: uiImage, plant: plant)
                 DispatchQueue.main.async {
                     self.presentationMode.wrappedValue.dismiss()
                 }
-//            }
+            }
         }) {
             Text("Save")
         }
@@ -117,4 +120,14 @@ extension AddPhotoToPlantView {
         }
     }
 
+    @discardableResult func saveImage(image: UIImage, plant: Plant) async -> (Photo, Snap)? {
+        do {
+            let photo = try await store.createPhoto(image: image)
+            let snap = try await store.createSnap(plant: plant, photo: photo, start: NormalizedCoordinate.start, end: NormalizedCoordinate.end)
+            return (photo, snap)
+        } catch {
+            print("Save photo error \(error)")
+            return nil
+        }
+    }
 }

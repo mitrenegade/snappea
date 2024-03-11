@@ -247,9 +247,12 @@ class LocalStore: Store {
         let data = try JSONEncoder().encode(snap)
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
-        cacheSnap(snap)
-        readWriteQueue.sync {
-            allSnaps = Array(snapCache.values)
+        let snaps = cacheSnap(snap)
+//        readWriteQueue.sync {
+//            allSnaps = Array(snapCache.values)
+//        }
+        DispatchQueue.main.async {
+            self.allSnaps = snaps
         }
         return snap
     }
@@ -269,9 +272,10 @@ class LocalStore: Store {
         }
     }
 
-    private func cacheSnap(_ snap: Snap) {
+    private func cacheSnap(_ snap: Snap) -> [Snap] {
         readWriteQueue.sync {
             snapCache[snap.id] = snap
+            return Array(snapCache.values)
         }
     }
 
