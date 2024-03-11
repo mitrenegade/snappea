@@ -100,7 +100,9 @@ class LocalStore: Store {
                 cachePhoto(photo, image: image)
             }
 
-            isLoading = false
+            DispatchQueue.main.async {
+                self.isLoading = false
+            }
         } catch {
             print("Load garden error: \(error)")
             throw error
