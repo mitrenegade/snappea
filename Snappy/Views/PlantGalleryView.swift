@@ -33,8 +33,11 @@ struct PlantGalleryView<T>: View where T: Store {
     }
 
     var body: some View {
-        VStack {
+        VStack(spacing: 4) {
             Text(title)
+            PlantBasicView(plant: plant, photo:
+                            store.photos(for: plant).first,
+                           imageLoaderType: imageLoaderType)
             SnapsListView(plant: plant, store: store, imageLoaderType: imageLoaderType)
         }
         .navigationBarItems(trailing: addSnapButton)
@@ -51,10 +54,12 @@ struct PlantGalleryView<T>: View where T: Store {
 
     private var addSnapButton: some View {
         Button(action: {
-            router.selectedTab = .camera
-            photoEnvironment.isAddingPhotoToPlant = true
+            // no op
         }) {
-            Image(systemName: "photo.badge.plus")
+            NavigationLink(destination: AddPhotoToPlantView(store: store, plant: plant)) {
+                Image(systemName: "photo.badge.plus")
+            }
         }
     }
+
 }

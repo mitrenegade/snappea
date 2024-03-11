@@ -75,9 +75,6 @@ class LocalStore: Store {
                 let plant = try JSONDecoder().decode(Plant.self, from: data)
                 cachePlant(plant)
             }
-            readWriteQueue.sync {
-                allPlants = Array(plantCache.values)
-            }
 
             let snapPath = subpath("snap")
             let snaps = try FileManager.default
@@ -88,9 +85,6 @@ class LocalStore: Store {
                 let data = try Data(contentsOf: url)
                 let snap = try JSONDecoder().decode(Snap.self, from: data)
                 cacheSnap(snap)
-            }
-            readWriteQueue.sync {
-                allSnaps = Array(snapCache.values)
             }
 
             let photoPath = subpath("photo")
@@ -105,11 +99,10 @@ class LocalStore: Store {
                 let image = try imageStore.loadImage(name: photo.id)
                 cachePhoto(photo, image: image)
             }
-            readWriteQueue.sync {
-                allPhotos = Array(photoCache.values)
-            }
 
-            isLoading = false
+            DispatchQueue.main.async {
+                self.isLoading = false
+            }
         } catch {
             print("Load garden error: \(error)")
             throw error
@@ -219,9 +212,6 @@ class LocalStore: Store {
         try data.write(to: objectUrl, options: [.atomic, .completeFileProtection])
 
         cachePhoto(photo, image: image)
-        readWriteQueue.sync {
-            allPhotos = Array(photoCache.values)
-        }
         return photo
     }
 
@@ -233,9 +223,6 @@ class LocalStore: Store {
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cachePlant(plant)
-        readWriteQueue.sync {
-            allPlants = Array(plantCache.values)
-        }
         return plant
     }
 
@@ -248,30 +235,42 @@ class LocalStore: Store {
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
         cacheSnap(snap)
-        readWriteQueue.sync {
-            allSnaps = Array(snapCache.values)
-        }
         return snap
     }
 
     // MARK: - Caching
 
+    /// Adds photo to cache
+    /// Updates allPhotos
     private func cachePhoto(_ photo: Photo, image: UIImage) {
         readWriteQueue.sync {
             photoCache[photo.id] = photo
             imageCache[photo.id] = image
+            DispatchQueue.main.async {
+                self.allPhotos = Array(self.photoCache.values)
+            }
         }
     }
 
+    /// Adds plant to cache
+    /// Updates allPlants
     private func cachePlant(_ plant: Plant) {
         readWriteQueue.sync {
             plantCache[plant.id] = plant
+            DispatchQueue.main.async {
+                self.allPlants = Array(self.plantCache.values)
+            }
         }
     }
 
+    /// Adds snap to cache
+    /// Updates allSnaps
     private func cacheSnap(_ snap: Snap) {
         readWriteQueue.sync {
             snapCache[snap.id] = snap
+            DispatchQueue.main.async {
+                self.allSnaps = Array(self.snapCache.values)
+            }
         }
     }
 
