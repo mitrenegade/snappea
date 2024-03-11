@@ -13,19 +13,14 @@ struct AddPhotoToPlantView<T>: View where T: Store {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     /// Image picker
-    @State var showCaptureImageView: Bool = true {
-        didSet {
-            print("BRDEBUG showCaptureImageView \(showCaptureImageView)")
-        }
-    }
+    @State var showCaptureImageView: Bool = true
     @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
     @State var image: UIImage? = nil
+    @State var isSaveButtonEnabled: Bool = false
 
     @ObservedObject var store: T
 
     private let plant: Plant
-
-    @State var isSaveButtonEnabled: Bool = false
 
     private var title: String {
         if TESTING {
