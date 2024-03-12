@@ -52,7 +52,6 @@ struct AddPhotoToPlantView<T>: View where T: Store {
                                      mode: $cameraSourceType,
                                      isImageSelected: $isSaveButtonEnabled)
                 }
-
             }
         }
         .navigationBarItems(trailing: saveButton)

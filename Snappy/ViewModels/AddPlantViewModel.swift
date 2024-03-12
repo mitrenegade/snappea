@@ -11,8 +11,6 @@ import PhotosUI
 
 class AddPlantViewModel<T>: ObservableObject where T: Store {
 
-    @Published var image: Image? = nil
-    @Published var uiImage: UIImage? = nil
     @Published var name: String = ""
     @Published var category: Category = .other
     @Published var plantType: PlantType = .unknown
@@ -27,46 +25,13 @@ class AddPlantViewModel<T>: ObservableObject where T: Store {
 
     @Published var store: T
 
-    @Published var imageSelection: PhotosPickerItem? = nil {
-        didSet {
-            if let imageSelection {
-                loadTransferable(from: imageSelection)
-            } else {
-                // no op
-            }
-        }
-    }
-
     @State var isShowingSaveButton: Bool = false
 
     init(store: T) {
         self.store = store
     }
 
-    private func loadTransferable(from imageSelection: PhotosPickerItem) {
-        imageSelection.loadTransferable(type: Data.self) { result in
-            DispatchQueue.main.async {
-                guard imageSelection == self.imageSelection else {
-                    print("Failed to get the selected item.")
-                    return
-                }
-                switch result {
-                case .success(let data):
-                    if let data = data,
-                       let uiImage = UIImage(data: data) {
-                        self.image = Image(uiImage: uiImage)
-                        self.uiImage = uiImage
-                        self.isShowingSaveButton = true
-                    }
-                default:
-                    self.isShowingSaveButton = false
-                    return
-                }
-            }
-        }
-    }
-
-    func savePlant(completion: @escaping (() -> Void)) {
+    func savePlant(image: UIImage?, completion: @escaping (() -> Void)) {
         if TESTING {
             if name.isEmpty {
                 name = "abc"
@@ -93,7 +58,7 @@ class AddPlantViewModel<T>: ObservableObject where T: Store {
 
             // Save photo and associated it with the plant
             // by creating a snap
-            if let image = self.uiImage {
+            if let image {
                 let _ = await saveImage(image: image, plant: plant)
             }
             completion()
