@@ -13,7 +13,8 @@ struct CameraRoot<T>: View where T: Store {
     @State var showCaptureImageView: Bool = false
     @State private var showingSheet = false
     @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
-    
+    @State private var isImageSelected: Bool = false
+
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
     @EnvironmentObject var router: TabsRouter
 
@@ -35,7 +36,7 @@ struct CameraRoot<T>: View where T: Store {
                 )
             }
             if (showCaptureImageView) {
-                CaptureImageView(isShown: $showCaptureImageView, image: $image, mode: $cameraSourceType)
+                CaptureImageView(isShown: $showCaptureImageView, image: $image, mode: $cameraSourceType, isImageSelected: $isImageSelected)
             }
         }
     }

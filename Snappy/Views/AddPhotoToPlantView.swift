@@ -12,18 +12,15 @@ import PhotosUI
 struct AddPhotoToPlantView<T>: View where T: Store {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    @State var image: Image?
-
-    @State var uiImage: UIImage? = nil
+    /// Image picker
+    @State var showCaptureImageView: Bool = true
+    @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
+    @State var image: UIImage? = nil
+    @State var isSaveButtonEnabled: Bool = false
 
     @ObservedObject var store: T
 
     private let plant: Plant
-
-//    @ObservedObject var viewModel: AddPlantViewModel<T>
-    @State var imageSelection: PhotosPickerItem?
-
-    @State var isShowingSaveButton: Bool = false
 
     private var title: String {
         if TESTING {
@@ -42,33 +39,19 @@ struct AddPhotoToPlantView<T>: View where T: Store {
         Text(title)
         VStack {
             if let image {
-                image
+                Image(uiImage: image)
                     .resizable()
                     .frame(width: UIScreen.main.bounds.width,
                             height: UIScreen.main.bounds.width)
                     .aspectRatio(contentMode: .fit)
                     .clipped()
             } else {
-                PhotosPicker(selection: $imageSelection,
-                             matching: .images,
-                             photoLibrary: .shared()) {
-                    Image(systemName: "camera")
-                        .frame(width: 100, height: 100)
-                        .aspectRatio(contentMode: .fill)
-                        .foregroundColor(Color.black)
-                        .background(Color.green)
-                        .clipShape(Circle())
+                if (showCaptureImageView) {
+                    CaptureImageView(isShown: $showCaptureImageView,
+                                     image: $image,
+                                     mode: $cameraSourceType,
+                                     isImageSelected: $isSaveButtonEnabled)
                 }
-                             .buttonStyle(.borderless)
-                                .onChange(of: imageSelection) { oldValue, newValue in
-                                 Task {
-                                     if let data = try? await imageSelection?.loadTransferable(type: Data.self),
-                                     let loadedImage = UIImage(data: data) {
-                                         uiImage = loadedImage
-                                         image = Image(uiImage: loadedImage)
-                                     }
-                                 }
-                             }
             }
         }
         .navigationBarItems(trailing: saveButton)
@@ -80,11 +63,11 @@ struct AddPhotoToPlantView<T>: View where T: Store {
 
     private var saveButton: some View {
         Button(action: {
-            guard let uiImage else {
+            guard let image else {
                 return
             }
             Task {
-                await saveImage(image: uiImage, plant: plant)
+                await saveImage(image: image, plant: plant)
                 DispatchQueue.main.async {
                     self.presentationMode.wrappedValue.dismiss()
                 }
@@ -92,34 +75,12 @@ struct AddPhotoToPlantView<T>: View where T: Store {
         }) {
             Text("Save")
         }
+        .disabled(!isSaveButtonEnabled)
     }
 }
 
 // TODO: move this to a common photo class
 extension AddPhotoToPlantView {
-    fileprivate func loadTransferable(from imageSelection: PhotosPickerItem) {
-        imageSelection.loadTransferable(type: Data.self) { result in
-            DispatchQueue.main.async {
-                guard imageSelection == self.imageSelection else {
-                    print("Failed to get the selected item.")
-                    return
-                }
-                switch result {
-                case .success(let data):
-                    if let data = data,
-                       let uiImage = UIImage(data: data) {
-                        self.image = Image(uiImage: uiImage)
-                        self.uiImage = uiImage
-                        self.isShowingSaveButton = true
-                    }
-                default:
-                    self.isShowingSaveButton = false
-                    return
-                }
-            }
-        }
-    }
-
     @discardableResult func saveImage(image: UIImage, plant: Plant) async -> (Photo, Snap)? {
         do {
             let photo = try await store.createPhoto(image: image)

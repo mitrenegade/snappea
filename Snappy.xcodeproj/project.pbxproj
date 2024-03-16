@@ -36,7 +36,7 @@
 		8E74F08A244D13F000F5A507 /* Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F089244D13F000F5A507 /* Stub.swift */; };
 		8E74F095244D20C200F5A507 /* CameraRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F094244D20C200F5A507 /* CameraRoot.swift */; };
 		8E74F097244D21F500F5A507 /* CaptureImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F096244D21F500F5A507 /* CaptureImageView.swift */; };
-		8E74F09A244D241000F5A507 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F099244D241000F5A507 /* Coordinator.swift */; };
+		8E74F09A244D241000F5A507 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E74F099244D241000F5A507 /* ImagePickerCoordinator.swift */; };
 		8E74F09C244D29EC00F5A507 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8E74F09B244D29EC00F5A507 /* README.md */; };
 		8E74F0A0244D393800F5A507 /* snapData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E74F09F244D393800F5A507 /* snapData.json */; };
 		8E74F0A2244D39E000F5A507 /* photoData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E74F0A1244D39E000F5A507 /* photoData.json */; };
@@ -63,7 +63,6 @@
 		8EE709CF2B54056C0078D509 /* FirebaseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE709CE2B54056C0078D509 /* FirebaseStore.swift */; };
 		8EF0B70D24691940001C9CD8 /* DragView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0B70C24691940001C9CD8 /* DragView.swift */; };
 		8EF0B70F24691A0C001C9CD8 /* DragViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF0B70E24691A0C001C9CD8 /* DragViewModel.swift */; };
-		8EF1FC6D24634A81005C4DE9 /* TappableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC6C24634A81005C4DE9 /* TappableView.swift */; };
 		8EF1FC6F24675AF2005C4DE9 /* SnapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC6E24675AF2005C4DE9 /* SnapViewModelTests.swift */; };
 		8EF1FC712467C4AF005C4DE9 /* CoordinateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC702467C4AF005C4DE9 /* CoordinateService.swift */; };
 		8EF1FC732467D1F4005C4DE9 /* CoordinateServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */; };
@@ -123,7 +122,7 @@
 		8E74F089244D13F000F5A507 /* Stub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stub.swift; sourceTree = "<group>"; };
 		8E74F094244D20C200F5A507 /* CameraRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRoot.swift; sourceTree = "<group>"; };
 		8E74F096244D21F500F5A507 /* CaptureImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureImageView.swift; sourceTree = "<group>"; };
-		8E74F099244D241000F5A507 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		8E74F099244D241000F5A507 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
 		8E74F09B244D29EC00F5A507 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8E74F09F244D393800F5A507 /* snapData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = snapData.json; sourceTree = "<group>"; };
 		8E74F0A1244D39E000F5A507 /* photoData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = photoData.json; sourceTree = "<group>"; };
@@ -154,7 +153,6 @@
 		8EE709CE2B54056C0078D509 /* FirebaseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStore.swift; sourceTree = "<group>"; };
 		8EF0B70C24691940001C9CD8 /* DragView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragView.swift; sourceTree = "<group>"; };
 		8EF0B70E24691A0C001C9CD8 /* DragViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragViewModel.swift; sourceTree = "<group>"; };
-		8EF1FC6C24634A81005C4DE9 /* TappableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableView.swift; sourceTree = "<group>"; };
 		8EF1FC6E24675AF2005C4DE9 /* SnapViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapViewModelTests.swift; sourceTree = "<group>"; };
 		8EF1FC702467C4AF005C4DE9 /* CoordinateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateService.swift; sourceTree = "<group>"; };
 		8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateServiceTests.swift; sourceTree = "<group>"; };
@@ -343,8 +341,7 @@
 			children = (
 				8E74F094244D20C200F5A507 /* CameraRoot.swift */,
 				8E74F096244D21F500F5A507 /* CaptureImageView.swift */,
-				8E74F099244D241000F5A507 /* Coordinator.swift */,
-				8EF1FC6C24634A81005C4DE9 /* TappableView.swift */,
+				8E74F099244D241000F5A507 /* ImagePickerCoordinator.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -641,7 +638,7 @@
 				8E3ABF0A244D7DA300FF378B /* PlantsRoot.swift in Sources */,
 				8EC10BFF245F2EC7004D92EC /* User.swift in Sources */,
 				8E3684CC2B27DB1300B228F3 /* PlantRow.swift in Sources */,
-				8E74F09A244D241000F5A507 /* Coordinator.swift in Sources */,
+				8E74F09A244D241000F5A507 /* ImagePickerCoordinator.swift in Sources */,
 				8E74F08A244D13F000F5A507 /* Stub.swift in Sources */,
 				8EF1FC712467C4AF005C4DE9 /* CoordinateService.swift in Sources */,
 				8EF1FC772467E69D005C4DE9 /* NormalizedCoordinate.swift in Sources */,
@@ -672,7 +669,6 @@
 				8E18A2BE2B4DC43B0083809A /* LocalStore.swift in Sources */,
 				8E54C1342B9BBB270020BAAE /* PlantBasicView.swift in Sources */,
 				8E7C795A244BB24400F295AD /* ContentView.swift in Sources */,
-				8EF1FC6D24634A81005C4DE9 /* TappableView.swift in Sources */,
 				8EF491BA2B50ED52009F12C0 /* GalleryRoot.swift in Sources */,
 				8EC86BFB245503CC00AB2F92 /* SnapOverlayViewModel.swift in Sources */,
 				8E3ABF192450009B00FF378B /* SnapOverlayView.swift in Sources */,

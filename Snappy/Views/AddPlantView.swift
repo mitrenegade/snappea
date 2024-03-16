@@ -12,9 +12,13 @@ import PhotosUI
 struct AddPlantView<T>: View where T: Store {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    @State var image: Image?
-
     @ObservedObject var viewModel: AddPlantViewModel<T>
+
+    /// Image picker
+    @State var showCaptureImageView: Bool = true
+    @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
+    @State var image: UIImage? = nil
+    @State var isSaveButtonEnabled: Bool = false
 
     private var title: String {
         if TESTING {
@@ -31,24 +35,20 @@ struct AddPlantView<T>: View where T: Store {
     var body: some View {
         Text(title)
         VStack {
-            if let image = viewModel.image {
-                image
+            if let image {
+                Image(uiImage: image)
                     .resizable()
                     .frame(width: UIScreen.main.bounds.width,
                             height: UIScreen.main.bounds.width)
                     .aspectRatio(contentMode: .fit)
                     .clipped()
             } else {
-                PhotosPicker(selection: $viewModel.imageSelection,
-                             matching: .images,
-                             photoLibrary: .shared()) {
-                    Image(systemName: "camera")
-                        .frame(width: 100, height: 100)
-                        .aspectRatio(contentMode: .fill)
-                        .foregroundColor(Color.black)
-                        .background(Color.green)
-                        .clipShape(Circle())
-                }.buttonStyle(.borderless)
+                if (showCaptureImageView) {
+                    CaptureImageView(isShown: $showCaptureImageView,
+                                     image: $image,
+                                     mode: $cameraSourceType,
+                                     isImageSelected: $isSaveButtonEnabled)
+                }
             }
 
             nameField
@@ -95,7 +95,7 @@ struct AddPlantView<T>: View where T: Store {
 
     private var saveButton: some View {
         Button(action: {
-            viewModel.savePlant() {
+            viewModel.savePlant(image: image) {
                 DispatchQueue.main.async {
                     self.presentationMode.wrappedValue.dismiss()
                 }
@@ -103,5 +103,6 @@ struct AddPlantView<T>: View where T: Store {
         }) {
             Text("Save")
         }
+        .disabled(!isSaveButtonEnabled)
     }
 }
