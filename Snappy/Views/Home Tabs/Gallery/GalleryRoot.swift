@@ -13,15 +13,12 @@ import Combine
 /// Displays a gallery of photos
 struct GalleryRoot<T>: View where T: Store {
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
+    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
     @ObservedObject var store: T
 
-    private let imageLoaderFactory: ImageLoaderFactory
-
-    init(store: T,
-         imageLoaderFactory: ImageLoaderFactory) {
+    init(store: T) {
         self.store = store
-        self.imageLoaderFactory = imageLoaderFactory
     }
 
     var body: some View {
