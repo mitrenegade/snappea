@@ -13,7 +13,6 @@ import Combine
 /// Displays a gallery of photos
 struct GalleryRoot<T>: View where T: Store {
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
-    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
     @ObservedObject var store: T
 
@@ -52,10 +51,9 @@ struct GalleryRoot<T>: View where T: Store {
         Group {
             if let photo = photoEnvironment.newPhoto {
                 NavigationLink(destination: PhotoDetailView(photo: photo,
-                                                            store: store,
-                                                            imageLoaderFactory: imageLoaderFactory),
+                                                            store: store),
                                isActive: $photoEnvironment.shouldShowNewPhoto) {
-                                EmptyView()
+                    EmptyView()
                 }
             }
         }
@@ -71,7 +69,7 @@ struct GalleryRoot<T>: View where T: Store {
 
     private var galleryView: some View {
         if #available(iOS 17.0, *) {
-            PhotoGalleryView(store: store, imageLoaderFactory: imageLoaderFactory)
+            PhotoGalleryView(store: store)
         } else {
             // BR TODO handle safely
             fatalError()

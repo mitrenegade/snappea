@@ -35,9 +35,8 @@ struct PlantGalleryView<T>: View where T: Store {
         VStack(spacing: 4) {
             Text(title)
             PlantBasicView(plant: plant, photo:
-                            store.photos(for: plant).first,
-                           imageLoaderFactory: imageLoaderFactory)
-            SnapsListView(plant: plant, store: store, imageLoaderFactory: imageLoaderFactory)
+                            store.photos(for: plant).first)
+            SnapsListView(plant: plant, store: store)
         }
         .navigationBarItems(trailing: addSnapButton)
     }

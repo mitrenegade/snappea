@@ -13,7 +13,6 @@ import Combine
 /// Displays an index of plants
 struct PlantsRoot<T>: View where T: Store {
     @ObservedObject var store: T
-    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
     init(store: T) {
         self.store = store
@@ -73,8 +72,8 @@ struct PlantsRoot<T>: View where T: Store {
                     .sorted { $0.timestamp > $1.timestamp }
                     .first
 
-                NavigationLink(destination: PlantGalleryView(plant: plant, store: store, imageLoaderFactory: imageLoaderFactory)) {
-                    PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo), imageLoaderFactory: imageLoaderFactory)
+                NavigationLink(destination: PlantGalleryView(plant: plant, store: store)) {
+                    PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
                 }
             }
         }

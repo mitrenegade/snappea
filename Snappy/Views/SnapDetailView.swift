@@ -14,8 +14,6 @@ import Combine
 struct SnapDetailView<T>: View where T: Store {
     @ObservedObject var store: T
 
-    private let imageLoaderFactory: ImageLoaderFactory
-
     private let snap: Snap
 
     private let photo: Photo
@@ -39,8 +37,7 @@ struct SnapDetailView<T>: View where T: Store {
     /// Creates a PhotoDetailView
     /// Given a snap, shows the photo for only the snap
     init?(snap: Snap, 
-          store: T,
-          imageLoaderFactory: ImageLoaderFactory
+          store: T
     ) {
         guard let photo = store.photo(withId: snap.photoId) else {
             return nil
@@ -48,14 +45,12 @@ struct SnapDetailView<T>: View where T: Store {
         self.photo = photo
         self.snap = snap
         self.store = store
-        self.imageLoaderFactory = imageLoaderFactory
     }
 
     var imageSection: some View {
         SnapOverlayView(photo: photo,
                         selectedSnaps: [snap],
-                        store: store,
-                        imageLoaderFactory: imageLoaderFactory)
+                        store: store)
     }
 
     var editSection: some View {
