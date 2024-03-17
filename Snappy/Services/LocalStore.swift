@@ -114,7 +114,7 @@ class LocalStore: Store {
     private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
     private var imageCache = TemporaryImageCache()
     private lazy var imageStore: ImageStore = {
-        ImageStore(baseURL: self.subpath("image"))
+        ImageStore(baseURL: imageBaseURL)
     }()
 
     // MARK: -
@@ -275,3 +275,11 @@ class LocalStore: Store {
 
 }
 
+extension LocalStore {
+    /// Returns the base URL used for any ImageStore and ImageLoader
+    /// This url must be exposed for ImageLoaderFactory to use the same url as ImageStore, since LocalStore owns the ImageStore
+    /// BR TODO: LocalStore should receive a ImageStore; the URLs/image store system do not have to conform to the path
+    var imageBaseURL: URL {
+        subpath("image")
+    }
+}

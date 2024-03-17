@@ -18,20 +18,17 @@ struct HomeView: View {
     @EnvironmentObject var router: TabsRouter
 
     @State var store = LocalStore()
-    private var imageLoaderFactory: ImageLoaderFactory = ImageLoaderFactory(imageLoaderType: DiskImageLoader.self, baseURL: Bundle.main.bundleURL)
+    private var imageLoaderFactory: ImageLoaderFactory = ImageLoaderFactory(imageLoaderType: DiskImageLoader.self)
 
     init(user: User) {
         self.load(user: user)
-        store.purge(id: user.id)
-
-        if let url = try? store.baseURL {
-            imageLoaderFactory = ImageLoaderFactory(imageLoaderType: DiskImageLoader.self, baseURL: url)
-        }
+//        store.purge(id: user.id)
     }
 
     private func load(user: User) {
         Task {
             try await store.loadGarden(id: user.id)
+            imageLoaderFactory.baseURL = store.imageBaseURL
         }
     }
 

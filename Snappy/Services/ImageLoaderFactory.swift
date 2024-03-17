@@ -8,9 +8,13 @@
 
 import Foundation
 
-struct ImageLoaderFactory {
+class ImageLoaderFactory {
     let imageLoaderType: any ImageLoader.Type
-    let baseURL: URL
+    var baseURL: URL = Bundle.main.bundleURL
+
+    init(imageLoaderType: any ImageLoader.Type) {
+        self.imageLoaderType = imageLoaderType
+    }
 
     func create(imageName: String, cache: ImageCache?) -> any ImageLoader {
         imageLoaderType.init(imageName: imageName, baseUrl: baseURL, cache: cache)

@@ -20,8 +20,8 @@ final class ImageStore {
 
     private let baseURL: URL
 
-    init(baseURL: URL?) {
-        self.baseURL = baseURL ?? URL.documentsDirectory
+    init(baseURL: URL) {
+        self.baseURL = baseURL
     }
 
     func loadImage(name: String) throws -> UIImage {
