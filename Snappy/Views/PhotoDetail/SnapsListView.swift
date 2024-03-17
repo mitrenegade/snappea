@@ -20,7 +20,7 @@ struct SnapsListView<T>: View where T: Store {
 
     @ObservedObject var store: T
 
-    private let imageLoaderType: any ImageLoader.Type
+    private let imageLoaderFactory: ImageLoaderFactory
 
     var body: some View {
         if TESTING {
@@ -28,10 +28,10 @@ struct SnapsListView<T>: View where T: Store {
         }
         List(viewModel.snaps) { snap in
             NavigationLink {
-                SnapDetailView(snap: snap, store: store, imageLoaderType: imageLoaderType)
+                SnapDetailView(snap: snap, store: store, imageLoaderFactory: imageLoaderFactory)
             } label: {
                 if let photo = store.photo(withId: snap.photoId) {
-                    SnapRow(snap: snap, photo: photo, isDisabled: !isSelected(snap), imageLoaderType: imageLoaderType)
+                    SnapRow(snap: snap, photo: photo, isDisabled: !isSelected(snap), imageLoaderFactory: imageLoaderFactory)
                 } // else: display error? display snap without photo? filter out this snap?
             }
         }
@@ -51,24 +51,24 @@ struct SnapsListView<T>: View where T: Store {
     init(photo: Photo,
          selectedSnaps: [Snap]? = nil,
          store: T,
-         imageLoaderType: any ImageLoader.Type
+         imageLoaderFactory: ImageLoaderFactory
     ) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: photo.id, type: .photo, store: store)
-        self.imageLoaderType = imageLoaderType
+        self.imageLoaderFactory = imageLoaderFactory
     }
 
     /// Creates a SnapsListView based on a given plant
     init(plant: Plant,
          selectedSnaps: [Snap]? = nil,
          store: T,
-         imageLoaderType: any ImageLoader.Type
+         imageLoaderFactory: ImageLoaderFactory
     ) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: plant.id, type: .plant, store: store)
-        self.imageLoaderType = imageLoaderType
+        self.imageLoaderFactory = imageLoaderFactory
     }
 }
 

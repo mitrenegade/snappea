@@ -14,8 +14,8 @@ class PhotoRowViewModel: ObservableObject, Identifiable {
     @Published var photo: Photo
     private var cancellables = Set<AnyCancellable>()
     
-    var id: String?
-    @Published var url: URL = URL(string: "www.google.com")!
+    var id: String = ""
+    @Published var url: URL? = URL(string: "www.google.com")
     var textString: String = ""
         
     init(photo: Photo) {
@@ -35,7 +35,7 @@ class PhotoRowViewModel: ObservableObject, Identifiable {
         
         // assign url
         $photo
-            .compactMap{ URL(string: $0.url) }
+            .compactMap{ URL(string: $0.url ?? "") }
             .assign(to: \.url, on: self)
             .store(in: &cancellables)
     }

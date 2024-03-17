@@ -10,14 +10,18 @@ struct GridItemView: View {
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            AsyncImage(url: URL(string: item.url)) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-            } placeholder: {
-                ProgressView()
+            if let url = item.url {
+                AsyncImage(url: URL(string: url)) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(width: size, height: size)
+            } else {
+                EmptyView()
             }
-            .frame(width: size, height: size)
         }
     }
 }

@@ -13,13 +13,13 @@ struct PhotoRow: View {
     private let imageSize = CGSize(width: 80, height: 80)
     @ObservedObject var photoRowViewModel: PhotoRowViewModel
 
-    private let imageLoaderType: any ImageLoader.Type
+    private let imageLoaderFactory: ImageLoaderFactory
 
     init(photo: Photo,
-         imageLoaderType: any ImageLoader.Type
+         imageLoaderFactory: ImageLoaderFactory
     ) {
         self.photoRowViewModel = PhotoRowViewModel(photo: photo)
-        self.imageLoaderType = imageLoaderType
+        self.imageLoaderFactory = imageLoaderFactory
     }
     
     var body: some View {
@@ -31,7 +31,7 @@ struct PhotoRow: View {
                     .aspectRatio(contentMode: .fit)
                     .clipped()
             } else {
-                let imageLoader = imageLoaderType.init(url: $photoRowViewModel.url.wrappedValue, cache: TemporaryImageCache.shared)
+                let imageLoader = imageLoaderFactory.create(imageName: $photoRowViewModel.id.wrappedValue, cache: TemporaryImageCache.shared)
                 let frame = CGSize(width: imageSize.width, height: imageSize.height)
                 let placeholder = Text("Loading...")
                 AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)

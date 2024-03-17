@@ -22,7 +22,7 @@ struct PlantGalleryView<T>: View where T: Store {
 
     @ObservedObject var store: T
 
-    private let imageLoaderType: any ImageLoader.Type
+    private let imageLoaderFactory: ImageLoaderFactory
 
     private var title: String {
         if TESTING {
@@ -37,19 +37,19 @@ struct PlantGalleryView<T>: View where T: Store {
             Text(title)
             PlantBasicView(plant: plant, photo:
                             store.photos(for: plant).first,
-                           imageLoaderType: imageLoaderType)
-            SnapsListView(plant: plant, store: store, imageLoaderType: imageLoaderType)
+                           imageLoaderFactory: imageLoaderFactory)
+            SnapsListView(plant: plant, store: store, imageLoaderFactory: imageLoaderFactory)
         }
         .navigationBarItems(trailing: addSnapButton)
     }
 
     init(plant: Plant,
          store: T,
-         imageLoaderType: any ImageLoader.Type
+         imageLoaderFactory: ImageLoaderFactory
     ) {
         self.plant = plant
         self.store = store
-        self.imageLoaderType = imageLoaderType
+        self.imageLoaderFactory = imageLoaderFactory
     }
 
     private var addSnapButton: some View {

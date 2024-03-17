@@ -16,28 +16,24 @@ struct SnapRow: View {
     private let isDisabled: Bool
     private let imageSize = CGSize(width: 50, height: 50)
 
-    private let imageLoaderType: any ImageLoader.Type
+    private let imageLoaderFactory: ImageLoaderFactory
 
     var body: some View {
         HStack {
-            if let url = URL(string: photo.url) {
-                if AIRPLANE_MODE {
-                    // TODO: how to resize image to fit?
-                    Image("peas")
-                        .resizable()
-                        .frame(width: imageSize.width, height: imageSize.height)
-                        .aspectRatio(contentMode: .fit)
-                        .clipped()
-                } else {
-                    let imageLoader = imageLoaderType.init(url: url, cache: TemporaryImageCache.shared)
-                    let placeholder = Image("folder.badge.questionmark").frame(width: imageSize.width, height: imageSize.height)
-                    AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
-                        .aspectRatio(contentMode: .fill)
-                }
-            } else {
-                Image("folder.badge.question")
+            if AIRPLANE_MODE {
+                // TODO: how to resize image to fit?
+                Image("peas")
+                    .resizable()
                     .frame(width: imageSize.width, height: imageSize.height)
+                    .aspectRatio(contentMode: .fit)
+                    .clipped()
+            } else {
+                let imageLoader = imageLoaderFactory.create(imageName: photo.id, cache: TemporaryImageCache.shared)
+                let placeholder = Image("folder.badge.questionmark").frame(width: imageSize.width, height: imageSize.height)
+                AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
+                    .aspectRatio(contentMode: .fill)
             }
+
             VStack {
                 if !dateString.isEmpty {
                     Text("Taken: \(dateString)")
@@ -51,12 +47,12 @@ struct SnapRow: View {
     init?(snap: Snap,
           photo: Photo,
           isDisabled: Bool = false,
-          imageLoaderType: any ImageLoader.Type
+          imageLoaderFactory: ImageLoaderFactory
     ) {
         self.snap = snap
         self.photo = photo
         self.isDisabled = isDisabled
-        self.imageLoaderType = imageLoaderType
+        self.imageLoaderFactory = imageLoaderFactory
 
         dateString = photo.dateString
         notes = snap.notes

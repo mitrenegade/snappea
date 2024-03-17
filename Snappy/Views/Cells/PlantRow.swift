@@ -11,17 +11,17 @@ import SwiftUI
 struct PlantRow: View {
     @ObservedObject var plantRowViewModel: PlantRowViewModel
 
-    private let imageLoaderType: any ImageLoader.Type
+    private let imageLoaderFactory: ImageLoaderFactory
 
-    init(viewModel: PlantRowViewModel, imageLoaderType: any ImageLoader.Type) {
+    init(viewModel: PlantRowViewModel, imageLoaderFactory: ImageLoaderFactory) {
         self.plantRowViewModel = viewModel
-        self.imageLoaderType = imageLoaderType
+        self.imageLoaderFactory = imageLoaderFactory
     }
 
     var body: some View {
         HStack {
-            if let url = $plantRowViewModel.url.wrappedValue {
-                let imageLoader = imageLoaderType.init(url: url, cache: TemporaryImageCache.shared)
+            if let name = plantRowViewModel.photoId {
+                let imageLoader = imageLoaderFactory.create(imageName: name, cache: TemporaryImageCache.shared)
                 let frame = CGSize(width: 80, height: 80)
                 let placeholder = Image(systemName: "tree.fill")
                 AsyncImageView(imageLoader: imageLoader, frame: frame, placeholder: placeholder)

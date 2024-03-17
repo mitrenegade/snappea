@@ -14,7 +14,9 @@ struct Photo: Identifiable, Codable, Hashable {
 //    @DocumentID var id: String? = nil
     var id: String = ""
 
-    var url: String = ""
+    /// If URL is null, the url is generated from the id by Store
+    /// Otherwise, a photo can have a reference to an online url
+    var url: String? = nil
     var timestamp: TimeInterval = 0
 //    @ServerTimestamp var createdTime: Timestamp?
 
