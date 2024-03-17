@@ -111,13 +111,16 @@ class LocalStore: Store {
         }
     }
 
+    /// - Parameters:
+    ///    - id: the gardenId or userId, which should be the base url
     func purge(id: String) {
         do {
-            let url = try baseURL.appendingPathComponent(id)
+            let url = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                .appending(path: id)
             try FileManager.default.removeItem(atPath: url.path)
             print("File directory purged")
         } catch {
-            print("Error purging")
+            print("Error purging: \(error)")
         }
     }
 
@@ -205,7 +208,6 @@ class LocalStore: Store {
         let timestamp = Date().timeIntervalSince1970
 
         let imageURL = try imageStore.saveImage(image, name: id)
-        print("BRDEBUG createPhoto photo \(id) imageURL \(imageURL)")
         let photo = Photo(id: id, url: nil, timestamp: timestamp)
 
         let objectUrl = subpath("photo").appending(path: photo.id)
