@@ -13,17 +13,17 @@ import SwiftUI
 struct PlantBasicView: View {
     private let plant: Plant
     private let photo: Photo?
-    private let imageLoaderType: any ImageLoader.Type
+    private let imageLoaderFactory: ImageLoaderFactory
 
     private let imageSize = CGSize(width: 200, height: 200)
 
     init(plant: Plant,
          photo: Photo?,
-         imageLoaderType: any ImageLoader.Type
+         imageLoaderFactory: ImageLoaderFactory
     ) {
         self.plant = plant
         self.photo = photo
-        self.imageLoaderType = imageLoaderType
+        self.imageLoaderFactory = imageLoaderFactory
     }
 
     var body: some View {
@@ -38,8 +38,8 @@ struct PlantBasicView: View {
 
     private var imageView: some View {
         Group {
-            if let url = URL(string: photo?.url ?? "") {
-                let imageLoader = imageLoaderType.init(url: url, cache: TemporaryImageCache.shared)
+            if let name = photo?.id {
+                let imageLoader = imageLoaderFactory.create(imageName: name, cache: TemporaryImageCache.shared)
                 let frame = CGSize(width: imageSize.width, height: imageSize.height)
                 let placeholder = Text("Loading...")
                 AsyncImageView(imageLoader: imageLoader,

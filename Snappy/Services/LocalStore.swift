@@ -15,7 +15,7 @@ class LocalStore: Store {
 
     private var gardenID: String = ""
 
-    private var baseURL: URL {
+    var baseURL: URL {
         get throws {
             try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
                 .appending(path: gardenID)
@@ -93,6 +93,7 @@ class LocalStore: Store {
                 let data = try Data(contentsOf: url)
                 let photo = try JSONDecoder().decode(Photo.self, from: data)
 
+                print("BRDEBUG loadGarden loadImage photoID \(photo.id)")
                 let image = try imageStore.loadImage(name: photo.id)
                 cachePhoto(photo, image: image)
             }
@@ -113,7 +114,7 @@ class LocalStore: Store {
     private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
     private var imageCache = TemporaryImageCache()
     private lazy var imageStore: ImageStore = {
-        ImageStore(baseURL: self.subpath("image"))
+        ImageStore(baseURL: imageBaseURL)
     }()
 
     // MARK: -
@@ -202,7 +203,8 @@ class LocalStore: Store {
         let timestamp = Date().timeIntervalSince1970
 
         let imageURL = try imageStore.saveImage(image, name: id)
-        let photo = Photo(id: id, url: imageURL.absoluteString, timestamp: timestamp)
+        print("BRDEBUG createPhoto photo \(id) imageURL \(imageURL)")
+        let photo = Photo(id: id, url: nil, timestamp: timestamp)
 
         let objectUrl = subpath("photo").appending(path: photo.id)
         let data = try JSONEncoder().encode(photo)
@@ -273,3 +275,11 @@ class LocalStore: Store {
 
 }
 
+extension LocalStore {
+    /// Returns the base URL used for any ImageStore and ImageLoader
+    /// This url must be exposed for ImageLoaderFactory to use the same url as ImageStore, since LocalStore owns the ImageStore
+    /// BR TODO: LocalStore should receive a ImageStore; the URLs/image store system do not have to conform to the path
+    var imageBaseURL: URL {
+        subpath("image")
+    }
+}

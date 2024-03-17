@@ -14,7 +14,7 @@ protocol ImageLoader: ObservableObject {
     func load()
     func cancel()
     var image: UIImage? { get }
-    init(url: URL, cache: ImageCache?)
+    init(imageName: String, baseUrl: URL, cache: ImageCache?)
 }
 
 class NetworkImageLoader: ImageLoader {
@@ -24,8 +24,8 @@ class NetworkImageLoader: ImageLoader {
     
     private var cache: ImageCache?
     
-    required init(url: URL, cache: ImageCache? = TemporaryImageCache.shared) {
-        self.url = url
+    required init(imageName: String, baseUrl: URL, cache: ImageCache? = TemporaryImageCache.shared) {
+        self.url = baseUrl.appending(component: imageName)
         self.cache = cache
     }
     
@@ -63,6 +63,7 @@ class NetworkImageLoader: ImageLoader {
     
 }
 
+/// Loads a single image via ImageStore
 class DiskImageLoader: ImageLoader {
     @Published var image: UIImage?
 
@@ -76,22 +77,22 @@ class DiskImageLoader: ImageLoader {
 
     private let name: String
 
-    private let baseURL: URL
-
     private var cache: ImageCache?
 
     private let imageStore: ImageStore
 
     /// - Parameters:
     ///    - url: the url of an actual image
-    required init(url: URL, cache: ImageCache? = TemporaryImageCache.shared) {
+    required init(imageName: String,
+                  baseUrl: URL,
+                  cache: ImageCache? = TemporaryImageCache.shared) {
         self.cache = cache
-        self.baseURL = url.deletingLastPathComponent()
-        self.name = url.lastPathComponent
-        self.imageStore = ImageStore(baseURL: baseURL)
+        self.name = imageName
+        self.imageStore = ImageStore(baseURL: baseUrl)
     }
 
     func load() {
+        // BR TODO: load from cache first
         image = try? imageStore.loadImage(name: name)
     }
 

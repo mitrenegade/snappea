@@ -19,7 +19,10 @@ class PlantRowViewModel: ObservableObject, Identifiable {
     var categoryColor: UIColor = .clear
     var typeString: String = ""
     var typeColor: UIColor = .clear
-    var url: URL? = nil
+
+    var photoId: String? {
+        photo?.id
+    }
 
     private var photo: Photo?
 
@@ -67,11 +70,11 @@ class PlantRowViewModel: ObservableObject, Identifiable {
 //            .store(in: &cancellables)
 
         // assign photo url
-        $plant
-            .compactMap { _ in self.photo?.url }
-            .compactMap { URL(string: $0) }
-            .assign(to: \.url, on: self)
-            .store(in: &cancellables)
+//        $plant
+//            .compactMap { _ in self .photo?.url }
+//            .compactMap { URL(string: $0) }
+//            .assign(to: \.url, on: self)
+//            .store(in: &cancellables)
 
 
     }

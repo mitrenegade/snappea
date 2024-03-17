@@ -16,17 +16,17 @@ struct SnapOverlayView<T>: View where T: Store {
     @State var draggingStart: CGPoint = CGPoint.zero
     @State var draggingEnd: CGPoint = CGPoint.zero
 
-    private let imageLoaderType: any ImageLoader.Type
+    private let imageLoaderFactory: ImageLoaderFactory
 
     init(photo: Photo,
          selectedSnaps: [Snap]? = nil,
          store: T,
-         imageLoaderType: any ImageLoader.Type
+         imageLoaderFactory: ImageLoaderFactory
     ) {
 
         viewModel = SnapOverlayViewModel(photo: photo, selectedSnaps: selectedSnaps, store: store)
         imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
-        self.imageLoaderType = imageLoaderType
+        self.imageLoaderFactory = imageLoaderFactory
     }
     
     var body: some View {
@@ -38,7 +38,7 @@ struct SnapOverlayView<T>: View where T: Store {
                     .aspectRatio(contentMode: .fit)
                     .clipped()
             } else {
-                let imageLoader = imageLoaderType.init(url: $viewModel.url.wrappedValue, cache: TemporaryImageCache.shared)
+                let imageLoader = imageLoaderFactory.create(imageName: $viewModel.photoId.wrappedValue, cache: TemporaryImageCache.shared)
                 let placeholder = Text("Loading...")
                 AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
                     .aspectRatio(contentMode: .fill)

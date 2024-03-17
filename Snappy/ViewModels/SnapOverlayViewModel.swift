@@ -13,9 +13,8 @@ import SwiftUI
 class SnapOverlayViewModel<T>: ObservableObject where T: Store {
     @Published var photo: Photo
     @Published var snaps: [Snap] = []
-    @Published var url: URL = URL(string: "www.google.com")!
-    
-    var photoId: String?
+
+    var photoId: String = ""
 
     @ObservedObject var store: T
 
@@ -32,12 +31,6 @@ class SnapOverlayViewModel<T>: ObservableObject where T: Store {
         self.store = store
         self.snaps = selectedSnaps ?? fetchSnapsForPhoto(id: photo.id)
 
-        // assign url
-        $photo
-            .map{ URL(string: $0.url)! }
-            .assign(to: \.url, on: self)
-            .store(in: &cancellables)
-        
         $photo.map{ $0.id }
             .assign(to: \.photoId, on: self)
             .store(in: &cancellables)

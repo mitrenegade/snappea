@@ -18,7 +18,7 @@ struct HomeView: View {
     @EnvironmentObject var router: TabsRouter
 
     @State var store = LocalStore()
-    @State var imageLoaderType = DiskImageLoader.self //NetworkImageLoader.self
+    private var imageLoaderFactory: ImageLoaderFactory = ImageLoaderFactory(imageLoaderType: DiskImageLoader.self)
 
     init(user: User) {
         self.load(user: user)
@@ -28,18 +28,19 @@ struct HomeView: View {
     private func load(user: User) {
         Task {
             try await store.loadGarden(id: user.id)
+            imageLoaderFactory.baseURL = store.imageBaseURL
         }
     }
 
     var body: some View {
         TabView(selection: $router.selectedTab) {
-            PlantsRoot(store: store, imageLoaderType: imageLoaderType)
+            PlantsRoot(store: store, imageLoaderFactory: imageLoaderFactory)
                 .tabItem {
                     // BR TODO make this a snap pea icon
                     Image(systemName: "leaf.fill")
                     Text("Plants")
                 }.tag(Tab.plants)
-            GalleryRoot(store: store, imageLoaderType: imageLoaderType)
+            GalleryRoot(store: store, imageLoaderFactory: imageLoaderFactory)
                 .tabItem {
                     Image(systemName: "photo.fill")
                     Text("Gallery")
