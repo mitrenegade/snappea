@@ -19,10 +19,9 @@ struct PlantGalleryView<T>: View where T: Store {
 
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
     @EnvironmentObject var router: TabsRouter
+    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
     @ObservedObject var store: T
-
-    private let imageLoaderFactory: ImageLoaderFactory
 
     private var title: String {
         if TESTING {
@@ -44,12 +43,10 @@ struct PlantGalleryView<T>: View where T: Store {
     }
 
     init(plant: Plant,
-         store: T,
-         imageLoaderFactory: ImageLoaderFactory
+         store: T
     ) {
         self.plant = plant
         self.store = store
-        self.imageLoaderFactory = imageLoaderFactory
     }
 
     private var addSnapButton: some View {

@@ -13,13 +13,10 @@ struct PhotoRow: View {
     private let imageSize = CGSize(width: 80, height: 80)
     @ObservedObject var photoRowViewModel: PhotoRowViewModel
 
-    private let imageLoaderFactory: ImageLoaderFactory
+    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
-    init(photo: Photo,
-         imageLoaderFactory: ImageLoaderFactory
-    ) {
+    init(photo: Photo) {
         self.photoRowViewModel = PhotoRowViewModel(photo: photo)
-        self.imageLoaderFactory = imageLoaderFactory
     }
     
     var body: some View {

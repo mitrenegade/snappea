@@ -13,8 +13,6 @@ import Combine
 struct PhotoDetailView<T>: View where T: Store {
     @ObservedObject var store: T
 
-    private let imageLoaderFactory: ImageLoaderFactory
-
     private let photo: Photo
 
     var title: String {
@@ -34,23 +32,19 @@ struct PhotoDetailView<T>: View where T: Store {
     /// Creates a PhotoDetailView
     /// Given a photo, shows all snaps
     init(photo: Photo,
-         store: T,
-         imageLoaderFactory: ImageLoaderFactory
+         store: T
     ) {
         self.photo = photo
         self.store = store
-        self.imageLoaderFactory = imageLoaderFactory
     }
 
     var imageSection: some View {
         SnapOverlayView(photo: photo,
-                        store: store,
-                        imageLoaderFactory: imageLoaderFactory)
+                        store: store)
     }
     
     var listSection: some View {
         SnapsListView(photo: photo,
-                      store: store,
-                      imageLoaderFactory: imageLoaderFactory)
+                      store: store)
     }
 }

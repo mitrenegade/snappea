@@ -16,7 +16,7 @@ struct SnapRow: View {
     private let isDisabled: Bool
     private let imageSize = CGSize(width: 50, height: 50)
 
-    private let imageLoaderFactory: ImageLoaderFactory
+    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
     var body: some View {
         HStack {
@@ -46,13 +46,11 @@ struct SnapRow: View {
     
     init?(snap: Snap,
           photo: Photo,
-          isDisabled: Bool = false,
-          imageLoaderFactory: ImageLoaderFactory
+          isDisabled: Bool = false
     ) {
         self.snap = snap
         self.photo = photo
         self.isDisabled = isDisabled
-        self.imageLoaderFactory = imageLoaderFactory
 
         dateString = photo.dateString
         notes = snap.notes
