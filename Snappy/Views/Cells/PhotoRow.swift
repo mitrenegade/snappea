@@ -32,7 +32,6 @@ struct PhotoRow: View {
                     .clipped()
             } else {
                 let imageLoader = imageLoaderFactory.create(imageName: $photoRowViewModel.id.wrappedValue, cache: TemporaryImageCache.shared)
-                let frame = CGSize(width: imageSize.width, height: imageSize.height)
                 let placeholder = Text("Loading...")
                 AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
                     .aspectRatio(contentMode: .fill)

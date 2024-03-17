@@ -15,6 +15,8 @@ class LocalStore: Store {
 
     private var gardenID: String = ""
 
+    /// The base storage location on disk, based on garden ID. The user must be logged in.
+    /// On logout/login, baseURL will change when the new garden is loaded
     var baseURL: URL {
         get throws {
             try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)

@@ -13,14 +13,10 @@ import Combine
 /// Displays an index of plants
 struct PlantsRoot<T>: View where T: Store {
     @ObservedObject var store: T
+    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
-    private let imageLoaderFactory: ImageLoaderFactory
-
-    init(store: T,
-         imageLoaderFactory: ImageLoaderFactory
-    ) {
+    init(store: T) {
         self.store = store
-        self.imageLoaderFactory = imageLoaderFactory
     }
 
     var body: some View {
