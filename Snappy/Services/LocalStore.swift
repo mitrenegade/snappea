@@ -15,40 +15,24 @@ class LocalStore: Store {
 
     private var gardenID: String = ""
 
+    @Published var isLoading: Bool = true
+
+    /// Caching
+    private var photoCache: [String: Photo] = [:]
+    private var plantCache: [String: Plant] = [:]
+    private var snapCache: [String: Snap] = [:]
+    private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
+    private var imageCache = TemporaryImageCache()
+    private lazy var imageStore: ImageStore = {
+        ImageStore(baseURL: imageBaseURL)
+    }()
+
     /// The base storage location on disk, based on garden ID. The user must be logged in.
     /// On logout/login, baseURL will change when the new garden is loaded
-    var baseURL: URL {
+    private var baseURL: URL {
         get throws {
             try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
                 .appending(path: gardenID)
-        }
-    }
-
-    @Published var isLoading: Bool = true
-
-    func purge(id: String) {
-        do {
-            let url = try baseURL.appendingPathComponent(id)
-            try FileManager.default.removeItem(atPath: url.path)
-            print("File directory purged")
-        } catch {
-            print("Error purging")
-        }
-    }
-
-    private func subpath(_ type: String) -> URL {
-        do {
-            let url = try baseURL.appendingPathComponent(type)
-            do {
-                if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
-                    try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
-                }
-            } catch {
-                print("Could not create path but ignoring: \(error)")
-            }
-            return url
-        } catch {
-            fatalError("Could not access local store plant url: \(error)")
         }
     }
 
@@ -109,17 +93,33 @@ class LocalStore: Store {
         }
     }
 
-    /// Caching
-    private var photoCache: [String: Photo] = [:]
-    private var plantCache: [String: Plant] = [:]
-    private var snapCache: [String: Snap] = [:]
-    private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
-    private var imageCache = TemporaryImageCache()
-    private lazy var imageStore: ImageStore = {
-        ImageStore(baseURL: imageBaseURL)
-    }()
-
     // MARK: -
+
+    private func subpath(_ type: String) -> URL {
+        do {
+            let url = try baseURL.appendingPathComponent(type)
+            do {
+                if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
+                    try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
+                }
+            } catch {
+                print("Could not create path but ignoring: \(error)")
+            }
+            return url
+        } catch {
+            fatalError("Could not access local store plant url: \(error)")
+        }
+    }
+
+    func purge(id: String) {
+        do {
+            let url = try baseURL.appendingPathComponent(id)
+            try FileManager.default.removeItem(atPath: url.path)
+            print("File directory purged")
+        } catch {
+            print("Error purging")
+        }
+    }
 
     // MARK: - Store as an ObservedObject
     @Published var allPlants: [Plant] = []
