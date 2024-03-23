@@ -11,11 +11,10 @@ import SwiftUI
 struct PlantRow: View {
     @ObservedObject var plantRowViewModel: PlantRowViewModel
 
-    private let imageLoaderFactory: ImageLoaderFactory
+    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
-    init(viewModel: PlantRowViewModel, imageLoaderFactory: ImageLoaderFactory) {
+    init(viewModel: PlantRowViewModel) {
         self.plantRowViewModel = viewModel
-        self.imageLoaderFactory = imageLoaderFactory
     }
 
     var body: some View {

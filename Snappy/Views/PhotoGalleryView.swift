@@ -12,15 +12,10 @@ struct PhotoGalleryView<T>: View where T: Store {
         gridColumns.count > 1 ? "\(gridColumns.count) Columns" : "1 Column"
     }
 
-    private let imageLoaderFactory: ImageLoaderFactory
-
     @ObservedObject var store: T
 
-    init(store: T,
-         imageLoaderFactory: ImageLoaderFactory
-    ) {
+    init(store: T) {
         self.store = store
-        self.imageLoaderFactory = imageLoaderFactory
     }
 
     var body: some View {
@@ -29,7 +24,7 @@ struct PhotoGalleryView<T>: View where T: Store {
                 LazyVGrid(columns: gridColumns) {
                     ForEach(store.allPhotos) { photo in
                         GeometryReader { geo in
-                            NavigationLink(destination: PhotoDetailView(photo: photo, store: store, imageLoaderFactory: imageLoaderFactory)
+                            NavigationLink(destination: PhotoDetailView(photo: photo, store: store)
                             ) {
                                 GridItemView(size: geo.size.width, item: photo)
                             }

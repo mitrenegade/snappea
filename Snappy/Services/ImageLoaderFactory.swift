@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ImageLoaderFactory {
+class ImageLoaderFactory: ObservableObject {
     let imageLoaderType: any ImageLoader.Type
     var baseURL: URL = Bundle.main.bundleURL
 

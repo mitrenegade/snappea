@@ -19,10 +19,9 @@ struct PlantGalleryView<T>: View where T: Store {
 
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
     @EnvironmentObject var router: TabsRouter
+    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
     @ObservedObject var store: T
-
-    private let imageLoaderFactory: ImageLoaderFactory
 
     private var title: String {
         if TESTING {
@@ -36,20 +35,17 @@ struct PlantGalleryView<T>: View where T: Store {
         VStack(spacing: 4) {
             Text(title)
             PlantBasicView(plant: plant, photo:
-                            store.photos(for: plant).first,
-                           imageLoaderFactory: imageLoaderFactory)
-            SnapsListView(plant: plant, store: store, imageLoaderFactory: imageLoaderFactory)
+                            store.photos(for: plant).first)
+            SnapsListView(plant: plant, store: store)
         }
         .navigationBarItems(trailing: addSnapButton)
     }
 
     init(plant: Plant,
-         store: T,
-         imageLoaderFactory: ImageLoaderFactory
+         store: T
     ) {
         self.plant = plant
         self.store = store
-        self.imageLoaderFactory = imageLoaderFactory
     }
 
     private var addSnapButton: some View {

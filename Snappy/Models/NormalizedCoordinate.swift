@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct NormalizedCoordinate: Codable {
+struct NormalizedCoordinate: Codable, Equatable {
     var x: Double
     var y: Double
 }

@@ -11,42 +11,28 @@ import UIKit
 
 /// A local persistence and caching layer
 /// Stores into local file structure as data
-class LocalStore: Store {
+class LocalStore: Store, ObservableObject {
 
     private var gardenID: String = ""
 
-    var baseURL: URL {
+    @Published var isLoading: Bool = true
+
+    /// Caching
+    private var photoCache: [String: Photo] = [:]
+    private var plantCache: [String: Plant] = [:]
+    private var snapCache: [String: Snap] = [:]
+    private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
+    private var imageCache = TemporaryImageCache()
+    private lazy var imageStore: ImageStore = {
+        ImageStore(baseURL: imageBaseURL)
+    }()
+
+    /// The base storage location on disk, based on garden ID. The user must be logged in.
+    /// On logout/login, baseURL will change when the new garden is loaded
+    private var baseURL: URL {
         get throws {
             try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
                 .appending(path: gardenID)
-        }
-    }
-
-    @Published var isLoading: Bool = true
-
-    func purge(id: String) {
-        do {
-            let url = try baseURL.appendingPathComponent(id)
-            try FileManager.default.removeItem(atPath: url.path)
-            print("File directory purged")
-        } catch {
-            print("Error purging")
-        }
-    }
-
-    private func subpath(_ type: String) -> URL {
-        do {
-            let url = try baseURL.appendingPathComponent(type)
-            do {
-                if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
-                    try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
-                }
-            } catch {
-                print("Could not create path but ignoring: \(error)")
-            }
-            return url
-        } catch {
-            fatalError("Could not access local store plant url: \(error)")
         }
     }
 
@@ -107,17 +93,36 @@ class LocalStore: Store {
         }
     }
 
-    /// Caching
-    private var photoCache: [String: Photo] = [:]
-    private var plantCache: [String: Plant] = [:]
-    private var snapCache: [String: Snap] = [:]
-    private let readWriteQueue: DispatchQueue = DispatchQueue(label: "io.renderapps.APIService.cache")
-    private var imageCache = TemporaryImageCache()
-    private lazy var imageStore: ImageStore = {
-        ImageStore(baseURL: imageBaseURL)
-    }()
-
     // MARK: -
+
+    private func subpath(_ type: String) -> URL {
+        do {
+            let url = try baseURL.appendingPathComponent(type)
+            do {
+                if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
+                    try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
+                }
+            } catch {
+                print("Could not create path but ignoring: \(error)")
+            }
+            return url
+        } catch {
+            fatalError("Could not access local store plant url: \(error)")
+        }
+    }
+
+    /// - Parameters:
+    ///    - id: the gardenId or userId, which should be the base url
+    func purge(id: String) {
+        do {
+            let url = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                .appending(path: id)
+            try FileManager.default.removeItem(atPath: url.path)
+            print("File directory purged")
+        } catch {
+            print("Error purging: \(error)")
+        }
+    }
 
     // MARK: - Store as an ObservedObject
     @Published var allPlants: [Plant] = []
@@ -203,7 +208,6 @@ class LocalStore: Store {
         let timestamp = Date().timeIntervalSince1970
 
         let imageURL = try imageStore.saveImage(image, name: id)
-        print("BRDEBUG createPhoto photo \(id) imageURL \(imageURL)")
         let photo = Photo(id: id, url: nil, timestamp: timestamp)
 
         let objectUrl = subpath("photo").appending(path: photo.id)

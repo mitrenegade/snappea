@@ -13,17 +13,15 @@ import SwiftUI
 struct PlantBasicView: View {
     private let plant: Plant
     private let photo: Photo?
-    private let imageLoaderFactory: ImageLoaderFactory
+    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
     private let imageSize = CGSize(width: 200, height: 200)
 
     init(plant: Plant,
-         photo: Photo?,
-         imageLoaderFactory: ImageLoaderFactory
+         photo: Photo?
     ) {
         self.plant = plant
         self.photo = photo
-        self.imageLoaderFactory = imageLoaderFactory
     }
 
     var body: some View {

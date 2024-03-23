@@ -10,23 +10,22 @@ import SwiftUI
 
 struct SnapOverlayView<T>: View where T: Store {
     @ObservedObject var viewModel: SnapOverlayViewModel<T>
+
+    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
+
     var imageSize: CGSize
-    
+
     @State var dragging: Bool = false
     @State var draggingStart: CGPoint = CGPoint.zero
     @State var draggingEnd: CGPoint = CGPoint.zero
 
-    private let imageLoaderFactory: ImageLoaderFactory
-
     init(photo: Photo,
          selectedSnaps: [Snap]? = nil,
-         store: T,
-         imageLoaderFactory: ImageLoaderFactory
+         store: T
     ) {
 
         viewModel = SnapOverlayViewModel(photo: photo, selectedSnaps: selectedSnaps, store: store)
         imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
-        self.imageLoaderFactory = imageLoaderFactory
     }
     
     var body: some View {

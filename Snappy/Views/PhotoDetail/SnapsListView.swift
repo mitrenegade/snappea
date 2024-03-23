@@ -20,18 +20,16 @@ struct SnapsListView<T>: View where T: Store {
 
     @ObservedObject var store: T
 
-    private let imageLoaderFactory: ImageLoaderFactory
-
     var body: some View {
         if TESTING {
             Text(viewModel.title + "\(selectedSnaps.isEmpty ? "" : " selectedSnap")")
         }
         List(viewModel.snaps) { snap in
             NavigationLink {
-                SnapDetailView(snap: snap, store: store, imageLoaderFactory: imageLoaderFactory)
+                SnapDetailView(snap: snap, store: store)
             } label: {
                 if let photo = store.photo(withId: snap.photoId) {
-                    SnapRow(snap: snap, photo: photo, isDisabled: !isSelected(snap), imageLoaderFactory: imageLoaderFactory)
+                    SnapRow(snap: snap, photo: photo, isDisabled: !isSelected(snap))
                 } // else: display error? display snap without photo? filter out this snap?
             }
         }
@@ -50,25 +48,21 @@ struct SnapsListView<T>: View where T: Store {
     /// Creates a SnapsListView based on a given photo
     init(photo: Photo,
          selectedSnaps: [Snap]? = nil,
-         store: T,
-         imageLoaderFactory: ImageLoaderFactory
+         store: T
     ) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: photo.id, type: .photo, store: store)
-        self.imageLoaderFactory = imageLoaderFactory
     }
 
     /// Creates a SnapsListView based on a given plant
     init(plant: Plant,
          selectedSnaps: [Snap]? = nil,
-         store: T,
-         imageLoaderFactory: ImageLoaderFactory
+         store: T
     ) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: plant.id, type: .plant, store: store)
-        self.imageLoaderFactory = imageLoaderFactory
     }
 }
 

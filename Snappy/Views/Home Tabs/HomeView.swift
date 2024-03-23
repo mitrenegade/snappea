@@ -21,8 +21,8 @@ struct HomeView: View {
     private var imageLoaderFactory: ImageLoaderFactory = ImageLoaderFactory(imageLoaderType: DiskImageLoader.self)
 
     init(user: User) {
+        store.purge(id: user.id)
         self.load(user: user)
-//        store.purge(id: user.id)
     }
 
     private func load(user: User) {
@@ -34,13 +34,13 @@ struct HomeView: View {
 
     var body: some View {
         TabView(selection: $router.selectedTab) {
-            PlantsRoot(store: store, imageLoaderFactory: imageLoaderFactory)
+            PlantsRoot(store: store)
                 .tabItem {
                     // BR TODO make this a snap pea icon
                     Image(systemName: "leaf.fill")
                     Text("Plants")
                 }.tag(Tab.plants)
-            GalleryRoot(store: store, imageLoaderFactory: imageLoaderFactory)
+            GalleryRoot(store: store)
                 .tabItem {
                     Image(systemName: "photo.fill")
                     Text("Gallery")
@@ -51,6 +51,7 @@ struct HomeView: View {
                     Text("Camera")
                 }.tag(Tab.camera)
         }
+        .environmentObject(imageLoaderFactory)
     }
 }
 

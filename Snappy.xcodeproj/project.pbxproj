@@ -30,6 +30,7 @@
 		8E3ABF1C2450065000FF378B /* SnapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF1B2450065000FF378B /* SnapView.swift */; };
 		8E54C1342B9BBB270020BAAE /* PlantBasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54C1332B9BBB270020BAAE /* PlantBasicView.swift */; };
 		8E5D49332BA65C5B00455929 /* ImageLoaderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5D49322BA65C5B00455929 /* ImageLoaderFactory.swift */; };
+		8E5D49352BA69C3D00455929 /* LocalStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5D49342BA69C3D00455929 /* LocalStoreTests.swift */; };
 		8E5FE327246C774400622DDA /* FirebaseImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE326246C774400622DDA /* FirebaseImageService.swift */; };
 		8E5FE329246E7B0300622DDA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE328246E7B0300622DDA /* HomeView.swift */; };
 		8E5FE32C246E800A00622DDA /* TabsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE32B246E800A00622DDA /* TabsRouter.swift */; };
@@ -117,6 +118,7 @@
 		8E3ABF1B2450065000FF378B /* SnapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapView.swift; sourceTree = "<group>"; };
 		8E54C1332B9BBB270020BAAE /* PlantBasicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantBasicView.swift; sourceTree = "<group>"; };
 		8E5D49322BA65C5B00455929 /* ImageLoaderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderFactory.swift; sourceTree = "<group>"; };
+		8E5D49342BA69C3D00455929 /* LocalStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStoreTests.swift; sourceTree = "<group>"; };
 		8E5FE326246C774400622DDA /* FirebaseImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseImageService.swift; sourceTree = "<group>"; };
 		8E5FE328246E7B0300622DDA /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8E5FE32B246E800A00622DDA /* TabsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsRouter.swift; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 			children = (
 				8E7C796C244BB24600F295AD /* VeggieTagTests.swift */,
 				8EF1FC6E24675AF2005C4DE9 /* SnapViewModelTests.swift */,
+				8E5D49342BA69C3D00455929 /* LocalStoreTests.swift */,
 				8E7C796E244BB24600F295AD /* Info.plist */,
 				8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */,
 			);
@@ -686,6 +689,7 @@
 				8EF1FC732467D1F4005C4DE9 /* CoordinateServiceTests.swift in Sources */,
 				8E7C796D244BB24600F295AD /* VeggieTagTests.swift in Sources */,
 				8EF1FC6F24675AF2005C4DE9 /* SnapViewModelTests.swift in Sources */,
+				8E5D49352BA69C3D00455929 /* LocalStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -878,7 +882,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SnappyTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -901,7 +905,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SnappyTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
