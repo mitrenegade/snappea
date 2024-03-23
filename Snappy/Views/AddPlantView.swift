@@ -58,7 +58,7 @@ struct AddPlantView<T>: View where T: Store {
             }
 
             if showingAddImageLayer {
-                AddImageHelperLayer(image: $image, selfIsShowing: $showingAddImageLayer, imageSelected: $showingAddImageLayer)
+                AddImageHelperLayer(image: $image, selfIsShowing: $showingAddImageLayer)
             }
         }
     }

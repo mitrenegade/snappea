@@ -12,16 +12,18 @@ import SwiftUI
 struct AddImageHelperLayer: View {
 
     @State private var showingSheet = true
-    @State var showCaptureImageView: Bool = false
-    @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
+    @State private var showCaptureImageView: Bool = false
+    @State private var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
 
-    @Binding var image: UIImage?
-    @Binding var selfIsShowing: Bool
-    @Binding var imageSelected: Bool {
+    @State private var imageSelected: Bool = false {
         didSet {
             selfIsShowing = !imageSelected
         }
     }
+
+    @Binding var image: UIImage?
+    // Used to trigger parent view's state of whether this layer should be dismissed
+    @Binding var selfIsShowing: Bool
 
     var body: some View {
         ZStack {
