@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+/// Wrapper around UIImagePickerController
+/// Dismissed when an image is selected
 struct CaptureImageView {
     /// MARK: - Properties
     @Binding var isShown: Bool
@@ -42,6 +44,8 @@ extension CaptureImageView: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: UIImagePickerController,
                                 context: UIViewControllerRepresentableContext<CaptureImageView>) {
+        // BR TODO: if user cancels selection isImageSelected is false but does not dismiss.
+        // need to dismiss any time isShown is set to false
         print("BRDEBUG updated image != nil? \(image != nil) isImageSelected \(isImageSelected) isShown \(isShown)")
     }
 }

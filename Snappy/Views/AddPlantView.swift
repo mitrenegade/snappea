@@ -14,10 +14,11 @@ struct AddPlantView<T>: View where T: Store {
 
     @ObservedObject var viewModel: AddPlantViewModel<T>
 
-    /// Image picker
-    @State var showCaptureImageView: Bool = true
-    @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
+    /// Image picker layer
+    @State private var showingAddImageLayer = false
     @State var image: UIImage? = nil
+    @State var imageSelected: Bool = false // if true, then override showingAddImageLayer
+
     @State var isSaveButtonEnabled: Bool = false
 
     private var title: String {
@@ -34,32 +35,24 @@ struct AddPlantView<T>: View where T: Store {
 
     var body: some View {
         Text(title)
-        VStack {
-            if let image {
-                Image(uiImage: image)
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.width,
-                            height: UIScreen.main.bounds.width)
-                    .aspectRatio(contentMode: .fit)
-                    .clipped()
-            } else {
-                if (showCaptureImageView) {
-                    CaptureImageView(isShown: $showCaptureImageView,
-                                     image: $image,
-                                     mode: $cameraSourceType,
-                                     isImageSelected: $isSaveButtonEnabled)
-                }
+        ZStack {
+            VStack {
+                imagePreview
+                captureImageButton
+
+                nameField
+                categoryField
+                typeField
+            }
+            .navigationBarItems(trailing: saveButton)
+            .alert(isPresented: $viewModel.isShowingError) {
+                Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
             }
 
-            nameField
-            categoryField
-            typeField
+            if showingAddImageLayer && !imageSelected {
+                AddImageHelperLayer(image: $image, imageSelected: $imageSelected)
+            }
         }
-        .navigationBarItems(trailing: saveButton)
-        .alert(isPresented: $viewModel.isShowingError) {
-            Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
-        }
-
     }
 
     private var nameField: some View {
@@ -91,6 +84,33 @@ struct AddPlantView<T>: View where T: Store {
                     }
                 }
             }
+    }
+
+    var imagePreview: some View {
+        Group {
+            if let image {
+                Image(uiImage: image)
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width,
+                           height: UIScreen.main.bounds.width)
+                    .aspectRatio(contentMode: .fit)
+                    .clipped()
+            }
+        }
+    }
+
+    var captureImageButton: some View {
+        Button(action: {
+            self.showingAddImageLayer.toggle()
+            self.imageSelected = false
+        }) {
+            if image == nil {
+                Text("Add photo")
+            } else {
+                // BR TODO this requires two clicks to display layer
+                Text("Change photo")
+            }
+        }
     }
 
     private var saveButton: some View {
