@@ -29,7 +29,7 @@ struct AddImageHelperLayer: View {
                                  isImageSelected: $imageSelected)
             }
 
-            /// This should be a clear view on top of the calling view
+            // BR TODO: This should be a clear view on top of the calling view
             Text("Add Image Helper Layer")
                 .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
                     makeActionSheet
