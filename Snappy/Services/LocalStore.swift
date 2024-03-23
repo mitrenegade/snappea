@@ -11,7 +11,7 @@ import UIKit
 
 /// A local persistence and caching layer
 /// Stores into local file structure as data
-class LocalStore: Store {
+class LocalStore: Store, ObservableObject {
 
     private var gardenID: String = ""
 

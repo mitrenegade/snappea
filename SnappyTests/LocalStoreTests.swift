@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Combine
 @testable import Snappy
 
 final class LocalStoreTests: XCTestCase {
@@ -51,6 +52,11 @@ final class LocalStoreTests: XCTestCase {
 
         let image = UIImage(named: "peas")!
         _ = try store.createPhoto(image: image)
+        let expectation = self.expectation(description: "Store subscription")
+        let _ = store.allPhotosPublisher.handleEvents(receiveRequest:  { subscriptions in
+            expectation.fulfill()
+        })
+        await fulfillment(of: [expectation])
         XCTAssertEqual(store.allPhotos.count, 1)
     }
 
