@@ -13,9 +13,10 @@ struct AddPlantView<T>: View where T: Store {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @ObservedObject var viewModel: AddPlantViewModel<T>
+    @State private var showingSheet = false
 
     /// Image picker
-    @State var showCaptureImageView: Bool = true
+    @State var showCaptureImageView: Bool = false
     @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
     @State var image: UIImage? = nil
     @State var isSaveButtonEnabled: Bool = false
@@ -48,6 +49,9 @@ struct AddPlantView<T>: View where T: Store {
                                      image: $image,
                                      mode: $cameraSourceType,
                                      isImageSelected: $isSaveButtonEnabled)
+                } else {
+                    imagePreview
+                    captureImageButton
                 }
             }
 
@@ -91,6 +95,67 @@ struct AddPlantView<T>: View where T: Store {
                     }
                 }
             }
+    }
+
+    var imagePreview: some View {
+        Group {
+            if image != nil {
+                Image(uiImage: image!).resizable()
+                .frame(width: 250, height: 250)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.white, lineWidth: 4))
+                    .shadow(radius: 10)
+            }
+        }
+    }
+
+    var captureImageButton: some View {
+        Button(action: {
+            self.showingSheet.toggle()
+        }) {
+            if image == nil {
+                Text("Add photo")
+            } else {
+                Text("Change photo")
+            }
+        }
+        .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
+            makeActionSheet
+        }
+    }
+
+    var makeActionSheet: ActionSheet {
+        let title = "Select photo from:"
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            return ActionSheet(title: Text(title), message: nil, buttons:[
+                .default(Text("Camera"), action: {
+                    self.openCamera()
+                }),
+                .default(Text("Photo Album"), action: {
+                    self.openLibrary()
+                }),
+                .default(Text("Cancel"))
+            ])
+        } else {
+            return ActionSheet(title: Text(title), message: nil, buttons:[
+                .default(Text("Photo Album"), action: {
+                    self.openLibrary()
+                }),
+                .default(Text("Cancel"))
+            ])
+        }
+    }
+
+    func openCamera() {
+        // camera
+        self.cameraSourceType = .camera
+        self.showCaptureImageView.toggle()
+    }
+
+    func openLibrary() {
+        // photo album
+        self.cameraSourceType = .photoLibrary
+        self.showCaptureImageView.toggle()
     }
 
     private var saveButton: some View {
