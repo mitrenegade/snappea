@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+/// Wrapper around UIImagePickerController
+/// Dismissed when an image is selected
 struct CaptureImageView {
     /// MARK: - Properties
     @Binding var isShown: Bool

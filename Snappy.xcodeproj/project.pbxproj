@@ -56,6 +56,7 @@
 		8E9E7DA02B413D8900E9DF27 /* PlantGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9E7D9F2B413D8900E9DF27 /* PlantGalleryView.swift */; };
 		8EB00F752B735DEE009C8FE4 /* GoogleService-Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EB00F742B735DEE009C8FE4 /* GoogleService-Info-dev.plist */; };
 		8EC10BFF245F2EC7004D92EC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC10BFE245F2EC7004D92EC /* User.swift */; };
+		8EC417262BAE964F0076DC1C /* AddImageHelperLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC417252BAE964F0076DC1C /* AddImageHelperLayer.swift */; };
 		8EC86BF92454E81D00AB2F92 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BF82454E81D00AB2F92 /* ImageStore.swift */; };
 		8EC86BFB245503CC00AB2F92 /* SnapOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */; };
 		8EC86BFF245613B900AB2F92 /* SnapsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFE245613B900AB2F92 /* SnapsListViewModel.swift */; };
@@ -148,6 +149,7 @@
 		8E9E7D9F2B413D8900E9DF27 /* PlantGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantGalleryView.swift; sourceTree = "<group>"; };
 		8EB00F742B735DEE009C8FE4 /* GoogleService-Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-dev.plist"; sourceTree = "<group>"; };
 		8EC10BFE245F2EC7004D92EC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8EC417252BAE964F0076DC1C /* AddImageHelperLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageHelperLayer.swift; sourceTree = "<group>"; };
 		8EC86BF82454E81D00AB2F92 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 		8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapOverlayViewModel.swift; sourceTree = "<group>"; };
 		8EC86BFE245613B900AB2F92 /* SnapsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapsListViewModel.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				8E74F094244D20C200F5A507 /* CameraRoot.swift */,
+				8EC417252BAE964F0076DC1C /* AddImageHelperLayer.swift */,
 				8E74F096244D21F500F5A507 /* CaptureImageView.swift */,
 				8E74F099244D241000F5A507 /* ImagePickerCoordinator.swift */,
 			);
@@ -659,6 +662,7 @@
 				8E3ABF15244EB50E00FF378B /* PhotoRowViewModel.swift in Sources */,
 				8E3684C82B27CE3100B228F3 /* Constants.swift in Sources */,
 				8E74F097244D21F500F5A507 /* CaptureImageView.swift in Sources */,
+				8EC417262BAE964F0076DC1C /* AddImageHelperLayer.swift in Sources */,
 				8E87C5C8245EA1B100482678 /* LoginViewModel.swift in Sources */,
 				8EF0B70D24691940001C9CD8 /* DragView.swift in Sources */,
 				8E3ABF17244F83A300FF378B /* PhotoDetailView.swift in Sources */,
