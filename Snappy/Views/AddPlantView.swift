@@ -14,10 +14,11 @@ struct AddPlantView<T>: View where T: Store {
 
     @ObservedObject var viewModel: AddPlantViewModel<T>
 
+    /// Image picker layer
     @State private var showingAddImageLayer = false
-
-    /// Image picker
     @State var image: UIImage? = nil
+    @State var imageSelected: Bool = false // if true, then override showingAddImageLayer
+
     @State var isSaveButtonEnabled: Bool = false
 
     private var title: String {
@@ -36,17 +37,8 @@ struct AddPlantView<T>: View where T: Store {
         Text(title)
         ZStack {
             VStack {
-                if let image {
-                    Image(uiImage: image)
-                        .resizable()
-                        .frame(width: UIScreen.main.bounds.width,
-                               height: UIScreen.main.bounds.width)
-                        .aspectRatio(contentMode: .fit)
-                        .clipped()
-                } else {
-                    imagePreview
-                    captureImageButton
-                }
+                imagePreview
+                captureImageButton
 
                 nameField
                 categoryField
@@ -57,8 +49,8 @@ struct AddPlantView<T>: View where T: Store {
                 Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
             }
 
-            if showingAddImageLayer {
-                AddImageHelperLayer(image: $image, selfIsShowing: $showingAddImageLayer)
+            if showingAddImageLayer && !imageSelected {
+                AddImageHelperLayer(image: $image, imageSelected: $imageSelected)
             }
         }
     }
@@ -96,12 +88,13 @@ struct AddPlantView<T>: View where T: Store {
 
     var imagePreview: some View {
         Group {
-            if image != nil {
-                Image(uiImage: image!).resizable()
-                .frame(width: 250, height: 250)
-                .clipShape(Circle())
-                .overlay(Circle().stroke(Color.white, lineWidth: 4))
-                    .shadow(radius: 10)
+            if let image {
+                Image(uiImage: image)
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width,
+                           height: UIScreen.main.bounds.width)
+                    .aspectRatio(contentMode: .fit)
+                    .clipped()
             }
         }
     }
@@ -109,10 +102,12 @@ struct AddPlantView<T>: View where T: Store {
     var captureImageButton: some View {
         Button(action: {
             self.showingAddImageLayer.toggle()
+            self.imageSelected = false
         }) {
             if image == nil {
                 Text("Add photo")
             } else {
+                // BR TODO this requires two clicks to display layer
                 Text("Change photo")
             }
         }

@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct CameraRoot<T>: View where T: Store {
+
+    /// Image picker layer
+    @State private var showingAddImageLayer = false
     @State var image: UIImage? = nil
-    @State var showCaptureImageView: Bool = false
-    @State private var showingSheet = false
-    @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
-    @State private var isImageSelected: Bool = false
+    @State private var imageSelected = false
 
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
     @EnvironmentObject var router: TabsRouter
@@ -35,8 +35,8 @@ struct CameraRoot<T>: View where T: Store {
                                     trailing: saveButton
                 )
             }
-            if (showCaptureImageView) {
-                CaptureImageView(isShown: $showCaptureImageView, image: $image, mode: $cameraSourceType, isImageSelected: $isImageSelected)
+            if showingAddImageLayer && !imageSelected {
+                AddImageHelperLayer(image: $image, imageSelected: $imageSelected)
             }
         }
     }
@@ -55,16 +55,14 @@ struct CameraRoot<T>: View where T: Store {
     
     var captureImageButton: some View {
         Button(action: {
-            self.showingSheet.toggle()
+            self.showingAddImageLayer.toggle()
+            self.imageSelected = false
         }) {
             if image == nil {
                 Text("Add photo")
             } else {
                 Text("Change photo")
             }
-        }
-        .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
-            makeActionSheet
         }
     }
     
@@ -98,40 +96,6 @@ struct CameraRoot<T>: View where T: Store {
         }
     }
 
-    var makeActionSheet: ActionSheet {
-        let title = "Select photo from:"
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            return ActionSheet(title: Text(title), message: nil, buttons:[
-                .default(Text("Camera"), action: {
-                    self.openCamera()
-                }),
-                .default(Text("Photo Album"), action: {
-                    self.openLibrary()
-                }),
-                .default(Text("Cancel"))
-            ])
-        } else {
-            return ActionSheet(title: Text(title), message: nil, buttons:[
-                .default(Text("Photo Album"), action: {
-                    self.openLibrary()
-                }),
-                .default(Text("Cancel"))
-            ])
-        }
-    }
-    
-    func openCamera() {
-        // camera
-        self.cameraSourceType = .camera
-        self.showCaptureImageView.toggle()
-    }
-    
-    func openLibrary() {
-        // photo album
-        self.cameraSourceType = .photoLibrary
-        self.showCaptureImageView.toggle()
-    }
-    
     func saveImage() async -> Photo? {
         guard let image else {
             // TODO: throw error

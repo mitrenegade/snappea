@@ -15,15 +15,10 @@ struct AddImageHelperLayer: View {
     @State private var showCaptureImageView: Bool = false
     @State private var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
 
-    @State private var imageSelected: Bool = false {
-        didSet {
-            selfIsShowing = !imageSelected
-        }
-    }
-
     @Binding var image: UIImage?
+
     // Used to trigger parent view's state of whether this layer should be dismissed
-    @Binding var selfIsShowing: Bool
+    @Binding var imageSelected: Bool
 
     var body: some View {
         ZStack {
