@@ -35,35 +35,35 @@ struct AddPlantView<T>: View where T: Store {
 
     var body: some View {
         Text(title)
-        VStack {
-            if let image {
-                Image(uiImage: image)
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.width,
-                            height: UIScreen.main.bounds.width)
-                    .aspectRatio(contentMode: .fit)
-                    .clipped()
-            } else {
-                if (showCaptureImageView) {
-                    CaptureImageView(isShown: $showCaptureImageView,
-                                     image: $image,
-                                     mode: $cameraSourceType,
-                                     isImageSelected: $isSaveButtonEnabled)
+        ZStack {
+            VStack {
+                if let image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.width,
+                               height: UIScreen.main.bounds.width)
+                        .aspectRatio(contentMode: .fit)
+                        .clipped()
                 } else {
                     imagePreview
                     captureImageButton
                 }
+
+                nameField
+                categoryField
+                typeField
             }
-
-            nameField
-            categoryField
-            typeField
+            .navigationBarItems(trailing: saveButton)
+            .alert(isPresented: $viewModel.isShowingError) {
+                Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
+            }
+            if showCaptureImageView {
+                CaptureImageView(isShown: $showCaptureImageView,
+                                 image: $image,
+                                 mode: $cameraSourceType,
+                                 isImageSelected: $isSaveButtonEnabled)
+            }
         }
-        .navigationBarItems(trailing: saveButton)
-        .alert(isPresented: $viewModel.isShowingError) {
-            Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
-        }
-
     }
 
     private var nameField: some View {
