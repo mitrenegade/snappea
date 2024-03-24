@@ -55,7 +55,7 @@ struct CameraRoot<T>: View where T: Store {
     
     var captureImageButton: some View {
         Button(action: {
-            self.showingAddImageLayer.toggle()
+            self.showingAddImageLayer = true
             self.imageSelected = false
         }) {
             if image == nil {
