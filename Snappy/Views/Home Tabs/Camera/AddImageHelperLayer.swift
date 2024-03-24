@@ -28,12 +28,9 @@ struct AddImageHelperLayer: View {
                                  mode: $cameraSourceType,
                                  isImageSelected: $imageSelected)
             }
-
-            // BR TODO: This should be a clear view on top of the calling view
-            Text("Add Image Helper Layer")
-                .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
-                    makeActionSheet
-                }
+        }
+        .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
+            makeActionSheet
         }
     }
 
