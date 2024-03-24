@@ -9,31 +9,45 @@
 import Foundation
 import SwiftUI
 
+/// Manages an action sheet and a CaptureImageView
+/// and handles states for selected image or cancel actions
 struct AddImageHelperLayer: View {
 
+    /// Display an action sheet to select between camera and photo album
     @State private var showingSheet = true
+
+    /// Display the CaptureImageView whether a camera or photo album
     @State private var showCaptureImageView: Bool = false
     @State private var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
 
+    /// The selected image
     @Binding var image: UIImage?
 
     // Used to trigger parent view's state of whether this layer should be dismissed
-    @Binding var imageSelected: Bool
+    @Binding var showingSelf: Bool
 
     var body: some View {
         ZStack {
             if showCaptureImageView {
                 CaptureImageView(isShown: $showCaptureImageView,
                                  image: $image,
-                                 mode: $cameraSourceType,
-                                 isImageSelected: $imageSelected)
+                                 mode: $cameraSourceType)
             }
-
-            // BR TODO: This should be a clear view on top of the calling view
-            Text("Add Image Helper Layer")
-                .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
-                    makeActionSheet
-                }
+        }
+        .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
+            makeActionSheet
+        }
+        .onChange(of: showCaptureImageView) {
+            // image selection dismissed
+            if showCaptureImageView == false {
+                showingSelf = false
+            }
+        }
+        .onChange(of: showingSheet) {
+            // if cancel was clicked on the sheet
+            if !showingSheet && !showCaptureImageView {
+                showingSelf = false
+            }
         }
     }
 

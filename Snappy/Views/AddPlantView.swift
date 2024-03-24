@@ -17,7 +17,6 @@ struct AddPlantView<T>: View where T: Store {
     /// Image picker layer
     @State private var showingAddImageLayer = false
     @State var image: UIImage? = nil
-    @State var imageSelected: Bool = false // if true, then override showingAddImageLayer
 
     @State var isSaveButtonEnabled: Bool = false
 
@@ -49,9 +48,13 @@ struct AddPlantView<T>: View where T: Store {
                 Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
             }
 
-            if showingAddImageLayer && !imageSelected {
-                AddImageHelperLayer(image: $image, imageSelected: $imageSelected)
+            if showingAddImageLayer {
+                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer)
             }
+        }
+        .onChange(of: image) {
+            showingAddImageLayer = false
+            isSaveButtonEnabled = image != nil
         }
     }
 
@@ -101,13 +104,11 @@ struct AddPlantView<T>: View where T: Store {
 
     var captureImageButton: some View {
         Button(action: {
-            self.showingAddImageLayer.toggle()
-            self.imageSelected = false
+            self.showingAddImageLayer = true
         }) {
             if image == nil {
                 Text("Add photo")
             } else {
-                // BR TODO this requires two clicks to display layer
                 Text("Change photo")
             }
         }

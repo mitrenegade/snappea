@@ -13,7 +13,6 @@ struct CameraRoot<T>: View where T: Store {
     /// Image picker layer
     @State private var showingAddImageLayer = false
     @State var image: UIImage? = nil
-    @State private var imageSelected = false
 
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
     @EnvironmentObject var router: TabsRouter
@@ -35,8 +34,8 @@ struct CameraRoot<T>: View where T: Store {
                                     trailing: saveButton
                 )
             }
-            if showingAddImageLayer && !imageSelected {
-                AddImageHelperLayer(image: $image, imageSelected: $imageSelected)
+            if showingAddImageLayer {
+                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer)
             }
         }
     }
@@ -55,8 +54,7 @@ struct CameraRoot<T>: View where T: Store {
     
     var captureImageButton: some View {
         Button(action: {
-            self.showingAddImageLayer.toggle()
-            self.imageSelected = false
+            self.showingAddImageLayer = true
         }) {
             if image == nil {
                 Text("Add photo")
