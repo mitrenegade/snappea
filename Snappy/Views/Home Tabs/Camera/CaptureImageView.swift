@@ -17,8 +17,8 @@ struct CaptureImageView {
     @Binding var mode: UIImagePickerController.SourceType
 
     /// `true` if image is true; needed to update parent view since `image != nil`
-    /// won't trigger any updates in the UI
-    @Binding var isImageSelected: Bool
+    /// not used
+    @State var isImageSelected: Bool = false
 
     // MARK: - UIViewControllerRepresentable
 
@@ -26,8 +26,7 @@ struct CaptureImageView {
         return ImagePickerCoordinator(isShown: $isShown, image: $image, isImageSelected: $isImageSelected)
     }
 
-    init(isShown: Binding<Bool>, image: Binding<UIImage?>, mode: Binding<UIImagePickerController.SourceType>, isImageSelected: Binding<Bool>) {
-        _isImageSelected = isImageSelected
+    init(isShown: Binding<Bool>, image: Binding<UIImage?>, mode: Binding<UIImagePickerController.SourceType>) {
         _image = image
         _isShown = isShown
         _mode = mode

@@ -17,7 +17,6 @@ struct AddPlantView<T>: View where T: Store {
     /// Image picker layer
     @State private var showingAddImageLayer = false
     @State var image: UIImage? = nil
-    @State var shouldDismiss: Bool = false // if true, then override showingAddImageLayer
 
     @State var isSaveButtonEnabled: Bool = false
 
@@ -49,18 +48,12 @@ struct AddPlantView<T>: View where T: Store {
                 Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
             }
 
-            if showingAddImageLayer && !shouldDismiss {
-                AddImageHelperLayer(image: $image, shouldDismiss: $shouldDismiss)
+            if showingAddImageLayer {
+                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer)
             }
         }
         .onChange(of: image) {
             showingAddImageLayer = false
-        }
-        .onChange(of: showingAddImageLayer) {
-            print("BRDEBUG showingAddImageLayer \(showingAddImageLayer) shouldDismiss \(shouldDismiss)")
-        }
-        .onChange(of: shouldDismiss) {
-            print("BRDEBUG showingAddImageLayer \(showingAddImageLayer) shouldDismiss \(shouldDismiss)")
         }
     }
 
@@ -111,7 +104,6 @@ struct AddPlantView<T>: View where T: Store {
     var captureImageButton: some View {
         Button(action: {
             self.showingAddImageLayer = true
-            self.shouldDismiss = false
         }) {
             if image == nil {
                 Text("Add photo")

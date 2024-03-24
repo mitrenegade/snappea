@@ -24,15 +24,14 @@ struct AddImageHelperLayer: View {
     @Binding var image: UIImage?
 
     // Used to trigger parent view's state of whether this layer should be dismissed
-    @Binding var shouldDismiss: Bool
+    @Binding var showingSelf: Bool
 
     var body: some View {
         ZStack {
             if showCaptureImageView {
                 CaptureImageView(isShown: $showCaptureImageView,
                                  image: $image,
-                                 mode: $cameraSourceType,
-                                 isImageSelected: $shouldDismiss)
+                                 mode: $cameraSourceType)
             }
         }
         .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
@@ -41,13 +40,13 @@ struct AddImageHelperLayer: View {
         .onChange(of: showCaptureImageView) {
             // image selection dismissed
             if showCaptureImageView == false {
-                shouldDismiss = true
+                showingSelf = false
             }
         }
         .onChange(of: showingSheet) {
             // if cancel was clicked on the sheet
             if !showingSheet && !showCaptureImageView {
-                shouldDismiss = true
+                showingSelf = false
             }
         }
     }

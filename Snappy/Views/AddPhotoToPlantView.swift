@@ -49,8 +49,7 @@ struct AddPhotoToPlantView<T>: View where T: Store {
                 if (showCaptureImageView) {
                     CaptureImageView(isShown: $showCaptureImageView,
                                      image: $image,
-                                     mode: $cameraSourceType,
-                                     isImageSelected: $isSaveButtonEnabled)
+                                     mode: $cameraSourceType)
                 }
             }
         }
