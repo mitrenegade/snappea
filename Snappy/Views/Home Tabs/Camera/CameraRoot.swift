@@ -36,7 +36,7 @@ struct CameraRoot<T>: View where T: Store {
                 )
             }
             if showingAddImageLayer && !imageSelected {
-                AddImageHelperLayer(image: $image, imageSelected: $imageSelected)
+                AddImageHelperLayer(image: $image, shouldDismiss: $imageSelected)
             }
         }
     }

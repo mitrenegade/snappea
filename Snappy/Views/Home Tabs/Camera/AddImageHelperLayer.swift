@@ -9,16 +9,22 @@
 import Foundation
 import SwiftUI
 
+/// Manages an action sheet and a CaptureImageView
+/// and handles states for selected image or cancel actions
 struct AddImageHelperLayer: View {
 
+    /// Display an action sheet to select between camera and photo album
     @State private var showingSheet = true
+
+    /// Display the CaptureImageView whether a camera or photo album
     @State private var showCaptureImageView: Bool = false
     @State private var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
 
+    /// The selected image
     @Binding var image: UIImage?
 
     // Used to trigger parent view's state of whether this layer should be dismissed
-    @Binding var imageSelected: Bool
+    @Binding var shouldDismiss: Bool
 
     var body: some View {
         ZStack {
@@ -26,11 +32,17 @@ struct AddImageHelperLayer: View {
                 CaptureImageView(isShown: $showCaptureImageView,
                                  image: $image,
                                  mode: $cameraSourceType,
-                                 isImageSelected: $imageSelected)
+                                 isImageSelected: $shouldDismiss)
             }
         }
         .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
             makeActionSheet
+        }
+        .onChange(of: showCaptureImageView) {
+            // image selection dismissed
+            if showCaptureImageView == false {
+                shouldDismiss = true
+            }
         }
     }
 
@@ -44,14 +56,20 @@ struct AddImageHelperLayer: View {
                 .default(Text("Photo Album"), action: {
                     self.openLibrary()
                 }),
-                .default(Text("Cancel"))
+                .default(Text("Cancel"), action: {
+                    print("Cancelled")
+                    shouldDismiss = true
+                })
             ])
         } else {
             return ActionSheet(title: Text(title), message: nil, buttons:[
                 .default(Text("Photo Album"), action: {
                     self.openLibrary()
                 }),
-                .default(Text("Cancel"))
+                .default(Text("Cancel"), action: {
+                    print("Cancelled")
+                    shouldDismiss = true
+                })
             ])
         }
     }
