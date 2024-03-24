@@ -44,6 +44,12 @@ struct AddImageHelperLayer: View {
                 shouldDismiss = true
             }
         }
+        .onChange(of: showingSheet) {
+            // if cancel was clicked on the sheet
+            if !showingSheet && !showCaptureImageView {
+                shouldDismiss = true
+            }
+        }
     }
 
     var makeActionSheet: ActionSheet {
@@ -56,20 +62,14 @@ struct AddImageHelperLayer: View {
                 .default(Text("Photo Album"), action: {
                     self.openLibrary()
                 }),
-                .default(Text("Cancel"), action: {
-                    print("Cancelled")
-                    shouldDismiss = true
-                })
+                .default(Text("Cancel"))
             ])
         } else {
             return ActionSheet(title: Text(title), message: nil, buttons:[
                 .default(Text("Photo Album"), action: {
                     self.openLibrary()
                 }),
-                .default(Text("Cancel"), action: {
-                    print("Cancelled")
-                    shouldDismiss = true
-                })
+                .default(Text("Cancel"))
             ])
         }
     }
