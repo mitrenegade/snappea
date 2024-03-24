@@ -54,6 +54,7 @@ struct AddPlantView<T>: View where T: Store {
         }
         .onChange(of: image) {
             showingAddImageLayer = false
+            isSaveButtonEnabled = image != nil
         }
     }
 
