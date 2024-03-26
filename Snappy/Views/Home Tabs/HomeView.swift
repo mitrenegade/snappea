@@ -21,7 +21,7 @@ struct HomeView: View {
     private var imageLoaderFactory: ImageLoaderFactory = ImageLoaderFactory(imageLoaderType: DiskImageLoader.self)
 
     init(user: User) {
-        store.purge(id: user.id)
+//        store.purge(id: user.id)
         self.load(user: user)
     }
 

@@ -13,9 +13,7 @@ struct AddPhotoToPlantView<T>: View where T: Store {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     /// Image picker
-    @State var showCaptureImageView: Bool = true
-    @State var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
-    @State var image: UIImage? = nil
+    private let image: UIImage
     @State var isSaveButtonEnabled: Bool = false
 
     @ObservedObject var store: T
@@ -30,30 +28,28 @@ struct AddPhotoToPlantView<T>: View where T: Store {
         }
     }
 
-    init(store: T, plant: Plant) {
+    init(store: T, plant: Plant, image: UIImage) {
         self.store = store
         self.plant = plant
+        self.image = image
     }
 
     var body: some View {
         Text(title)
         VStack {
-            if let image {
-                Image(uiImage: image)
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.width,
-                            height: UIScreen.main.bounds.width)
-                    .aspectRatio(contentMode: .fit)
-                    .clipped()
-            } else {
-                if (showCaptureImageView) {
-                    CaptureImageView(isShown: $showCaptureImageView,
-                                     image: $image,
-                                     mode: $cameraSourceType)
-                }
+            Image(uiImage: image)
+                .resizable()
+                .frame(width: UIScreen.main.bounds.width,
+                        height: UIScreen.main.bounds.width)
+                .aspectRatio(contentMode: .fit)
+                .clipped()
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                saveButton
             }
         }
-        .navigationBarItems(trailing: saveButton)
+//        .navigationBarItems(trailing: saveButton)
 //        .alert(isPresented: $viewModel.isShowingError) {
 //            Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
 //        }
@@ -62,9 +58,6 @@ struct AddPhotoToPlantView<T>: View where T: Store {
 
     private var saveButton: some View {
         Button(action: {
-            guard let image else {
-                return
-            }
             Task {
                 await saveImage(image: image, plant: plant)
                 DispatchQueue.main.async {

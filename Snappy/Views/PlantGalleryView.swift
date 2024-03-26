@@ -23,6 +23,13 @@ struct PlantGalleryView<T>: View where T: Store {
 
     @ObservedObject var store: T
 
+    // add image
+    @State private var showingAddImageLayer = false
+    @State var image: UIImage? = nil
+
+    // plant editor
+    @State var isPhotoEditorPresented = false
+
     private var title: String {
         if TESTING {
             return "PlantGalleryView: \(plant.name)"
@@ -32,13 +39,29 @@ struct PlantGalleryView<T>: View where T: Store {
     }
 
     var body: some View {
-        VStack(spacing: 4) {
-            Text(title)
-            PlantBasicView(plant: plant, photo:
-                            store.photos(for: plant).first)
-            SnapsListView(plant: plant, store: store)
+        ZStack {
+            VStack(spacing: 4) {
+                Text(title)
+                PlantBasicView(plant: plant, photo:
+                                store.photos(for: plant).first)
+                SnapsListView(plant: plant, store: store)
+            }
+            .navigationBarItems(trailing: addSnapButton)
+
+            if showingAddImageLayer {
+                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer)
+            }
+
+//            if let image {
+//                AddPhotoToPlantView(store: store, plant: plant, image: image)
+//            }
         }
-        .navigationBarItems(trailing: addSnapButton)
+        .onChange(of: image) {
+            showingAddImageLayer = false
+            if image != nil {
+                isPhotoEditorPresented = true
+            }
+        }
     }
 
     init(plant: Plant,
@@ -50,12 +73,14 @@ struct PlantGalleryView<T>: View where T: Store {
 
     private var addSnapButton: some View {
         Button(action: {
-            // no op
+            self.showingAddImageLayer = true
         }) {
-            NavigationLink(destination: AddPhotoToPlantView(store: store, plant: plant)) {
-                Image(systemName: "photo.badge.plus")
-            }
+            Image(systemName: "photo.badge.plus")
         }
+    }
+
+    private func dismissEditor() {
+        // no op
     }
 
 }
