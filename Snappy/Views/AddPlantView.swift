@@ -20,6 +20,8 @@ struct AddPlantView<T>: View where T: Store {
 
     @State var isSaveButtonEnabled: Bool = false
 
+    @State var shouldShowGallery: Bool = false
+
     private var title: String {
         if TESTING {
             return "AddPlantView"
@@ -49,7 +51,10 @@ struct AddPlantView<T>: View where T: Store {
             }
 
             if showingAddImageLayer {
-                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer)
+                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, canShowGallery: true, shouldShowGallery: $shouldShowGallery)
+            }
+            if shouldShowGallery {
+                GalleryRoot(store: viewModel.store)
             }
         }
         .onChange(of: image) {
