@@ -20,7 +20,7 @@ struct AddPlantView<T>: View where T: Store {
 
     @State var isSaveButtonEnabled: Bool = false
 
-    @State var shouldShowGallery: Bool = false
+    @Binding var shouldShowGallery: Bool
 
     private var title: String {
         if TESTING {
@@ -28,10 +28,6 @@ struct AddPlantView<T>: View where T: Store {
         } else {
             return "New plant"
         }
-    }
-
-    init(store: T) {
-        self.viewModel = AddPlantViewModel(store: store)
     }
 
     var body: some View {
@@ -52,9 +48,6 @@ struct AddPlantView<T>: View where T: Store {
 
             if showingAddImageLayer {
                 AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, canShowGallery: true, shouldShowGallery: $shouldShowGallery)
-            }
-            if shouldShowGallery {
-                galleryOverlayView
             }
         }
         .onChange(of: image) {
@@ -130,26 +123,5 @@ struct AddPlantView<T>: View where T: Store {
             Text("Save")
         }
         .disabled(!isSaveButtonEnabled)
-    }
-
-    // Photo gallery
-    private var galleryOverlayView: some View {
-        NavigationView {
-            VStack {
-                Text("Gallery Overlay")
-
-                PhotoGalleryView(store: viewModel.store)
-            }
-            .background(.white)
-            .navigationBarItems(leading: closeGalleryButton)
-        }
-    }
-
-    private var closeGalleryButton: some View {
-        Button(action: {
-            shouldShowGallery.toggle()
-        }) {
-            Text("Close")
-        }
     }
 }
