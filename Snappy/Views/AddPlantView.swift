@@ -54,7 +54,7 @@ struct AddPlantView<T>: View where T: Store {
                 AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, canShowGallery: true, shouldShowGallery: $shouldShowGallery)
             }
             if shouldShowGallery {
-                GalleryRoot(store: viewModel.store)
+                PhotoGalleryView(store: viewModel.store)
             }
         }
         .onChange(of: image) {

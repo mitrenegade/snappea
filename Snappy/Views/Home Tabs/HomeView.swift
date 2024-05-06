@@ -27,8 +27,9 @@ struct HomeView: View {
 
     private func load(user: User) {
         Task {
-            try await store.loadGarden(id: user.id)
+            store.setup(gardenID: user.id)
             imageLoaderFactory.baseURL = store.imageBaseURL
+            try await store.loadGarden()
         }
     }
 
