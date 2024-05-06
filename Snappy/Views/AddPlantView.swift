@@ -36,33 +36,30 @@ struct AddPlantView<T>: View where T: Store {
 
     var body: some View {
         ZStack {
-            Text(title)
-            ZStack {
-                VStack {
-                    imagePreview
-                    captureImageButton
+            VStack {
+                Text(title)
+                imagePreview
+                captureImageButton
 
-                    nameField
-                    categoryField
-                    typeField
-                }
-                .navigationBarItems(trailing: saveButton)
-                .alert(isPresented: $viewModel.isShowingError) {
-                    Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
-                }
+                nameField
+                categoryField
+                typeField
+            }
+            .navigationBarItems(trailing: saveButton)
+            .alert(isPresented: $viewModel.isShowingError) {
+                Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
+            }
 
-                if showingAddImageLayer {
-                    AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, canShowGallery: true, shouldShowGallery: $shouldShowGallery)
-                }
+            if showingAddImageLayer {
+                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, canShowGallery: true, shouldShowGallery: $shouldShowGallery)
             }
-            .onChange(of: image) {
-                showingAddImageLayer = false
-                isSaveButtonEnabled = image != nil
-            }
-            
             if shouldShowGallery {
                 galleryOverlayView
             }
+        }
+        .onChange(of: image) {
+            showingAddImageLayer = false
+            isSaveButtonEnabled = image != nil
         }
     }
 
@@ -78,23 +75,23 @@ struct AddPlantView<T>: View where T: Store {
     }
 
     private var typeField: some View {
-            List {
-                Picker("Type", selection: $viewModel.plantType) {
-                    ForEach(PlantType.allCases) { plantType in
-                        Text(plantType.rawValue.capitalized)
-                    }
+        List {
+            Picker("Type", selection: $viewModel.plantType) {
+                ForEach(PlantType.allCases) { plantType in
+                    Text(plantType.rawValue.capitalized)
                 }
             }
+        }
     }
 
     private var categoryField: some View {
-            List {
-                Picker("Category", selection: $viewModel.category) {
-                    ForEach(Category.allCases) { category in
-                        Text(category.rawValue.capitalized)
-                    }
+        List {
+            Picker("Category", selection: $viewModel.category) {
+                ForEach(Category.allCases) { category in
+                    Text(category.rawValue.capitalized)
                 }
             }
+        }
     }
 
     var imagePreview: some View {
@@ -135,11 +132,24 @@ struct AddPlantView<T>: View where T: Store {
         .disabled(!isSaveButtonEnabled)
     }
 
+    // Photo gallery
     private var galleryOverlayView: some View {
-        VStack {
-            Text("Gallery Overlay")
+        NavigationView {
+            VStack {
+                Text("Gallery Overlay")
 
-            PhotoGalleryView(store: viewModel.store)
-        }.background(.red)
+                PhotoGalleryView(store: viewModel.store)
+            }
+            .background(.white)
+            .navigationBarItems(leading: closeGalleryButton)
+        }
+    }
+
+    private var closeGalleryButton: some View {
+        Button(action: {
+            shouldShowGallery.toggle()
+        }) {
+            Text("Close")
+        }
     }
 }
