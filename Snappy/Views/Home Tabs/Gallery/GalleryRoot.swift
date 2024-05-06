@@ -43,7 +43,7 @@ struct GalleryRoot<T>: View where T: Store {
                 newPhotoView
                 Spacer()
             }
-            .navigationBarItems(leading: logoutButton)
+//            .navigationBarItems(leading: logoutButton)
         }
     }
 

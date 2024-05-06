@@ -35,31 +35,34 @@ struct AddPlantView<T>: View where T: Store {
     }
 
     var body: some View {
-        Text(title)
         ZStack {
-            VStack {
-                imagePreview
-                captureImageButton
+            Text(title)
+            ZStack {
+                VStack {
+                    imagePreview
+                    captureImageButton
 
-                nameField
-                categoryField
-                typeField
-            }
-            .navigationBarItems(trailing: saveButton)
-            .alert(isPresented: $viewModel.isShowingError) {
-                Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
-            }
+                    nameField
+                    categoryField
+                    typeField
+                }
+                .navigationBarItems(trailing: saveButton)
+                .alert(isPresented: $viewModel.isShowingError) {
+                    Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
+                }
 
-            if showingAddImageLayer {
-                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, canShowGallery: true, shouldShowGallery: $shouldShowGallery)
+                if showingAddImageLayer {
+                    AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, canShowGallery: true, shouldShowGallery: $shouldShowGallery)
+                }
             }
+            .onChange(of: image) {
+                showingAddImageLayer = false
+                isSaveButtonEnabled = image != nil
+            }
+            
             if shouldShowGallery {
-                PhotoGalleryView(store: viewModel.store)
+                galleryOverlayView
             }
-        }
-        .onChange(of: image) {
-            showingAddImageLayer = false
-            isSaveButtonEnabled = image != nil
         }
     }
 
@@ -130,5 +133,13 @@ struct AddPlantView<T>: View where T: Store {
             Text("Save")
         }
         .disabled(!isSaveButtonEnabled)
+    }
+
+    private var galleryOverlayView: some View {
+        VStack {
+            Text("Gallery Overlay")
+
+            PhotoGalleryView(store: viewModel.store)
+        }.background(.red)
     }
 }
