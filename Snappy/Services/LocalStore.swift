@@ -211,7 +211,7 @@ class LocalStore: Store, ObservableObject {
         let id = UUID().uuidString
         let timestamp = Date().timeIntervalSince1970
 
-        let imageURL = try imageStore.saveImage(image, name: id)
+        let _ = try imageStore.saveImage(image, name: id)
         let photo = Photo(id: id, url: nil, timestamp: timestamp)
 
         let objectUrl = subpath("photo").appending(path: photo.id)

@@ -8,20 +8,14 @@ struct GridItemView: View {
     let size: Double
     let item: Photo
 
+    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
+
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            if let url = item.url {
-                AsyncImage(url: URL(string: url)) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: size, height: size)
-            } else {
-                EmptyView()
-            }
+            let imageLoader = imageLoaderFactory.create(imageName: item.id, cache: TemporaryImageCache.shared)
+            let placeholder = Text("Loading...")
+            AsyncImageView(imageLoader: imageLoader, frame: CGSize(width: size, height: size), placeholder: placeholder)
+                .aspectRatio(contentMode: .fill)
         }
     }
 }

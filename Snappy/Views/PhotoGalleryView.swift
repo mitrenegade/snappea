@@ -36,25 +36,5 @@ struct PhotoGalleryView<T>: View where T: Store {
                 .padding()
             }
         }
-        .navigationBarTitle("Image Gallery")
-        .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $isAddingPhoto) {
-//            PhotoPicker()
-        }
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarLeading) {
-//                Button(isEditing ? "Done" : "Edit") {
-//                    withAnimation { isEditing.toggle() }
-//                }
-//            }
-//            ToolbarItem(placement: .navigationBarTrailing) {
-//                Button {
-//                    isAddingPhoto = true
-//                } label: {
-//                    Image(systemName: "plus")
-//                }
-//                .disabled(isEditing)
-//            }
-//        }
     }
 }

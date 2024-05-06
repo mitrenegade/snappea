@@ -19,7 +19,6 @@ struct PlantGalleryView<T>: View where T: Store {
 
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
     @EnvironmentObject var router: TabsRouter
-    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
     @ObservedObject var store: T
 
