@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct PhotoGalleryView<T>: View where T: Store {
-    @State private var isAddingPhoto = false
+    @EnvironmentObject var photoEnvironment: PhotoEnvironment
 
     @State private var gridColumns = Array(repeating: GridItem(.flexible()), count: 3)
     @State private var numColumns = 3
@@ -13,10 +13,15 @@ struct PhotoGalleryView<T>: View where T: Store {
     }
 
     @ObservedObject var store: T
+    // If using PhotoGalleryView to add a plant
+    // TODO: make this a AddPhotoFromGalleryView
+    let shouldShowDetail: Bool
+    @Binding var shouldShowGallery: Bool
 
-    init(store: T) {
-        self.store = store
-    }
+//    init(store: T, shouldShowDetail: Bool = false) {
+//        self.store = store
+//        self.shouldShowDetail = shouldShowDetail
+//    }
 
     var body: some View {
         VStack {
@@ -24,9 +29,19 @@ struct PhotoGalleryView<T>: View where T: Store {
                 LazyVGrid(columns: gridColumns) {
                     ForEach(store.allPhotos) { photo in
                         GeometryReader { geo in
-                            NavigationLink(destination: PhotoDetailView(photo: photo, store: store)
-                            ) {
-                                GridItemView(size: geo.size.width, item: photo)
+                            // the GridItem shows a detail view of the item when clicked
+                            if shouldShowDetail {
+                                NavigationLink(destination: PhotoDetailView(photo: photo, store: store)
+                                ) {
+                                    GridItemView(size: geo.size.width, item: photo)
+                                }
+                            } else {
+                                // Selects photo and sets it in PhotoEnvironment
+                                Button {
+                                    didSelectPhoto(photo)
+                                } label: {
+                                    GridItemView(size: geo.size.width, item: photo)
+                                }
                             }
                         }
                         .cornerRadius(8.0)
@@ -36,5 +51,10 @@ struct PhotoGalleryView<T>: View where T: Store {
                 .padding()
             }
         }
+    }
+
+    private func didSelectPhoto(_ photo: Photo) {
+        photoEnvironment.newPhoto = photo
+        shouldShowGallery = false
     }
 }

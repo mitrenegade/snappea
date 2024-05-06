@@ -11,6 +11,7 @@ import PhotosUI
 
 struct AddPlantView<T>: View where T: Store {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var photoEnvironment: PhotoEnvironment
 
     @ObservedObject var viewModel: AddPlantViewModel<T>
 
@@ -96,6 +97,8 @@ struct AddPlantView<T>: View where T: Store {
                            height: UIScreen.main.bounds.width)
                     .aspectRatio(contentMode: .fit)
                     .clipped()
+            } else if let photo = photoEnvironment.newPhoto {
+                // BR TODO display image for selected Photo
             }
         }
     }

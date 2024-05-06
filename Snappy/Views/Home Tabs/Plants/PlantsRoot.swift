@@ -97,7 +97,9 @@ struct PlantsRoot<T>: View where T: Store {
             VStack {
                 Text("Photo Gallery")
 
-                PhotoGalleryView(store: store)
+                PhotoGalleryView(store: store,
+                                 shouldShowDetail: false,
+                                 shouldShowGallery: $shouldShowPhotoGalleryForAddPlant)
             }
             .background(.white)
             .navigationBarItems(leading: closeGalleryButton)
