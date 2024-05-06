@@ -42,11 +42,11 @@ struct HomeView: View {
                     Text("Plants")
                 }.tag(Tab.plants)
             // don't show gallery - only plants interface for now
-            GalleryRoot(store: store)
-                .tabItem {
-                    Image(systemName: "photo.fill")
-                    Text("Gallery")
-                }.tag(Tab.gallery)
+//            GalleryRoot(store: store)
+//                .tabItem {
+//                    Image(systemName: "photo.fill")
+//                    Text("Gallery")
+//                }.tag(Tab.gallery)
             CameraRoot(store: store)
                 .tabItem {
                     Image(systemName: "camera.fill")

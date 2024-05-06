@@ -73,7 +73,7 @@ struct AddImageHelperLayer: View {
             }), at: 0)
         }
         if canShowGallery {
-            buttons.insert(.default(Text("Plant Gallery"), action: {
+            buttons.insert(.default(Text("Snapped Photos"), action: {
                 self.openGallery()
             }), at: 0)
         }

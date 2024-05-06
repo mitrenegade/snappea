@@ -94,7 +94,7 @@ struct PlantsRoot<T>: View where T: Store {
     private var galleryOverlayView: some View {
         NavigationView {
             VStack {
-                Text("Gallery Overlay")
+                Text("Photo Gallery")
 
                 PhotoGalleryView(store: store)
             }
