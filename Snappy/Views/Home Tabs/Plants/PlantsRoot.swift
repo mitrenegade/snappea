@@ -14,7 +14,8 @@ import Combine
 struct PlantsRoot<T>: View where T: Store {
     @ObservedObject var store: T
 
-    @State var shouldShowGallery: Bool = false
+    /// Displays photo gallery for selecting an image for AddPlantView
+    @State var shouldShowPhotoGalleryForAddPlant: Bool = false
 
     init(store: T) {
         self.store = store
@@ -48,7 +49,7 @@ struct PlantsRoot<T>: View where T: Store {
                 )
             }
 
-            if shouldShowGallery {
+            if shouldShowPhotoGalleryForAddPlant {
                 galleryOverlayView
             }
 
@@ -69,7 +70,7 @@ struct PlantsRoot<T>: View where T: Store {
             
         }) {
             let viewModel = AddPlantViewModel(store: store)
-            let view = AddPlantView(viewModel: viewModel, shouldShowGallery: $shouldShowGallery)
+            let view = AddPlantView(viewModel: viewModel, shouldShowGallery: $shouldShowPhotoGalleryForAddPlant)
             NavigationLink(destination: view) {
                 Image(systemName: "photo.badge.plus")
             }
@@ -105,7 +106,7 @@ struct PlantsRoot<T>: View where T: Store {
 
     private var closeGalleryButton: some View {
         Button(action: {
-            shouldShowGallery.toggle()
+            shouldShowPhotoGalleryForAddPlant.toggle()
         }) {
             Text("Close")
         }

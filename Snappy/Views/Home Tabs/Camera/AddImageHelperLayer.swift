@@ -62,7 +62,7 @@ struct AddImageHelperLayer: View {
     var makeActionSheet: ActionSheet {
         let title = "Select photo from:"
         var buttons: [ActionSheet.Button] = [
-            .default(Text("Photo Album"), action: {
+            .default(Text("Photo Library"), action: {
                 self.openLibrary()
             }),
             .default(Text("Cancel"))
