@@ -12,6 +12,7 @@ import PhotosUI
 struct AddPlantView<T>: View where T: Store {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
+    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
     @ObservedObject var viewModel: AddPlantViewModel<T>
 
@@ -35,7 +36,21 @@ struct AddPlantView<T>: View where T: Store {
         ZStack {
             VStack {
                 Text(title)
-                imagePreview
+                if let image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.width,
+                               height: UIScreen.main.bounds.width)
+                        .aspectRatio(contentMode: .fit)
+                        .clipped()
+                } else if let newPhoto = photoEnvironment.newPhoto {
+                    let imageLoader = imageLoaderFactory.create(imageName: newPhoto.id, cache: TemporaryImageCache.shared)
+                    let placeholder = Text("Loading...")
+                    let imageSize = CGSize(width: UIScreen.main.bounds.width,
+                        height: UIScreen.main.bounds.width)
+                    AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
+                        .aspectRatio(contentMode: .fill)
+                }
                 captureImageButton
 
                 nameField
@@ -84,21 +99,6 @@ struct AddPlantView<T>: View where T: Store {
                 ForEach(Category.allCases) { category in
                     Text(category.rawValue.capitalized)
                 }
-            }
-        }
-    }
-
-    var imagePreview: some View {
-        Group {
-            if let image {
-                Image(uiImage: image)
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.width,
-                           height: UIScreen.main.bounds.width)
-                    .aspectRatio(contentMode: .fit)
-                    .clipped()
-            } else if let photo = photoEnvironment.newPhoto {
-                // BR TODO display image for selected Photo
             }
         }
     }
