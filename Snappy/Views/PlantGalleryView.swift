@@ -41,33 +41,31 @@ struct PlantGalleryView<T>: View where T: Store {
     }
 
     var body: some View {
-        NavigationStack {
-            ZStack {
-                VStack(spacing: 4) {
-                    Text(title)
-                    PlantBasicView(plant: plant, photo:
-                                    store.photos(for: plant).first)
-                    SnapsListView(plant: plant, store: store)
-                }
-                .navigationBarItems(trailing: addSnapButton)
-
-                if showingAddImageLayer {
-                    AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, shouldShowGallery: $shouldShowGallery)
-                }
+        ZStack {
+            VStack(spacing: 4) {
+                Text(title)
+                PlantBasicView(plant: plant, photo:
+                                store.photos(for: plant).first)
+                SnapsListView(plant: plant, store: store)
             }
-            .onChange(of: image) {
-                showingAddImageLayer = false
-                if image != nil {
-                    isPhotoEditorPresented = true
-                }
-            }
+            .navigationBarItems(trailing: addSnapButton)
 
-            if let image { // $isPhotoEditorPresented
-                NavigationLink {
-                    AddPhotoToPlantView(store: store, plant: plant, image: image)
-                } label: {
-                    EmptyView()
-                }
+            if showingAddImageLayer {
+                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, shouldShowGallery: $shouldShowGallery)
+            }
+        }
+        .onChange(of: image) {
+            showingAddImageLayer = false
+            if image != nil {
+                isPhotoEditorPresented = true
+            }
+        }
+
+        if let image { // $isPhotoEditorPresented
+            NavigationLink {
+                AddPhotoToPlantView(store: store, plant: plant, image: image)
+            } label: {
+                EmptyView()
             }
         }
     }

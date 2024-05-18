@@ -23,14 +23,12 @@ struct SnapDetailView<T>: View where T: Store {
     }
 
     var body: some View {
-        Group {
-            if TESTING {
-                Text(title)
-            }
-            VStack {
-                imageSection
-                editSection
-            }
+        if TESTING {
+            Text(title)
+        }
+        VStack {
+            imageSection
+            editSection
         }
     }
 
