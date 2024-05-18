@@ -66,14 +66,10 @@ struct PlantsRoot<T>: View where T: Store {
     }()
 
     private var addPlantButton: some View {
-        Button(action: {
-            
-        }) {
-            let viewModel = AddPlantViewModel(store: store)
-            let view = AddPlantView(viewModel: viewModel, shouldShowGallery: $shouldShowPhotoGalleryForAddPlant)
-            NavigationLink(destination: view) {
-                Image(systemName: "photo.badge.plus")
-            }
+        let viewModel = AddPlantViewModel(store: store)
+        let view = AddPlantView(viewModel: viewModel, shouldShowGallery: $shouldShowPhotoGalleryForAddPlant)
+        return NavigationLink(destination: view) {
+            Image(systemName: "photo.badge.plus")
         }
     }
 

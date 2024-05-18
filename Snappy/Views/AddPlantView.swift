@@ -84,7 +84,6 @@ struct AddPlantView<T>: View where T: Store {
         .onDisappear {
             photoEnvironment.reset()
         }
-
     }
 
     private var nameField: some View {
@@ -120,6 +119,7 @@ struct AddPlantView<T>: View where T: Store {
 
     var captureImageButton: some View {
         Button(action: {
+            print("BRDEBUG AddPlantView: add image")
             self.showingAddImageLayer = true
         }) {
             if image == nil {

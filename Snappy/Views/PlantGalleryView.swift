@@ -21,7 +21,7 @@ struct PlantGalleryView<T>: View where T: Store {
 
     // add image
     @State private var showingAddImageLayer = false
-    @State var image: UIImage? = nil
+    @State var newImage: UIImage? = nil
 
     // plant editor
     @State var isPhotoEditorPresented = false
@@ -48,21 +48,17 @@ struct PlantGalleryView<T>: View where T: Store {
             .navigationBarItems(trailing: addSnapButton)
 
             if showingAddImageLayer {
-                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, shouldShowGallery: $shouldShowGallery)
+                AddImageHelperLayer(image: $newImage, showingSelf: $showingAddImageLayer, shouldShowGallery: $shouldShowGallery)
+            }
+            if isPhotoEditorPresented, let
+                newImage {
+                // BR TODO is this the same as edit snap view?
+                AddPhotoToPlantView(store: store, plant: plant, image: newImage)
             }
         }
-        .onChange(of: image) {
-            showingAddImageLayer = false
-            if image != nil {
+        .onChange(of: newImage) {
+            if newImage != nil {
                 isPhotoEditorPresented = true
-            }
-        }
-
-        if let image { // $isPhotoEditorPresented
-            NavigationLink {
-                AddPhotoToPlantView(store: store, plant: plant, image: image)
-            } label: {
-                EmptyView()
             }
         }
     }
@@ -76,6 +72,7 @@ struct PlantGalleryView<T>: View where T: Store {
 
     private var addSnapButton: some View {
         Button(action: {
+            print("BRDEBUG PlantGalleryView: add image")
             self.showingAddImageLayer = true
         }) {
             Image(systemName: "photo.badge.plus")
