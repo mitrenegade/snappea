@@ -60,13 +60,12 @@ struct AddPlantView<T>: View where T: Store {
             .alert(isPresented: $viewModel.isShowingError) {
                 Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
             }
+            .sheet(isPresented: $shouldShowGallery) {
+                galleryOverlayView
+            }
 
             if showingAddImageLayer {
                 AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, canShowGallery: true, shouldShowGallery: $shouldShowGallery)
-            }
-
-            if shouldShowGallery {
-                galleryOverlayView
             }
         }
         .onChange(of: image) {
