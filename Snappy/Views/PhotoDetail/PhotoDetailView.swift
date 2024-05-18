@@ -40,7 +40,8 @@ struct PhotoDetailView<T>: View where T: Store {
 
     var imageSection: some View {
         SnapOverlayView(photo: photo,
-                        store: store)
+                        store: store,
+                        imageSize: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width))
     }
     
     var listSection: some View {

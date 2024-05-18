@@ -21,23 +21,17 @@ struct SnapOverlayView<T>: View where T: Store {
 
     init(photo: Photo,
          selectedSnaps: [Snap]? = nil,
-         store: T
+         store: T,
+         imageSize: CGSize
     ) {
-
         viewModel = SnapOverlayViewModel(photo: photo, selectedSnaps: selectedSnaps, store: store)
-        imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+        self.imageSize = imageSize
     }
     
     var body: some View {
         ZStack {
-            let imageLoader = imageLoaderFactory.create(imageName: $viewModel.photoId.wrappedValue, cache: TemporaryImageCache.shared)
-            let placeholder = Text("Loading...")
-            AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
-                .aspectRatio(contentMode: .fill)
+            stack
             drawBoxView
-            ForEach(viewModel.snaps) {snap in
-                SnapView(snap: snap)
-            }
         }.gesture(
             DragGesture(minimumDistance: 0)
                 .onChanged{ (value) in
@@ -60,7 +54,21 @@ struct SnapOverlayView<T>: View where T: Store {
     func createSnap(start: CGPoint, end: CGPoint) {
         viewModel.createSnap(start: start, end: end, imageSize: imageSize)
     }
-    
+
+    var stack: some View {
+        ZStack {
+            let imageLoader = imageLoaderFactory.create(imageName: $viewModel.photoId.wrappedValue, cache: TemporaryImageCache.shared)
+            let placeholder = Text("Loading...")
+            AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
+                .border(.blue, width: 5)
+            ForEach(viewModel.snaps) {snap in
+                SnapView(snap: snap, size: imageSize)
+                    .frame(width: imageSize.width, height: imageSize.height)
+                    .border(.green, width: 5)
+            }
+        }
+    }
+
     var drawBoxView: some View {
         Group {
             if dragging {
