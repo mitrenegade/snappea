@@ -29,44 +29,39 @@ struct SnapOverlayView<T>: View where T: Store {
     }
     
     var body: some View {
-        ZStack {
-            stack
-            drawBoxView
-        }.gesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged{ (value) in
-                    print("Dragging: \(value.startLocation) to \(value.location)")
-                    self.dragging = true
-                    self.draggingStart = value.startLocation
-                    self.draggingEnd = value.location
+        VStack {
+            ZStack {
+                let imageLoader = imageLoaderFactory.create(imageName: $viewModel.photoId.wrappedValue, cache: TemporaryImageCache.shared)
+                let placeholder = Text("Loading...")
+                AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
+                ForEach(viewModel.snaps) {snap in
+                    SnapView(snap: snap, size: imageSize)
+                        .frame(width: imageSize.width, height: imageSize.height)
                 }
-                .onEnded{ value in
-                    self.dragging = false
-                    self.draggingStart = CGPoint.zero
-                    self.draggingEnd = CGPoint.zero
+                drawBoxView
+            }.gesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged{ (value) in
+                        print("Dragging: \(value.startLocation) to \(value.location)")
+                        self.dragging = true
+                        self.draggingStart = value.startLocation
+                        self.draggingEnd = value.location
+                    }
+                    .onEnded{ value in
+                        self.dragging = false
+                        self.draggingStart = CGPoint.zero
+                        self.draggingEnd = CGPoint.zero
 
-                    print("Tapped: \(value)")
-                    self.createSnap(start: value.startLocation, end: value.location)
-                }
-        )
+                        print("Tapped: \(value)")
+                        self.createSnap(start: value.startLocation, end: value.location)
+                    }
+            )
+            Spacer()
+        }
     }
     
     func createSnap(start: CGPoint, end: CGPoint) {
         viewModel.createSnap(start: start, end: end, imageSize: imageSize)
-    }
-
-    var stack: some View {
-        ZStack {
-            let imageLoader = imageLoaderFactory.create(imageName: $viewModel.photoId.wrappedValue, cache: TemporaryImageCache.shared)
-            let placeholder = Text("Loading...")
-            AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
-                .border(.blue, width: 5)
-            ForEach(viewModel.snaps) {snap in
-                SnapView(snap: snap, size: imageSize)
-                    .frame(width: imageSize.width, height: imageSize.height)
-                    .border(.green, width: 5)
-            }
-        }
     }
 
     var drawBoxView: some View {

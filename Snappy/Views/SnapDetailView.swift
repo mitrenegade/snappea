@@ -18,6 +18,8 @@ struct SnapDetailView<T>: View where T: Store {
 
     private let photo: Photo
 
+    private let imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+
     var title: String {
         "SnapDetailView: \(snap.id)"
     }
@@ -49,7 +51,7 @@ struct SnapDetailView<T>: View where T: Store {
         SnapOverlayView(photo: photo,
                         selectedSnaps: [snap],
                         store: store,
-                        imageSize: CGSize(width: 300, height: 300))
+                        imageSize: imageSize)
     }
 
     var editSection: some View {
