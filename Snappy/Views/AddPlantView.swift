@@ -46,8 +46,7 @@ struct AddPlantView<T>: View where T: Store {
                 } else if let newPhoto = photoEnvironment.newPhoto {
                     let imageLoader = imageLoaderFactory.create(imageName: newPhoto.id, cache: TemporaryImageCache.shared)
                     let placeholder = Text("Loading...")
-                    let imageSize = CGSize(width: UIScreen.main.bounds.width,
-                        height: UIScreen.main.bounds.width)
+                    let imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
                     AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
                         .aspectRatio(contentMode: .fill)
                 }
@@ -67,9 +66,25 @@ struct AddPlantView<T>: View where T: Store {
             }
         }
         .onChange(of: image) {
-            showingAddImageLayer = false
-            isSaveButtonEnabled = image != nil
+            // image selected
+            if let image {
+                showingAddImageLayer = false
+                isSaveButtonEnabled = true
+                photoEnvironment.newPhoto = nil
+            }
         }
+        .onChange(of: photoEnvironment.isAddingPhotoToPlant) {
+            // photo selected
+            if photoEnvironment.isAddingPhotoToPlant,
+               let _ = photoEnvironment.newPhoto {
+                isSaveButtonEnabled = true
+                image = nil
+            }
+        }
+        .onDisappear {
+            photoEnvironment.reset()
+        }
+
     }
 
     private var nameField: some View {
@@ -117,10 +132,15 @@ struct AddPlantView<T>: View where T: Store {
 
     private var saveButton: some View {
         Button(action: {
-            viewModel.savePlant(image: image) {
-                DispatchQueue.main.async {
-                    self.presentationMode.wrappedValue.dismiss()
+            if let image {
+                viewModel.savePlant(image: image) {
+                    DispatchQueue.main.async {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                    self.image = nil
                 }
+            } else if let photo = photoEnvironment.newPhoto {
+                print("Save photo")
             }
         }) {
             Text("Save")

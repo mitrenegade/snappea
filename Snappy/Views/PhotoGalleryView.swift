@@ -56,5 +56,6 @@ struct PhotoGalleryView<T>: View where T: Store {
     private func didSelectPhoto(_ photo: Photo) {
         photoEnvironment.newPhoto = photo
         shouldShowGallery = false
+        photoEnvironment.isAddingPhotoToPlant = true
     }
 }
