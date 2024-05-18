@@ -20,19 +20,10 @@ struct SnapRow: View {
 
     var body: some View {
         HStack {
-            if AIRPLANE_MODE {
-                // TODO: how to resize image to fit?
-                Image("peas")
-                    .resizable()
-                    .frame(width: imageSize.width, height: imageSize.height)
-                    .aspectRatio(contentMode: .fit)
-                    .clipped()
-            } else {
-                let imageLoader = imageLoaderFactory.create(imageName: photo.id, cache: TemporaryImageCache.shared)
-                let placeholder = Image("folder.badge.questionmark").frame(width: imageSize.width, height: imageSize.height)
-                AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
-                    .aspectRatio(contentMode: .fill)
-            }
+            let imageLoader = imageLoaderFactory.create(imageName: photo.id, cache: TemporaryImageCache.shared)
+            let placeholder = Image("folder.badge.questionmark").frame(width: imageSize.width, height: imageSize.height)
+            AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
+                .aspectRatio(contentMode: .fill)
 
             VStack {
                 if !dateString.isEmpty {
