@@ -26,7 +26,7 @@ struct PlantGalleryView<T>: View where T: Store {
     // plant editor
     @State var isPhotoEditorPresented = false
 
-    // show gallery - not used but required by AddImageHelperLayer
+    // show gallery of existing snaps - not used from this view
     @State private var shouldShowGallery: Bool = false
 
     private var title: String {

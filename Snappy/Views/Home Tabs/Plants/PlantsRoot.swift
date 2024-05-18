@@ -48,11 +48,6 @@ struct PlantsRoot<T>: View where T: Store {
                                     trailing: addPlantButton
                 )
             }
-
-            if shouldShowPhotoGalleryForAddPlant {
-                galleryOverlayView
-            }
-
         }
 
     }
@@ -67,7 +62,7 @@ struct PlantsRoot<T>: View where T: Store {
 
     private var addPlantButton: some View {
         let viewModel = AddPlantViewModel(store: store)
-        let view = AddPlantView(viewModel: viewModel, shouldShowGallery: $shouldShowPhotoGalleryForAddPlant)
+        let view = AddPlantView(viewModel: viewModel) //, shouldShowGallery: $shouldShowPhotoGalleryForAddPlant)
         return NavigationLink(destination: view) {
             Image(systemName: "photo.badge.plus")
         }
@@ -84,29 +79,6 @@ struct PlantsRoot<T>: View where T: Store {
                     PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
                 }
             }
-        }
-    }
-
-    // Photo gallery
-    private var galleryOverlayView: some View {
-        NavigationView {
-            VStack {
-                Text("Photo Gallery")
-
-                PhotoGalleryView(store: store,
-                                 shouldShowDetail: false,
-                                 shouldShowGallery: $shouldShowPhotoGalleryForAddPlant)
-            }
-            .background(.white)
-            .navigationBarItems(leading: closeGalleryButton)
-        }
-    }
-
-    private var closeGalleryButton: some View {
-        Button(action: {
-            shouldShowPhotoGalleryForAddPlant.toggle()
-        }) {
-            Text("Close")
         }
     }
 }
