@@ -84,6 +84,7 @@ struct PlantGalleryView<T>: View where T: Store {
 
     private func dismissEditor() {
         // no op
+        print("Dismissed")
     }
 
 }
