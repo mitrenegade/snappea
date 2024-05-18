@@ -31,7 +31,7 @@ class AddPlantViewModel<T>: ObservableObject where T: Store {
         self.store = store
     }
 
-    func savePlant(image: UIImage?, completion: @escaping (() -> Void)) {
+    func savePlant(image: UIImage?, photo: Photo?, completion: @escaping ((Result<Plant, Error>) -> Void)) {
         if TESTING {
             if name.isEmpty {
                 name = "abc"
@@ -59,22 +59,35 @@ class AddPlantViewModel<T>: ObservableObject where T: Store {
             // Save photo and associated it with the plant
             // by creating a snap
             if let image {
-                let _ = await saveImage(image: image, plant: plant)
+                do {
+                    let _ = try await saveNewImage(image, for: plant)
+                    completion(.success(plant))
+                } catch let error {
+                    print("Save photo error \(error)")
+                    completion(.failure(error))
+                }
+            } else if let photo {
+                do {
+                    let _ = try await savePhoto(photo, for: plant)
+                    completion(.success(plant))
+                } catch let error {
+                    print("Save photo error \(error)")
+                    completion(.failure(error))
+                }
+            } else {
+                completion(.success(plant))
             }
-            completion()
         }
 
     }
 
-    func saveImage(image: UIImage, plant: Plant) async -> (Photo, Snap)? {
-        do {
-            let photo = try await store.createPhoto(image: image)
-            let snap = try await store.createSnap(plant: plant, photo: photo, start: NormalizedCoordinate.start, end: NormalizedCoordinate.end)
-            return (photo, snap)
-        } catch {
-            print("Save photo error \(error)")
-            return nil
-        }
+    private func saveNewImage(_ image: UIImage, for plant: Plant) async throws -> (Photo, Snap)? {
+        let photo = try await store.createPhoto(image: image)
+        return try await savePhoto(photo, for: plant)
     }
 
+    private func savePhoto(_ photo: Photo, for plant: Plant) async throws -> (Photo, Snap)? {
+        let snap = try await store.createSnap(plant: plant, photo: photo, start: NormalizedCoordinate.start, end: NormalizedCoordinate.end)
+        return (photo, snap)
+    }
 }

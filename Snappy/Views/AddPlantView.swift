@@ -132,15 +132,18 @@ struct AddPlantView<T>: View where T: Store {
 
     private var saveButton: some View {
         Button(action: {
-            if let image {
-                viewModel.savePlant(image: image) {
-                    DispatchQueue.main.async {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
-                    self.image = nil
+            guard image != nil || photoEnvironment.newPhoto != nil else {
+                return
+            }
+            viewModel.savePlant(image: image, photo: photoEnvironment.newPhoto) { result in
+                if case(let error) = result {
+                    // TODO: add error message
+                    print("Create plant error \(error)")
                 }
-            } else if let photo = photoEnvironment.newPhoto {
-                print("Save photo")
+                DispatchQueue.main.async {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+                self.image = nil
             }
         }) {
             Text("Save")
