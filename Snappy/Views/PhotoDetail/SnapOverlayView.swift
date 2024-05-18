@@ -30,18 +30,10 @@ struct SnapOverlayView<T>: View where T: Store {
     
     var body: some View {
         ZStack {
-            if AIRPLANE_MODE {
-                Image("peas")
-                    .resizable()
-                    .frame(width: imageSize.width, height: imageSize.height)
-                    .aspectRatio(contentMode: .fit)
-                    .clipped()
-            } else {
-                let imageLoader = imageLoaderFactory.create(imageName: $viewModel.photoId.wrappedValue, cache: TemporaryImageCache.shared)
-                let placeholder = Text("Loading...")
-                AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
-                    .aspectRatio(contentMode: .fill)
-            }
+            let imageLoader = imageLoaderFactory.create(imageName: $viewModel.photoId.wrappedValue, cache: TemporaryImageCache.shared)
+            let placeholder = Text("Loading...")
+            AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
+                .aspectRatio(contentMode: .fill)
             drawBoxView
             ForEach(viewModel.snaps) {snap in
                 SnapView(snap: snap)
