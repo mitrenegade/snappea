@@ -17,9 +17,6 @@ protocol PlantGalleryDelegate {
 struct PlantGalleryView<T>: View where T: Store {
     private let plant: Plant
 
-    @EnvironmentObject var photoEnvironment: PhotoEnvironment
-    @EnvironmentObject var router: TabsRouter
-
     @ObservedObject var store: T
 
     // add image

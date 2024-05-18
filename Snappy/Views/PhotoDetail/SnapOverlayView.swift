@@ -12,6 +12,7 @@ struct SnapOverlayView<T>: View where T: Store {
     @ObservedObject var viewModel: SnapOverlayViewModel<T>
 
     @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
+    @EnvironmentObject var overlayEnvironment: OverlayEnvironment
 
     var imageSize: CGSize
 
@@ -38,11 +39,15 @@ struct SnapOverlayView<T>: View where T: Store {
                     SnapView(snap: snap, size: imageSize)
                         .frame(width: imageSize.width, height: imageSize.height)
                 }
-                drawBoxView
+                if overlayEnvironment.isEditingSnap {
+                    drawBoxView
+                }
             }.gesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged{ (value) in
-                        print("Dragging: \(value.startLocation) to \(value.location)")
+                        if overlayEnvironment.isEditingSnap {
+                            print("Dragging: \(value.startLocation) to \(value.location)")
+                        }
                         self.dragging = true
                         self.draggingStart = value.startLocation
                         self.draggingEnd = value.location
@@ -52,10 +57,13 @@ struct SnapOverlayView<T>: View where T: Store {
                         self.draggingStart = CGPoint.zero
                         self.draggingEnd = CGPoint.zero
 
-                        print("Tapped: \(value)")
-                        self.createSnap(start: value.startLocation, end: value.location)
+                        if overlayEnvironment.isEditingSnap {
+                            print("Tapped: \(value)")
+                            self.createSnap(start: value.startLocation, end: value.location)
+                        }
                     }
             )
+            .frame(width: imageSize.width, height: imageSize.height)
             Spacer()
         }
     }
@@ -72,5 +80,6 @@ struct SnapOverlayView<T>: View where T: Store {
                 EmptyView()
             }
         }
+        .frame(width: imageSize.width, height: imageSize.height)
     }
 }

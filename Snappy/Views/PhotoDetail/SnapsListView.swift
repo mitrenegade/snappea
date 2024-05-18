@@ -15,6 +15,7 @@ enum SnapsCollectionType {
 
 struct SnapsListView<T>: View where T: Store {
     @ObservedObject var viewModel: SnapsListViewModel<T>
+    @EnvironmentObject var overlayEnvironment: OverlayEnvironment
 
     private var selectedSnaps: [Snap] = []
 
@@ -26,7 +27,7 @@ struct SnapsListView<T>: View where T: Store {
         }
         List(viewModel.snaps) { snap in
             NavigationLink {
-                SnapDetailView(snap: snap, store: store)
+                SnapDetailView(snap: snap, store: store, environment: overlayEnvironment)
             } label: {
                 if let photo = store.photo(withId: snap.photoId) {
                     SnapRow(snap: snap, photo: photo, isDisabled: !isSelected(snap))

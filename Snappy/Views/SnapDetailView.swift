@@ -37,7 +37,8 @@ struct SnapDetailView<T>: View where T: Store {
     /// Creates a PhotoDetailView
     /// Given a snap, shows the photo for only the snap
     init?(snap: Snap, 
-          store: T
+          store: T,
+          environment: OverlayEnvironment
     ) {
         guard let photo = store.photo(withId: snap.photoId) else {
             return nil
@@ -45,6 +46,10 @@ struct SnapDetailView<T>: View where T: Store {
         self.photo = photo
         self.snap = snap
         self.store = store
+
+        // modifying environment on it is required to clear existing snap information
+        environment.isEditingSnap = false
+        environment.snap = snap
     }
 
     var imageSection: some View {
