@@ -43,22 +43,17 @@ struct PlantGalleryView<T>: View where T: Store {
                 Text(title)
                 PlantBasicView(plant: plant, photo:
                                 store.photos(for: plant).first)
-                SnapsListView(plant: plant, store: store)
+                if let newImage {
+                    // TODO: should use a NavigationLink to display AddPhotoToPlantView directly
+                    SnapsListView(plant: plant, store: store, newImage: newImage)
+                } else {
+                    SnapsListView(plant: plant, store: store)
+                }
             }
             .navigationBarItems(trailing: addSnapButton)
 
             if showingAddImageLayer {
                 AddImageHelperLayer(image: $newImage, showingSelf: $showingAddImageLayer, shouldShowGallery: $shouldShowGallery)
-            }
-            if isPhotoEditorPresented, let
-                newImage {
-                // BR TODO is this the same as edit snap view?
-                AddPhotoToPlantView(store: store, plant: plant, image: newImage)
-            }
-        }
-        .onChange(of: newImage) {
-            if newImage != nil {
-                isPhotoEditorPresented = true
             }
         }
     }
