@@ -12,7 +12,7 @@ import UIKit
 class MockStore: Store {
     var isLoading: Bool = false
 
-    func loadGarden(id: String) async throws {
+    func loadGarden() async throws {
         // no op
     }
 

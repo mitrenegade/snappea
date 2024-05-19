@@ -19,9 +19,18 @@ struct PlantGalleryView<T>: View where T: Store {
 
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
     @EnvironmentObject var router: TabsRouter
-    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
     @ObservedObject var store: T
+
+    // add image
+    @State private var showingAddImageLayer = false
+    @State var image: UIImage? = nil
+
+    // plant editor
+    @State var isPhotoEditorPresented = false
+
+    // show gallery - not used but required by AddImageHelperLayer
+    @State private var shouldShowGallery: Bool = false
 
     private var title: String {
         if TESTING {
@@ -32,13 +41,35 @@ struct PlantGalleryView<T>: View where T: Store {
     }
 
     var body: some View {
-        VStack(spacing: 4) {
-            Text(title)
-            PlantBasicView(plant: plant, photo:
-                            store.photos(for: plant).first)
-            SnapsListView(plant: plant, store: store)
+        NavigationStack {
+            ZStack {
+                VStack(spacing: 4) {
+                    Text(title)
+                    PlantBasicView(plant: plant, photo:
+                                    store.photos(for: plant).first)
+                    SnapsListView(plant: plant, store: store)
+                }
+                .navigationBarItems(trailing: addSnapButton)
+
+                if showingAddImageLayer {
+                    AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, shouldShowGallery: $shouldShowGallery)
+                }
+            }
+            .onChange(of: image) {
+                showingAddImageLayer = false
+                if image != nil {
+                    isPhotoEditorPresented = true
+                }
+            }
+
+            if let image { // $isPhotoEditorPresented
+                NavigationLink {
+                    AddPhotoToPlantView(store: store, plant: plant, image: image)
+                } label: {
+                    EmptyView()
+                }
+            }
         }
-        .navigationBarItems(trailing: addSnapButton)
     }
 
     init(plant: Plant,
@@ -50,12 +81,14 @@ struct PlantGalleryView<T>: View where T: Store {
 
     private var addSnapButton: some View {
         Button(action: {
-            // no op
+            self.showingAddImageLayer = true
         }) {
-            NavigationLink(destination: AddPhotoToPlantView(store: store, plant: plant)) {
-                Image(systemName: "photo.badge.plus")
-            }
+            Image(systemName: "photo.badge.plus")
         }
+    }
+
+    private func dismissEditor() {
+        // no op
     }
 
 }

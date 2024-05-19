@@ -26,6 +26,14 @@ struct AddImageHelperLayer: View {
     // Used to trigger parent view's state of whether this layer should be dismissed
     @Binding var showingSelf: Bool
 
+    /// Allows the plant gallery to be an option for image source
+    var canShowGallery: Bool = false
+
+    /// Whether parent view should show a gallery
+    @Binding var shouldShowGallery: Bool
+
+    var store: (any Store)?
+
     var body: some View {
         ZStack {
             if showCaptureImageView {
@@ -53,24 +61,23 @@ struct AddImageHelperLayer: View {
 
     var makeActionSheet: ActionSheet {
         let title = "Select photo from:"
+        var buttons: [ActionSheet.Button] = [
+            .default(Text("Photo Library"), action: {
+                self.openLibrary()
+            }),
+            .default(Text("Cancel"))
+        ]
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            return ActionSheet(title: Text(title), message: nil, buttons:[
-                .default(Text("Camera"), action: {
-                    self.openCamera()
-                }),
-                .default(Text("Photo Album"), action: {
-                    self.openLibrary()
-                }),
-                .default(Text("Cancel"))
-            ])
-        } else {
-            return ActionSheet(title: Text(title), message: nil, buttons:[
-                .default(Text("Photo Album"), action: {
-                    self.openLibrary()
-                }),
-                .default(Text("Cancel"))
-            ])
+            buttons.insert(.default(Text("Camera"), action: {
+                self.openCamera()
+            }), at: 0)
         }
+        if canShowGallery {
+            buttons.insert(.default(Text("Snapped Photos"), action: {
+                self.openGallery()
+            }), at: 0)
+        }
+        return ActionSheet(title: Text(title), message: nil, buttons: buttons)
     }
 
     func openCamera() {
@@ -85,4 +92,9 @@ struct AddImageHelperLayer: View {
         self.showCaptureImageView.toggle()
     }
 
+    func openGallery() {
+        // TODO: how to open this as a modal instead?
+        showingSelf = false
+        shouldShowGallery = true
+    }
 }

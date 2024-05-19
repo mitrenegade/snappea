@@ -15,4 +15,10 @@ class PhotoEnvironment: ObservableObject {
 
     // if true, returns to plant gallery
     @Published var isAddingPhotoToPlant: Bool = false
+
+    func reset() {
+        newPhoto = nil
+        shouldShowNewPhoto = false
+        isAddingPhotoToPlant = false
+    }
 }

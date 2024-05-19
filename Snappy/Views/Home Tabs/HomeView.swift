@@ -21,14 +21,15 @@ struct HomeView: View {
     private var imageLoaderFactory: ImageLoaderFactory = ImageLoaderFactory(imageLoaderType: DiskImageLoader.self)
 
     init(user: User) {
-        store.purge(id: user.id)
+//        store.purge(id: user.id)
         self.load(user: user)
     }
 
     private func load(user: User) {
         Task {
-            try await store.loadGarden(id: user.id)
+            store.setup(gardenID: user.id)
             imageLoaderFactory.baseURL = store.imageBaseURL
+            try await store.loadGarden()
         }
     }
 
@@ -40,11 +41,12 @@ struct HomeView: View {
                     Image(systemName: "leaf.fill")
                     Text("Plants")
                 }.tag(Tab.plants)
-            GalleryRoot(store: store)
-                .tabItem {
-                    Image(systemName: "photo.fill")
-                    Text("Gallery")
-                }.tag(Tab.gallery)
+            // don't show gallery - only plants interface for now
+//            GalleryRoot(store: store)
+//                .tabItem {
+//                    Image(systemName: "photo.fill")
+//                    Text("Gallery")
+//                }.tag(Tab.gallery)
             CameraRoot(store: store)
                 .tabItem {
                     Image(systemName: "camera.fill")

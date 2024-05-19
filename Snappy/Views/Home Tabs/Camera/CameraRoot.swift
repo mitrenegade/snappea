@@ -19,6 +19,9 @@ struct CameraRoot<T>: View where T: Store {
 
     private let store: T
 
+    // show gallery - not used but required by AddImageHelperLayer
+    @State private var shouldShowGallery: Bool = false
+
     init(store: T) {
         self.store = store
     }
@@ -35,7 +38,7 @@ struct CameraRoot<T>: View where T: Store {
                 )
             }
             if showingAddImageLayer {
-                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer)
+                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, shouldShowGallery: $shouldShowGallery)
             }
         }
     }

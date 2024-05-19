@@ -11,6 +11,8 @@ import PhotosUI
 
 struct AddPlantView<T>: View where T: Store {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var photoEnvironment: PhotoEnvironment
+    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
     @ObservedObject var viewModel: AddPlantViewModel<T>
 
@@ -20,6 +22,8 @@ struct AddPlantView<T>: View where T: Store {
 
     @State var isSaveButtonEnabled: Bool = false
 
+    @Binding var shouldShowGallery: Bool
+
     private var title: String {
         if TESTING {
             return "AddPlantView"
@@ -28,15 +32,24 @@ struct AddPlantView<T>: View where T: Store {
         }
     }
 
-    init(store: T) {
-        self.viewModel = AddPlantViewModel(store: store)
-    }
-
     var body: some View {
-        Text(title)
         ZStack {
             VStack {
-                imagePreview
+                Text(title)
+                if let image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.width,
+                               height: UIScreen.main.bounds.width)
+                        .aspectRatio(contentMode: .fit)
+                        .clipped()
+                } else if let newPhoto = photoEnvironment.newPhoto {
+                    let imageLoader = imageLoaderFactory.create(imageName: newPhoto.id, cache: TemporaryImageCache.shared)
+                    let placeholder = Text("Loading...")
+                    let imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+                    AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
+                        .aspectRatio(contentMode: .fill)
+                }
                 captureImageButton
 
                 nameField
@@ -49,13 +62,29 @@ struct AddPlantView<T>: View where T: Store {
             }
 
             if showingAddImageLayer {
-                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer)
+                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, canShowGallery: true, shouldShowGallery: $shouldShowGallery)
             }
         }
         .onChange(of: image) {
-            showingAddImageLayer = false
-            isSaveButtonEnabled = image != nil
+            // image selected
+            if let image {
+                showingAddImageLayer = false
+                isSaveButtonEnabled = true
+                photoEnvironment.newPhoto = nil
+            }
         }
+        .onChange(of: photoEnvironment.isAddingPhotoToPlant) {
+            // photo selected
+            if photoEnvironment.isAddingPhotoToPlant,
+               let _ = photoEnvironment.newPhoto {
+                isSaveButtonEnabled = true
+                image = nil
+            }
+        }
+        .onDisappear {
+            photoEnvironment.reset()
+        }
+
     }
 
     private var nameField: some View {
@@ -70,34 +99,21 @@ struct AddPlantView<T>: View where T: Store {
     }
 
     private var typeField: some View {
-            List {
-                Picker("Type", selection: $viewModel.plantType) {
-                    ForEach(PlantType.allCases) { plantType in
-                        Text(plantType.rawValue.capitalized)
-                    }
+        List {
+            Picker("Type", selection: $viewModel.plantType) {
+                ForEach(PlantType.allCases) { plantType in
+                    Text(plantType.rawValue.capitalized)
                 }
             }
+        }
     }
 
     private var categoryField: some View {
-            List {
-                Picker("Category", selection: $viewModel.category) {
-                    ForEach(Category.allCases) { category in
-                        Text(category.rawValue.capitalized)
-                    }
+        List {
+            Picker("Category", selection: $viewModel.category) {
+                ForEach(Category.allCases) { category in
+                    Text(category.rawValue.capitalized)
                 }
-            }
-    }
-
-    var imagePreview: some View {
-        Group {
-            if let image {
-                Image(uiImage: image)
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.width,
-                           height: UIScreen.main.bounds.width)
-                    .aspectRatio(contentMode: .fit)
-                    .clipped()
             }
         }
     }
@@ -116,10 +132,18 @@ struct AddPlantView<T>: View where T: Store {
 
     private var saveButton: some View {
         Button(action: {
-            viewModel.savePlant(image: image) {
+            guard image != nil || photoEnvironment.newPhoto != nil else {
+                return
+            }
+            viewModel.savePlant(image: image, photo: photoEnvironment.newPhoto) { result in
+                if case(let error) = result {
+                    // TODO: add error message
+                    print("Create plant error \(error)")
+                }
                 DispatchQueue.main.async {
                     self.presentationMode.wrappedValue.dismiss()
                 }
+                self.image = nil
             }
         }) {
             Text("Save")

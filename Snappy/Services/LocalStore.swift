@@ -27,6 +27,19 @@ class LocalStore: Store, ObservableObject {
         ImageStore(baseURL: imageBaseURL)
     }()
 
+    func setup(gardenID: String) {
+        self.gardenID = gardenID
+        /// create base url with gardenID as the first path
+        do {
+            let url = try baseURL
+            if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
+            }
+        } catch {
+            print("Could not create path but ignoring: \(error)")
+        }
+    }
+
     /// The base storage location on disk, based on garden ID. The user must be logged in.
     /// On logout/login, baseURL will change when the new garden is loaded
     private var baseURL: URL {
@@ -36,18 +49,9 @@ class LocalStore: Store, ObservableObject {
         }
     }
 
-    func loadGarden(id: String) async throws {
-        isLoading = true
-
-        self.gardenID = id
-        /// create base url with gardenID as the first path
-        do {
-            let url = try baseURL
-            if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
-                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
-            }
-        } catch {
-            print("Could not create path but ignoring: \(error)")
+    func loadGarden() async throws {
+        DispatchQueue.main.async {
+            self.isLoading = true
         }
 
         do {
@@ -207,7 +211,7 @@ class LocalStore: Store, ObservableObject {
         let id = UUID().uuidString
         let timestamp = Date().timeIntervalSince1970
 
-        let imageURL = try imageStore.saveImage(image, name: id)
+        let _ = try imageStore.saveImage(image, name: id)
         let photo = Photo(id: id, url: nil, timestamp: timestamp)
 
         let objectUrl = subpath("photo").appending(path: photo.id)

@@ -16,6 +16,9 @@ struct GalleryRoot<T>: View where T: Store {
 
     @ObservedObject var store: T
 
+    // not used
+    @State var shouldShowGallery: Bool = true
+
     init(store: T) {
         self.store = store
     }
@@ -43,7 +46,7 @@ struct GalleryRoot<T>: View where T: Store {
                 newPhotoView
                 Spacer()
             }
-            .navigationBarItems(leading: logoutButton)
+//            .navigationBarItems(leading: logoutButton)
         }
     }
 
@@ -69,7 +72,7 @@ struct GalleryRoot<T>: View where T: Store {
 
     private var galleryView: some View {
         if #available(iOS 17.0, *) {
-            PhotoGalleryView(store: store)
+            PhotoGalleryView(store: store, shouldShowDetail: false, shouldShowGallery: $shouldShowGallery)
         } else {
             // BR TODO handle safely
             fatalError()
