@@ -15,6 +15,8 @@ protocol PlantGalleryDelegate {
 
 /// Shows a gallery of all photos for a single plant in list format
 struct PlantGalleryView<T>: View where T: Store {
+    @EnvironmentObject var photoEnvironment: PhotoEnvironment
+
     private let plant: Plant
 
     @ObservedObject var store: T
@@ -28,6 +30,9 @@ struct PlantGalleryView<T>: View where T: Store {
 
     // show gallery of existing snaps - not used from this view
     @State private var shouldShowGallery: Bool = false
+
+    // reference to navigation stack's path
+    @Binding var path: NavigationPath
 
     private var title: String {
         if TESTING {
@@ -43,15 +48,21 @@ struct PlantGalleryView<T>: View where T: Store {
                 Text(title)
                 PlantBasicView(plant: plant, photo:
                                 store.photos(for: plant).first)
-                if let newImage {
-                    // TODO: should use a NavigationLink to display AddPhotoToPlantView directly
-                    SnapsListView(plant: plant, store: store, newImage: newImage)
-                } else {
-                    SnapsListView(plant: plant, store: store)
-                }
+                //                if let newImage {
+                //                    // TODO: should use a NavigationLink to display AddPhotoToPlantView directly
+                //                    SnapsListView(plant: plant, store: store, newImage: newImage)
+                //                } else {
+                SnapsListView(plant: plant, store: store)
+                //                }
             }
             .navigationBarItems(trailing: addSnapButton)
-
+            .onChange(of: newImage) { oldValue, newValue in
+                if newValue != nil {
+                    photoEnvironment.newImage = newImage
+                    path.append(plant)
+                }
+            }
+            
             if showingAddImageLayer {
                 AddImageHelperLayer(image: $newImage, showingSelf: $showingAddImageLayer, shouldShowGallery: $shouldShowGallery)
             }
@@ -59,10 +70,12 @@ struct PlantGalleryView<T>: View where T: Store {
     }
 
     init(plant: Plant,
-         store: T
+         store: T,
+         navigationPath: Binding<NavigationPath>
     ) {
         self.plant = plant
         self.store = store
+        _path = navigationPath
     }
 
     private var addSnapButton: some View {

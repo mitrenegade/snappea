@@ -12,6 +12,7 @@ import SwiftUI
 class PhotoEnvironment: ObservableObject {
     @Published var newPhoto: Photo? = nil
     @Published var shouldShowNewPhoto: Bool = false
+    @Published var newImage: UIImage? = nil
 
     // if true, returns to plant gallery
     @Published var isAddingPhotoToPlant: Bool = false
