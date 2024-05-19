@@ -12,6 +12,7 @@ struct SnapOverlayView<T>: View where T: Store {
     @ObservedObject var viewModel: SnapOverlayViewModel<T>
 
     @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
+    @EnvironmentObject var overlayEnvironment: OverlayEnvironment
 
     var imageSize: CGSize
 
@@ -21,54 +22,56 @@ struct SnapOverlayView<T>: View where T: Store {
 
     init(photo: Photo,
          selectedSnaps: [Snap]? = nil,
-         store: T
+         store: T,
+         imageSize: CGSize
     ) {
-
         viewModel = SnapOverlayViewModel(photo: photo, selectedSnaps: selectedSnaps, store: store)
-        imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+        self.imageSize = imageSize
     }
     
     var body: some View {
-        ZStack {
-            if AIRPLANE_MODE {
-                Image("peas")
-                    .resizable()
-                    .frame(width: imageSize.width, height: imageSize.height)
-                    .aspectRatio(contentMode: .fit)
-                    .clipped()
-            } else {
+        VStack {
+            ZStack {
                 let imageLoader = imageLoaderFactory.create(imageName: $viewModel.photoId.wrappedValue, cache: TemporaryImageCache.shared)
                 let placeholder = Text("Loading...")
                 AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
-                    .aspectRatio(contentMode: .fill)
-            }
-            drawBoxView
-            ForEach(viewModel.snaps) {snap in
-                SnapView(snap: snap)
-            }
-        }.gesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged{ (value) in
-                    print("Dragging: \(value.startLocation) to \(value.location)")
-                    self.dragging = true
-                    self.draggingStart = value.startLocation
-                    self.draggingEnd = value.location
+                ForEach(viewModel.snaps) {snap in
+                    SnapView(snap: snap, size: imageSize)
+                        .frame(width: imageSize.width, height: imageSize.height)
                 }
-                .onEnded{ value in
-                    self.dragging = false
-                    self.draggingStart = CGPoint.zero
-                    self.draggingEnd = CGPoint.zero
+                if overlayEnvironment.isEditingSnap {
+                    drawBoxView
+                }
+            }.gesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged{ (value) in
+                        if overlayEnvironment.isEditingSnap {
+                            print("Dragging: \(value.startLocation) to \(value.location)")
+                        }
+                        self.dragging = true
+                        self.draggingStart = value.startLocation
+                        self.draggingEnd = value.location
+                    }
+                    .onEnded{ value in
+                        self.dragging = false
+                        self.draggingStart = CGPoint.zero
+                        self.draggingEnd = CGPoint.zero
 
-                    print("Tapped: \(value)")
-                    self.createSnap(start: value.startLocation, end: value.location)
-                }
-        )
+                        if overlayEnvironment.isEditingSnap {
+                            print("Tapped: \(value)")
+                            self.createSnap(start: value.startLocation, end: value.location)
+                        }
+                    }
+            )
+            .frame(width: imageSize.width, height: imageSize.height)
+            Spacer()
+        }
     }
     
     func createSnap(start: CGPoint, end: CGPoint) {
         viewModel.createSnap(start: start, end: end, imageSize: imageSize)
     }
-    
+
     var drawBoxView: some View {
         Group {
             if dragging {
@@ -77,5 +80,6 @@ struct SnapOverlayView<T>: View where T: Store {
                 EmptyView()
             }
         }
+        .frame(width: imageSize.width, height: imageSize.height)
     }
 }

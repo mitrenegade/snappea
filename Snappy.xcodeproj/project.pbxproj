@@ -28,6 +28,7 @@
 		8E3ABF17244F83A300FF378B /* PhotoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF16244F83A300FF378B /* PhotoDetailView.swift */; };
 		8E3ABF192450009B00FF378B /* SnapOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF182450009B00FF378B /* SnapOverlayView.swift */; };
 		8E3ABF1C2450065000FF378B /* SnapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF1B2450065000FF378B /* SnapView.swift */; };
+		8E41C7532BF923F600CF0587 /* OverlayEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E41C7522BF923F600CF0587 /* OverlayEnvironment.swift */; };
 		8E54C1342B9BBB270020BAAE /* PlantBasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54C1332B9BBB270020BAAE /* PlantBasicView.swift */; };
 		8E5D49332BA65C5B00455929 /* ImageLoaderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5D49322BA65C5B00455929 /* ImageLoaderFactory.swift */; };
 		8E5D49352BA69C3D00455929 /* LocalStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5D49342BA69C3D00455929 /* LocalStoreTests.swift */; };
@@ -117,6 +118,7 @@
 		8E3ABF16244F83A300FF378B /* PhotoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailView.swift; sourceTree = "<group>"; };
 		8E3ABF182450009B00FF378B /* SnapOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapOverlayView.swift; sourceTree = "<group>"; };
 		8E3ABF1B2450065000FF378B /* SnapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapView.swift; sourceTree = "<group>"; };
+		8E41C7522BF923F600CF0587 /* OverlayEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayEnvironment.swift; sourceTree = "<group>"; };
 		8E54C1332B9BBB270020BAAE /* PlantBasicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantBasicView.swift; sourceTree = "<group>"; };
 		8E5D49322BA65C5B00455929 /* ImageLoaderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderFactory.swift; sourceTree = "<group>"; };
 		8E5D49342BA69C3D00455929 /* LocalStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStoreTests.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			children = (
 				8E5FE32B246E800A00622DDA /* TabsRouter.swift */,
 				8E5FE32E2471F96000622DDA /* PhotoEnvironment.swift */,
+				8E41C7522BF923F600CF0587 /* OverlayEnvironment.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -645,6 +648,7 @@
 				8E3684D02B2AC03500B228F3 /* AuthStore.swift in Sources */,
 				8E9E7DA02B413D8900E9DF27 /* PlantGalleryView.swift in Sources */,
 				8E3ABF0A244D7DA300FF378B /* PlantsRoot.swift in Sources */,
+				8E41C7532BF923F600CF0587 /* OverlayEnvironment.swift in Sources */,
 				8EC10BFF245F2EC7004D92EC /* User.swift in Sources */,
 				8E3684CC2B27DB1300B228F3 /* PlantRow.swift in Sources */,
 				8E74F09A244D241000F5A507 /* ImagePickerCoordinator.swift in Sources */,

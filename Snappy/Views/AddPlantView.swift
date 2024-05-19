@@ -67,7 +67,7 @@ struct AddPlantView<T>: View where T: Store {
         }
         .onChange(of: image) {
             // image selected
-            if let image {
+            if image != nil {
                 showingAddImageLayer = false
                 isSaveButtonEnabled = true
                 photoEnvironment.newPhoto = nil

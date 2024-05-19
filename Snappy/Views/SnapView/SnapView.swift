@@ -14,9 +14,8 @@ struct SnapView: View, Identifiable {
     @ObservedObject var viewModel: SnapViewModel
     var id: String?
     
-    init(snap: Snap) {
-        let screenWidth = UIScreen.main.bounds.width
-        self.viewModel = SnapViewModel(snap: snap, imageWidth: screenWidth, imageHeight: screenWidth)
+    init(snap: Snap, size: CGSize) {
+        self.viewModel = SnapViewModel(snap: snap, imageWidth: size.width, imageHeight: size.height)
         id = snap.id
     }
 

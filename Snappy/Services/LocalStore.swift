@@ -87,6 +87,7 @@ class LocalStore: Store, ObservableObject {
                 let image = try imageStore.loadImage(name: photo.id)
                 cachePhoto(photo, image: image)
             }
+            print("BRDEBUG plants \(plants.count) photos \(photos.count) snaps \(snaps.count)")
 
             DispatchQueue.main.async {
                 self.isLoading = false
@@ -213,6 +214,7 @@ class LocalStore: Store, ObservableObject {
 
         let _ = try imageStore.saveImage(image, name: id)
         let photo = Photo(id: id, url: nil, timestamp: timestamp)
+        print("BRDEBUG createPhoto \(photo.id)")
 
         let objectUrl = subpath("photo").appending(path: photo.id)
         let data = try JSONEncoder().encode(photo)
@@ -225,6 +227,7 @@ class LocalStore: Store, ObservableObject {
     public func createPlant(name: String, type: PlantType, category: Category) throws -> Plant {
         let id = UUID().uuidString
         let plant = Plant(id: id, name: name, type: type, category: category)
+        print("BRDEBUG createPlant \(plant.id)")
         let url = subpath("plant").appending(path: plant.id)
         let data = try JSONEncoder().encode(plant)
         try data.write(to: url, options: [.atomic, .completeFileProtection])
@@ -234,9 +237,8 @@ class LocalStore: Store, ObservableObject {
     }
 
     func createSnap(plant: Plant?, photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
-        print("createSnap startCoord: \(start) endCoord \(end)")
-
         let snap = Snap(plantId: plant?.id, photoId: photo.id, start: start, end: end)
+        print("BRDEBUG createSnap \(snap.id) startCoord: \(start) endCoord \(end) for plant \(plant?.id ?? "none")")
         let url = try baseURL.appending(path: "snap").appending(path: snap.id)
         let data = try JSONEncoder().encode(snap)
         try data.write(to: url, options: [.atomic, .completeFileProtection])

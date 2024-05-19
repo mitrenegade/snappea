@@ -87,6 +87,7 @@ class AddPlantViewModel<T>: ObservableObject where T: Store {
     }
 
     private func savePhoto(_ photo: Photo, for plant: Plant) async throws -> (Photo, Snap)? {
+        // TODO: let user to create snap
         let snap = try await store.createSnap(plant: plant, photo: photo, start: NormalizedCoordinate.start, end: NormalizedCoordinate.end)
         return (photo, snap)
     }

@@ -18,26 +18,27 @@ struct SnapDetailView<T>: View where T: Store {
 
     private let photo: Photo
 
+    private let imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+
     var title: String {
         "SnapDetailView: \(snap.id)"
     }
 
     var body: some View {
-        Group {
-            if TESTING {
-                Text(title)
-            }
-            VStack {
-                imageSection
-                editSection
-            }
+        if TESTING {
+            Text(title)
+        }
+        VStack {
+            imageSection
+            editSection
         }
     }
 
     /// Creates a PhotoDetailView
     /// Given a snap, shows the photo for only the snap
     init?(snap: Snap, 
-          store: T
+          store: T,
+          environment: OverlayEnvironment
     ) {
         guard let photo = store.photo(withId: snap.photoId) else {
             return nil
@@ -45,12 +46,17 @@ struct SnapDetailView<T>: View where T: Store {
         self.photo = photo
         self.snap = snap
         self.store = store
+
+        // modifying environment on it is required to clear existing snap information
+        environment.isEditingSnap = false
+        environment.snap = snap
     }
 
     var imageSection: some View {
         SnapOverlayView(photo: photo,
                         selectedSnaps: [snap],
-                        store: store)
+                        store: store,
+                        imageSize: imageSize)
     }
 
     var editSection: some View {

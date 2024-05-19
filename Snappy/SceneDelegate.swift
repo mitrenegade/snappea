@@ -14,6 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var photoEnvironment = PhotoEnvironment()
     var tabsRouter = TabsRouter()
+    var overlayEnvironment = OverlayEnvironment()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -31,6 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 rootView: contentView
                     .environmentObject(photoEnvironment)
                     .environmentObject(tabsRouter)
+                    .environmentObject(overlayEnvironment)
             )
             self.window = window
             window.makeKeyAndVisible()
