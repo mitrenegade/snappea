@@ -15,18 +15,21 @@ protocol PlantGalleryDelegate {
 
 /// Shows a gallery of all photos for a single plant in list format
 struct PlantGalleryView<T>: View where T: Store {
+    @EnvironmentObject var photoEnvironment: PhotoEnvironment
+    @EnvironmentObject var router: Router
+
     private let plant: Plant
 
     @ObservedObject var store: T
 
     // add image
     @State private var showingAddImageLayer = false
-    @State var image: UIImage? = nil
+    @State var newImage: UIImage? = nil
 
     // plant editor
     @State var isPhotoEditorPresented = false
 
-    // show gallery - not used but required by AddImageHelperLayer
+    // show gallery of existing snaps - not used from this view
     @State private var shouldShowGallery: Bool = false
 
     private var title: String {
@@ -45,24 +48,17 @@ struct PlantGalleryView<T>: View where T: Store {
                                 store.photos(for: plant).first)
                 SnapsListView(plant: plant, store: store)
             }
-            .navigationBarItems(trailing: addSnapButton)
-
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: backButton,
+                                trailing: addSnapButton)
+            .onChange(of: newImage) { oldValue, newValue in
+                if let newValue {
+                    router.navigate(to: .addImageToPlant(image: newValue, plant: plant))
+                }
+            }
+            
             if showingAddImageLayer {
-                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, shouldShowGallery: $shouldShowGallery)
-            }
-        }
-        .onChange(of: image) {
-            showingAddImageLayer = false
-            if image != nil {
-                isPhotoEditorPresented = true
-            }
-        }
-
-        if let image { // $isPhotoEditorPresented
-            NavigationLink {
-                AddPhotoToPlantView(store: store, plant: plant, image: image)
-            } label: {
-                EmptyView()
+                AddImageHelperLayer(image: $newImage, showingSelf: $showingAddImageLayer, shouldShowGallery: $shouldShowGallery)
             }
         }
     }
@@ -76,15 +72,18 @@ struct PlantGalleryView<T>: View where T: Store {
 
     private var addSnapButton: some View {
         Button(action: {
+            print("BRDEBUG PlantGalleryView: add image")
             self.showingAddImageLayer = true
         }) {
             Image(systemName: "photo.badge.plus")
         }
     }
 
-    private func dismissEditor() {
-        // no op
-        print("Dismissed")
+    private var backButton: some View {
+        Button {
+            router.navigateBack()
+        } label: {
+            Image(systemName: "arrow.backward")
+        }
     }
-
 }

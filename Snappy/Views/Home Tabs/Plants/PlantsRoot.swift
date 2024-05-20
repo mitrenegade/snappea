@@ -12,7 +12,11 @@ import Combine
 
 /// Displays an index of plants
 struct PlantsRoot<T>: View where T: Store {
+    @EnvironmentObject var photoEnvironment: PhotoEnvironment
+
+    // BR TODO: can Store be an environmentVariable like Router?
     @ObservedObject var store: T
+    @ObservedObject var router = Router()
 
     /// Displays photo gallery for selecting an image for AddPlantView
     @State var shouldShowPhotoGalleryForAddPlant: Bool = false
@@ -23,7 +27,7 @@ struct PlantsRoot<T>: View where T: Store {
 
     var body: some View {
         ZStack {
-            NavigationView {
+            NavigationStack(path: $router.path) {
                 Group {
                     if TESTING {
                         Text("PlantsRoot").font(.title)
@@ -47,12 +51,14 @@ struct PlantsRoot<T>: View where T: Store {
                 .navigationBarItems(leading: logoutButton,
                                     trailing: addPlantButton
                 )
+                .navigationDestination(for: Router.Destination.self) { destination in
+                    switch destination {
+                    case .addImageToPlant(let image, let plant):
+                        AddPhotoToPlantView(store: store, plant: plant, image: image)
+                    }
+                }
             }
-
-            if shouldShowPhotoGalleryForAddPlant {
-                galleryOverlayView
-            }
-
+            .environmentObject(router)
         }
 
     }
@@ -66,51 +72,24 @@ struct PlantsRoot<T>: View where T: Store {
     }()
 
     private var addPlantButton: some View {
-        Button(action: {
-            
-        }) {
-            let viewModel = AddPlantViewModel(store: store)
-            let view = AddPlantView(viewModel: viewModel, shouldShowGallery: $shouldShowPhotoGalleryForAddPlant)
-            NavigationLink(destination: view) {
-                Image(systemName: "photo.badge.plus")
-            }
+        let viewModel = AddPlantViewModel(store: store)
+        let view = AddPlantView(viewModel: viewModel)
+        return NavigationLink(destination: view) {
+            Image(systemName: "photo.badge.plus")
         }
     }
 
     var listView: some View {
         List(store.allPlants) { plant in
-            Group {
-                let photo = store.photos(for: plant)
-                    .sorted { $0.timestamp > $1.timestamp }
-                    .first
-
-                NavigationLink(destination: PlantGalleryView(plant: plant, store: store)) {
-                    PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
-                }
+            let photo = store.photos(for: plant)
+                .sorted { $0.timestamp > $1.timestamp }
+                .first
+            NavigationLink(value: plant) {
+                PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
             }
         }
-    }
-
-    // Photo gallery
-    private var galleryOverlayView: some View {
-        NavigationView {
-            VStack {
-                Text("Photo Gallery")
-
-                PhotoGalleryView(store: store,
-                                 shouldShowDetail: false,
-                                 shouldShowGallery: $shouldShowPhotoGalleryForAddPlant)
-            }
-            .background(.white)
-            .navigationBarItems(leading: closeGalleryButton)
-        }
-    }
-
-    private var closeGalleryButton: some View {
-        Button(action: {
-            shouldShowPhotoGalleryForAddPlant.toggle()
-        }) {
-            Text("Close")
+        .navigationDestination(for: Plant.self) { plant in
+            PlantGalleryView(plant: plant, store: store)
         }
     }
 }

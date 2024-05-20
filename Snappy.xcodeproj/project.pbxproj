@@ -57,6 +57,7 @@
 		8E9E7DA02B413D8900E9DF27 /* PlantGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9E7D9F2B413D8900E9DF27 /* PlantGalleryView.swift */; };
 		8EB00F752B735DEE009C8FE4 /* GoogleService-Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EB00F742B735DEE009C8FE4 /* GoogleService-Info-dev.plist */; };
 		8EC10BFF245F2EC7004D92EC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC10BFE245F2EC7004D92EC /* User.swift */; };
+		8EC393B32BFAEF52001D1066 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC393B22BFAEF52001D1066 /* Router.swift */; };
 		8EC417262BAE964F0076DC1C /* AddImageHelperLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC417252BAE964F0076DC1C /* AddImageHelperLayer.swift */; };
 		8EC86BF92454E81D00AB2F92 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BF82454E81D00AB2F92 /* ImageStore.swift */; };
 		8EC86BFB245503CC00AB2F92 /* SnapOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */; };
@@ -151,6 +152,7 @@
 		8E9E7D9F2B413D8900E9DF27 /* PlantGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantGalleryView.swift; sourceTree = "<group>"; };
 		8EB00F742B735DEE009C8FE4 /* GoogleService-Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-dev.plist"; sourceTree = "<group>"; };
 		8EC10BFE245F2EC7004D92EC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8EC393B22BFAEF52001D1066 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8EC417252BAE964F0076DC1C /* AddImageHelperLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageHelperLayer.swift; sourceTree = "<group>"; };
 		8EC86BF82454E81D00AB2F92 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 		8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapOverlayViewModel.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				8E5FE32B246E800A00622DDA /* TabsRouter.swift */,
 				8E5FE32E2471F96000622DDA /* PhotoEnvironment.swift */,
 				8E41C7522BF923F600CF0587 /* OverlayEnvironment.swift */,
+				8EC393B22BFAEF52001D1066 /* Router.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -656,6 +659,7 @@
 				8EF1FC712467C4AF005C4DE9 /* CoordinateService.swift in Sources */,
 				8EF1FC772467E69D005C4DE9 /* NormalizedCoordinate.swift in Sources */,
 				8E5FE329246E7B0300622DDA /* HomeView.swift in Sources */,
+				8EC393B32BFAEF52001D1066 /* Router.swift in Sources */,
 				8E74F0A6244D5AE600F5A507 /* Photo.swift in Sources */,
 				8EC86C012456234700AB2F92 /* ImageCache.swift in Sources */,
 				8E1482112B9D5525006C16B5 /* AddPlantViewModel.swift in Sources */,

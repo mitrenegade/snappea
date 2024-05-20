@@ -25,15 +25,17 @@ struct SnapsListView<T>: View where T: Store {
         if TESTING {
             Text(viewModel.title + "\(selectedSnaps.isEmpty ? "" : " selectedSnap")")
         }
+        // TODO: instead of snap, use a protocol that allows an image
         List(viewModel.snaps) { snap in
             NavigationLink {
                 SnapDetailView(snap: snap, store: store, environment: overlayEnvironment)
             } label: {
                 if let photo = store.photo(withId: snap.photoId) {
                     SnapRow(snap: snap, photo: photo, isDisabled: !isSelected(snap))
-                } // else: display error? display snap without photo? filter out this snap?
+                }
             }
         }
+        Spacer()
     }
     
     /// if a subset of snaps has been selected, only enable those

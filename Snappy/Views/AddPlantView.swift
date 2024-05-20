@@ -22,7 +22,7 @@ struct AddPlantView<T>: View where T: Store {
 
     @State var isSaveButtonEnabled: Bool = false
 
-    @Binding var shouldShowGallery: Bool
+    @State var shouldShowGallery: Bool = false
 
     private var title: String {
         if TESTING {
@@ -60,6 +60,9 @@ struct AddPlantView<T>: View where T: Store {
             .alert(isPresented: $viewModel.isShowingError) {
                 Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
             }
+            .sheet(isPresented: $shouldShowGallery) {
+                galleryOverlayView
+            }
 
             if showingAddImageLayer {
                 AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, canShowGallery: true, shouldShowGallery: $shouldShowGallery)
@@ -84,7 +87,6 @@ struct AddPlantView<T>: View where T: Store {
         .onDisappear {
             photoEnvironment.reset()
         }
-
     }
 
     private var nameField: some View {
@@ -120,6 +122,7 @@ struct AddPlantView<T>: View where T: Store {
 
     var captureImageButton: some View {
         Button(action: {
+            print("BRDEBUG AddPlantView: add image")
             self.showingAddImageLayer = true
         }) {
             if image == nil {
@@ -149,5 +152,28 @@ struct AddPlantView<T>: View where T: Store {
             Text("Save")
         }
         .disabled(!isSaveButtonEnabled)
+    }
+
+    // Photo gallery
+    private var galleryOverlayView: some View {
+        NavigationView {
+            VStack {
+                Text("Photo Gallery")
+
+                PhotoGalleryView(store: viewModel.store,
+                                 shouldShowDetail: false,
+                                 shouldShowGallery: $shouldShowGallery)
+            }
+            .background(.white)
+            .navigationBarItems(leading: closeGalleryButton)
+        }
+    }
+
+    private var closeGalleryButton: some View {
+        Button(action: {
+            shouldShowGallery.toggle()
+        }) {
+            Text("Close")
+        }
     }
 }

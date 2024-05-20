@@ -36,11 +36,12 @@ struct AddImageHelperLayer: View {
 
     var body: some View {
         ZStack {
-            if showCaptureImageView {
-                CaptureImageView(isShown: $showCaptureImageView,
-                                 image: $image,
-                                 mode: $cameraSourceType)
-            }
+            EmptyView()
+        }
+        .sheet(isPresented: $showCaptureImageView) {
+            CaptureImageView(isShown: $showCaptureImageView,
+                             image: $image,
+                             mode: $cameraSourceType)
         }
         .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
             makeActionSheet
