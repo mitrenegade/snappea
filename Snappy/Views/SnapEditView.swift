@@ -17,7 +17,8 @@ struct SnapEditView<T>: View where T: Store {
 
     private let store: T
 
-    var imageSize: CGSize
+    private let imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+//    var imageSize: CGSize
 
     // MARK: - Editing
     @State private var photo: Photo?
@@ -33,18 +34,15 @@ struct SnapEditView<T>: View where T: Store {
     @Binding var draggingEnd: CGPoint
 
     /// Creates an interface to edit an existing snap on an existing photo
-    init(photo: Photo,
-         snap: Snap,
+    init(snap: Snap,
          store: T,
-         imageSize: CGSize,
          coordinatesChanged: Binding<Bool>,
          start: Binding<CGPoint>,
          end: Binding<CGPoint>
     ) {
-        self.photo = photo
+        self.photo = store.photo(withId: snap.photoId)
         self.snap = snap
         self.store = store
-        self.imageSize = imageSize
 
         _coordinatesChanged = coordinatesChanged
         _draggingStart = start
@@ -57,7 +55,6 @@ struct SnapEditView<T>: View where T: Store {
     init(plant: Plant,
          image: UIImage,
          store: T,
-         imageSize: CGSize,
          coordinatesChanged: Binding<Bool>,
          start: Binding<CGPoint>,
          end: Binding<CGPoint>
@@ -65,7 +62,6 @@ struct SnapEditView<T>: View where T: Store {
         self.plant = plant
         self.image = image
         self.store = store
-        self.imageSize = imageSize
 
         self.photo = nil
         self.snap = nil
@@ -84,10 +80,10 @@ struct SnapEditView<T>: View where T: Store {
                     imageSection(image: image)
                 }
 
-//                if let snap {
-//                    SnapView(snap: snap, size: imageSize)
-//                        .frame(width: imageSize.width, height: imageSize.height)
-//                }
+                if let snap, !coordinatesChanged {
+                    SnapView(snap: snap, size: imageSize)
+                        .frame(width: imageSize.width, height: imageSize.height)
+                }
                 drawBoxView
             }.gesture(
                 DragGesture(minimumDistance: 0)

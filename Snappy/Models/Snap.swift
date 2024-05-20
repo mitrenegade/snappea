@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 /// An snapshot of a plant at a single instance in time.
-struct Snap: Identifiable, Codable, Equatable {
+struct Snap: Identifiable, Codable, Equatable, Hashable {
 //    @DocumentID var id: String? = nil
     var id: String = ""
     var photoId: String = ""

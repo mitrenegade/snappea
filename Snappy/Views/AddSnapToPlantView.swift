@@ -11,7 +11,6 @@ import PhotosUI
 
 struct AddSnapToPlantView<T>: View where T: Store {
     @EnvironmentObject var router: Router
-//    @EnvironmentObject var overlayEnvironment: OverlayEnvironment
 
     /// Image picker
     private let image: UIImage
@@ -53,7 +52,6 @@ struct AddSnapToPlantView<T>: View where T: Store {
             SnapEditView(plant: plant,
                          image: image,
                          store: store,
-                         imageSize: imageSize,
                          coordinatesChanged: $isSaveButtonEnabled,
                          start: $start,
                          end: $end
@@ -65,7 +63,6 @@ struct AddSnapToPlantView<T>: View where T: Store {
         .alert(isPresented: $isShowingError) {
             Alert(title: Text(error?.localizedDescription ?? "Unknown error"))
         }
-
     }
 
     private var saveButton: some View {
@@ -105,6 +102,6 @@ extension AddSnapToPlantView {
         let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: imageSize, start: start, end: end)
 
         let photo = try await store.createPhoto(image: image)
-        let snap = try await store.createSnap(plant: plant, photo: photo, start: startCoord, end: endCoord)
+        let _ = try await store.createSnap(plant: plant, photo: photo, start: startCoord, end: endCoord)
     }
 }

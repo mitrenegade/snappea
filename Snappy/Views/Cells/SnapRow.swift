@@ -35,7 +35,7 @@ struct SnapRow: View {
         .opacity(isDisabled ? 0.5 : 1)
     }
     
-    init?(snap: Snap,
+    init(snap: Snap,
           photo: Photo,
           isDisabled: Bool = false
     ) {
