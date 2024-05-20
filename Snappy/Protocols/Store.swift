@@ -64,5 +64,9 @@ protocol Store: ObservableObject {
     @discardableResult func createPhoto(image: UIImage) async throws -> Photo
 
     @discardableResult func createSnap(plant: Plant?, photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap
+
+    /// Updates the old snap to have the attributes of the new Snap
+    /// Attributes that can be modified are coordinate and plantId; a Snap is always associated with a given photo
+    @discardableResult func updateSnap(snap: Snap, photoId: String?, start: NormalizedCoordinate?, end: NormalizedCoordinate?) async throws -> Bool
 }
 

@@ -74,7 +74,7 @@ struct AddSnapToPlantView<T>: View where T: Store {
                         router.navigateBack()
                     }
                 } catch let error {
-                    print("Eerror \(error)")
+                    print("Error \(error)")
                     self.error = error
                     self.isShowingError = true
                 }

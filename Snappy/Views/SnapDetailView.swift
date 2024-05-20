@@ -12,6 +12,7 @@ import Combine
 
 /// Displays a single snap on a photo with options to edit
 struct SnapDetailView<T>: View where T: Store {
+    @EnvironmentObject var router: Router
     @ObservedObject var store: T
 
     private let snap: Snap
@@ -91,12 +92,12 @@ struct SnapDetailView<T>: View where T: Store {
         Button(action: {
             Task {
                 do {
-//                    try await saveSnap()
-//                    DispatchQueue.main.async {
-//                        router.navigateBack()
-//                    }
+                    try await updateSnap()
+                    DispatchQueue.main.async {
+                        router.navigateBack()
+                    }
                 } catch let error {
-                    print("Eerror \(error)")
+                    print("Error \(error)")
                     self.error = error
                     self.isShowingError = true
                 }
@@ -106,5 +107,13 @@ struct SnapDetailView<T>: View where T: Store {
         }
         .disabled(!isSaveButtonEnabled)
     }
+}
 
+// TODO: move this to a common photo class
+extension SnapDetailView {
+    func updateSnap() async throws {
+        let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: imageSize, start: start, end: end)
+
+        let _ = try await store.updateSnap(snap: snap, photoId: nil, start: startCoord, end: endCoord)
+    }
 }

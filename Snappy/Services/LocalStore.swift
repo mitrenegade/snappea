@@ -247,6 +247,12 @@ class LocalStore: Store, ObservableObject {
         return snap
     }
 
+    /// Updates a snap's coordinates or photoId
+    /// - Returns false if the update failed
+    func updateSnap(snap: Snap, photoId: String? = nil, start: NormalizedCoordinate? = nil, end: NormalizedCoordinate? = nil) async throws -> Bool {
+        return false
+    }
+
     // MARK: - Caching
 
     /// Adds photo to cache
