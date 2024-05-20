@@ -208,7 +208,7 @@ class LocalStore: Store, ObservableObject {
 
     // MARK: - Saving
 
-    public func createPhoto(image: UIImage) throws -> Photo {
+    public func createPhoto(image: UIImage) async throws -> Photo {
         let id = UUID().uuidString
         let timestamp = Date().timeIntervalSince1970
 
@@ -224,7 +224,7 @@ class LocalStore: Store, ObservableObject {
         return photo
     }
 
-    public func createPlant(name: String, type: PlantType, category: Category) throws -> Plant {
+    public func createPlant(name: String, type: PlantType, category: Category) async throws -> Plant {
         let id = UUID().uuidString
         let plant = Plant(id: id, name: name, type: type, category: category)
         print("BRDEBUG createPlant \(plant.id)")
