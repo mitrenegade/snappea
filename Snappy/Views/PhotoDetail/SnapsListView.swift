@@ -19,8 +19,6 @@ struct SnapsListView<T>: View where T: Store {
 
     private var selectedSnaps: [Snap] = []
 
-    private var placeholderImageForNewSnap: UIImage?
-
     @ObservedObject var store: T
 
     var body: some View {
@@ -35,14 +33,6 @@ struct SnapsListView<T>: View where T: Store {
                 if let photo = store.photo(withId: snap.photoId) {
                     SnapRow(snap: snap, photo: photo, isDisabled: !isSelected(snap))
                 }
-            }
-        }
-        if let image = placeholderImageForNewSnap {
-            NavigationLink {
-                // TODO: AddPhotoToPlantView, or SnapDetailView(edit: true)?
-                Image(uiImage: image)
-            } label: {
-                Text("Click to view new snap")
             }
         }
         Spacer()
@@ -66,19 +56,16 @@ struct SnapsListView<T>: View where T: Store {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: photo.id, type: .photo, store: store)
-        self.placeholderImageForNewSnap = nil
     }
 
     /// Creates a SnapsListView based on a given plant
     init(plant: Plant,
          selectedSnaps: [Snap]? = nil,
-         store: T,
-         newImage: UIImage? = nil
+         store: T
     ) {
         self.store = store
         self.selectedSnaps = selectedSnaps ?? []
         self.viewModel = SnapsListViewModel(for: plant.id, type: .plant, store: store)
-        self.placeholderImageForNewSnap = newImage
     }
 }
 

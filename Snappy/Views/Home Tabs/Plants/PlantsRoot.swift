@@ -15,12 +15,10 @@ struct PlantsRoot<T>: View where T: Store {
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
 
     @ObservedObject var store: T
+    @ObservedObject var router = Router()
 
     /// Displays photo gallery for selecting an image for AddPlantView
     @State var shouldShowPhotoGalleryForAddPlant: Bool = false
-
-    // https://stackoverflow.com/questions/77015145/how-to-do-programmatic-navigation-in-swiftui-using-navigationstack-once-state-ch
-    @State var path = NavigationPath()
 
     init(store: T) {
         self.store = store
@@ -28,7 +26,7 @@ struct PlantsRoot<T>: View where T: Store {
 
     var body: some View {
         ZStack {
-            NavigationStack(path: $path) {
+            NavigationStack(path: $router.path) {
                 Group {
                     if TESTING {
                         Text("PlantsRoot").font(.title)
@@ -52,12 +50,14 @@ struct PlantsRoot<T>: View where T: Store {
                 .navigationBarItems(leading: logoutButton,
                                     trailing: addPlantButton
                 )
-                .navigationDestination(for: Plant.self) { plant in
-                    if let newImage = photoEnvironment.newImage {
-                        AddPhotoToPlantView(store: store, plant: plant, image: newImage)
+                .navigationDestination(for: Router.Destination.self) { destination in
+                    switch destination {
+                    case .addImageToPlant(let image, let plant):
+                        AddPhotoToPlantView(store: store, plant: plant, image: image)
                     }
                 }
             }
+            .environmentObject(router)
         }
 
     }
@@ -85,7 +85,7 @@ struct PlantsRoot<T>: View where T: Store {
                     .sorted { $0.timestamp > $1.timestamp }
                     .first
 
-                NavigationLink(destination: PlantGalleryView(plant: plant, store: store, navigationPath: $path)) {
+                NavigationLink(destination: PlantGalleryView(plant: plant, store: store)) {
                     PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
                 }
             }
