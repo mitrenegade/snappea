@@ -15,7 +15,6 @@ protocol PlantGalleryDelegate {
 
 /// Shows a gallery of all photos for a single plant in list format
 struct PlantGalleryView<T>: View where T: Store {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
     @EnvironmentObject var router: Router
 
@@ -82,8 +81,7 @@ struct PlantGalleryView<T>: View where T: Store {
 
     private var backButton: some View {
         Button {
-            self.presentationMode.wrappedValue.dismiss()
-//            router.navigateBack()
+            router.navigateBack()
         } label: {
             Image(systemName: "arrow.backward")
         }

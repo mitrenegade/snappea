@@ -10,7 +10,7 @@ import SwiftUI
 import PhotosUI
 
 struct AddPhotoToPlantView<T>: View where T: Store {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var router: Router
 
     /// Image picker
     private let image: UIImage
@@ -44,14 +44,9 @@ struct AddPhotoToPlantView<T>: View where T: Store {
                 .aspectRatio(contentMode: .fit)
                 .clipped()
         }
-        .navigationBarItems(trailing: saveButton)
-
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarLeading) {
-//                saveButton
-//            }
-//        }
-//        .navigationBarItems(trailing: saveButton)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: backButton,
+                            trailing: saveButton)
 //        .alert(isPresented: $viewModel.isShowingError) {
 //            Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
 //        }
@@ -63,13 +58,21 @@ struct AddPhotoToPlantView<T>: View where T: Store {
             Task {
                 await saveImage(image: image, plant: plant)
                 DispatchQueue.main.async {
-                    self.presentationMode.wrappedValue.dismiss()
+                    router.navigateBack()
                 }
             }
         }) {
             Text("Save")
         }
         .disabled(!isSaveButtonEnabled)
+    }
+
+    private var backButton: some View {
+        Button {
+            router.navigateBack()
+        } label: {
+            Image(systemName: "arrow.backward")
+        }
     }
 }
 
