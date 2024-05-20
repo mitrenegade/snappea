@@ -114,6 +114,6 @@ extension SnapDetailView {
     func updateSnap() async throws {
         let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: imageSize, start: start, end: end)
 
-        let _ = try await store.updateSnap(snap: snap, photoId: nil, start: startCoord, end: endCoord)
+        let _ = try await store.updateSnap(snap: snap, start: startCoord, end: endCoord)
     }
 }

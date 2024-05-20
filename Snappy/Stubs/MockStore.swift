@@ -95,7 +95,11 @@ class MockStore: Store {
         fatalError()
     }
 
-    func updateSnap(snap: Snap, photoId: String?, start: NormalizedCoordinate?, end: NormalizedCoordinate?) async throws -> Bool {
+    func updateSnap(snap: Snap, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap? {
+        fatalError()
+    }
+
+    func updateSnap(snap: Snap, plant: Plant) async throws -> Snap? {
         fatalError()
     }
 }

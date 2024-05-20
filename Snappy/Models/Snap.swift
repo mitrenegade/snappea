@@ -19,8 +19,8 @@ struct Snap: Identifiable, Codable, Equatable, Hashable {
     var end: NormalizedCoordinate
     var notes: String = ""
 
-    init(plantId: String?, photoId: String, start: NormalizedCoordinate, end: NormalizedCoordinate) {
-        self.id = UUID().uuidString
+    init(id: String? = nil, plantId: String?, photoId: String, start: NormalizedCoordinate, end: NormalizedCoordinate) {
+        self.id = id ?? UUID().uuidString
         if let plantId {
             self.plantId = plantId
         }

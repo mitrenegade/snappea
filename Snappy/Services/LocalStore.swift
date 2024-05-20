@@ -247,10 +247,23 @@ class LocalStore: Store, ObservableObject {
         return snap
     }
 
-    /// Updates a snap's coordinates or photoId
+    /// Updates a snap's coordinates by creating a new snap object that is identical with the original snap except with updated coordinates
+    /// and replaces the original snap in all caches and file system
+    /// - Returns the updated `Snap` object or `nil` if the update failed
+    func updateSnap(snap: Snap, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap? {
+        let newSnap = Snap(id: snap.id, plantId: snap.plantId, photoId: snap.photoId, start: start, end: end)
+        let url = try baseURL.appending(path: "snap").appending(path: snap.id)
+        let data = try JSONEncoder().encode(newSnap)
+        try data.write(to: url, options: [.atomic, .completeFileProtection])
+
+        cacheSnap(newSnap)
+        return newSnap
+    }
+
+    /// Updates a snap's relationship with a photo
     /// - Returns false if the update failed
-    func updateSnap(snap: Snap, photoId: String? = nil, start: NormalizedCoordinate? = nil, end: NormalizedCoordinate? = nil) async throws -> Bool {
-        return false
+    func updateSnap(snap: Snap, plant: Plant) async throws -> Snap? {
+        return nil
     }
 
     // MARK: - Caching
