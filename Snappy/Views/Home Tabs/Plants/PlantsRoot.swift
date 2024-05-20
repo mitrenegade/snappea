@@ -14,6 +14,7 @@ import Combine
 struct PlantsRoot<T>: View where T: Store {
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
 
+    // BR TODO: can Store be an environmentVariable like Router?
     @ObservedObject var store: T
     @ObservedObject var router = Router()
 
@@ -85,6 +86,7 @@ struct PlantsRoot<T>: View where T: Store {
                     .sorted { $0.timestamp > $1.timestamp }
                     .first
 
+                // BR TODO use router
                 NavigationLink(destination: PlantGalleryView(plant: plant, store: store)) {
                     PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
                 }

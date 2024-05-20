@@ -44,11 +44,13 @@ struct AddPhotoToPlantView<T>: View where T: Store {
                 .aspectRatio(contentMode: .fit)
                 .clipped()
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                saveButton
-            }
-        }
+        .navigationBarItems(trailing: saveButton)
+
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarLeading) {
+//                saveButton
+//            }
+//        }
 //        .navigationBarItems(trailing: saveButton)
 //        .alert(isPresented: $viewModel.isShowingError) {
 //            Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
