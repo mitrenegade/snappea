@@ -18,6 +18,8 @@ struct SnapDetailView<T>: View where T: Store {
 
     private let photo: Photo
 
+    private var plant: Plant?
+
     private let imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
 
     var title: String {
@@ -30,7 +32,7 @@ struct SnapDetailView<T>: View where T: Store {
         }
         VStack {
             imageSection
-            editSection
+            infoSection
         }
     }
 
@@ -47,6 +49,8 @@ struct SnapDetailView<T>: View where T: Store {
         self.snap = snap
         self.store = store
 
+        self.plant = store.plant(withId: snap.plantId)
+
         // modifying environment on it is required to clear existing snap information
         environment.isEditingSnap = false
         environment.snap = snap
@@ -59,7 +63,10 @@ struct SnapDetailView<T>: View where T: Store {
                         imageSize: imageSize)
     }
 
-    var editSection: some View {
-        Text("Editor")
+    var infoSection: some View {
+        VStack {
+            Text("Snap \(snap.id)")
+            Text("Plant: \(plant?.id ?? "none")")
+        }
     }
 }

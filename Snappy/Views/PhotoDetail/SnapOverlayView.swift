@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+// BR TODO Orename this to SnapsOverlayView
+// and remove drag gesture
 struct SnapOverlayView<T>: View where T: Store {
     @ObservedObject var viewModel: SnapOverlayViewModel<T>
 

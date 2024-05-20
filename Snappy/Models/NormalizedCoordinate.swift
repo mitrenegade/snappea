@@ -12,6 +12,10 @@ import UIKit
 struct NormalizedCoordinate: Codable, Equatable {
     var x: Double
     var y: Double
+
+    func toPoint(imageSize: CGSize) -> CGPoint {
+        CGPointMake(x * imageSize.width, y * imageSize.height)
+    }
 }
 
 extension NormalizedCoordinate {

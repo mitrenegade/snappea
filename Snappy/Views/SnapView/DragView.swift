@@ -19,6 +19,13 @@ struct DragView: View, Identifiable {
                                        end: end)
     }
 
+    init(imageSize: CGSize, startCoord: NormalizedCoordinate, endCoord: NormalizedCoordinate) {
+        self.id = UUID().uuidString
+        self.viewModel = DragViewModel(imageSize: imageSize,
+                                       startCoord: startCoord,
+                                       endCoord: endCoord)
+    }
+
     var body: some View {
         Rectangle()
             .size(width: $viewModel.width.wrappedValue,

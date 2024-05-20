@@ -14,7 +14,6 @@ import Combine
 struct PlantsRoot<T>: View where T: Store {
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
 
-    // BR TODO: can Store be an environmentVariable like Router?
     @ObservedObject var store: T
     @ObservedObject var router = Router()
 
@@ -54,7 +53,7 @@ struct PlantsRoot<T>: View where T: Store {
                 .navigationDestination(for: Router.Destination.self) { destination in
                     switch destination {
                     case .addImageToPlant(let image, let plant):
-                        AddPhotoToPlantView(store: store, plant: plant, image: image)
+                        AddSnapToPlantView(store: store, plant: plant, image: image)
                     }
                 }
             }
