@@ -16,6 +16,12 @@ struct AddSnapToPlantView<T>: View where T: Store {
     /// Image picker
     private let image: UIImage
     @State var isSaveButtonEnabled: Bool = false
+    @State var isShowingError: Bool = false
+    @State private var error: Error? {
+        didSet {
+            isShowingError = error == nil
+        }
+    }
 
     @ObservedObject var store: T
 
@@ -39,9 +45,6 @@ struct AddSnapToPlantView<T>: View where T: Store {
         self.store = store
         self.plant = plant
         self.image = image
-
-//        overlayEnvironment.isAddingSnap = true
-//        overlayEnvironment.image = image
     }
 
     var body: some View {
@@ -56,20 +59,12 @@ struct AddSnapToPlantView<T>: View where T: Store {
                          end: $end
             )
         }
-//        VStack {
-//            Image(uiImage: image)
-//                .resizable()
-//                .frame(width: UIScreen.main.bounds.width,
-//                        height: UIScreen.main.bounds.width)
-//                .aspectRatio(contentMode: .fit)
-//                .clipped()
-//        }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: backButton,
                             trailing: saveButton)
-//        .alert(isPresented: $viewModel.isShowingError) {
-//            Alert(title: Text(viewModel.errorMessage ?? "Unknown error"))
-//        }
+        .alert(isPresented: $isShowingError) {
+            Alert(title: Text(error?.localizedDescription ?? "Unknown error"))
+        }
 
     }
 
@@ -83,6 +78,8 @@ struct AddSnapToPlantView<T>: View where T: Store {
                     }
                 } catch let error {
                     print("Eerror \(error)")
+                    self.error = error
+                    self.isShowingError = true
                 }
             }
         }) {

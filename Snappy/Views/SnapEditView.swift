@@ -47,8 +47,6 @@ struct SnapEditView<T>: View where T: Store {
         self.imageSize = imageSize
 
         _coordinatesChanged = coordinatesChanged
-//        _draggingStart = snap.start.toPoint(imageSize: imageSize)
-//        _draggingEnd = snap.end.toPoint(imageSize: imageSize)
         _draggingStart = start
         _draggingEnd = end
 
