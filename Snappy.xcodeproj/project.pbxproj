@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E1482112B9D5525006C16B5 /* AddPlantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1482102B9D5525006C16B5 /* AddPlantViewModel.swift */; };
-		8E1482132B9D5574006C16B5 /* AddPhotoToPlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1482122B9D5574006C16B5 /* AddPhotoToPlantView.swift */; };
+		8E1482132B9D5574006C16B5 /* AddSnapToPlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1482122B9D5574006C16B5 /* AddSnapToPlantView.swift */; };
 		8E18A2BE2B4DC43B0083809A /* LocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18A2BD2B4DC43B0083809A /* LocalStore.swift */; };
 		8E3684C82B27CE3100B228F3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3684C72B27CE3100B228F3 /* Constants.swift */; };
 		8E3684CA2B27D01E00B228F3 /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E3684C92B27D01E00B228F3 /* user.json */; };
@@ -58,6 +58,7 @@
 		8EB00F752B735DEE009C8FE4 /* GoogleService-Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EB00F742B735DEE009C8FE4 /* GoogleService-Info-dev.plist */; };
 		8EC10BFF245F2EC7004D92EC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC10BFE245F2EC7004D92EC /* User.swift */; };
 		8EC393B32BFAEF52001D1066 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC393B22BFAEF52001D1066 /* Router.swift */; };
+		8EC393B52BFBBC82001D1066 /* SnapEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC393B42BFBBC82001D1066 /* SnapEditView.swift */; };
 		8EC417262BAE964F0076DC1C /* AddImageHelperLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC417252BAE964F0076DC1C /* AddImageHelperLayer.swift */; };
 		8EC86BF92454E81D00AB2F92 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BF82454E81D00AB2F92 /* ImageStore.swift */; };
 		8EC86BFB245503CC00AB2F92 /* SnapOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */; };
@@ -99,7 +100,7 @@
 		7E69D289800C2D2BA2804ECD /* Pods-VeggieTag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTag.release.xcconfig"; path = "Target Support Files/Pods-VeggieTag/Pods-VeggieTag.release.xcconfig"; sourceTree = "<group>"; };
 		8613A4ED0662681AE7A7CC2E /* Pods-VeggieTag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTag.debug.xcconfig"; path = "Target Support Files/Pods-VeggieTag/Pods-VeggieTag.debug.xcconfig"; sourceTree = "<group>"; };
 		8E1482102B9D5525006C16B5 /* AddPlantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlantViewModel.swift; sourceTree = "<group>"; };
-		8E1482122B9D5574006C16B5 /* AddPhotoToPlantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoToPlantView.swift; sourceTree = "<group>"; };
+		8E1482122B9D5574006C16B5 /* AddSnapToPlantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSnapToPlantView.swift; sourceTree = "<group>"; };
 		8E18A2BD2B4DC43B0083809A /* LocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStore.swift; sourceTree = "<group>"; };
 		8E3684C72B27CE3100B228F3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8E3684C92B27D01E00B228F3 /* user.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
@@ -153,6 +154,7 @@
 		8EB00F742B735DEE009C8FE4 /* GoogleService-Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-dev.plist"; sourceTree = "<group>"; };
 		8EC10BFE245F2EC7004D92EC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8EC393B22BFAEF52001D1066 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		8EC393B42BFBBC82001D1066 /* SnapEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapEditView.swift; sourceTree = "<group>"; };
 		8EC417252BAE964F0076DC1C /* AddImageHelperLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageHelperLayer.swift; sourceTree = "<group>"; };
 		8EC86BF82454E81D00AB2F92 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 		8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapOverlayViewModel.swift; sourceTree = "<group>"; };
@@ -332,7 +334,8 @@
 				8EF491BD2B53BF76009F12C0 /* PhotoGalleryView.swift */,
 				8EF491BF2B53C186009F12C0 /* GridItemView.swift */,
 				8E54C1332B9BBB270020BAAE /* PlantBasicView.swift */,
-				8E1482122B9D5574006C16B5 /* AddPhotoToPlantView.swift */,
+				8E1482122B9D5574006C16B5 /* AddSnapToPlantView.swift */,
+				8EC393B42BFBBC82001D1066 /* SnapEditView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -644,6 +647,7 @@
 				8E3684CE2B27DB3F00B228F3 /* PlantRowViewModel.swift in Sources */,
 				8E7C7956244BB24400F295AD /* AppDelegate.swift in Sources */,
 				8E5FE327246C774400622DDA /* FirebaseImageService.swift in Sources */,
+				8EC393B52BFBBC82001D1066 /* SnapEditView.swift in Sources */,
 				8E3ABF05244D7D0A00FF378B /* PhotoRow.swift in Sources */,
 				8E3ABF1C2450065000FF378B /* SnapView.swift in Sources */,
 				8EE709CF2B54056C0078D509 /* FirebaseStore.swift in Sources */,
@@ -681,7 +685,7 @@
 				8E3ABF0C244D7DB300FF378B /* SnapsListView.swift in Sources */,
 				8EC86BF92454E81D00AB2F92 /* ImageStore.swift in Sources */,
 				8E3684D22B2BF86F00B228F3 /* Store.swift in Sources */,
-				8E1482132B9D5574006C16B5 /* AddPhotoToPlantView.swift in Sources */,
+				8E1482132B9D5574006C16B5 /* AddSnapToPlantView.swift in Sources */,
 				8E3ABF07244D7D4000FF378B /* SnapRow.swift in Sources */,
 				8EF491B72B50E979009F12C0 /* SnapDetailView.swift in Sources */,
 				8E3ABF02244D704E00FF378B /* AsyncImageView.swift in Sources */,

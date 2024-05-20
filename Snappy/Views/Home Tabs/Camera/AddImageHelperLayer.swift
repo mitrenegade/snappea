@@ -32,8 +32,6 @@ struct AddImageHelperLayer: View {
     /// Whether parent view should show a gallery
     @Binding var shouldShowGallery: Bool
 
-    var store: (any Store)?
-
     var body: some View {
         ZStack {
             EmptyView()

@@ -29,7 +29,15 @@ class DragViewModel: ObservableObject {
         self.width = end.x - start.x
         self.height = end.y - start.y
     }
-    
+
+    init(imageSize: CGSize, startCoord: NormalizedCoordinate, endCoord: NormalizedCoordinate) {
+        self.imageSize = imageSize
+        self.x0 = startCoord.x * imageSize.width
+        self.y0 = startCoord.y * imageSize.height
+        self.width = (endCoord.x - startCoord.x) * imageSize.width
+        self.height = (endCoord.y - startCoord.y) * imageSize.height
+    }
+
     var color: Color {
         return .blue
     }
