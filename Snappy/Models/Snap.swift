@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 /// An snapshot of a plant at a single instance in time.
-struct Snap: Identifiable, Codable, Equatable {
+struct Snap: Identifiable, Codable, Equatable, Hashable {
 //    @DocumentID var id: String? = nil
     var id: String = ""
     var photoId: String = ""
@@ -19,8 +19,8 @@ struct Snap: Identifiable, Codable, Equatable {
     var end: NormalizedCoordinate
     var notes: String = ""
 
-    init(plantId: String?, photoId: String, start: NormalizedCoordinate, end: NormalizedCoordinate) {
-        self.id = UUID().uuidString
+    init(id: String? = nil, plantId: String?, photoId: String, start: NormalizedCoordinate, end: NormalizedCoordinate) {
+        self.id = id ?? UUID().uuidString
         if let plantId {
             self.plantId = plantId
         }

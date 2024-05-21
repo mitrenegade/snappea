@@ -16,6 +16,7 @@ enum SnapsCollectionType {
 struct SnapsListView<T>: View where T: Store {
     @ObservedObject var viewModel: SnapsListViewModel<T>
     @EnvironmentObject var overlayEnvironment: OverlayEnvironment
+    @EnvironmentObject var router: Router
 
     private var selectedSnaps: [Snap] = []
 
@@ -25,15 +26,15 @@ struct SnapsListView<T>: View where T: Store {
         if TESTING {
             Text(viewModel.title + "\(selectedSnaps.isEmpty ? "" : " selectedSnap")")
         }
-        // TODO: instead of snap, use a protocol that allows an image
         List(viewModel.snaps) { snap in
-            NavigationLink {
-                SnapDetailView(snap: snap, store: store, environment: overlayEnvironment)
-            } label: {
-                if let photo = store.photo(withId: snap.photoId) {
+            if let photo = store.photo(withId: snap.photoId) {
+                NavigationLink(value: snap) {
                     SnapRow(snap: snap, photo: photo, isDisabled: !isSelected(snap))
                 }
             }
+        }
+        .navigationDestination(for: Snap.self) { snap in
+            SnapDetailView(snap: snap, store: store, environment: overlayEnvironment)
         }
         Spacer()
     }

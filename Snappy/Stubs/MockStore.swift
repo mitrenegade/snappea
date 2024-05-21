@@ -94,4 +94,12 @@ class MockStore: Store {
         // no op
         fatalError()
     }
+
+    func updateSnap(snap: Snap, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap? {
+        fatalError()
+    }
+
+    func updateSnap(snap: Snap, plant: Plant) async throws -> Snap? {
+        fatalError()
+    }
 }

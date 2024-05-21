@@ -9,7 +9,7 @@
 import UIKit
 
 /// A coordinate system normalized from 0 1 to
-struct NormalizedCoordinate: Codable, Equatable {
+struct NormalizedCoordinate: Codable, Equatable, Hashable {
     var x: Double
     var y: Double
 
