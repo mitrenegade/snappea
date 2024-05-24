@@ -10,17 +10,16 @@ import SwiftUI
 
 struct CameraRoot<T>: View where T: Store {
 
-    /// Image picker layer
-    @State private var showingAddImageLayer = false
-    @State var image: UIImage? = nil
-
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
-    @EnvironmentObject var router: TabsRouter
+    @EnvironmentObject var tabsRouter: TabsRouter
+    @ObservedObject var router = Router()
+
+    @State private var showCaptureImageView: Bool = false
+//    @State private var cameraSourceType: UIImagePickerController.SourceType = TESTING ? .photoLibrary : .camera
+    @State private var cameraSourceType: UIImagePickerController.SourceType = .camera
+    @State private var image: UIImage?
 
     private let store: T
-
-    // show gallery - not used but required by AddImageHelperLayer
-    @State private var shouldShowGallery: Bool = false
 
     init(store: T) {
         self.store = store
@@ -29,55 +28,32 @@ struct CameraRoot<T>: View where T: Store {
     var body: some View {
         ZStack {
             NavigationView{
-                VStack {
-                    imagePreview
-                    captureImageButton
-                }
-                .navigationBarItems(leading: cancelButton,
-                                    trailing: saveButton
-                )
+                captureImageView
+                    .navigationDestination(for: Router.Destination.self) { destination in
+                        switch destination {
+                        case .addImageToPlant:
+                            // no op until plant exists
+                            EmptyView()
+                        case .createPlantWithImage(let image):
+                            // TODO: SelectPlantView
+                            EmptyView()
+                        }
+                    }
             }
-            if showingAddImageLayer {
-                AddImageHelperLayer(image: $image, showingSelf: $showingAddImageLayer, shouldShowGallery: $shouldShowGallery)
-            }
-        }
-    }
-    
-    var imagePreview: some View {
-        Group {
-            if image != nil {
-                Image(uiImage: image!).resizable()
-                .frame(width: 250, height: 250)
-                .clipShape(Circle())
-                .overlay(Circle().stroke(Color.white, lineWidth: 4))
-                    .shadow(radius: 10)
-            }
-        }
-    }
-    
-    var captureImageButton: some View {
-        Button(action: {
-            self.showingAddImageLayer = true
-        }) {
-            if image == nil {
-                Text("Add photo")
-            } else {
-                Text("Change photo")
-            }
-        }
-    }
-    
-    var cancelButton: some View {
-        Group {
-            if image != nil {
-                Button(action: {
-                    // cancel
-                    self.image = nil
-                }) {
-                    Text("Cancel")
+            .navigationBarBackButtonHidden(true)
+            .onChange(of: image) { oldValue, newValue in
+                if let newValue {
+                    router.navigate(to: .createPlantWithImage(image: newValue))
                 }
             }
+            .environmentObject(router)
         }
+    }
+
+    var captureImageView: some View {
+        CaptureImageView(isShown: $showCaptureImageView,
+                         image: $image,
+                         mode: $cameraSourceType)
     }
 
     var saveButton: some View {
@@ -114,7 +90,7 @@ struct CameraRoot<T>: View where T: Store {
     
     @MainActor
     func displayNewPhotoDetail(photo: Photo) {
-        self.router.selectedTab = .gallery
+        self.tabsRouter.selectedTab = .gallery
         self.photoEnvironment.newPhoto = photo
         self.photoEnvironment.shouldShowNewPhoto = true
     }

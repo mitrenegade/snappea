@@ -92,7 +92,6 @@ struct AddImageHelperLayer: View {
     }
 
     func openGallery() {
-        // TODO: how to open this as a modal instead?
         showingSelf = false
         shouldShowGallery = true
     }

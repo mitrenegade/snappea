@@ -37,7 +37,8 @@ extension CaptureImageView: UIViewControllerRepresentable {
     func makeUIViewController(context: UIViewControllerRepresentableContext<CaptureImageView>) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
-        picker.sourceType = self.mode
+        picker.sourceType = mode
+        // TODO: how to hide/disable cancel button for both camera and album
         return picker
     }
     

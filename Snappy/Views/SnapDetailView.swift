@@ -44,6 +44,7 @@ struct SnapDetailView<T>: View where T: Store {
         }
         VStack {
             imageSection
+            Spacer().frame(height: 20)
             infoSection
             Spacer()
         }
@@ -82,7 +83,7 @@ struct SnapDetailView<T>: View where T: Store {
     }
 
     var infoSection: some View {
-        VStack {
+        Group {
             Text("Snap \(snap.id)")
             Text("Plant: \(plant?.id ?? "none")")
         }

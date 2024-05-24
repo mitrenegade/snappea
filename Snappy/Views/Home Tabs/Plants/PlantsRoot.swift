@@ -54,6 +54,9 @@ struct PlantsRoot<T>: View where T: Store {
                     switch destination {
                     case .addImageToPlant(let image, let plant):
                         AddSnapToPlantView(store: store, plant: plant, image: image)
+                    case .createPlantWithImage:
+                        // no op; PlantsRoot can't take an image yet
+                        EmptyView()
                     }
                 }
             }

@@ -17,6 +17,7 @@ import SwiftUI
 final class Router: ObservableObject {
     public enum Destination: Hashable {
         case addImageToPlant(image: UIImage, plant: Plant)
+        case createPlantWithImage(image: UIImage)
     }
 
     @Published var path = NavigationPath()
