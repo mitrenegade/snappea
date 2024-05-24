@@ -54,7 +54,11 @@ struct PlantsRoot<T>: View where T: Store {
                 .navigationDestination(for: Router.Destination.self) { destination in
                     switch destination {
                     case .addImageToPlant(let image, let plant):
-                        AddSnapToPlantView(store: store, plant: plant, image: image)
+                        AddSnapToPlantView(store: store, plant: plant, image: image) {
+                            DispatchQueue.main.async {
+                                router.navigateHome()
+                            }
+                        }
                     case .selectPlantForImage:
                         // no op; PlantsRoot can't take an image yet
                         EmptyView()

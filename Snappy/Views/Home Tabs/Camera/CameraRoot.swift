@@ -43,7 +43,12 @@ struct CameraRoot<T>: View where T: Store {
                     switch destination {
                     case .addImageToPlant(let image, let plant):
                         // no op until plant exists
-                        AddSnapToPlantView(store: store, plant: plant, image: image)
+                        AddSnapToPlantView(store: store, plant: plant, image: image) {
+                            // reset camera stack
+                            router.navigateHome()
+                            // return to plant gallery
+                            tabsRouter.selectedTab = .plants
+                        }
                     case .selectPlantForImage(let image):
                         selectPlantView(image)
                     case .plantGallery(let plant):
@@ -101,6 +106,9 @@ struct CameraRoot<T>: View where T: Store {
     
     func selectPlantView(_ newImage: UIImage) -> some View {
         VStack {
+            if TESTING {
+                Text("CameraRoot - SelectPlantView")
+            }
             Text("Select an existing plant to add the photo")
             addNewPlantButton
             PlantsListView(store: store, selectedPlant: $selectedPlant)
@@ -109,6 +117,7 @@ struct CameraRoot<T>: View where T: Store {
                         // Add the new image to an existing plant
                         router.navigate(to: .addImageToPlant(image: newImage, plant: newPlant))
                     }
+                    selectedPlant = nil
                 }
         }
     }

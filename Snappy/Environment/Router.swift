@@ -30,4 +30,8 @@ final class Router: ObservableObject {
     func navigateBack() {
         path.removeLast()
     }
+
+    func navigateHome() {
+        path.removeLast(path.count)
+    }
 }
