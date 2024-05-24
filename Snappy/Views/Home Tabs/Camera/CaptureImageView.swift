@@ -16,20 +16,13 @@ struct CaptureImageView {
     @Binding var image: UIImage?
     @Binding var mode: UIImagePickerController.SourceType
 
-    /// `true` if image is true; needed to update parent view since `image != nil`
-    /// not used
-    @State var isImageSelected: Bool = false
+    /// `true` on cancellation
+    @Binding var didCancel: Bool
 
     // MARK: - UIViewControllerRepresentable
 
     func makeCoordinator() -> ImagePickerCoordinator {
-        return ImagePickerCoordinator(isShown: $isShown, image: $image, isImageSelected: $isImageSelected)
-    }
-
-    init(isShown: Binding<Bool>, image: Binding<UIImage?>, mode: Binding<UIImagePickerController.SourceType>) {
-        _image = image
-        _isShown = isShown
-        _mode = mode
+        return ImagePickerCoordinator(isShown: $isShown, image: $image, didCancel: $didCancel)
     }
 }
 

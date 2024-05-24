@@ -16,11 +16,15 @@ struct CameraRoot<T>: View where T: Store {
 
     @ObservedObject var router = Router()
 
+    // not used
     @State private var showCaptureImageView: Bool = false
+
     @State private var cameraSourceType: UIImagePickerController.SourceType = TESTING ? .photoLibrary : .camera
 //    @State private var cameraSourceType: UIImagePickerController.SourceType = .camera
     @State private var image: UIImage?
     @State private var selectedPlant: Plant? = nil
+
+    @State private var didCancel: Bool = false
 
     private let store: T
 
@@ -34,11 +38,6 @@ struct CameraRoot<T>: View where T: Store {
                 Group {
                     captureImageView
                 }
-                .onChange(of: showCaptureImageView) { oldValue, newValue in
-                    if !newValue {
-                        tabsRouter.selectedTab = .plants
-                    }
-                }
                 .navigationDestination(for: Router.Destination.self) { destination in
                     switch destination {
                     case .addImageToPlant(let image, let plant):
@@ -51,7 +50,7 @@ struct CameraRoot<T>: View where T: Store {
                         }
                     case .selectPlantForImage(let image):
                         selectPlantView(image)
-                    case .plantGallery(let plant):
+                    case .plantGallery:
                         // no plant gallery
                         EmptyView()
                     }
@@ -61,6 +60,14 @@ struct CameraRoot<T>: View where T: Store {
                 if let newValue {
                     router.navigate(to: .selectPlantForImage(newValue))
                 }
+                image = nil
+                // now to clear selection in imagePicker
+            }
+            .onChange(of: didCancel) { oldValue, newValue in
+                if newValue {
+                    tabsRouter.selectedTab = .plants
+                }
+                didCancel = false
             }
             .environmentObject(router)
         }
@@ -69,7 +76,8 @@ struct CameraRoot<T>: View where T: Store {
     var captureImageView: some View {
         CaptureImageView(isShown: $showCaptureImageView,
                          image: $image,
-                         mode: $cameraSourceType)
+                         mode: $cameraSourceType,
+                         didCancel: $didCancel)
     }
 
     var saveButton: some View {
