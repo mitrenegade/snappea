@@ -16,6 +16,7 @@ struct PlantsRoot<T>: View where T: Store {
 
     @ObservedObject var store: T
     @ObservedObject var router = Router()
+    @State var selectedPlant: Plant? = nil
 
     /// Displays photo gallery for selecting an image for AddPlantView
     @State var shouldShowPhotoGalleryForAddPlant: Bool = false
@@ -57,8 +58,11 @@ struct PlantsRoot<T>: View where T: Store {
                     case .createPlantWithImage:
                         // no op; PlantsRoot can't take an image yet
                         EmptyView()
+                    case .plantGallery(let plant):
+                        PlantGalleryView(plant: plant, store: store)
                     }
                 }
+
             }
             .environmentObject(router)
         }
@@ -82,7 +86,12 @@ struct PlantsRoot<T>: View where T: Store {
     }
 
     var listView: some View {
-        PlantsListView(store: store)
+        PlantsListView(store: store, selectedPlant: $selectedPlant)
+            .onChange(of: selectedPlant) { oldValue, newValue in
+                if let newValue {
+                    router.navigate(to: .plantGallery(plant: newValue))
+                }
+            }
     }
 }
 

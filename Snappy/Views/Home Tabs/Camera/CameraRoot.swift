@@ -18,6 +18,7 @@ struct CameraRoot<T>: View where T: Store {
     @State private var cameraSourceType: UIImagePickerController.SourceType = TESTING ? .photoLibrary : .camera
 //    @State private var cameraSourceType: UIImagePickerController.SourceType = .camera
     @State private var image: UIImage?
+    @State private var selectedPlant: Plant? = nil
 
     private let store: T
 
@@ -38,14 +39,16 @@ struct CameraRoot<T>: View where T: Store {
                         EmptyView()
                     case .createPlantWithImage(let image):
                         // TODO: SelectPlantView
-                        PlantsListView(store: store)
+                        PlantsListView(store: store, selectedPlant: $selectedPlant)
+                    case .plantGallery(let plant):
+                        // no plant gallery
+                        EmptyView()
                     }
                 }
             }
             .onChange(of: image) { oldValue, newValue in
                 if let newValue {
                     router.navigate(to: .createPlantWithImage(image: newValue))
-                    image = nil
                 }
             }
             .environmentObject(router)
