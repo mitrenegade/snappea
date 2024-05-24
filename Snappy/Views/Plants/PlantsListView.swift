@@ -14,13 +14,16 @@ struct PlantsListView<T>: View where T: Store {
     @Binding var selectedPlant: Plant?
 
     var body: some View {
-        List(store.allPlants, selection: $selectedPlant) { plant in
-            let photo = store.photos(for: plant)
-                .sorted { $0.timestamp > $1.timestamp }
-                .first
-            NavigationLink(value: plant) {
-                PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
+        VStack {
+            List(store.allPlants, selection: $selectedPlant) { plant in
+                let photo = store.photos(for: plant)
+                    .sorted { $0.timestamp > $1.timestamp }
+                    .first
+                NavigationLink(value: plant) {
+                    PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
+                }
             }
+            Spacer()
         }
     }
 }

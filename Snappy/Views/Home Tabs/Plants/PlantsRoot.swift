@@ -55,7 +55,7 @@ struct PlantsRoot<T>: View where T: Store {
                     switch destination {
                     case .addImageToPlant(let image, let plant):
                         AddSnapToPlantView(store: store, plant: plant, image: image)
-                    case .createPlantWithImage:
+                    case .selectPlantForImage:
                         // no op; PlantsRoot can't take an image yet
                         EmptyView()
                     case .plantGallery(let plant):
@@ -89,7 +89,7 @@ struct PlantsRoot<T>: View where T: Store {
         PlantsListView(store: store, selectedPlant: $selectedPlant)
             .onChange(of: selectedPlant) { oldValue, newValue in
                 if let newValue {
-                    router.navigate(to: .plantGallery(plant: newValue))
+                    router.navigate(to: .plantGallery(newValue))
                 }
             }
     }
