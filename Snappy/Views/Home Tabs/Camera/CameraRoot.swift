@@ -15,8 +15,8 @@ struct CameraRoot<T>: View where T: Store {
     @ObservedObject var router = Router()
 
     @State private var showCaptureImageView: Bool = false
-//    @State private var cameraSourceType: UIImagePickerController.SourceType = TESTING ? .photoLibrary : .camera
-    @State private var cameraSourceType: UIImagePickerController.SourceType = .camera
+    @State private var cameraSourceType: UIImagePickerController.SourceType = TESTING ? .photoLibrary : .camera
+//    @State private var cameraSourceType: UIImagePickerController.SourceType = .camera
     @State private var image: UIImage?
 
     private let store: T
@@ -27,23 +27,25 @@ struct CameraRoot<T>: View where T: Store {
 
     var body: some View {
         ZStack {
-            NavigationView{
-                captureImageView
-                    .navigationDestination(for: Router.Destination.self) { destination in
-                        switch destination {
-                        case .addImageToPlant:
-                            // no op until plant exists
-                            EmptyView()
-                        case .createPlantWithImage(let image):
-                            // TODO: SelectPlantView
-                            EmptyView()
-                        }
+            NavigationStack(path: $router.path) {
+                Group {
+                    captureImageView
+                }
+                .navigationDestination(for: Router.Destination.self) { destination in
+                    switch destination {
+                    case .addImageToPlant:
+                        // no op until plant exists
+                        EmptyView()
+                    case .createPlantWithImage(let image):
+                        // TODO: SelectPlantView
+                        PlantsListView(store: store)
                     }
+                }
             }
-            .navigationBarBackButtonHidden(true)
             .onChange(of: image) { oldValue, newValue in
                 if let newValue {
                     router.navigate(to: .createPlantWithImage(image: newValue))
+                    image = nil
                 }
             }
             .environmentObject(router)
