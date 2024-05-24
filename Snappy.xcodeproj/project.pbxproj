@@ -324,18 +324,17 @@
 		8E74F092244D1B7800F5A507 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8E54C1332B9BBB270020BAAE /* PlantBasicView.swift */,
+				8EBE543B2C00333800490C24 /* Plants */,
+				8EBE543C2C00334F00490C24 /* Snaps */,
+				8EC393B42BFBBC82001D1066 /* SnapEditView.swift */,
+				8EF491B62B50E979009F12C0 /* SnapDetailView.swift */,
+				8E1482122B9D5574006C16B5 /* AddSnapToPlantView.swift */,
 				8E5FE32A246E7FEA00622DDA /* Home Tabs */,
 				8EF0B710246A6D95001C9CD8 /* PhotoDetail */,
-				8E3ABF1A245000A700FF378B /* SnapView */,
 				8E3ABF03244D7CF100FF378B /* Cells */,
-				8E9786BD2B3E8DDC00AD875D /* AddPlantView.swift */,
-				8E9E7D9F2B413D8900E9DF27 /* PlantGalleryView.swift */,
-				8EF491B62B50E979009F12C0 /* SnapDetailView.swift */,
 				8EF491BD2B53BF76009F12C0 /* PhotoGalleryView.swift */,
 				8EF491BF2B53C186009F12C0 /* GridItemView.swift */,
-				8E54C1332B9BBB270020BAAE /* PlantBasicView.swift */,
-				8E1482122B9D5574006C16B5 /* AddSnapToPlantView.swift */,
-				8EC393B42BFBBC82001D1066 /* SnapEditView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -425,6 +424,23 @@
 				8EF1FC722467D1F4005C4DE9 /* CoordinateServiceTests.swift */,
 			);
 			path = SnappyTests;
+			sourceTree = "<group>";
+		};
+		8EBE543B2C00333800490C24 /* Plants */ = {
+			isa = PBXGroup;
+			children = (
+				8E9E7D9F2B413D8900E9DF27 /* PlantGalleryView.swift */,
+				8E9786BD2B3E8DDC00AD875D /* AddPlantView.swift */,
+			);
+			path = Plants;
+			sourceTree = "<group>";
+		};
+		8EBE543C2C00334F00490C24 /* Snaps */ = {
+			isa = PBXGroup;
+			children = (
+				8E3ABF1A245000A700FF378B /* SnapView */,
+			);
+			path = Snaps;
 			sourceTree = "<group>";
 		};
 		8EF0B710246A6D95001C9CD8 /* PhotoDetail */ = {
