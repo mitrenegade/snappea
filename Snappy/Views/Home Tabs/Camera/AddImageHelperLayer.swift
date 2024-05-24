@@ -20,6 +20,9 @@ struct AddImageHelperLayer: View {
     @State private var showCaptureImageView: Bool = false
     @State private var cameraSourceType: UIImagePickerController.SourceType = .photoLibrary
 
+    // not used: dismiss happens through showingSelf
+    @State var didCancel: Bool = false
+
     /// The selected image
     @Binding var image: UIImage?
 
@@ -39,7 +42,8 @@ struct AddImageHelperLayer: View {
         .sheet(isPresented: $showCaptureImageView) {
             CaptureImageView(isShown: $showCaptureImageView,
                              image: $image,
-                             mode: $cameraSourceType)
+                             mode: $cameraSourceType,
+                             didCancel: $didCancel)
         }
         .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
             makeActionSheet
@@ -92,7 +96,6 @@ struct AddImageHelperLayer: View {
     }
 
     func openGallery() {
-        // TODO: how to open this as a modal instead?
         showingSelf = false
         shouldShowGallery = true
     }

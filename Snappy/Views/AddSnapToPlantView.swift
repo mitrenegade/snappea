@@ -32,6 +32,8 @@ struct AddSnapToPlantView<T>: View where T: Store {
     @State var start: CGPoint = .zero
     @State var end: CGPoint = .zero
 
+    private var onSuccess: (() -> Void)?
+
     private var title: String {
         if TESTING {
             return "AddSnapToPlantView"
@@ -40,10 +42,11 @@ struct AddSnapToPlantView<T>: View where T: Store {
         }
     }
 
-    init(store: T, plant: Plant, image: UIImage) {
+    init(store: T, plant: Plant, image: UIImage, onSuccess: (() -> Void)?) {
         self.store = store
         self.plant = plant
         self.image = image
+        self.onSuccess = onSuccess
     }
 
     var body: some View {
@@ -70,9 +73,7 @@ struct AddSnapToPlantView<T>: View where T: Store {
             Task {
                 do {
                     try await saveSnap()
-                    DispatchQueue.main.async {
-                        router.navigateBack()
-                    }
+                    onSuccess?()
                 } catch let error {
                     print("Error \(error)")
                     self.error = error

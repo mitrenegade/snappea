@@ -17,6 +17,8 @@ import SwiftUI
 final class Router: ObservableObject {
     public enum Destination: Hashable {
         case addImageToPlant(image: UIImage, plant: Plant)
+        case selectPlantForImage(_ image: UIImage)
+        case plantGallery(_ plant: Plant)
     }
 
     @Published var path = NavigationPath()
@@ -27,5 +29,9 @@ final class Router: ObservableObject {
 
     func navigateBack() {
         path.removeLast()
+    }
+
+    func navigateHome() {
+        path.removeLast(path.count)
     }
 }

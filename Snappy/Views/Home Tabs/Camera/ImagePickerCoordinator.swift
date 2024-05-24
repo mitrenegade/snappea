@@ -11,12 +11,12 @@ import SwiftUI
 class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     @Binding var isShown: Bool
     @Binding var image: UIImage?
-    @Binding var isImageSelected: Bool
+    @Binding var didCancel: Bool
 
-    init(isShown: Binding<Bool>, image: Binding<UIImage?>, isImageSelected: Binding<Bool>) {
+    init(isShown: Binding<Bool>, image: Binding<UIImage?>, didCancel: Binding<Bool>) {
         _isShown = isShown
         _image = image
-        _isImageSelected = isImageSelected
+        _didCancel = didCancel
     }
 
     func imagePickerController(_ picker: UIImagePickerController,
@@ -24,10 +24,11 @@ class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImageP
         guard let unwrapImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
         image = unwrapImage
         isShown = false
-        isImageSelected = image != nil
+        didCancel = image == nil
     }
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         isShown = false
-        isImageSelected = false
+        didCancel = true
     }
 }

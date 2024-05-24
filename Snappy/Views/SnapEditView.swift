@@ -98,7 +98,6 @@ struct SnapEditView<T>: View where T: Store {
             )
             .frame(width: imageSize.width, height: imageSize.height)
             resetButton
-            Spacer()
         }
     }
 

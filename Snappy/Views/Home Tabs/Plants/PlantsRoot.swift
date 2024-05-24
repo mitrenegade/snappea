@@ -16,6 +16,7 @@ struct PlantsRoot<T>: View where T: Store {
 
     @ObservedObject var store: T
     @ObservedObject var router = Router()
+    @State var selectedPlant: Plant? = nil
 
     /// Displays photo gallery for selecting an image for AddPlantView
     @State var shouldShowPhotoGalleryForAddPlant: Bool = false
@@ -53,9 +54,19 @@ struct PlantsRoot<T>: View where T: Store {
                 .navigationDestination(for: Router.Destination.self) { destination in
                     switch destination {
                     case .addImageToPlant(let image, let plant):
-                        AddSnapToPlantView(store: store, plant: plant, image: image)
+                        AddSnapToPlantView(store: store, plant: plant, image: image) {
+                            DispatchQueue.main.async {
+                                router.navigateHome()
+                            }
+                        }
+                    case .selectPlantForImage:
+                        // no op; PlantsRoot can't take an image yet
+                        EmptyView()
+                    case .plantGallery(let plant):
+                        PlantGalleryView(plant: plant, store: store)
                     }
                 }
+
             }
             .environmentObject(router)
         }
@@ -79,17 +90,12 @@ struct PlantsRoot<T>: View where T: Store {
     }
 
     var listView: some View {
-        List(store.allPlants) { plant in
-            let photo = store.photos(for: plant)
-                .sorted { $0.timestamp > $1.timestamp }
-                .first
-            NavigationLink(value: plant) {
-                PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
+        PlantsListView(store: store, selectedPlant: $selectedPlant)
+            .onChange(of: selectedPlant) { oldValue, newValue in
+                if let newValue {
+                    router.navigate(to: .plantGallery(newValue))
+                }
             }
-        }
-        .navigationDestination(for: Plant.self) { plant in
-            PlantGalleryView(plant: plant, store: store)
-        }
     }
 }
 
