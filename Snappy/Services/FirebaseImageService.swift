@@ -32,7 +32,9 @@ public class FirebaseImageService: NSObject {
             completion(nil)
             return
         }
-        let uploadTask = imageRef.putData(data, metadata: nil) { (meta, error) in
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        let uploadTask = imageRef.putData(data, metadata: metadata) { meta, error in
             if error != nil {
                 completion(nil)
                 return
