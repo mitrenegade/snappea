@@ -12,6 +12,10 @@ import UIKit
 class MockStore: Store {
     var isLoading: Bool = false
 
+    func setup(gardenID: String) {
+        // no op
+    }
+
     func loadGarden() async throws {
         // no op
     }
@@ -90,7 +94,7 @@ class MockStore: Store {
         fatalError()
     }
 
-    func createSnap(plant: Plant?, photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
+    func createSnap(plant: Plant, photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
         // no op
         fatalError()
     }

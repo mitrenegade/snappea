@@ -17,7 +17,7 @@ enum Tab: Hashable {
 struct HomeView: View {
     @EnvironmentObject var router: TabsRouter
 
-    @State var store = LocalStore()
+    @State var store = FirebaseStore()
     private var imageLoaderFactory: ImageLoaderFactory = ImageLoaderFactory(imageLoaderType: DiskImageLoader.self)
 
     init(user: User) {
@@ -28,7 +28,10 @@ struct HomeView: View {
     private func load(user: User) {
         Task {
             store.setup(gardenID: user.id)
-            imageLoaderFactory.baseURL = store.imageBaseURL
+            // TODO: support Firebase
+            if let localStore = store as? LocalStore {
+                imageLoaderFactory.baseURL = localStore.imageBaseURL
+            }
             try await store.loadGarden()
         }
     }

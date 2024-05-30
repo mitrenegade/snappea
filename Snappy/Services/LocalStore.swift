@@ -27,6 +27,7 @@ class LocalStore: Store, ObservableObject {
         ImageStore(baseURL: imageBaseURL)
     }()
 
+    /// Sets the url for the file storage based on the user ID
     func setup(gardenID: String) {
         self.gardenID = gardenID
         /// create base url with gardenID as the first path
@@ -236,9 +237,9 @@ class LocalStore: Store, ObservableObject {
         return plant
     }
 
-    func createSnap(plant: Plant?, photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
-        let snap = Snap(plantId: plant?.id, photoId: photo.id, start: start, end: end)
-        print("BRDEBUG createSnap \(snap.id) startCoord: \(start) endCoord \(end) for plant \(plant?.id ?? "none")")
+    func createSnap(plant: Plant, photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
+        let snap = Snap(plantId: plant.id, photoId: photo.id, start: start, end: end)
+        print("BRDEBUG createSnap \(snap.id) startCoord: \(start) endCoord \(end) for plant \(plant.id)")
         let url = try baseURL.appending(path: "snap").appending(path: snap.id)
         let data = try JSONEncoder().encode(snap)
         try data.write(to: url, options: [.atomic, .completeFileProtection])

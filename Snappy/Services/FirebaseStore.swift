@@ -11,7 +11,39 @@ import UIKit
 import FirebaseFirestore
 
 /// An implementation of Store that uses Firebase's API, via FirebaseAPIService
-class FirebaseStore { //}: Store {
+class FirebaseStore: Store {
+    var isLoading: Bool = false
+
+    func setup(gardenID: String) {
+        // no op - auth already takes care of base URL and auth
+    }
+    
+    // MARK: - Store as an ObservedObject
+    @Published var allPlants: [Plant] = []
+    var allPlantsValue: Published<[Plant]> {
+        return _allPlants
+    }
+    var allPlantsPublisher: Published<[Plant]>.Publisher {
+        return $allPlants
+    }
+
+    @Published var allPhotos: [Photo] = []
+    var allPhotosValue: Published<[Photo]> {
+        return _allPhotos
+    }
+    var allPhotosPublisher: Published<[Photo]>.Publisher {
+        return $allPhotos
+    }
+
+    @Published var allSnaps: [Snap] = []
+    var allSnapsValue: Published<[Snap]> {
+        return _allSnaps
+    }
+    var allSnapsPublisher: Published<[Snap]>.Publisher {
+        return $allSnaps
+    }
+
+    // MARK: - Firebase Functionality
 
     /// Auth
     private let auth: AuthStore
@@ -45,12 +77,6 @@ class FirebaseStore { //}: Store {
             print("Load garden complete with \(self.allPhotos.count) photos, \(self.allPlants.count) plants, \(self.allSnaps.count) snaps")
         }
     }
-
-    var allPhotos: [Photo] = []
-
-    var allPlants: [Plant] = []
-
-    var allSnaps: [Snap] = []
 
     func photo(withId id: String) -> Photo? {
         nil
@@ -105,14 +131,26 @@ class FirebaseStore { //}: Store {
         return plant
     }
 
-    func createSnap(photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
-        let snap = try await addSnap(photoId: photo.id, start: start, end: end)
+    func createSnap(plant: Plant, photo: Photo, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
+        let snap = try await addSnap(plantId: plant.id, photoId: photo.id, start: start, end: end)
         return snap
     }
+
+    func updateSnap(snap: Snap, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap? {
+        // TODO: locate and update document in firestore
+        return nil
+    }
+
+    func updateSnap(snap: Snap, plant: Plant) async throws -> Snap? {
+        // TODO: locate and update document in firestore
+        return nil
+    }
+
 }
 
 /// Direct calls to API
 extension FirebaseStore {
+    
     private var userId: String? {
         auth.user?.id
     }
@@ -143,8 +181,9 @@ extension FirebaseStore {
         return try await add(collection: "plants", data: data)
     }
 
-    private func addSnap(photoId: String, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
-        let data: [String: Any] = ["photoId": photoId,
+    private func addSnap(plantId: String, photoId: String, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
+        let data: [String: Any] = ["plantId": plantId,
+                                   "photoId": photoId,
                                    "start": start,
                                    "end": end]
         return try await add(collection: "snaps", data: data)
