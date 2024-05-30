@@ -11,7 +11,7 @@ import FirebaseStorage
 
 fileprivate let storage = Storage.storage()
 fileprivate let storageRef = storage.reference()
-fileprivate let imageBaseRef = storageRef.child("images")
+fileprivate let imageBaseRef = storageRef.child(StoreObject.image.rawValue)
 
 public class FirebaseImageService: NSObject {
     
@@ -20,7 +20,7 @@ public class FirebaseImageService: NSObject {
     }
     
     fileprivate class func referenceForImage(type: ImageType, id: String) -> StorageReference? {
-        return imageBaseRef.child(type.rawValue).child(id)
+        imageBaseRef.child(type.rawValue).child(id)
     }
     
     public class func uploadImage(image: UIImage, type: ImageType, uid: String, progressHandler: ((_ percent: Double)->Void)? = nil, completion: @escaping ((_ imageUrl: String?)->Void)) {
@@ -28,8 +28,10 @@ public class FirebaseImageService: NSObject {
             completion(nil)
             return
         }
-        
-        let imageRef: StorageReference = imageBaseRef.child(type.rawValue).child(uid)
+        guard let imageRef = referenceForImage(type: type, id: uid) else {
+            completion(nil)
+            return
+        }
         let uploadTask = imageRef.putData(data, metadata: nil) { (meta, error) in
             if error != nil {
                 completion(nil)
