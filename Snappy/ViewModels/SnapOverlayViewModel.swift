@@ -41,6 +41,10 @@ class SnapOverlayViewModel<T>: ObservableObject where T: Store {
     }
 
     func createSnap(start: CGPoint, end: CGPoint, imageSize: CGSize) {
+        // TODO: does this view currently get used? when creating a snap, use placeholders until plant is selected.
+        // AddSnapToPlantView uses createSnap with a start and end coord, but requires a plant
+        // so select a plant first?
+        /*
         Task {
             let (startCoord, endCoord) = CoordinateService.getValidCoordinatesFromPixels(imageSize: imageSize, start: start, end: end)
 
@@ -48,5 +52,6 @@ class SnapOverlayViewModel<T>: ObservableObject where T: Store {
                 snaps.append(snap)
             }
         }
+         */
     }
 }

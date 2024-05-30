@@ -9,4 +9,4 @@
 import Foundation
 
 let TESTING = true
-let AIRPLANE_MODE = true
+let AIRPLANE_MODE = false
