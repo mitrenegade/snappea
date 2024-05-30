@@ -57,11 +57,11 @@ class FirebaseStore: Store {
             allPhotos = try await fetchPhotos()
             group.leave()
         }
-        group.enter()
-        Task {
-            allPlants = try await fetchPlants()
-            group.leave()
-        }
+//        group.enter()
+//        Task {
+//            allPlants = try await fetchPlants()
+//            group.leave()
+//        }
         group.enter()
         Task {
             allSnaps = try await fetchSnaps()
@@ -70,6 +70,9 @@ class FirebaseStore: Store {
         group.notify(queue: DispatchQueue.global()) {
             print("Load garden complete with \(self.allPhotos.count) photos, \(self.allPlants.count) plants, \(self.allSnaps.count) snaps")
         }
+
+        // TODO: retain listener and clear on logout
+        observePlants()
     }
 
     func photo(withId id: String) -> Photo? {
@@ -149,19 +152,6 @@ extension FirebaseStore {
         db.collection(userId).document("garden")
     }
 
-    // MARK: - Fetch
-    private func fetchPhotos() async throws -> [Photo] {
-        try await fetchObjects(collection: .photo)
-    }
-
-    private func fetchPlants() async throws -> [Plant] {
-        try await fetchObjects(collection: .plant)
-    }
-
-    private func fetchSnaps() async throws -> [Snap] {
-        try await fetchObjects(collection: .snap)
-    }
-
     // MARK: - Upload async/await
 
     /// Creates a Photo object in firebase
@@ -184,16 +174,6 @@ extension FirebaseStore {
     }
 
     // MARK: - Generic interface into Firebase
-    /// Fetches an array of an object type given a collection name
-    /// Performs this fetch once
-    private func fetchObjects<T: Decodable>(collection: StoreObject) async throws -> [T] {
-        let snapshot = try await baseDocument.collection(collection.rawValue).getDocuments()
-
-        let objects = snapshot.documents.compactMap { document -> T? in
-            try? document.data(as: T.self)
-        }
-        return objects
-    }
 
     // upload to db and save locally
     private func add<T: Codable>(collection: StoreObject, data: [String: Any]) async throws -> T {
@@ -212,19 +192,60 @@ extension FirebaseStore {
     }
 
     // Listening to objects to update automatically
-    private func observePlants<T: Decodable>(type: T.Type) throws -> ListenerRegistration {
+    private func observePlants() {
+        let completion: ((Result<[Plant], Error>) -> Void) = { [weak self] result in
+            switch result {
+            case .success(let plants):
+                print("BRDEBUG Observed plants \(plants.count)")
+                self?.allPlants = plants
+            case .failure(let error):
+                print("BRDEBUG Observe plants failed with error \(error))")
+            }
+        }
+        observe(completion: completion)
+    }
+
+    // generic listener and decoder for Firebase objects of type T
+    @discardableResult private func observe<T: Decodable>(completion: @escaping ((Result<[T], Error>) -> Void)) -> ListenerRegistration {
         let listener = baseDocument.collection("plant").addSnapshotListener { querySnapshot, error in
             if let documents = querySnapshot?.documents {
                 let objects = documents.compactMap { document -> T? in
                     try? document.data(as: T.self)
                 }
-                print("Objects \(objects.count)")
-                // TODO: assign to array
-                //allPlants = objects as? [Plant]
-            } else if let error {
-                print("Error \(error)")
+                completion(.success(objects))
+            } else {
+                completion(.failure(StoreError.databaseError(error)))
             }
         }
         return listener
     }
+}
+
+extension FirebaseStore {
+    // MARK: - One time fetch
+
+    /// Fetches an array of an object type given a collection name
+    /// Performs this fetch once
+    private func fetchObjects<T: Decodable>(collection: StoreObject) async throws -> [T] {
+        let snapshot = try await baseDocument.collection(collection.rawValue).getDocuments()
+
+        print("BRDEBUG collection \(collection) objects \(snapshot.count)")
+        let objects = snapshot.documents.compactMap { document -> T? in
+            try? document.data(as: T.self)
+        }
+        return objects
+    }
+
+    private func fetchPhotos() async throws -> [Photo] {
+        try await fetchObjects(collection: .photo)
+    }
+
+    private func fetchPlants() async throws -> [Plant] {
+        try await fetchObjects(collection: .plant)
+    }
+
+    private func fetchSnaps() async throws -> [Snap] {
+        try await fetchObjects(collection: .snap)
+    }
+
 }
