@@ -51,28 +51,10 @@ class FirebaseStore: Store {
     let db = Firestore.firestore()
 
     func loadGarden() async throws {
-        let group = DispatchGroup()
-        group.enter()
-        Task {
-            allPhotos = try await fetchPhotos()
-            group.leave()
-        }
-//        group.enter()
-//        Task {
-//            allPlants = try await fetchPlants()
-//            group.leave()
-//        }
-        group.enter()
-        Task {
-            allSnaps = try await fetchSnaps()
-            group.leave()
-        }
-        group.notify(queue: DispatchQueue.global()) {
-            print("Load garden complete with \(self.allPhotos.count) photos, \(self.allPlants.count) plants, \(self.allSnaps.count) snaps")
-        }
-
         // TODO: retain listener and clear on logout
         observePlants()
+        observePhotos()
+        observeSnaps()
     }
 
     func photo(withId id: String) -> Photo? {
@@ -200,6 +182,32 @@ extension FirebaseStore {
                 self?.allPlants = plants
             case .failure(let error):
                 print("BRDEBUG Observe plants failed with error \(error))")
+            }
+        }
+        observe(completion: completion)
+    }
+
+    private func observePhotos() {
+        let completion: ((Result<[Photo], Error>) -> Void) = { [weak self] result in
+            switch result {
+            case .success(let results):
+                print("BRDEBUG Observed photos \(results.count)")
+                self?.allPhotos = results
+            case .failure(let error):
+                print("BRDEBUG Observe photos failed with error \(error))")
+            }
+        }
+        observe(completion: completion)
+    }
+
+    private func observeSnaps() {
+        let completion: ((Result<[Snap], Error>) -> Void) = { [weak self] result in
+            switch result {
+            case .success(let results):
+                print("BRDEBUG Observed snaps \(results.count)")
+                self?.allSnaps = results
+            case .failure(let error):
+                print("BRDEBUG Observe snaps failed with error \(error))")
             }
         }
         observe(completion: completion)
