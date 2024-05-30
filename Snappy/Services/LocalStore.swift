@@ -28,8 +28,8 @@ class LocalStore: Store, ObservableObject {
     }()
 
     /// Sets the url for the file storage based on the user ID
-    func setup(gardenID: String) {
-        self.gardenID = gardenID
+    func setup(id: String) {
+        self.gardenID = id
         /// create base url with gardenID as the first path
         do {
             let url = try baseURL
@@ -56,7 +56,7 @@ class LocalStore: Store, ObservableObject {
         }
 
         do {
-            let plantPath = subpath("plant")
+            let plantPath = subpath(.plant)
             let plants = try FileManager.default
                 .contentsOfDirectory(atPath: plantPath.path)
                 .compactMap { plantPath.appending(path: $0) }
@@ -66,7 +66,7 @@ class LocalStore: Store, ObservableObject {
                 cachePlant(plant)
             }
 
-            let snapPath = subpath("snap")
+            let snapPath = subpath(.snap)
             let snaps = try FileManager.default
                 .contentsOfDirectory(atPath: snapPath.path)
                 .compactMap { snapPath.appending(path: $0) }
@@ -76,7 +76,7 @@ class LocalStore: Store, ObservableObject {
                 cacheSnap(snap)
             }
 
-            let photoPath = subpath("photo")
+            let photoPath = subpath(.photo)
             let photos = try FileManager.default
                 .contentsOfDirectory(atPath: photoPath.path)
                 .compactMap { photoPath.appending(path: $0) }
@@ -101,9 +101,9 @@ class LocalStore: Store, ObservableObject {
 
     // MARK: -
 
-    private func subpath(_ type: String) -> URL {
+    private func subpath(_ type: StoreObject) -> URL {
         do {
-            let url = try baseURL.appendingPathComponent(type)
+            let url = try baseURL.appendingPathComponent(type.rawValue)
             do {
                 if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
                     try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
@@ -217,7 +217,7 @@ class LocalStore: Store, ObservableObject {
         let photo = Photo(id: id, url: nil, timestamp: timestamp)
         print("BRDEBUG createPhoto \(photo.id)")
 
-        let objectUrl = subpath("photo").appending(path: photo.id)
+        let objectUrl = subpath(.photo).appending(path: photo.id)
         let data = try JSONEncoder().encode(photo)
         try data.write(to: objectUrl, options: [.atomic, .completeFileProtection])
 
@@ -229,7 +229,7 @@ class LocalStore: Store, ObservableObject {
         let id = UUID().uuidString
         let plant = Plant(id: id, name: name, type: type, category: category)
         print("BRDEBUG createPlant \(plant.id)")
-        let url = subpath("plant").appending(path: plant.id)
+        let url = subpath(.plant).appending(path: plant.id)
         let data = try JSONEncoder().encode(plant)
         try data.write(to: url, options: [.atomic, .completeFileProtection])
 
@@ -310,6 +310,6 @@ extension LocalStore {
     /// This url must be exposed for ImageLoaderFactory to use the same url as ImageStore, since LocalStore owns the ImageStore
     /// BR TODO: LocalStore should receive a ImageStore; the URLs/image store system do not have to conform to the path
     var imageBaseURL: URL {
-        subpath("image")
+        subpath(.image)
     }
 }

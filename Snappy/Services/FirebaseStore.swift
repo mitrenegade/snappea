@@ -13,9 +13,11 @@ import FirebaseFirestore
 /// An implementation of Store that uses Firebase's API, via FirebaseAPIService
 class FirebaseStore: Store {
     var isLoading: Bool = false
+    private var userId: String = ""
 
-    func setup(gardenID: String) {
+    func setup(id: String) {
         // no op - auth already takes care of base URL and auth
+        userId = id
     }
     
     // MARK: - Store as an ObservedObject
@@ -45,16 +47,8 @@ class FirebaseStore: Store {
 
     // MARK: - Firebase Functionality
 
-    /// Auth
-    private let auth: AuthStore
-
     /// Firebase Database
     let db = Firestore.firestore()
-
-    // MARK: - Initialization
-    init(authStore: AuthStore = AuthStore.shared) {
-        self.auth = authStore
-    }
 
     func loadGarden() async throws {
         let group = DispatchGroup()
@@ -150,22 +144,22 @@ class FirebaseStore: Store {
 
 /// Direct calls to API
 extension FirebaseStore {
-    
-    private var userId: String? {
-        auth.user?.id
+
+    private var baseDocument: DocumentReference {
+        db.collection(userId).document("garden")
     }
 
     // MARK: - Fetch
     private func fetchPhotos() async throws -> [Photo] {
-        try await fetchObjects(collection: "photos")
+        try await fetchObjects(collection: .photo)
     }
 
     private func fetchPlants() async throws -> [Plant] {
-        try await fetchObjects(collection: "plants")
+        try await fetchObjects(collection: .plant)
     }
 
     private func fetchSnaps() async throws -> [Snap] {
-        try await fetchObjects(collection: "snaps")
+        try await fetchObjects(collection: .snap)
     }
 
     // MARK: - Upload async/await
@@ -173,30 +167,27 @@ extension FirebaseStore {
     /// Creates a Photo object in firebase
     /// Note: image upload and url update are done separately
     private func addPhoto(timestamp: Double) async throws -> Photo {
-        return try await add(collection: "photos", data: ["timestamp": timestamp])
+        return try await add(collection: .photo, data: ["timestamp": timestamp])
     }
 
     private func addPlant(name: String, type: PlantType, category: Category) async throws -> Plant {
         let data: [String: Any] = ["name": name, "type": type.rawValue, "category": category.rawValue]
-        return try await add(collection: "plants", data: data)
+        return try await add(collection: .plant, data: data)
     }
 
     private func addSnap(plantId: String, photoId: String, start: NormalizedCoordinate, end: NormalizedCoordinate) async throws -> Snap {
         let data: [String: Any] = ["plantId": plantId,
                                    "photoId": photoId,
-                                   "start": start,
-                                   "end": end]
-        return try await add(collection: "snaps", data: data)
+                                   "start": ["x": start.x, "y": start.y],
+                                   "end": ["x": end.x, "y": end.y]]
+        return try await add(collection: .snap, data: data)
     }
 
     // MARK: - Generic interface into Firebase
     /// Fetches an array of an object type given a collection name
     /// Performs this fetch once
-    private func fetchObjects<T: Decodable>(collection: String) async throws -> [T] {
-        guard let userId = userId else {
-            throw StoreError.notAuthorized
-        }
-        let snapshot = try await db.collection(userId).document("garden").collection(collection).getDocuments()
+    private func fetchObjects<T: Decodable>(collection: StoreObject) async throws -> [T] {
+        let snapshot = try await baseDocument.collection(collection.rawValue).getDocuments()
 
         let objects = snapshot.documents.compactMap { document -> T? in
             try? document.data(as: T.self)
@@ -205,12 +196,8 @@ extension FirebaseStore {
     }
 
     // upload to db and save locally
-    private func add<T: Codable>(collection: String, data: [String: Any]) async throws -> T {
-        guard let userId = userId else {
-            throw StoreError.notAuthorized
-        }
-        let ref = try await db.collection(userId)
-            .document("garden").collection(collection)
+    private func add<T: Codable>(collection: StoreObject, data: [String: Any]) async throws -> T {
+        let ref = try await baseDocument.collection(collection.rawValue)
             .addDocument(data: data)
         try await ref.updateData(["id": ref.documentID])
 
@@ -220,11 +207,24 @@ extension FirebaseStore {
     }
 
     private func updatePhotoUrl(_ photo: Photo, url: String, completion: ((Error?)->Void)? = nil) throws {
-        guard let userId = userId else {
-            throw StoreError.notAuthorized
-        }
-        let ref = db.collection(userId).document("garden").collection("photos").document(photo.id)
+        let ref = baseDocument.collection(StoreObject.photo.rawValue).document(photo.id)
         ref.updateData(["url":url], completion: completion)
     }
 
+    // Listening to objects to update automatically
+    private func observePlants<T: Decodable>(type: T.Type) throws -> ListenerRegistration {
+        let listener = baseDocument.collection("plant").addSnapshotListener { querySnapshot, error in
+            if let documents = querySnapshot?.documents {
+                let objects = documents.compactMap { document -> T? in
+                    try? document.data(as: T.self)
+                }
+                print("Objects \(objects.count)")
+                // TODO: assign to array
+                //allPlants = objects as? [Plant]
+            } else if let error {
+                print("Error \(error)")
+            }
+        }
+        return listener
+    }
 }

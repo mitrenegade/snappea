@@ -27,7 +27,7 @@ struct HomeView: View {
 
     private func load(user: User) {
         Task {
-            store.setup(gardenID: user.id)
+            store.setup(id: user.id)
             // TODO: support Firebase
             if let localStore = store as? LocalStore {
                 imageLoaderFactory.baseURL = localStore.imageBaseURL

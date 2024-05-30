@@ -12,7 +12,7 @@ import UIKit
 class MockStore: Store {
     var isLoading: Bool = false
 
-    func setup(gardenID: String) {
+    func setup(id: String) {
         // no op
     }
 

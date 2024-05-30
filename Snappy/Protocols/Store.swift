@@ -14,6 +14,14 @@ enum StoreError: Error {
     case databaseError(Error?)
 }
 
+enum StoreObject: String {
+    case plant
+    case photo
+    case snap
+
+    case image
+}
+
 /// Data layer that is responsible for API or Cache
 /// Top level interface to the client that abstracts whether the data comes from local
 /// store, an API interface, or is mocked
@@ -22,7 +30,7 @@ protocol Store: ObservableObject {
 
     /// - Parameters:
     ///     - gardenID: a unique ID to identify the garden. Used as a firebase or local file root
-    func setup(gardenID: String)
+    func setup(id: String)
     func loadGarden() async throws
 
     // MARK: - ObservedObject
