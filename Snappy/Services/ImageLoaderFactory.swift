@@ -17,9 +17,6 @@ class ImageLoaderFactory: ObservableObject {
     }
 
     func create(imageName: String, cache: ImageCache?) -> any ImageLoader {
-        guard let baseURL else {
-            fatalError("Base URL not set")
-        }
         return imageLoaderType.init(imageName: imageName, baseUrl: baseURL, cache: cache)
     }
 }

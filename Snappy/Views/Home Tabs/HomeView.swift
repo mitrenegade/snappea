@@ -17,9 +17,13 @@ enum Tab: Hashable {
 struct HomeView: View {
     @EnvironmentObject var router: TabsRouter
 
+    // Local
+    //    @State var store = LocalStore()
+//        private var imageLoaderFactory: ImageLoaderFactory = ImageLoaderFactory(imageLoaderType: DiskImageLoader.self)
+
+    // Firebase
     @State var store = FirebaseStore()
-//    @State var store = LocalStore()
-    private var imageLoaderFactory: ImageLoaderFactory = ImageLoaderFactory(imageLoaderType: DiskImageLoader.self)
+    private var imageLoaderFactory: ImageLoaderFactory = ImageLoaderFactory(imageLoaderType: FirebaseImageLoader.self)
 
     init(user: User) {
 //        store.purge(id: user.id)
@@ -32,6 +36,10 @@ struct HomeView: View {
             // TODO: support Firebase
             if let localStore = store as? LocalStore {
                 imageLoaderFactory.baseURL = localStore.imageBaseURL
+            } else if let firebaseStore = store as? FirebaseStore {
+                // TODO: get this from FirebaseStore
+                // baseURL is not used by Firebase
+//                imageLoaderFactory.baseURL = firebaseStore.imageBaseURL
             }
             try await store.loadGarden()
         }

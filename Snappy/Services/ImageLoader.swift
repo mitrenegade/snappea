@@ -14,7 +14,7 @@ protocol ImageLoader: ObservableObject {
     func load()
     func cancel()
     var image: UIImage? { get }
-    init(imageName: String, baseUrl: URL, cache: ImageCache?)
+    init(imageName: String, baseUrl: URL?, cache: ImageCache?)
 }
 
 class NetworkImageLoader: ImageLoader {
@@ -24,7 +24,10 @@ class NetworkImageLoader: ImageLoader {
     
     private var cache: ImageCache?
     
-    required init(imageName: String, baseUrl: URL, cache: ImageCache? = TemporaryImageCache.shared) {
+    required init(imageName: String, baseUrl: URL?, cache: ImageCache? = TemporaryImageCache.shared) {
+        guard let baseUrl else {
+            fatalError("NetworkImageLoader: baseURL not set")
+        }
         self.url = baseUrl.appending(component: imageName)
         self.cache = cache
     }
@@ -84,8 +87,12 @@ class DiskImageLoader: ImageLoader {
     /// - Parameters:
     ///    - url: the url of an actual image
     required init(imageName: String,
-                  baseUrl: URL,
+                  baseUrl: URL?,
                   cache: ImageCache? = TemporaryImageCache.shared) {
+        guard let baseUrl else {
+            fatalError("DiskImageLoader: base URL not set")
+        }
+
         self.cache = cache
         self.name = imageName
         self.imageStore = ImageStore(baseURL: baseUrl)

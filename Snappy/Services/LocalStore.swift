@@ -197,11 +197,7 @@ class LocalStore: Store, ObservableObject {
 
     func photos(for plant: Plant) -> [Photo] {
         readWriteQueue.sync {
-            // snapsForPlant
-            let snaps = snapCache
-                .compactMap { $0.value }
-                .filter{ $0.plantId == plant.id }
-
+            let snaps = snaps(for: plant)
             let photos = snaps.compactMap { photo(withId:$0.photoId) }
             return Array(Set(photos))
         }
