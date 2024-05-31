@@ -184,7 +184,7 @@ extension FirebaseStore {
                 print("BRDEBUG Observe plants failed with error \(error))")
             }
         }
-        observe(completion: completion)
+        observe(type: .plant, completion: completion)
     }
 
     private func observePhotos() {
@@ -197,7 +197,7 @@ extension FirebaseStore {
                 print("BRDEBUG Observe photos failed with error \(error))")
             }
         }
-        observe(completion: completion)
+        observe(type: .photo, completion: completion)
     }
 
     private func observeSnaps() {
@@ -210,12 +210,12 @@ extension FirebaseStore {
                 print("BRDEBUG Observe snaps failed with error \(error))")
             }
         }
-        observe(completion: completion)
+        observe(type: .snap, completion: completion)
     }
 
     // generic listener and decoder for Firebase objects of type T
-    @discardableResult private func observe<T: Decodable>(completion: @escaping ((Result<[T], Error>) -> Void)) -> ListenerRegistration {
-        let listener = baseDocument.collection("plant").addSnapshotListener { querySnapshot, error in
+    @discardableResult private func observe<T: Decodable>(type: StoreObject, completion: @escaping ((Result<[T], Error>) -> Void)) -> ListenerRegistration {
+        let listener = baseDocument.collection(type.rawValue).addSnapshotListener { querySnapshot, error in
             if let documents = querySnapshot?.documents {
                 let objects = documents.compactMap { document -> T? in
                     try? document.data(as: T.self)
