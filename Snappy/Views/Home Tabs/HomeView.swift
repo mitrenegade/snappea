@@ -17,8 +17,8 @@ enum Tab: Hashable {
 struct HomeView: View {
     @EnvironmentObject var router: TabsRouter
 
-//    @State var store = FirebaseStore()
-    @State var store = LocalStore()
+    @State var store = FirebaseStore()
+//    @State var store = LocalStore()
     private var imageLoaderFactory: ImageLoaderFactory = ImageLoaderFactory(imageLoaderType: DiskImageLoader.self)
 
     init(user: User) {
