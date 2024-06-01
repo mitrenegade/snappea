@@ -11,13 +11,12 @@ import Combine
 import Foundation
 
 protocol ImageLoader: ObservableObject {
-    func load(imageName: String)
-    func cancel()
     var image: UIImage? { get }
     var imageValue: Published<UIImage?> { get }
     var imagePublisher: Published<UIImage?>.Publisher { get }
 
-    init(imageName: String, baseUrl: URL?, cache: ImageCache?)
+    func load(imageName: String)
+    func cancel()
 }
 
 class NetworkImageLoader: ImageLoader {
@@ -29,13 +28,12 @@ class NetworkImageLoader: ImageLoader {
         return $image
     }
 
-//    private let url: URL
-    private var baseUrl: URL?
+    private var baseUrl: URL
     private var cancellable: AnyCancellable?
     
     private var cache: ImageCache?
     
-    required init(imageName: String, baseUrl: URL?, cache: ImageCache? = TemporaryImageCache.shared) {
+    init(baseUrl: URL, cache: ImageCache? = TemporaryImageCache.shared) {
         self.cache = cache
         self.baseUrl = baseUrl
     }
@@ -45,9 +43,6 @@ class NetworkImageLoader: ImageLoader {
     }
     
     func load(imageName: String) {
-        guard let baseUrl else {
-            fatalError("NetworkImageLoader: baseURL not set")
-        }
         let url = baseUrl.appending(component: imageName)
         if let image = getFromCache(url: url) {
             self.image = image
@@ -75,7 +70,6 @@ class NetworkImageLoader: ImageLoader {
         print("Add to cache \(url)")
         image.map { cache?[url.absoluteString] = $0 }
     }
-    
 }
 
 /// Loads a single image via ImageStore
@@ -90,23 +84,15 @@ class DiskImageLoader: ImageLoader {
         return $image
     }
 
-//    private let name: String
-
     private var cache: ImageCache?
 
     private let imageStore: ImageStore
 
     /// - Parameters:
     ///    - url: the url of an actual image
-    required init(imageName: String,
-                  baseUrl: URL?,
+    required init(baseUrl: URL,
                   cache: ImageCache? = TemporaryImageCache.shared) {
-        guard let baseUrl else {
-            fatalError("DiskImageLoader: base URL not set")
-        }
-
         self.cache = cache
-//        self.name = imageName
         self.imageStore = ImageStore(baseURL: baseUrl)
     }
 

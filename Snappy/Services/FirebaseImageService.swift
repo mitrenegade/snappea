@@ -102,12 +102,8 @@ public class FirebaseImageService: ImageService {
 }
 
 class FirebaseImageLoader: ImageLoader, ObservableObject {
-    required init(imageName: String, baseUrl: URL?, cache: ImageCache?) {
-        // no op
-    }
-
     private let imageService = FirebaseImageService()
-//    private let imageName: String
+    private var cache: ImageCache = TemporaryImageCache.shared
 
     @Published var image: UIImage?
     var imageValue: Published<UIImage?> {
@@ -117,20 +113,32 @@ class FirebaseImageLoader: ImageLoader, ObservableObject {
         return $image
     }
 
-//    required init(imageName: String, baseUrl: URL?, cache: ImageCache?) {
-//        self.imageName = imageName
-//    }
-
     func load(imageName: String) {
-        imageService.referenceForImage(type: .photo, id: imageName)?.getData(maxSize: .max) { data, error in
-            print("\(data), \(error)")
+        if let image = getFromCache(key: imageName) {
+            self.image = image
+            return
+        }
+
+        imageService.referenceForImage(type: .photo, id: imageName)?.getData(maxSize: .max) { [weak self] data, error in
             if let data {
-                self.image = UIImage(data: data)
+                let image = UIImage(data: data)
+                self?.image = image
+                self?.addToCache(image, key: imageName)
             }
         }
     }
 
     func cancel() {
         // no op
+    }
+
+    private func getFromCache(key: String) -> UIImage? {
+        print("Get from cache \(key)")
+        return cache[key]
+    }
+
+    private func addToCache(_ image: UIImage?, key: String) {
+        print("Add to cache \(key)")
+        image.map { cache[key] = $0 }
     }
 }

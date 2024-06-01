@@ -30,9 +30,12 @@ struct PhotoRow: View {
             } else {
 //                let imageLoader = imageLoaderFactory.create(imageName: $photoRowViewModel.id.wrappedValue, cache: TemporaryImageCache.shared)
                 let placeholder = Text("Loading...")
-                let imageLoader = FirebaseImageLoader(imageName: $photoRowViewModel.id.wrappedValue, baseUrl: nil, cache: TemporaryImageCache.shared)
+                let imageLoader = FirebaseImageLoader()
               AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
                     .aspectRatio(contentMode: .fill)
+                    .onAppear {
+                        imageLoader.load(imageName: $photoRowViewModel.id.wrappedValue)
+                    }
             }
             Text($photoRowViewModel.textString.wrappedValue)
         }

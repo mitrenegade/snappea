@@ -36,8 +36,11 @@ struct SnapOverlayView<T>: View where T: Store {
             ZStack {
 //                let imageLoader = imageLoaderFactory.create(imageName: $viewModel.photoId.wrappedValue, cache: TemporaryImageCache.shared)
                 let placeholder = Text("Loading...")
-                let imageLoader = FirebaseImageLoader(imageName: $viewModel.photoId.wrappedValue, baseUrl: nil, cache: TemporaryImageCache.shared)
+                let imageLoader = FirebaseImageLoader()
                 AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
+                    .onAppear {
+                        imageLoader.load(imageName: $viewModel.photoId.wrappedValue)
+                    }
                 ForEach(viewModel.snaps) {snap in
                     SnapView(snap: snap, size: imageSize)
                         .frame(width: imageSize.width, height: imageSize.height)

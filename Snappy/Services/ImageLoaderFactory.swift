@@ -16,7 +16,7 @@ class ImageLoaderFactory: ObservableObject {
         self.imageLoaderType = imageLoaderType
     }
 
-    func create(imageName: String, cache: ImageCache?) -> any ImageLoader {
-        return imageLoaderType.init(imageName: imageName, baseUrl: baseURL, cache: cache)
-    }
+//    func create(imageName: String, cache: ImageCache?) -> any ImageLoader {
+////        return imageLoaderType.init(imageName: imageName, baseUrl: baseURL, cache: cache)
+//    }
 }
