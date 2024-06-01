@@ -37,9 +37,10 @@ struct PlantBasicView: View {
     private var imageView: some View {
         Group {
             if let name = photo?.id {
-                let imageLoader = imageLoaderFactory.create(imageName: name, cache: TemporaryImageCache.shared)
+//                let imageLoader = imageLoaderFactory.create(imageName: name, cache: TemporaryImageCache.shared)
                 let frame = CGSize(width: imageSize.width, height: imageSize.height)
                 let placeholder = Text("Loading...")
+                let imageLoader = FirebaseImageLoader(imageName: name, baseUrl: nil, cache: nil)
                 AsyncImageView(imageLoader: imageLoader,
                                       frame: frame,
                                       placeholder: placeholder)

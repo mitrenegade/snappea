@@ -107,12 +107,12 @@ class FirebaseImageLoader: ImageLoader, ObservableObject {
     private let imageName: String
 
     @Published var image: UIImage?
-//    var imageValue: Published<UIImage?> {
-//        return _image
-//    }
-//    var imagePublisher: Published<UIImage?>.Publisher {
-//        return $image
-//    }
+    var imageValue: Published<UIImage?> {
+        return _image
+    }
+    var imagePublisher: Published<UIImage?>.Publisher {
+        return $image
+    }
 
     required init(imageName: String, baseUrl: URL?, cache: ImageCache?) {
         self.imageName = imageName

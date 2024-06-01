@@ -14,11 +14,21 @@ protocol ImageLoader: ObservableObject {
     func load()
     func cancel()
     var image: UIImage? { get }
+    var imageValue: Published<UIImage?> { get }
+    var imagePublisher: Published<UIImage?>.Publisher { get }
+
     init(imageName: String, baseUrl: URL?, cache: ImageCache?)
 }
 
 class NetworkImageLoader: ImageLoader {
     @Published var image: UIImage?
+    var imageValue: Published<UIImage?> {
+        return _image
+    }
+    var imagePublisher: Published<UIImage?>.Publisher {
+        return $image
+    }
+
     private let url: URL
     private var cancellable: AnyCancellable?
     

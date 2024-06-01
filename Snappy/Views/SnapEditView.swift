@@ -102,8 +102,9 @@ struct SnapEditView<T>: View where T: Store {
     }
 
     private func photoSection(id: String) -> some View {
-        let imageLoader = imageLoaderFactory.create(imageName: id, cache: TemporaryImageCache.shared)
+//        let imageLoader = imageLoaderFactory.create(imageName: id, cache: TemporaryImageCache.shared)
         let placeholder = Text("Loading...")
+        let imageLoader = FirebaseImageLoader(imageName: id, baseUrl: nil, cache: nil)
         return AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
     }
 

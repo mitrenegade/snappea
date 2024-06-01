@@ -44,9 +44,10 @@ struct AddPlantView<T>: View where T: Store {
                         .aspectRatio(contentMode: .fit)
                         .clipped()
                 } else if let newPhoto = photoEnvironment.newPhoto {
-                    let imageLoader = imageLoaderFactory.create(imageName: newPhoto.id, cache: TemporaryImageCache.shared)
+//                    let imageLoader = imageLoaderFactory.create(imageName: newPhoto.id, cache: TemporaryImageCache.shared)
                     let placeholder = Text("Loading...")
                     let imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+                    let imageLoader = FirebaseImageLoader(imageName: newPhoto.id, baseUrl: nil, cache: nil)
                     AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
                         .aspectRatio(contentMode: .fill)
                 }

@@ -28,9 +28,10 @@ struct PhotoRow: View {
                     .aspectRatio(contentMode: .fit)
                     .clipped()
             } else {
-                let imageLoader = imageLoaderFactory.create(imageName: $photoRowViewModel.id.wrappedValue, cache: TemporaryImageCache.shared)
+//                let imageLoader = imageLoaderFactory.create(imageName: $photoRowViewModel.id.wrappedValue, cache: TemporaryImageCache.shared)
                 let placeholder = Text("Loading...")
-                AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
+                let imageLoader = FirebaseImageLoader(imageName: $photoRowViewModel.id.wrappedValue, baseUrl: nil, cache: nil)
+              AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
                     .aspectRatio(contentMode: .fill)
             }
             Text($photoRowViewModel.textString.wrappedValue)
