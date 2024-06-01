@@ -20,7 +20,7 @@ struct PlantRow: View {
             if let name = plantRowViewModel.photoId {
                 let frame = CGSize(width: 80, height: 80)
                 let placeholder = Image(systemName: "tree.fill")
-                let imageLoader = FirebaseImageLoader()
+                let imageLoader = Global.imageLoaderFactory()
                 AsyncImageView(imageLoader: imageLoader, frame: frame, placeholder: placeholder)
                     .aspectRatio(contentMode: .fill)
                     .onAppear {

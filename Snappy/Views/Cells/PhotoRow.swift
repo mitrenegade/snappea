@@ -27,7 +27,7 @@ struct PhotoRow: View {
                     .clipped()
             } else {
                 let placeholder = Text("Loading...")
-                let imageLoader = FirebaseImageLoader()
+                let imageLoader = Global.imageLoaderFactory()
                 AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
                       .aspectRatio(contentMode: .fill)
                       .onAppear {

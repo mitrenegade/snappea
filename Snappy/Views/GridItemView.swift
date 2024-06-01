@@ -11,7 +11,7 @@ struct GridItemView: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
             let placeholder = Text("Loading...")
-            let imageLoader = FirebaseImageLoader()
+            let imageLoader = Global.imageLoaderFactory()
             AsyncImageView(imageLoader: imageLoader, frame: CGSize(width: size, height: size), placeholder: placeholder)
                 .aspectRatio(contentMode: .fill)
         }

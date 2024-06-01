@@ -38,7 +38,7 @@ struct PlantBasicView: View {
             if let name = photo?.id {
                 let frame = CGSize(width: imageSize.width, height: imageSize.height)
                 let placeholder = Text("Loading...")
-                let imageLoader = FirebaseImageLoader()
+                let imageLoader = Global.imageLoaderFactory()
                 AsyncImageView(imageLoader: imageLoader,
                                       frame: frame,
                                       placeholder: placeholder)

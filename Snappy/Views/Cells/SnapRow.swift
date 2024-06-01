@@ -18,7 +18,7 @@ struct SnapRow: View {
 
     var body: some View {
         HStack {
-            let imageLoader = FirebaseImageLoader()
+            let imageLoader = Global.imageLoaderFactory()
             let placeholder = Image("folder.badge.questionmark").frame(width: imageSize.width, height: imageSize.height)
             AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
                 .aspectRatio(contentMode: .fill)

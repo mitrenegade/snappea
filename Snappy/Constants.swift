@@ -10,3 +10,9 @@ import Foundation
 
 let TESTING = true
 let AIRPLANE_MODE = false
+
+struct Global {
+    static let imageLoaderFactory = {
+        FirebaseImageLoader()
+    }
+}
