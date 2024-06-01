@@ -17,11 +17,8 @@ enum Tab: Hashable {
 struct HomeView: View {
     @EnvironmentObject var router: TabsRouter
 
-    // Local
-    //    @State var store = LocalStore()
-
     // Firebase
-    @State var store = FirebaseStore()
+    @State var store = Global.storeFactory()
 
     init(user: User) {
 //        store.purge(id: user.id)

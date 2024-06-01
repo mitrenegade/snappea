@@ -12,7 +12,22 @@ let TESTING = true
 let AIRPLANE_MODE = false
 
 struct Global {
+    // Firebase
+    /*
+    static let storeFactory = {
+        FirebaseStore()
+    }
     static let imageLoaderFactory = {
         FirebaseImageLoader()
     }
+     */
+
+    // Local
+    static let storeFactory = {
+        LocalStore()
+    }
+    static let imageLoaderFactory = {
+        DiskImageLoader(baseUrl: LocalStore().imageBaseURL)
+    }
+
 }
