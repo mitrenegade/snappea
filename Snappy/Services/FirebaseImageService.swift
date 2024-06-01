@@ -102,9 +102,12 @@ public class FirebaseImageService: ImageService {
 }
 
 class FirebaseImageLoader: ImageLoader, ObservableObject {
+    required init(imageName: String, baseUrl: URL?, cache: ImageCache?) {
+        // no op
+    }
 
     private let imageService = FirebaseImageService()
-    private let imageName: String
+//    private let imageName: String
 
     @Published var image: UIImage?
     var imageValue: Published<UIImage?> {
@@ -114,11 +117,11 @@ class FirebaseImageLoader: ImageLoader, ObservableObject {
         return $image
     }
 
-    required init(imageName: String, baseUrl: URL?, cache: ImageCache?) {
-        self.imageName = imageName
-    }
+//    required init(imageName: String, baseUrl: URL?, cache: ImageCache?) {
+//        self.imageName = imageName
+//    }
 
-    func load() {
+    func load(imageName: String) {
         imageService.referenceForImage(type: .photo, id: imageName)?.getData(maxSize: .max) { data, error in
             print("\(data), \(error)")
             if let data {

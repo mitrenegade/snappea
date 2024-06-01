@@ -20,8 +20,6 @@ struct AsyncImageView<Placeholder: View, T: ImageLoader>: View {
 
     var body: some View {
         imageView
-            .onAppear(perform: imageLoader.load)
-            .onDisappear(perform: imageLoader.cancel)
     }
     
     var imageView: some View {
@@ -35,42 +33,9 @@ struct AsyncImageView<Placeholder: View, T: ImageLoader>: View {
             }
         }
         .onReceive(imageLoader.imagePublisher, perform: { image in
-            self.image = image
+            if let image {
+                self.image = image
+            }
         })
     }
-
-}
-
-struct FirebaseAsyncImageView<Placeholder: View>: View {
-    private let placeholder: Placeholder?
-    private var frame: CGSize?
-    private let id: String
-
-    @ObservedObject private var loader: FirebaseImageLoader
-
-    init(id: String, frame: CGSize?, placeholder: Placeholder? = nil) {
-        self.placeholder = placeholder
-        self.frame = frame
-        self.id = id
-
-        loader = FirebaseImageLoader(imageName: id, baseUrl: nil, cache: nil)
-        loader.load()
-    }
-
-    var body: some View {
-        image
-    }
-
-    var image: some View {
-        Group {
-            if let image = $loader.image.wrappedValue  {
-                Image(uiImage: image)
-                    .resizable()
-                    .frame(width: self.frame?.width, height: self.frame?.height, alignment: .center)
-            } else {
-                placeholder
-            }
-        }
-    }
-
 }

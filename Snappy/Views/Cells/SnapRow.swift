@@ -21,11 +21,13 @@ struct SnapRow: View {
     var body: some View {
         HStack {
 //            let imageLoader = imageLoaderFactory.create(imageName: photo.id, cache: TemporaryImageCache.shared)
+            let imageLoader = FirebaseImageLoader(imageName: photo.id, baseUrl: nil, cache: TemporaryImageCache.shared)
             let placeholder = Image("folder.badge.questionmark").frame(width: imageSize.width, height: imageSize.height)
-//            AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
-            FirebaseAsyncImageView(id: photo.id, frame: imageSize, placeholder: placeholder)
+            AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
                 .aspectRatio(contentMode: .fill)
-
+                .onAppear {
+                    imageLoader.load(imageName: photo.id)
+                }
 
             VStack {
                 if !dateString.isEmpty {
