@@ -302,9 +302,7 @@ class LocalStore: Store, ObservableObject {
 }
 
 extension LocalStore {
-    /// Returns the base URL used for any ImageStore and ImageLoader
-    /// This url must be exposed for ImageLoaderFactory to use the same url as ImageStore, since LocalStore owns the ImageStore
-    /// BR TODO: LocalStore should receive a ImageStore; the URLs/image store system do not have to conform to the path
+    /// Returns the base URL used for any ImageStore
     var imageBaseURL: URL {
         subpath(.image)
     }

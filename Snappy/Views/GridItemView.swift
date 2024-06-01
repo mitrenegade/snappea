@@ -8,11 +8,8 @@ struct GridItemView: View {
     let size: Double
     let item: Photo
 
-    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
-
     var body: some View {
         ZStack(alignment: .topTrailing) {
-//            let imageLoader = imageLoaderFactory.create(imageName: item.id, cache: TemporaryImageCache.shared)
             let placeholder = Text("Loading...")
             let imageLoader = FirebaseImageLoader()
             AsyncImageView(imageLoader: imageLoader, frame: CGSize(width: size, height: size), placeholder: placeholder)

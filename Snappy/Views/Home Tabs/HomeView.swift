@@ -19,11 +19,9 @@ struct HomeView: View {
 
     // Local
     //    @State var store = LocalStore()
-//        private var imageLoaderFactory: ImageLoaderFactory = ImageLoaderFactory(imageLoaderType: DiskImageLoader.self)
 
     // Firebase
     @State var store = FirebaseStore()
-    private var imageLoaderFactory: ImageLoaderFactory = ImageLoaderFactory(imageLoaderType: FirebaseImageLoader.self)
 
     init(user: User) {
 //        store.purge(id: user.id)
@@ -33,14 +31,6 @@ struct HomeView: View {
     private func load(user: User) {
         Task {
             store.setup(id: user.id)
-            // TODO: support Firebase
-            if let localStore = store as? LocalStore {
-                imageLoaderFactory.baseURL = localStore.imageBaseURL
-            } else if let firebaseStore = store as? FirebaseStore {
-                // TODO: get this from FirebaseStore
-                // baseURL is not used by Firebase
-//                imageLoaderFactory.baseURL = firebaseStore.imageBaseURL
-            }
             try await store.loadGarden()
         }
     }
@@ -65,7 +55,6 @@ struct HomeView: View {
                     Text("Camera")
                 }.tag(Tab.camera)
         }
-        .environmentObject(imageLoaderFactory)
     }
 }
 

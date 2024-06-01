@@ -13,7 +13,6 @@ import SwiftUI
 struct SnapOverlayView<T>: View where T: Store {
     @ObservedObject var viewModel: SnapOverlayViewModel<T>
 
-    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
     @EnvironmentObject var overlayEnvironment: OverlayEnvironment
 
     var imageSize: CGSize
@@ -34,7 +33,6 @@ struct SnapOverlayView<T>: View where T: Store {
     var body: some View {
         VStack {
             ZStack {
-//                let imageLoader = imageLoaderFactory.create(imageName: $viewModel.photoId.wrappedValue, cache: TemporaryImageCache.shared)
                 let placeholder = Text("Loading...")
                 let imageLoader = FirebaseImageLoader()
                 AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)

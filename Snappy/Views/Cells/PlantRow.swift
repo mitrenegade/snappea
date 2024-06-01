@@ -11,8 +11,6 @@ import SwiftUI
 struct PlantRow: View {
     @ObservedObject var plantRowViewModel: PlantRowViewModel
 
-    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
-
     init(viewModel: PlantRowViewModel) {
         self.plantRowViewModel = viewModel
     }
@@ -20,7 +18,6 @@ struct PlantRow: View {
     var body: some View {
         HStack {
             if let name = plantRowViewModel.photoId {
-//                let imageLoader = imageLoaderFactory.create(imageName: name, cache: TemporaryImageCache.shared)
                 let frame = CGSize(width: 80, height: 80)
                 let placeholder = Image(systemName: "tree.fill")
                 let imageLoader = FirebaseImageLoader()

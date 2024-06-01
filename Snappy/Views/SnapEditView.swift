@@ -12,7 +12,6 @@ import SwiftUI
 /// Displays either an interface for editing an existing snap and photo, or creating a new snap and photo
 struct SnapEditView<T>: View where T: Store {
 
-    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
     @EnvironmentObject var overlayEnvironment: OverlayEnvironment
 
     private let store: T
@@ -102,7 +101,6 @@ struct SnapEditView<T>: View where T: Store {
     }
 
     private func photoSection(id: String) -> some View {
-//        let imageLoader = imageLoaderFactory.create(imageName: id, cache: TemporaryImageCache.shared)
         let placeholder = Text("Loading...")
         let imageLoader = FirebaseImageLoader()
         return AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)

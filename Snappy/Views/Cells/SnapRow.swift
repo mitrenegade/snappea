@@ -16,11 +16,8 @@ struct SnapRow: View {
     private let isDisabled: Bool
     private let imageSize = CGSize(width: 50, height: 50)
 
-    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
-
     var body: some View {
         HStack {
-//            let imageLoader = imageLoaderFactory.create(imageName: photo.id, cache: TemporaryImageCache.shared)
             let imageLoader = FirebaseImageLoader()
             let placeholder = Image("folder.badge.questionmark").frame(width: imageSize.width, height: imageSize.height)
             AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)

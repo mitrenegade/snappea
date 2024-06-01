@@ -13,8 +13,6 @@ struct PhotoRow: View {
     private let imageSize = CGSize(width: 80, height: 80)
     @ObservedObject var photoRowViewModel: PhotoRowViewModel
 
-    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
-
     init(photo: Photo) {
         self.photoRowViewModel = PhotoRowViewModel(photo: photo)
     }
@@ -28,14 +26,13 @@ struct PhotoRow: View {
                     .aspectRatio(contentMode: .fit)
                     .clipped()
             } else {
-//                let imageLoader = imageLoaderFactory.create(imageName: $photoRowViewModel.id.wrappedValue, cache: TemporaryImageCache.shared)
                 let placeholder = Text("Loading...")
                 let imageLoader = FirebaseImageLoader()
-              AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
-                    .aspectRatio(contentMode: .fill)
-                    .onAppear {
-                        imageLoader.load(imageName: $photoRowViewModel.id.wrappedValue)
-                    }
+                AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
+                      .aspectRatio(contentMode: .fill)
+                      .onAppear {
+                          imageLoader.load(imageName: $photoRowViewModel.id.wrappedValue)
+                      }
             }
             Text($photoRowViewModel.textString.wrappedValue)
         }
