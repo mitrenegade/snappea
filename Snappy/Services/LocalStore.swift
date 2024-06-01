@@ -197,7 +197,11 @@ class LocalStore: Store, ObservableObject {
 
     func photos(for plant: Plant) -> [Photo] {
         readWriteQueue.sync {
-            let snaps = snaps(for: plant)
+            // same as snapsForPlant, but can't call
+            // the function or a deadlock will occur
+            let snaps = snapCache
+                .compactMap { $0.value }
+                .filter{ $0.plantId == plant.id }
             let photos = snaps.compactMap { photo(withId:$0.photoId) }
             return Array(Set(photos))
         }
