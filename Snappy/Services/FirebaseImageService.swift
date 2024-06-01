@@ -8,6 +8,7 @@
 
 import FirebaseCore
 import FirebaseStorage
+import SwiftUI
 
 fileprivate let storage = Storage.storage()
 fileprivate let storageRef = storage.reference()
@@ -100,13 +101,22 @@ public class FirebaseImageService: ImageService {
     }
 }
 
-class FirebaseImageLoader: ImageLoader {
+class FirebaseImageLoader: ImageLoader, ObservableObject {
+
+    private let imageService = FirebaseImageService()
+    private let imageName: String
+
+    @Published var image: UIImage?
+//    var imageValue: Published<UIImage?> {
+//        return _image
+//    }
+//    var imagePublisher: Published<UIImage?>.Publisher {
+//        return $image
+//    }
+
     required init(imageName: String, baseUrl: URL?, cache: ImageCache?) {
         self.imageName = imageName
     }
-    
-    private let imageService = FirebaseImageService()
-    private let imageName: String
 
     func load() {
         imageService.referenceForImage(type: .photo, id: imageName)?.getData(maxSize: .max) { data, error in
@@ -116,10 +126,8 @@ class FirebaseImageLoader: ImageLoader {
             }
         }
     }
-    
+
     func cancel() {
         // no op
     }
-    
-    var image: UIImage?
 }
