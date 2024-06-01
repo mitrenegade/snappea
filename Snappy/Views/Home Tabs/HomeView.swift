@@ -18,7 +18,7 @@ struct HomeView: View {
     @EnvironmentObject var router: TabsRouter
 
     // Firebase
-    @State var store = Global.storeFactory()
+    @State var store = Global.store
 
     init(user: User) {
 //        store.purge(id: user.id)

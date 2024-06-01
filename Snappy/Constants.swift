@@ -14,20 +14,23 @@ let AIRPLANE_MODE = false
 struct Global {
     // Firebase
     /*
-    static let storeFactory = {
-        FirebaseStore()
-    }
+    /// Returns a singleton `Store`
+    static let store = FirebaseStore()
+
+    /// Creates an `ImageLoader` instance
     static let imageLoaderFactory = {
         FirebaseImageLoader()
     }
      */
 
-    // Local
-    static let storeFactory = {
-        LocalStore()
-    }
+    // Local storage
+
+    /// Returns a singleton `Store`
+    static let store = LocalStore()
+
+    /// Creates an `ImageLoader` instance
     static let imageLoaderFactory = {
-        DiskImageLoader(baseUrl: LocalStore().imageBaseURL)
+        DiskImageLoader(baseUrl: store.imageBaseURL)
     }
 
 }
