@@ -197,11 +197,11 @@ class LocalStore: Store, ObservableObject {
 
     func photos(for plant: Plant) -> [Photo] {
         readWriteQueue.sync {
-            // snapsForPlant
+            // same as snapsForPlant, but can't call
+            // the function or a deadlock will occur
             let snaps = snapCache
                 .compactMap { $0.value }
                 .filter{ $0.plantId == plant.id }
-
             let photos = snaps.compactMap { photo(withId:$0.photoId) }
             return Array(Set(photos))
         }
@@ -306,9 +306,7 @@ class LocalStore: Store, ObservableObject {
 }
 
 extension LocalStore {
-    /// Returns the base URL used for any ImageStore and ImageLoader
-    /// This url must be exposed for ImageLoaderFactory to use the same url as ImageStore, since LocalStore owns the ImageStore
-    /// BR TODO: LocalStore should receive a ImageStore; the URLs/image store system do not have to conform to the path
+    /// Returns the base URL used for any ImageStore
     var imageBaseURL: URL {
         subpath(.image)
     }

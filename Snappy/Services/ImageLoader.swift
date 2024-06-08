@@ -11,38 +11,48 @@ import Combine
 import Foundation
 
 protocol ImageLoader: ObservableObject {
-    func load()
-    func cancel()
     var image: UIImage? { get }
-    init(imageName: String, baseUrl: URL, cache: ImageCache?)
+    var imageValue: Published<UIImage?> { get }
+    var imagePublisher: Published<UIImage?>.Publisher { get }
+
+    func load(imageName: String)
+    func cancel()
 }
 
 class NetworkImageLoader: ImageLoader {
     @Published var image: UIImage?
-    private let url: URL
+    var imageValue: Published<UIImage?> {
+        return _image
+    }
+    var imagePublisher: Published<UIImage?>.Publisher {
+        return $image
+    }
+
+    private var baseUrl: URL
     private var cancellable: AnyCancellable?
     
     private var cache: ImageCache?
     
-    required init(imageName: String, baseUrl: URL, cache: ImageCache? = TemporaryImageCache.shared) {
-        self.url = baseUrl.appending(component: imageName)
+    init(baseUrl: URL, cache: ImageCache? = TemporaryImageCache.shared) {
         self.cache = cache
+        self.baseUrl = baseUrl
     }
     
     deinit {
         cancellable?.cancel()
     }
     
-    func load() {
-        if let image = getFromCache() {
+    func load(imageName: String) {
+        let url = baseUrl.appending(component: imageName)
+        if let image = getFromCache(url: url) {
             self.image = image
             return
         }
-        
+
         cancellable = URLSession.shared.dataTaskPublisher(for: url)
             .map{ UIImage(data: $0.data) }
             .replaceError(with: nil)
-            .handleEvents(receiveOutput: { [weak self] in self?.addToCache($0) })
+            .handleEvents(receiveOutput: { [weak self] in self?.addToCache($0, url: url) })
             .receive(on: DispatchQueue.main)
             .assign(to: \.image, on: self)
     }
@@ -51,16 +61,15 @@ class NetworkImageLoader: ImageLoader {
         cancellable?.cancel()
     }
     
-    private func getFromCache() -> UIImage? {
+    private func getFromCache(url: URL) -> UIImage? {
         print("Get from cache \(url)")
         return cache?[url.absoluteString]
     }
 
-    private func addToCache(_ image: UIImage?) {
+    private func addToCache(_ image: UIImage?, url: URL) {
         print("Add to cache \(url)")
         image.map { cache?[url.absoluteString] = $0 }
     }
-    
 }
 
 /// Loads a single image via ImageStore
@@ -75,25 +84,21 @@ class DiskImageLoader: ImageLoader {
         return $image
     }
 
-    private let name: String
-
     private var cache: ImageCache?
 
     private let imageStore: ImageStore
 
     /// - Parameters:
     ///    - url: the url of an actual image
-    required init(imageName: String,
-                  baseUrl: URL,
+    required init(baseUrl: URL,
                   cache: ImageCache? = TemporaryImageCache.shared) {
         self.cache = cache
-        self.name = imageName
         self.imageStore = ImageStore(baseURL: baseUrl)
     }
 
-    func load() {
+    func load(imageName: String) {
         // BR TODO: load from cache first
-        image = try? imageStore.loadImage(name: name)
+        image = try? imageStore.loadImage(name: imageName)
     }
 
     func cancel() {

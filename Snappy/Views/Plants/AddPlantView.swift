@@ -12,7 +12,6 @@ import PhotosUI
 struct AddPlantView<T>: View where T: Store {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var photoEnvironment: PhotoEnvironment
-    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
     @ObservedObject var viewModel: AddPlantViewModel<T>
 
@@ -44,11 +43,14 @@ struct AddPlantView<T>: View where T: Store {
                         .aspectRatio(contentMode: .fit)
                         .clipped()
                 } else if let newPhoto = photoEnvironment.newPhoto {
-                    let imageLoader = imageLoaderFactory.create(imageName: newPhoto.id, cache: TemporaryImageCache.shared)
                     let placeholder = Text("Loading...")
                     let imageSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+                    let imageLoader = Global.imageLoaderFactory()
                     AsyncImageView(imageLoader: imageLoader, frame: imageSize, placeholder: placeholder)
                         .aspectRatio(contentMode: .fill)
+                        .onAppear {
+                            imageLoader.load(imageName: newPhoto.id)
+                        }
                 }
                 captureImageButton
 

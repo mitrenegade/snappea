@@ -15,6 +15,8 @@ class FirebaseStore: Store {
     var isLoading: Bool = false
     private var userId: String = ""
 
+    private var imageService: ImageService = FirebaseImageService()
+
     func setup(id: String) {
         // no op - auth already takes care of base URL and auth
         userId = id
@@ -58,31 +60,35 @@ class FirebaseStore: Store {
     }
 
     func photo(withId id: String) -> Photo? {
-        nil
+        allPhotos.first { $0.id == id }
     }
 
     func plant(withId id: String) -> Plant? {
-        nil
+        allPlants.first { $0.id == id }
     }
 
     func snap(withId id: String) -> Snap? {
-        nil
+        allSnaps.first { $0.id == id }
     }
 
     func snaps(for plant: Plant) -> [Snap] {
-        []
+        allSnaps.filter { $0.plantId == plant.id }
     }
 
     func snaps(for photo: Photo) -> [Snap] {
-        []
+        allSnaps.filter { $0.photoId == photo.id }
     }
 
     func plants(for photo: Photo) -> [Plant] {
-        []
+        let snaps = snaps(for: photo)
+        let plants = snaps.compactMap { plant(withId: $0.plantId) }
+        return Array(Set(plants))
     }
 
     func photos(for plant: Plant) -> [Photo] {
-        []
+        let snaps = snaps(for: plant)
+        let photos = snaps.compactMap { photo(withId:$0.photoId) }
+        return Array(Set(photos))
     }
 
     // MARK: -
@@ -91,17 +97,18 @@ class FirebaseStore: Store {
         var result = try await addPhoto(timestamp: timestamp)
 
         // BR TODO: contain uploadImage into uploadURL
-        FirebaseImageService.uploadImage(image: image, type: .photo, uid: result.id) { [weak self] url in
-            if let url {
-                do {
-                    try self?.updatePhotoUrl(result, url: url) { error in
-                        result.url = url // manually update url in existing photo object locally
-                    }
-                } catch {
-                    print("Update photo \(error)")
-                }
+        imageService.uploadImage(image: image, type: .photo, uid: result.id, progressHandler: nil, completion: { [weak self] url in
+            guard let url else {
+                return
             }
-        }
+            do {
+                try self?.updatePhotoUrl(result, url: url) { error in
+                    result.url = url // manually update url in existing photo object locally
+                }
+            } catch {
+                print("Update photo \(error)")
+            }
+        })
         return result
     }
 
@@ -184,7 +191,7 @@ extension FirebaseStore {
                 print("BRDEBUG Observe plants failed with error \(error))")
             }
         }
-        observe(completion: completion)
+        observe(type: .plant, completion: completion)
     }
 
     private func observePhotos() {
@@ -197,7 +204,7 @@ extension FirebaseStore {
                 print("BRDEBUG Observe photos failed with error \(error))")
             }
         }
-        observe(completion: completion)
+        observe(type: .photo, completion: completion)
     }
 
     private func observeSnaps() {
@@ -210,12 +217,12 @@ extension FirebaseStore {
                 print("BRDEBUG Observe snaps failed with error \(error))")
             }
         }
-        observe(completion: completion)
+        observe(type: .snap, completion: completion)
     }
 
     // generic listener and decoder for Firebase objects of type T
-    @discardableResult private func observe<T: Decodable>(completion: @escaping ((Result<[T], Error>) -> Void)) -> ListenerRegistration {
-        let listener = baseDocument.collection("plant").addSnapshotListener { querySnapshot, error in
+    @discardableResult private func observe<T: Decodable>(type: StoreObject, completion: @escaping ((Result<[T], Error>) -> Void)) -> ListenerRegistration {
+        let listener = baseDocument.collection(type.rawValue).addSnapshotListener { querySnapshot, error in
             if let documents = querySnapshot?.documents {
                 let objects = documents.compactMap { document -> T? in
                     try? document.data(as: T.self)

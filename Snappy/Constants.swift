@@ -10,3 +10,27 @@ import Foundation
 
 let TESTING = true
 let AIRPLANE_MODE = false
+
+struct Global {
+    // Firebase
+    /*
+    /// Returns a singleton `Store`
+    static let store = FirebaseStore()
+
+    /// Creates an `ImageLoader` instance
+    static let imageLoaderFactory = {
+        FirebaseImageLoader()
+    }
+     */
+
+    // Local storage
+
+    /// Returns a singleton `Store`
+    static let store = LocalStore()
+
+    /// Creates an `ImageLoader` instance
+    static let imageLoaderFactory = {
+        DiskImageLoader(baseUrl: store.imageBaseURL)
+    }
+
+}

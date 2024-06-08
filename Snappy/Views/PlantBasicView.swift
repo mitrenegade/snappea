@@ -13,7 +13,6 @@ import SwiftUI
 struct PlantBasicView: View {
     private let plant: Plant
     private let photo: Photo?
-    @EnvironmentObject var imageLoaderFactory: ImageLoaderFactory
 
     private let imageSize = CGSize(width: 200, height: 200)
 
@@ -37,9 +36,9 @@ struct PlantBasicView: View {
     private var imageView: some View {
         Group {
             if let name = photo?.id {
-                let imageLoader = imageLoaderFactory.create(imageName: name, cache: TemporaryImageCache.shared)
                 let frame = CGSize(width: imageSize.width, height: imageSize.height)
                 let placeholder = Text("Loading...")
+                let imageLoader = Global.imageLoaderFactory()
                 AsyncImageView(imageLoader: imageLoader,
                                       frame: frame,
                                       placeholder: placeholder)

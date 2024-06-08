@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E0A68412C0AF541001E3FF9 /* FirebaseImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A68402C0AF541001E3FF9 /* FirebaseImageLoader.swift */; };
 		8E1482112B9D5525006C16B5 /* AddPlantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1482102B9D5525006C16B5 /* AddPlantViewModel.swift */; };
 		8E1482132B9D5574006C16B5 /* AddSnapToPlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1482122B9D5574006C16B5 /* AddSnapToPlantView.swift */; };
 		8E18A2BE2B4DC43B0083809A /* LocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18A2BD2B4DC43B0083809A /* LocalStore.swift */; };
@@ -30,7 +31,6 @@
 		8E3ABF1C2450065000FF378B /* SnapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3ABF1B2450065000FF378B /* SnapView.swift */; };
 		8E41C7532BF923F600CF0587 /* OverlayEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E41C7522BF923F600CF0587 /* OverlayEnvironment.swift */; };
 		8E54C1342B9BBB270020BAAE /* PlantBasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54C1332B9BBB270020BAAE /* PlantBasicView.swift */; };
-		8E5D49332BA65C5B00455929 /* ImageLoaderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5D49322BA65C5B00455929 /* ImageLoaderFactory.swift */; };
 		8E5D49352BA69C3D00455929 /* LocalStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5D49342BA69C3D00455929 /* LocalStoreTests.swift */; };
 		8E5FE327246C774400622DDA /* FirebaseImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE326246C774400622DDA /* FirebaseImageService.swift */; };
 		8E5FE329246E7B0300622DDA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FE328246E7B0300622DDA /* HomeView.swift */; };
@@ -101,6 +101,7 @@
 		6ED3DE204951880052FEF49A /* Pods-Snappy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snappy.debug.xcconfig"; path = "Target Support Files/Pods-Snappy/Pods-Snappy.debug.xcconfig"; sourceTree = "<group>"; };
 		7E69D289800C2D2BA2804ECD /* Pods-VeggieTag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTag.release.xcconfig"; path = "Target Support Files/Pods-VeggieTag/Pods-VeggieTag.release.xcconfig"; sourceTree = "<group>"; };
 		8613A4ED0662681AE7A7CC2E /* Pods-VeggieTag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeggieTag.debug.xcconfig"; path = "Target Support Files/Pods-VeggieTag/Pods-VeggieTag.debug.xcconfig"; sourceTree = "<group>"; };
+		8E0A68402C0AF541001E3FF9 /* FirebaseImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseImageLoader.swift; sourceTree = "<group>"; };
 		8E1482102B9D5525006C16B5 /* AddPlantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlantViewModel.swift; sourceTree = "<group>"; };
 		8E1482122B9D5574006C16B5 /* AddSnapToPlantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSnapToPlantView.swift; sourceTree = "<group>"; };
 		8E18A2BD2B4DC43B0083809A /* LocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStore.swift; sourceTree = "<group>"; };
@@ -124,7 +125,6 @@
 		8E3ABF1B2450065000FF378B /* SnapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapView.swift; sourceTree = "<group>"; };
 		8E41C7522BF923F600CF0587 /* OverlayEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayEnvironment.swift; sourceTree = "<group>"; };
 		8E54C1332B9BBB270020BAAE /* PlantBasicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantBasicView.swift; sourceTree = "<group>"; };
-		8E5D49322BA65C5B00455929 /* ImageLoaderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderFactory.swift; sourceTree = "<group>"; };
 		8E5D49342BA69C3D00455929 /* LocalStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStoreTests.swift; sourceTree = "<group>"; };
 		8E5FE326246C774400622DDA /* FirebaseImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseImageService.swift; sourceTree = "<group>"; };
 		8E5FE328246E7B0300622DDA /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -249,13 +249,13 @@
 				8E3ABF01244D704E00FF378B /* AsyncImageView.swift */,
 				8EC86BF82454E81D00AB2F92 /* ImageStore.swift */,
 				8E3ABEFF244D6FE000FF378B /* ImageLoader.swift */,
-				8E5D49322BA65C5B00455929 /* ImageLoaderFactory.swift */,
 				8EC86C002456234700AB2F92 /* ImageCache.swift */,
 				8EF1FC702467C4AF005C4DE9 /* CoordinateService.swift */,
 				8E5FE326246C774400622DDA /* FirebaseImageService.swift */,
 				8E3684CF2B2AC03500B228F3 /* AuthStore.swift */,
 				8E18A2BD2B4DC43B0083809A /* LocalStore.swift */,
 				8EE709CE2B54056C0078D509 /* FirebaseStore.swift */,
+				8E0A68402C0AF541001E3FF9 /* FirebaseImageLoader.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -667,6 +667,7 @@
 				8E3ABF13244EAD0A00FF378B /* SnapViewModel.swift in Sources */,
 				8E3ABF00244D6FE000FF378B /* ImageLoader.swift in Sources */,
 				8E3684CE2B27DB3F00B228F3 /* PlantRowViewModel.swift in Sources */,
+				8E0A68412C0AF541001E3FF9 /* FirebaseImageLoader.swift in Sources */,
 				8E7C7956244BB24400F295AD /* AppDelegate.swift in Sources */,
 				8E5FE327246C774400622DDA /* FirebaseImageService.swift in Sources */,
 				8EC393B52BFBBC82001D1066 /* SnapEditView.swift in Sources */,
@@ -693,7 +694,6 @@
 				8E1482112B9D5525006C16B5 /* AddPlantViewModel.swift in Sources */,
 				8E5FE32C246E800A00622DDA /* TabsRouter.swift in Sources */,
 				8EF491BE2B53BF76009F12C0 /* PhotoGalleryView.swift in Sources */,
-				8E5D49332BA65C5B00455929 /* ImageLoaderFactory.swift in Sources */,
 				8E5FE32F2471F96000622DDA /* PhotoEnvironment.swift in Sources */,
 				8E3ABF15244EB50E00FF378B /* PhotoRowViewModel.swift in Sources */,
 				8E3684C82B27CE3100B228F3 /* Constants.swift in Sources */,
