@@ -9,7 +9,7 @@
 import Foundation
 
 let TESTING = true
-let AIRPLANE_MODE = false
+let AIRPLANE_MODE = true
 
 struct Global {
     // Firebase

@@ -91,6 +91,13 @@ struct PlantsRoot<T>: View where T: Store {
 
     var listView: some View {
         PlantsListView(store: store, selectedPlant: $selectedPlant)
+            .onReceive(selectedPlant.publisher, perform: { value in
+                // this must be done to clear the selected route
+                // even though this is triggered twice
+                // without it, onChange doesn't trigger if the user
+                // clicks on the same row
+                selectedPlant = nil
+            })
             .onChange(of: selectedPlant) { oldValue, newValue in
                 if let newValue {
                     router.navigate(to: .plantGallery(newValue))
