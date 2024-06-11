@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 import Combine
 
+/// Handles sorting and filtering
 class PlantsListViewModel<T: Store>: ObservableObject{
     enum SortType {
         case nameAZ
@@ -35,11 +36,13 @@ class PlantsListViewModel<T: Store>: ObservableObject{
             .store(in: &cancellables)
     }
 
+    /// Returns the latest photo given a plant
     func photo(for plant: Plant) -> Photo? {
         store.latestPhoto(for: plant)
     }
 
-    var plantsForPhotos: [String: String] {
+    /// Creates a structure to relate photo IDs -> plant IDs
+    private var plantsForPhotos: [String: String] {
         var dict = [String: String]()
         store.allPlants.forEach({ plant in
             if let photo = store.latestPhoto(for: plant) {
@@ -49,7 +52,8 @@ class PlantsListViewModel<T: Store>: ObservableObject{
         return dict
     }
 
-    var allPhotos: [Photo] {
+    /// Creates a structure to hold all the current photos for each plant
+    private var allPhotos: [Photo] {
         var photos = [Photo]()
         store.allPlants.forEach({ plant in
             if let photo = store.latestPhoto(for: plant) {
@@ -59,7 +63,8 @@ class PlantsListViewModel<T: Store>: ObservableObject{
         return photos
     }
 
-    private func sort(sortType: SortType) -> [Plant] { //_ plants: [Plant], by sortType: SortType) -> [Plant] {
+    /// Returns the array of plants given a sort type
+    private func sort(sortType: SortType) -> [Plant] {
         let plants = store.allPlants
         switch sortType {
         case .nameAZ:
