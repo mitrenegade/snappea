@@ -69,6 +69,10 @@ protocol Store: ObservableObject {
     /// is determined by the snaps of that plant
     func photos(for plant: Plant) -> [Photo]
 
+    /// Returns the lates photo for a plant. Photo should exist
+    /// but caller will have to handle a null case
+    func latestPhoto(for plant: Plant) -> Photo?
+
     // MARK: - Creating
 
     @discardableResult func createPlant(name: String, type: PlantType, category: Category) async throws -> Plant

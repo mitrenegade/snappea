@@ -40,10 +40,8 @@ enum Category: String, Codable, CaseIterable, Identifiable {
 }
 
 struct Plant: Identifiable, Codable, Hashable {
-    static let newPlantHolder = Plant()
-
-    var id: String = ""
-    var name: String = ""
-    var type: PlantType = .unknown
-    var category: Category = .other
+    let id: String
+    let name: String
+    let type: PlantType
+    let category: Category
 }

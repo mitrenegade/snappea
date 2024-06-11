@@ -207,6 +207,13 @@ class LocalStore: Store, ObservableObject {
         }
     }
 
+    func latestPhoto(for plant: Plant) -> Photo? {
+        let photo = photos(for: plant)
+            .sorted { $0.timestamp > $1.timestamp }
+            .first
+        return photo
+    }
+
     // MARK: - Saving
 
     public func createPhoto(image: UIImage) async throws -> Photo {

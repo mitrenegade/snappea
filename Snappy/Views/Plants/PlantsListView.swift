@@ -39,9 +39,7 @@ struct PlantsListView<T>: View where T: Store {
                 sortButton
             }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20))
             List(store.allPlants, selection: $selectedPlant) { plant in
-                let photo = store.photos(for: plant)
-                    .sorted { $0.timestamp > $1.timestamp }
-                    .first
+                let photo = store.latestPhoto(for: plant)
                 NavigationLink(value: plant) {
                     PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
                 }
