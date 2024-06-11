@@ -100,7 +100,8 @@ struct PlantsRoot<T>: View where T: Store {
     }
 
     var listView: some View {
-        PlantsListView(store: store, selectedPlant: $selectedPlant)
+        let viewModel = PlantsListViewModel(store: store)
+        return PlantsListView(selectedPlant: $selectedPlant, viewModel: viewModel)
             .onReceive(selectedPlant.publisher, perform: { value in
                 // this must be done to clear the selected route
                 // even though this is triggered twice

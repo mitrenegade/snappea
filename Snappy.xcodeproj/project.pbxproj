@@ -61,6 +61,7 @@
 		8EC393B32BFAEF52001D1066 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC393B22BFAEF52001D1066 /* Router.swift */; };
 		8EC393B52BFBBC82001D1066 /* SnapEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC393B42BFBBC82001D1066 /* SnapEditView.swift */; };
 		8EC417262BAE964F0076DC1C /* AddImageHelperLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC417252BAE964F0076DC1C /* AddImageHelperLayer.swift */; };
+		8EC43E6B2C18D65600A5BCE4 /* PlantsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC43E6A2C18D65600A5BCE4 /* PlantsListViewModel.swift */; };
 		8EC86BF92454E81D00AB2F92 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BF82454E81D00AB2F92 /* ImageStore.swift */; };
 		8EC86BFB245503CC00AB2F92 /* SnapOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */; };
 		8EC86BFF245613B900AB2F92 /* SnapsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC86BFE245613B900AB2F92 /* SnapsListViewModel.swift */; };
@@ -158,6 +159,7 @@
 		8EC393B22BFAEF52001D1066 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8EC393B42BFBBC82001D1066 /* SnapEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapEditView.swift; sourceTree = "<group>"; };
 		8EC417252BAE964F0076DC1C /* AddImageHelperLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageHelperLayer.swift; sourceTree = "<group>"; };
+		8EC43E6A2C18D65600A5BCE4 /* PlantsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsListViewModel.swift; sourceTree = "<group>"; };
 		8EC86BF82454E81D00AB2F92 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 		8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapOverlayViewModel.swift; sourceTree = "<group>"; };
 		8EC86BFE245613B900AB2F92 /* SnapsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapsListViewModel.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				8EC86BFA245503CC00AB2F92 /* SnapOverlayViewModel.swift */,
 				8EC86BFE245613B900AB2F92 /* SnapsListViewModel.swift */,
 				8E1482102B9D5525006C16B5 /* AddPlantViewModel.swift */,
+				8EC43E6A2C18D65600A5BCE4 /* PlantsListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -660,6 +663,7 @@
 				8E74F0A4244D5A3400F5A507 /* Snap.swift in Sources */,
 				8E9786BE2B3E8DDC00AD875D /* AddPlantView.swift in Sources */,
 				8EF0B70F24691A0C001C9CD8 /* DragViewModel.swift in Sources */,
+				8EC43E6B2C18D65600A5BCE4 /* PlantsListViewModel.swift in Sources */,
 				8E74F095244D20C200F5A507 /* CameraRoot.swift in Sources */,
 				8E3ABF13244EAD0A00FF378B /* SnapViewModel.swift in Sources */,
 				8E3ABF00244D6FE000FF378B /* ImageLoader.swift in Sources */,
