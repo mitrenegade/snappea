@@ -64,6 +64,10 @@ struct PlantsRoot<T>: View where T: Store {
                         EmptyView()
                     case .plantGallery(let plant):
                         PlantGalleryView(plant: plant, store: store)
+                    case .addPlant:
+                        // no way to add a plant with an existing image
+                        let viewModel = AddPlantViewModel(store: store)
+                        AddPlantView(viewModel: viewModel, image: nil)
                     }
                 }
 
@@ -82,11 +86,17 @@ struct PlantsRoot<T>: View where T: Store {
     }()
 
     private var addPlantButton: some View {
-        let viewModel = AddPlantViewModel(store: store)
-        let view = AddPlantView(viewModel: viewModel)
-        return NavigationLink(destination: view) {
+        Button {
+            router.navigate(to: .addPlant(image: nil))
+        } label: {
             Image(systemName: "photo.badge.plus")
         }
+
+//        let viewModel = AddPlantViewModel(store: store)
+//        let view = AddPlantView(viewModel: viewModel)
+//        return NavigationLink(destination: view) {
+//            Image(systemName: "photo.badge.plus")
+//        }
     }
 
     var listView: some View {

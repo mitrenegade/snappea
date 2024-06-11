@@ -53,6 +53,9 @@ struct CameraRoot<T>: View where T: Store {
                     case .plantGallery:
                         // no plant gallery
                         EmptyView()
+                    case .addPlant(let image):
+                        let viewModel = AddPlantViewModel(store: store)
+                        AddPlantView(viewModel: viewModel, image: image)
                     }
                 }
             }
@@ -115,10 +118,10 @@ struct CameraRoot<T>: View where T: Store {
     func selectPlantView(_ newImage: UIImage) -> some View {
         VStack {
             if TESTING {
-                Text("CameraRoot - SelectPlantView")
+                Text("CameraRoot - PlantsListView")
             }
             Text("Select an existing plant to add the photo")
-            addNewPlantButton
+            addNewPlantButton(image: newImage)
             PlantsListView(store: store, selectedPlant: $selectedPlant)
                 .onChange(of: selectedPlant) { oldValue, newValue in
                     if let newPlant = newValue {
@@ -130,9 +133,10 @@ struct CameraRoot<T>: View where T: Store {
         }
     }
 
-    var addNewPlantButton: some View {
+    func addNewPlantButton(image: UIImage) -> some View {
         Button {
             print("Create new plant")
+            router.navigate(to: .addPlant(image: image))
         } label: {
             Text("- Or create new plant from photo -")
         }

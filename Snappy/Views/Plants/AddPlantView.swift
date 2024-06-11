@@ -23,11 +23,23 @@ struct AddPlantView<T>: View where T: Store {
 
     @State var shouldShowGallery: Bool = false
 
+    private var canAddPhoto: Bool = true
+
     private var title: String {
         if TESTING {
             return "AddPlantView"
         } else {
             return "New plant"
+        }
+    }
+
+    // Initializes an AddPlantView with a previously taken image
+    init(viewModel: AddPlantViewModel<T>, image: UIImage?) {
+        self.viewModel = viewModel
+        if let image {
+            _image = State(initialValue: image)
+            _isSaveButtonEnabled = State(initialValue: true)
+            canAddPhoto = false
         }
     }
 
@@ -52,7 +64,9 @@ struct AddPlantView<T>: View where T: Store {
                             imageLoader.load(imageName: newPhoto.id)
                         }
                 }
-                captureImageButton
+                if canAddPhoto {
+                    captureImageButton
+                }
 
                 nameField
                 categoryField
