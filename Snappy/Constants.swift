@@ -8,7 +8,7 @@
 
 import Foundation
 
-let TESTING = true
+let TESTING = false
 let AIRPLANE_MODE = true
 
 struct Global {
