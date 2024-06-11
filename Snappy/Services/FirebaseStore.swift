@@ -91,6 +91,13 @@ class FirebaseStore: Store {
         return Array(Set(photos))
     }
 
+    func latestPhoto(for plant: Plant) -> Photo? {
+        let photo = photos(for: plant)
+            .sorted { $0.timestamp > $1.timestamp }
+            .first
+        return photo
+    }
+
     // MARK: -
     func createPhoto(image: UIImage) async throws -> Photo {
         let timestamp = Date().timeIntervalSince1970

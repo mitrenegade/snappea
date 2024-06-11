@@ -32,18 +32,12 @@ struct PlantGalleryView<T>: View where T: Store {
     // show gallery of existing snaps - not used from this view
     @State private var shouldShowGallery: Bool = false
 
-    private var title: String {
-        if TESTING {
-            return "PlantGalleryView: \(plant.name)"
-        } else {
-            return plant.name
-        }
-    }
-
     var body: some View {
         ZStack {
             VStack(spacing: 4) {
-                Text(title)
+                if TESTING {
+                    Text("PlantGalleryView: \(plant.name)")
+                }
                 PlantBasicView(plant: plant, photo:
                                 store.photos(for: plant).first)
                 SnapsListView(plant: plant, store: store)

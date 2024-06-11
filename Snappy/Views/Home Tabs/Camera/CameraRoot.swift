@@ -122,14 +122,15 @@ struct CameraRoot<T>: View where T: Store {
             }
             Text("Select an existing plant to add the photo")
             addNewPlantButton(image: newImage)
-            PlantsListView(store: store, selectedPlant: $selectedPlant)
-                .onChange(of: selectedPlant) { oldValue, newValue in
-                    if let newPlant = newValue {
-                        // Add the new image to an existing plant
-                        router.navigate(to: .addImageToPlant(image: newImage, plant: newPlant))
-                    }
-                    selectedPlant = nil
-                }
+            PlantsListView(selectedPlant: $selectedPlant,
+                           viewModel: PlantsListViewModel(store: store))
+        }
+        .onChange(of: selectedPlant) { oldValue, newValue in
+            if let newPlant = newValue {
+                // Add the new image to an existing plant
+                router.navigate(to: .addImageToPlant(image: newImage, plant: newPlant))
+            }
+            selectedPlant = nil
         }
     }
 
