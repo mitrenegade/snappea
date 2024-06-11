@@ -29,10 +29,10 @@ struct PlantsListView<T>: View where T: Store {
                 searchButton
                 sortButton
             }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20))
-            List(viewModel.sorted(), selection: $selectedPlant) { plant in
-                let photo = viewModel.photo(for: plant)
-                NavigationLink(value: plant) {
-                    PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
+            List($viewModel.sorted, selection: $selectedPlant) { plant in
+                let photo = viewModel.photo(for: plant.wrappedValue)
+                NavigationLink(value: plant.wrappedValue) {
+                    PlantRow(viewModel: PlantRowViewModel(plant: plant.wrappedValue, photo: photo))
                 }
             }
             Spacer()

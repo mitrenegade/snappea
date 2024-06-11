@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 class PlantsListViewModel<T: Store>: ObservableObject{
     enum SortType {
@@ -21,10 +22,17 @@ class PlantsListViewModel<T: Store>: ObservableObject{
 
     let store: T
 
-    @State var sortType: SortType = .nameAZ
+    @Published var sortType: SortType = .nameAZ
+    @Published var sorted: [Plant] = []
+
+    private var cancellables = Set<AnyCancellable>()
 
     init(store: T) {
         self.store = store
+        $sortType
+            .map { self.sort(sortType: $0) }
+            .assign(to: \.sorted, on: self)
+            .store(in: &cancellables)
     }
 
     func photo(for plant: Plant) -> Photo? {
@@ -51,8 +59,8 @@ class PlantsListViewModel<T: Store>: ObservableObject{
         return photos
     }
 
-    func sorted() -> [Plant] { //_ plants: [Plant], by sortType: SortType) -> [Plant] {
-        var plants = store.allPlants
+    private func sort(sortType: SortType) -> [Plant] { //_ plants: [Plant], by sortType: SortType) -> [Plant] {
+        let plants = store.allPlants
         switch sortType {
         case .nameAZ:
             return plants.sorted { $0.name < $1.name }
@@ -67,19 +75,17 @@ class PlantsListViewModel<T: Store>: ObservableObject{
                 lhs.timestamp < rhs.timestamp
             }
             let plantIDs = sortedPhotos.compactMap { plantsForPhotos[$0.id] }
-            let plants = plantIDs.compactMap { plantId in
+            return plantIDs.compactMap { plantId in
                 plants.first { $0.id == plantId }
             }
-            return plants
         case .dateNewest:
             let sortedPhotos = allPhotos.sorted { lhs, rhs in
                 lhs.timestamp > rhs.timestamp
             }
             let plantIDs = sortedPhotos.compactMap { plantsForPhotos[$0.id] }
-            let plants = plantIDs.compactMap { plantId in
+            return plantIDs.compactMap { plantId in
                 plants.first { $0.id == plantId }
             }
-            return plants
         }
     }
 
