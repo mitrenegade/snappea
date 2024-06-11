@@ -11,7 +11,7 @@ import SwiftUI
 import Combine
 
 /// Handles sorting and filtering
-class PlantsListViewModel<T: Store>: ObservableObject{
+class PlantsListViewModel: ObservableObject{
     enum SortType {
         case nameAZ
         case nameZA
@@ -21,51 +21,48 @@ class PlantsListViewModel<T: Store>: ObservableObject{
         case dateNewest
     }
 
-    let store: T
-
     @Published var sortType: SortType = .nameAZ
     @Published var sorted: [Plant] = []
 
+    /// Creates a structure to hold all the current photos for each plant
+    private var allPhotos = [Photo]()
+
+    /// Creates a structure to relate photo IDs -> plants
+    private var plantsForPhotos = [String: Plant]()
+
+    /// Creates a structure to relate plant IDs -> photos
+    private var photosForPlant = [String: Photo]()
+
     private var cancellables = Set<AnyCancellable>()
 
-    init(store: T) {
-        self.store = store
+    private let allPlants: [Plant]
+
+    init(store: any Store) {
+        allPlants = store.allPlants
+
         $sortType
             .map { self.sort(sortType: $0) }
             .assign(to: \.sorted, on: self)
             .store(in: &cancellables)
+
+        // generate allPhotos and plantsForPhotos
+        store.allPlants.forEach({ plant in
+            if let photo = store.latestPhoto(for: plant) {
+                allPhotos.append(photo)
+                plantsForPhotos[photo.id] = plant
+                photosForPlant[plant.id] = photo
+            }
+        })
     }
 
     /// Returns the latest photo given a plant
     func photo(for plant: Plant) -> Photo? {
-        store.latestPhoto(for: plant)
-    }
-
-    /// Creates a structure to relate photo IDs -> plant IDs
-    private var plantsForPhotos: [String: String] {
-        var dict = [String: String]()
-        store.allPlants.forEach({ plant in
-            if let photo = store.latestPhoto(for: plant) {
-                dict[photo.id] = plant.id
-            }
-        })
-        return dict
-    }
-
-    /// Creates a structure to hold all the current photos for each plant
-    private var allPhotos: [Photo] {
-        var photos = [Photo]()
-        store.allPlants.forEach({ plant in
-            if let photo = store.latestPhoto(for: plant) {
-                photos.append(photo)
-            }
-        })
-        return photos
+        photosForPlant[plant.id]
     }
 
     /// Returns the array of plants given a sort type
     private func sort(sortType: SortType) -> [Plant] {
-        let plants = store.allPlants
+        let plants = allPlants
         switch sortType {
         case .nameAZ:
             return plants.sorted { $0.name < $1.name }
@@ -79,18 +76,12 @@ class PlantsListViewModel<T: Store>: ObservableObject{
             let sortedPhotos = allPhotos.sorted { lhs, rhs in
                 lhs.timestamp < rhs.timestamp
             }
-            let plantIDs = sortedPhotos.compactMap { plantsForPhotos[$0.id] }
-            return plantIDs.compactMap { plantId in
-                plants.first { $0.id == plantId }
-            }
+            return sortedPhotos.compactMap { plantsForPhotos[$0.id] }
         case .dateNewest:
             let sortedPhotos = allPhotos.sorted { lhs, rhs in
                 lhs.timestamp > rhs.timestamp
             }
-            let plantIDs = sortedPhotos.compactMap { plantsForPhotos[$0.id] }
-            return plantIDs.compactMap { plantId in
-                plants.first { $0.id == plantId }
-            }
+            return sortedPhotos.compactMap { plantsForPhotos[$0.id] }
         }
     }
 

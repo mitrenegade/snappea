@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-struct PlantsListView<T>: View where T: Store {
+struct PlantsListView: View {
     private enum SheetType {
         case sort
         case search
@@ -17,7 +17,7 @@ struct PlantsListView<T>: View where T: Store {
     }
 
     @Binding var selectedPlant: Plant?
-    @ObservedObject var viewModel: PlantsListViewModel<T>
+    @ObservedObject var viewModel: PlantsListViewModel
 
     @State private var showingSheet = false
     @State private var sheetType: SheetType = .none
