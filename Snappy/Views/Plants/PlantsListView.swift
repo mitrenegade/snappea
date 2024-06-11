@@ -32,26 +32,25 @@ struct PlantsListView<T>: View where T: Store {
     @State private var sheetType: SheetType = .none
     @State private var sortType: SortType = .nameAZ
 
-//    @State private var allPlants: [Plant] = []
+    private var plantsForPhotos: [String: String] {
+        var dict = [String: String]()
+        store.allPlants.forEach({ plant in
+            if let photo = store.latestPhoto(for: plant) {
+                dict[photo.id] = plant.id
+            }
+        })
+        return dict
+    }
 
-//    private lazy var plantsForPhotos: [String: String] = {
-//        var dict = [String: String]()
-//        store.allPlants.forEach({ plant in
-//            if let photo = store.latestPhoto(for: plant) {
-//                dict[photo.id] = plant.id
-//            }
-//        })
-//        return dict
-//    }()
-//    private lazy var allPhotos: [Photo] = {
-//        var photos = [Photo]()
-//        store.allPlants.forEach({ plant in
-//            if let photo = store.latestPhoto(for: plant) {
-//                photos.append(photo)
-//            }
-//        })
-//        return photos
-//    }()
+    private var allPhotos: [Photo] {
+        var photos = [Photo]()
+        store.allPlants.forEach({ plant in
+            if let photo = store.latestPhoto(for: plant) {
+                photos.append(photo)
+            }
+        })
+        return photos
+    }
 
     var body: some View {
         VStack {
@@ -83,44 +82,30 @@ struct PlantsListView<T>: View where T: Store {
             return plants.sorted { $0.name < $1.name }
         case .nameZA:
             return plants.sorted { $0.name > $1.name }
-        default:
+        case .categoryAZ:
+            return plants.sorted { $0.category < $1.category }
+        case .categoryZA:
+            return plants.sorted { $0.category > $1.category }
+        case .dateOldest:
+            let sortedPhotos = allPhotos.sorted { lhs, rhs in
+                lhs.timestamp < rhs.timestamp
+            }
+            let plantIDs = sortedPhotos.compactMap { plantsForPhotos[$0.id] }
+            let plants = plantIDs.compactMap { plantId in
+                plants.first { $0.id == plantId }
+            }
             return plants
+        case .dateNewest:
+            let sortedPhotos = allPhotos.sorted { lhs, rhs in
+                lhs.timestamp > rhs.timestamp
+            }
+            let plantIDs = sortedPhotos.compactMap { plantsForPhotos[$0.id] }
+            let plants = plantIDs.compactMap { plantId in
+                plants.first { $0.id == plantId }
+            }
+            return []
         }
     }
-
-    /*
-    private mutating func sort(by type: SortType) -> [Plant] {
-        switch type {
-        case .nameAZ:
-            return store.allPlants.sorted { $0.name < $1.name }
-        case .nameZA:
-            return store.allPlants.sorted { $0.name > $1.name }
-        case .categoryAZ:
-            return store.allPlants.sorted { $0.category < $1.category }
-        case .categoryZA:
-            return store.allPlants.sorted { $0.category > $1.category }
-        case .dateOldest:
-            return []
-     */
-//            let sortedPhotos = allPhotos.sorted { lhs, rhs in
-//                lhs.timestamp < rhs.timestamp
-//            }
-//            let plantIDs = sortedPhotos.compactMap { plantsForPhotos[$0.id] }
-//            let plants = plantIDs.compactMap { plantId in
-//                allPlants.first { $0.id == plantId }
-//            }
-//            return plants
-//        case .dateNewest:
-//            let sortedPhotos = allPhotos.sorted { lhs, rhs in
-//                lhs.timestamp > rhs.timestamp
-//            }
-//            let plantIDs = sortedPhotos.compactMap { plantsForPhotos[$0.id] }
-//            let plants = plantIDs.compactMap { plantId in
-//                allPlants.first { $0.id == plantId }
-//            }
-//            return []
-//        }
-//    }
 
     private var searchButton: some View {
         Button {
@@ -144,23 +129,21 @@ struct PlantsListView<T>: View where T: Store {
         let buttons: [ActionSheet.Button] = [
             .default(Text("Name (A->Z)"), action: {
                 sortType = .nameAZ
-                //allPlants = self.sort(by: .nameAZ)
             }),
             .default(Text("Name (Z->A)"), action: {
                 sortType = .nameZA
-//                allPlants = self.sort(by: .nameAZ)
             }),
             .default(Text("Category (A->Z)"), action: {
-//                allPlants = self.sort(by: .nameAZ)
+                sortType = .categoryAZ
             }),
             .default(Text("Category (Z->A)"), action: {
-//                allPlants = self.sort(by: .nameAZ)
+                sortType = .categoryZA
             }),
             .default(Text("Date Updated (Oldest first)"), action: {
-//                allPlants = self.sort(by: .nameAZ)
+                sortType = .dateOldest
             }),
             .default(Text("Date Updated (Newest first)"), action: {
-//                allPlants = self.sort(by: .nameAZ)
+                sortType = .dateNewest
             }),
             .cancel()
         ]
@@ -170,7 +153,7 @@ struct PlantsListView<T>: View where T: Store {
     private var searchSheet: ActionSheet {
         let buttons: [ActionSheet.Button] = [
             .default(Text("Search"), action: {
-                //                self.sort()
+                // no op
             }),
             .cancel()
         ]
