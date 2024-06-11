@@ -10,11 +10,17 @@ import Foundation
 import SwiftUI
 
 struct PlantsListView<T>: View where T: Store {
+    private enum SheetType {
+        case sort
+        case search
+        case none
+    }
+
     @ObservedObject var store: T
     @Binding var selectedPlant: Plant?
 
     @State private var showingSheet = false
-    @State private var isSheetSearch = false
+    @State private var sheetType: SheetType = .none
 
     var body: some View {
         VStack {
@@ -34,7 +40,7 @@ struct PlantsListView<T>: View where T: Store {
             Spacer()
         }
         .actionSheet(isPresented: $showingSheet) { () -> ActionSheet in
-            if isSheetSearch {
+            if sheetType == .search {
                 searchSheet
             } else {
                 sortSheet
@@ -45,7 +51,7 @@ struct PlantsListView<T>: View where T: Store {
     private var searchButton: some View {
         Button {
             showingSheet = true
-            isSheetSearch = true
+            sheetType = .search
         } label: {
             Image(systemName: "magnifyingglass")
         }
@@ -54,7 +60,7 @@ struct PlantsListView<T>: View where T: Store {
     private var sortButton: some View {
         Button {
             showingSheet = true
-            isSheetSearch = false
+            sheetType = .sort
         } label: {
             Image(systemName: "ellipsis.circle")
         }
