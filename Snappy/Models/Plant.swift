@@ -6,7 +6,7 @@
 //  Copyright © 2020 RenderApps LLC. All rights reserved.
 //
 
-enum PlantType: String, Codable, CaseIterable, Identifiable {
+enum PlantType: String, Codable, CaseIterable, Identifiable, Comparable {
     case tomato
     case cucumber
     case lettuce
@@ -23,8 +23,12 @@ enum PlantType: String, Codable, CaseIterable, Identifiable {
         }
         self = .unknown
     }
+
+    static func < (lhs: PlantType, rhs: PlantType) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
 }
-enum Category: String, Codable, CaseIterable, Identifiable {
+enum Category: String, Codable, CaseIterable, Identifiable, Comparable {
     case nightshade
     case brassica
     case cucurbit
@@ -37,6 +41,10 @@ enum Category: String, Codable, CaseIterable, Identifiable {
     case root
 
     var id: Self { self }
+
+    static func < (lhs: Category, rhs: Category) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
 }
 
 struct Plant: Identifiable, Codable, Hashable {

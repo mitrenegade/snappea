@@ -82,6 +82,10 @@ class MockStore: Store {
         return Array(Set(photos))
     }
 
+    func latestPhoto(for plant: Plant) -> Photo? {
+        nil
+    }
+
     // MARK: -
 
     func createPlant(name: String, type: PlantType, category: Category) throws -> Plant {

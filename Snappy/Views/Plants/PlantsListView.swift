@@ -30,6 +30,28 @@ struct PlantsListView<T>: View where T: Store {
 
     @State private var showingSheet = false
     @State private var sheetType: SheetType = .none
+    @State private var sortType: SortType = .nameAZ
+
+//    @State private var allPlants: [Plant] = []
+
+//    private lazy var plantsForPhotos: [String: String] = {
+//        var dict = [String: String]()
+//        store.allPlants.forEach({ plant in
+//            if let photo = store.latestPhoto(for: plant) {
+//                dict[photo.id] = plant.id
+//            }
+//        })
+//        return dict
+//    }()
+//    private lazy var allPhotos: [Photo] = {
+//        var photos = [Photo]()
+//        store.allPlants.forEach({ plant in
+//            if let photo = store.latestPhoto(for: plant) {
+//                photos.append(photo)
+//            }
+//        })
+//        return photos
+//    }()
 
     var body: some View {
         VStack {
@@ -38,7 +60,7 @@ struct PlantsListView<T>: View where T: Store {
                 searchButton
                 sortButton
             }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20))
-            List(store.allPlants, selection: $selectedPlant) { plant in
+            List(sorted(store.allPlants, by: sortType), selection: $selectedPlant) { plant in
                 let photo = store.latestPhoto(for: plant)
                 NavigationLink(value: plant) {
                     PlantRow(viewModel: PlantRowViewModel(plant: plant, photo: photo))
@@ -55,20 +77,39 @@ struct PlantsListView<T>: View where T: Store {
         }
     }
 
-    private func sort(by type: SortType) {
+    private func sorted(_ plants: [Plant], by sortType: SortType) -> [Plant] {
+        plants
+    }
+
+    private mutating func sort(by type: SortType) -> [Plant] {
         switch type {
         case .nameAZ:
-            break
+            return store.allPlants.sorted { $0.name < $1.name }
         case .nameZA:
-            break
+            return store.allPlants.sorted { $0.name > $1.name }
         case .categoryAZ:
-            break
+            return store.allPlants.sorted { $0.category < $1.category }
         case .categoryZA:
-            break
+            return store.allPlants.sorted { $0.category > $1.category }
         case .dateOldest:
-            break
+            return []
+//            let sortedPhotos = allPhotos.sorted { lhs, rhs in
+//                lhs.timestamp < rhs.timestamp
+//            }
+//            let plantIDs = sortedPhotos.compactMap { plantsForPhotos[$0.id] }
+//            let plants = plantIDs.compactMap { plantId in
+//                allPlants.first { $0.id == plantId }
+//            }
+//            return plants
         case .dateNewest:
-            break
+//            let sortedPhotos = allPhotos.sorted { lhs, rhs in
+//                lhs.timestamp > rhs.timestamp
+//            }
+//            let plantIDs = sortedPhotos.compactMap { plantsForPhotos[$0.id] }
+//            let plants = plantIDs.compactMap { plantId in
+//                allPlants.first { $0.id == plantId }
+//            }
+            return []
         }
     }
 
@@ -93,22 +134,24 @@ struct PlantsListView<T>: View where T: Store {
     private var sortSheet: ActionSheet {
         let buttons: [ActionSheet.Button] = [
             .default(Text("Name (A->Z)"), action: {
-                self.sort(by: .nameAZ)
+                sortType = .nameAZ
+                //allPlants = self.sort(by: .nameAZ)
             }),
             .default(Text("Name (Z->A)"), action: {
-                self.sort(by: .nameAZ)
+                sortType = .nameZA
+//                allPlants = self.sort(by: .nameAZ)
             }),
             .default(Text("Category (A->Z)"), action: {
-                self.sort(by: .nameAZ)
+//                allPlants = self.sort(by: .nameAZ)
             }),
             .default(Text("Category (Z->A)"), action: {
-                self.sort(by: .nameAZ)
+//                allPlants = self.sort(by: .nameAZ)
             }),
             .default(Text("Date Updated (Oldest first)"), action: {
-                self.sort(by: .nameAZ)
+//                allPlants = self.sort(by: .nameAZ)
             }),
             .default(Text("Date Updated (Newest first)"), action: {
-                self.sort(by: .nameAZ)
+//                allPlants = self.sort(by: .nameAZ)
             }),
             .cancel()
         ]

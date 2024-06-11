@@ -21,7 +21,7 @@ struct HomeView: View {
     @State var store = Global.store
 
     init(user: User) {
-        store.purge(id: user.id)
+//        store.purge(id: user.id)
         self.load(user: user)
     }
 
