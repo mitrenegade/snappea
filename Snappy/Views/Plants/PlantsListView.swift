@@ -15,6 +15,10 @@ struct PlantsListView<T>: View where T: Store {
 
     var body: some View {
         VStack {
+            HStack {
+                Spacer()
+                optionsButton.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20))
+            }
             List(store.allPlants, selection: $selectedPlant) { plant in
                 let photo = store.photos(for: plant)
                     .sorted { $0.timestamp > $1.timestamp }
@@ -25,5 +29,18 @@ struct PlantsListView<T>: View where T: Store {
             }
             Spacer()
         }
+    }
+
+    private var optionsButton: some View {
+        Button {
+            showOptions()
+        } label: {
+            Image(systemName: "ellipsis.circle")
+        }
+
+    }
+
+    private func showOptions() {
+
     }
 }

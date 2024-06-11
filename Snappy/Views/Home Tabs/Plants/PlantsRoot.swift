@@ -89,7 +89,7 @@ struct PlantsRoot<T>: View where T: Store {
         Button {
             router.navigate(to: .addPlant(image: nil))
         } label: {
-            Image(systemName: "photo.badge.plus")
+            Image(systemName: "plus.viewfinder")
         }
 
 //        let viewModel = AddPlantViewModel(store: store)
