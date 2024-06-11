@@ -16,6 +16,15 @@ struct PlantsListView<T>: View where T: Store {
         case none
     }
 
+    private enum SortType {
+        case nameAZ
+        case nameZA
+        case categoryAZ
+        case categoryZA
+        case dateOldest
+        case dateNewest
+    }
+
     @ObservedObject var store: T
     @Binding var selectedPlant: Plant?
 
@@ -48,6 +57,23 @@ struct PlantsListView<T>: View where T: Store {
         }
     }
 
+    private func sort(by type: SortType) {
+        switch type {
+        case .nameAZ:
+            break
+        case .nameZA:
+            break
+        case .categoryAZ:
+            break
+        case .categoryZA:
+            break
+        case .dateOldest:
+            break
+        case .dateNewest:
+            break
+        }
+    }
+
     private var searchButton: some View {
         Button {
             showingSheet = true
@@ -68,11 +94,23 @@ struct PlantsListView<T>: View where T: Store {
 
     private var sortSheet: ActionSheet {
         let buttons: [ActionSheet.Button] = [
-            .default(Text("Name"), action: {
-                //                self.sort()
+            .default(Text("Name (A->Z)"), action: {
+                self.sort(by: .nameAZ)
             }),
-            .default(Text("Category"), action: {
-                //                self.search()
+            .default(Text("Name (Z->A)"), action: {
+                self.sort(by: .nameAZ)
+            }),
+            .default(Text("Category (A->Z)"), action: {
+                self.sort(by: .nameAZ)
+            }),
+            .default(Text("Category (Z->A)"), action: {
+                self.sort(by: .nameAZ)
+            }),
+            .default(Text("Date Updated (Oldest first)"), action: {
+                self.sort(by: .nameAZ)
+            }),
+            .default(Text("Date Updated (Newest first)"), action: {
+                self.sort(by: .nameAZ)
             }),
             .cancel()
         ]
