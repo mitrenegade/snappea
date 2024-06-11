@@ -78,9 +78,17 @@ struct PlantsListView<T>: View where T: Store {
     }
 
     private func sorted(_ plants: [Plant], by sortType: SortType) -> [Plant] {
-        plants
+        switch sortType {
+        case .nameAZ:
+            return plants.sorted { $0.name < $1.name }
+        case .nameZA:
+            return plants.sorted { $0.name > $1.name }
+        default:
+            return plants
+        }
     }
 
+    /*
     private mutating func sort(by type: SortType) -> [Plant] {
         switch type {
         case .nameAZ:
@@ -93,6 +101,7 @@ struct PlantsListView<T>: View where T: Store {
             return store.allPlants.sorted { $0.category > $1.category }
         case .dateOldest:
             return []
+     */
 //            let sortedPhotos = allPhotos.sorted { lhs, rhs in
 //                lhs.timestamp < rhs.timestamp
 //            }
@@ -101,7 +110,7 @@ struct PlantsListView<T>: View where T: Store {
 //                allPlants.first { $0.id == plantId }
 //            }
 //            return plants
-        case .dateNewest:
+//        case .dateNewest:
 //            let sortedPhotos = allPhotos.sorted { lhs, rhs in
 //                lhs.timestamp > rhs.timestamp
 //            }
@@ -109,9 +118,9 @@ struct PlantsListView<T>: View where T: Store {
 //            let plants = plantIDs.compactMap { plantId in
 //                allPlants.first { $0.id == plantId }
 //            }
-            return []
-        }
-    }
+//            return []
+//        }
+//    }
 
     private var searchButton: some View {
         Button {
