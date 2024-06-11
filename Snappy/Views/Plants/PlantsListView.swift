@@ -103,7 +103,7 @@ struct PlantsListView<T>: View where T: Store {
             let plants = plantIDs.compactMap { plantId in
                 plants.first { $0.id == plantId }
             }
-            return []
+            return plants
         }
     }
 
