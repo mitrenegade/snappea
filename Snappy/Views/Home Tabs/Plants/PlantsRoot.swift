@@ -64,6 +64,10 @@ struct PlantsRoot<T>: View where T: Store {
                         EmptyView()
                     case .plantGallery(let plant):
                         PlantGalleryView(plant: plant, store: store)
+                    case .addPlant:
+                        // no way to add a plant with an existing image
+                        let viewModel = AddPlantViewModel(store: store)
+                        AddPlantView(viewModel: viewModel, image: nil)
                     }
                 }
 
@@ -82,15 +86,28 @@ struct PlantsRoot<T>: View where T: Store {
     }()
 
     private var addPlantButton: some View {
-        let viewModel = AddPlantViewModel(store: store)
-        let view = AddPlantView(viewModel: viewModel)
-        return NavigationLink(destination: view) {
+        Button {
+            router.navigate(to: .addPlant(image: nil))
+        } label: {
             Image(systemName: "photo.badge.plus")
         }
+
+//        let viewModel = AddPlantViewModel(store: store)
+//        let view = AddPlantView(viewModel: viewModel)
+//        return NavigationLink(destination: view) {
+//            Image(systemName: "photo.badge.plus")
+//        }
     }
 
     var listView: some View {
         PlantsListView(store: store, selectedPlant: $selectedPlant)
+            .onReceive(selectedPlant.publisher, perform: { value in
+                // this must be done to clear the selected route
+                // even though this is triggered twice
+                // without it, onChange doesn't trigger if the user
+                // clicks on the same row
+                selectedPlant = nil
+            })
             .onChange(of: selectedPlant) { oldValue, newValue in
                 if let newValue {
                     router.navigate(to: .plantGallery(newValue))

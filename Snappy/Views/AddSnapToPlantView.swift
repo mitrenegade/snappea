@@ -21,6 +21,7 @@ struct AddSnapToPlantView<T>: View where T: Store {
             isShowingError = error == nil
         }
     }
+    @State private var shouldShowConfirmation: Bool = false
 
     @ObservedObject var store: T
 
@@ -66,20 +67,20 @@ struct AddSnapToPlantView<T>: View where T: Store {
         .alert(isPresented: $isShowingError) {
             Alert(title: Text(error?.localizedDescription ?? "Unknown error"))
         }
+        .alert(isPresented: $shouldShowConfirmation) {
+            Alert(title: Text("Confirm save photo"),
+                  message: Text("Are you sure you want to add this snap to \(plant.name)?"),
+                  primaryButton: .default(Text("Save"), action: {
+                performSave()
+                shouldShowConfirmation = false
+            }),
+                  secondaryButton: .default(Text("Cancel")))
+        }
     }
 
     private var saveButton: some View {
         Button(action: {
-            Task {
-                do {
-                    try await saveSnap()
-                    onSuccess?()
-                } catch let error {
-                    print("Error \(error)")
-                    self.error = error
-                    self.isShowingError = true
-                }
-            }
+            confirmSave()
         }) {
             Text("Save")
         }
@@ -91,6 +92,23 @@ struct AddSnapToPlantView<T>: View where T: Store {
             router.navigateBack()
         } label: {
             Image(systemName: "arrow.backward")
+        }
+    }
+
+    private func confirmSave() {
+        shouldShowConfirmation = true
+    }
+
+    private func performSave() {
+        Task {
+            do {
+                try await saveSnap()
+                onSuccess?()
+            } catch let error {
+                print("Error \(error)")
+                self.error = error
+                self.isShowingError = true
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ final class Router: ObservableObject {
         case addImageToPlant(image: UIImage, plant: Plant)
         case selectPlantForImage(_ image: UIImage)
         case plantGallery(_ plant: Plant)
+        case addPlant(image: UIImage?)
     }
 
     @Published var path = NavigationPath()
